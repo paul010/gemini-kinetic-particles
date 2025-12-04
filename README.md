@@ -1,4 +1,4 @@
-# ✨ Kinetic Particles - 手势控制的 3D 粒子交互系统
+# ✨ Kinetic Particles
 
 <p align="center">
   <a href="https://github.com/paul010">
@@ -17,14 +17,139 @@
 </p>
 
 <p align="center">
+  🖐️ Hand gesture-controlled immersive 3D particle effects. <b>No API Key required</b>, works out of the box!
+  <br/>
   🖐️ 用手势控制的沉浸式 3D 粒子效果，<b>无需任何 API Key</b>，开箱即用！
 </p>
 
 <p align="center">
-  🌐 <b>在线体验</b>: <a href="https://dailycosmos.net">https://dailycosmos.net</a>
+  🌐 <b>Live Demo</b>: <a href="https://dailycosmos.net">https://dailycosmos.net</a>
 </p>
 
 ---
+
+**English** | [中文](#中文文档)
+
+## ✨ Features
+
+- 🎯 **No API Key Required** - Runs locally using MediaPipe for hand tracking
+- 🖐️ **Real-time Hand Tracking** - Detects palm open/close gestures to control particles
+- ✌️ **Gesture Recognition** - Victory gesture (✌️) triggers special text effects
+- 🎨 **8+ Particle Shapes** - Sphere, Heart, Flower, Saturn, Galaxy, DNA, and more
+- 🌈 **Customizable Colors** - Multiple presets + custom color picker
+- 💫 **Stunning Visual Effects** - Explosion, shockwave, vortex, breathing animations
+- 📱 **Responsive Design** - Works on desktop and mobile devices
+- 🚀 **High Performance** - Smooth rendering with 12000+ particles
+
+## 🚀 Quick Start
+
+### Install Dependencies
+
+```bash
+npm install
+```
+
+### Start Development Server
+
+```bash
+npm run dev
+```
+
+### Open Browser
+
+Visit `http://localhost:3000`, click **"Start Tracking"** to begin!
+
+> 💡 **Tip**: No API Key configuration needed, works immediately!
+
+## 🎮 Gesture Guide
+
+| Gesture | Effect |
+|---------|--------|
+| 🖐️ **Open Palm** | Particles explode outward |
+| ✊ **Closed Fist** | Particles contract and vibrate |
+| ✌️ **Victory Sign** | Particles form "大雷早上好" text |
+| 🔄 **Quick Open/Close** | Trigger dramatic explosion |
+
+## 🛠️ Tech Stack
+
+| Technology | Purpose |
+|------------|---------|
+| **React 19** | UI Framework |
+| **Three.js** | 3D Rendering Engine |
+| **React Three Fiber** | React renderer for Three.js |
+| **MediaPipe Hands** | Hand Tracking (**Local, No API**) |
+| **TypeScript** | Type Safety |
+| **Vite** | Build Tool |
+| **Tailwind CSS** | Styling Framework |
+
+## 📁 Project Structure
+
+```
+├── App.tsx                 # Main application component
+├── index.tsx               # Entry point
+├── types.ts                # TypeScript type definitions
+├── components/
+│   └── ParticleSystem.tsx  # Particle system renderer
+└── services/
+    ├── handTrackingService.ts   # MediaPipe hand tracking ⭐ Core
+    └── geminiLiveService.ts     # Gemini AI service (optional)
+```
+
+## 🎨 Particle Shapes
+
+| Shape | Icon | Description |
+|-------|:----:|-------------|
+| Sphere | 🔮 | Classic spherical distribution |
+| Heart | ❤️ | Romantic heart shape |
+| Flower | 🌸 | Six-petal flower pattern |
+| Saturn | 🪐 | Saturn with rings |
+| Buddha | 🧘 | Meditation pose |
+| Fireworks | 🎆 | Multi-point fireworks |
+| Galaxy | 🌌 | Spiral galaxy structure |
+| DNA | 🧬 | Double helix structure |
+| Text | ✌️ | Custom text (Victory gesture) |
+
+## 💡 How It Works
+
+This project uses **MediaPipe Hands** for real-time gesture recognition:
+
+1. **Camera Capture** - Get video stream
+2. **Hand Detection** - MediaPipe detects 21 hand landmarks locally
+3. **Gesture Analysis** - Calculate finger curl and gesture type
+4. **Particle Control** - Map gesture data to particle system
+
+The entire process **runs completely locally**, no internet required, no API Key needed!
+
+## ⚙️ Optional: Gemini AI Extension
+
+The project includes optional Gemini AI integration for advanced features:
+
+1. Get a [Google AI Studio API Key](https://aistudio.google.com/app/apikey)
+2. Create `.env.local` file:
+   ```env
+   GEMINI_API_KEY=your_api_key_here
+   ```
+3. Enable `GeminiLiveService` in the code
+
+> 📌 **Note**: This is optional. Basic hand gesture control works without any API Key.
+
+## 📦 Build & Deploy
+
+```bash
+# Build for production
+npm run build
+
+# Preview production build
+npm run preview
+```
+
+## 🤝 Contributing
+
+Issues and Pull Requests are welcome!
+
+---
+
+# 中文文档
 
 ## ✨ 特性
 
@@ -122,7 +247,7 @@ npm run dev
 
 1. 获取 [Google AI Studio API Key](https://aistudio.google.com/app/apikey)
 2. 创建 `.env.local` 文件：
-   ```
+   ```env
    GEMINI_API_KEY=your_api_key_here
    ```
 3. 在代码中启用 `GeminiLiveService`
