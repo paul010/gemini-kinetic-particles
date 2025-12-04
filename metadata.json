@@ -1,0 +1,8 @@
+{
+  "name": "Gemini Kinetic Particles",
+  "description": "A real-time 3D particle system controlled by hand gestures via Gemini Live API. Use your hands to expand and contract the universe.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}
