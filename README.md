@@ -143,3 +143,12 @@ MIT License
 <p align="center">
   Made with ❤️ and ✨ particles
 </p>
+
+<p align="center">
+  <a href="https://github.com/paul010">
+    <img src="https://img.shields.io/badge/GitHub-paul010-181717?logo=github" alt="GitHub">
+  </a>
+  <a href="https://www.youtube.com/@dalei2025">
+    <img src="https://img.shields.io/badge/YouTube-@dalei2025-FF0000?logo=youtube" alt="YouTube">
+  </a>
+</p>
