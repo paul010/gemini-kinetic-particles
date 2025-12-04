@@ -1,20 +1,141 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# ✨ Kinetic Particles - 手势控制的 3D 粒子交互系统
 
-# Run and deploy your AI Studio app
+<p align="center">
+  <img src="https://img.shields.io/badge/React-19.2-blue?logo=react" alt="React">
+  <img src="https://img.shields.io/badge/Three.js-0.181-black?logo=three.js" alt="Three.js">
+  <img src="https://img.shields.io/badge/MediaPipe-Hands-green?logo=google" alt="MediaPipe">
+  <img src="https://img.shields.io/badge/TypeScript-5.8-blue?logo=typescript" alt="TypeScript">
+</p>
 
-This contains everything you need to run your app locally.
+<p align="center">
+  🖐️ 用手势控制的沉浸式 3D 粒子效果，<b>无需任何 API Key</b>，开箱即用！
+</p>
 
-View your app in AI Studio: https://ai.studio/apps/drive/15LHYcYMnZJMbOnd5EWoFss75_lxaAk-6
+---
 
-## Run Locally
+## ✨ 特性
 
-**Prerequisites:**  Node.js
+- 🎯 **无需 API Key** - 纯本地运行，使用 MediaPipe 进行手势识别
+- 🖐️ **实时手势追踪** - 识别手掌开合程度，精准控制粒子效果
+- ✌️ **手势识别** - 支持胜利手势（V字手势）触发特殊效果
+- 🎨 **8+ 粒子形状** - 球体、爱心、花朵、土星、银河、DNA 等
+- 🌈 **自定义颜色** - 多种预设颜色 + 自定义取色器
+- 💫 **震撼视觉效果** - 爆炸、冲击波、漩涡、呼吸等动态效果
+- 📱 **响应式设计** - 支持桌面和移动设备
+- 🚀 **高性能** - 12000+ 粒子流畅运行
 
+## 🚀 快速开始
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+### 安装依赖
+
+```bash
+npm install
+```
+
+### 启动开发服务器
+
+```bash
+npm run dev
+```
+
+### 打开浏览器
+
+访问 `http://localhost:3000`，点击 **"Start Tracking"** 开始体验！
+
+> 💡 **提示**: 无需配置任何 API Key，开箱即用！
+
+## 🎮 操作指南
+
+| 手势 | 效果 |
+|------|------|
+| 🖐️ **张开手掌** | 粒子向外爆炸扩散 |
+| ✊ **握紧拳头** | 粒子收缩聚拢并抖动 |
+| ✌️ **胜利手势** | 粒子变成 "大雷早上好" 文字 |
+| 🔄 **快速开合** | 触发震撼的爆炸特效 |
+
+## 🛠️ 技术栈
+
+| 技术 | 用途 |
+|------|------|
+| **React 19** | UI 框架 |
+| **Three.js** | 3D 渲染引擎 |
+| **React Three Fiber** | React 的 Three.js 渲染器 |
+| **MediaPipe Hands** | 手势识别（**本地运行，无需 API**） |
+| **TypeScript** | 类型安全 |
+| **Vite** | 构建工具 |
+| **Tailwind CSS** | 样式框架 |
+
+## 📁 项目结构
+
+```
+├── App.tsx                 # 主应用组件
+├── index.tsx               # 入口文件
+├── types.ts                # TypeScript 类型定义
+├── components/
+│   └── ParticleSystem.tsx  # 粒子系统渲染组件
+└── services/
+    ├── handTrackingService.ts   # MediaPipe 手势追踪服务 ⭐ 核心
+    └── geminiLiveService.ts     # Gemini AI 服务（可选扩展）
+```
+
+## 🎨 粒子形状
+
+| 形状 | 图标 | 描述 |
+|------|:----:|------|
+| Sphere | 🔮 | 经典球形分布 |
+| Heart | ❤️ | 浪漫爱心形状 |
+| Flower | 🌸 | 六瓣花朵图案 |
+| Saturn | 🪐 | 土星及光环 |
+| Buddha | 🧘 | 打坐冥想造型 |
+| Fireworks | 🎆 | 多点烟花绽放 |
+| Galaxy | 🌌 | 螺旋星系结构 |
+| DNA | 🧬 | 双螺旋结构 |
+| Text | ✌️ | 自定义文字（胜利手势触发） |
+
+## 💡 工作原理
+
+本项目使用 **MediaPipe Hands** 进行实时手势识别：
+
+1. **摄像头捕获** - 获取视频流
+2. **手部检测** - MediaPipe 在本地检测手部 21 个关键点
+3. **手势分析** - 计算手指弯曲程度和手势类型
+4. **粒子控制** - 将手势数据映射到粒子系统
+
+整个过程**完全在本地运行**，不需要联网，不需要 API Key！
+
+## ⚙️ 可选：Gemini AI 扩展
+
+项目预留了 Gemini AI 集成接口，如需启用语音交互等高级功能：
+
+1. 获取 [Google AI Studio API Key](https://aistudio.google.com/app/apikey)
+2. 创建 `.env.local` 文件：
+   ```
+   GEMINI_API_KEY=your_api_key_here
+   ```
+3. 在代码中启用 `GeminiLiveService`
+
+> 📌 **注意**: 这是可选功能，基础手势控制完全不需要 API Key。
+
+## 📦 构建部署
+
+```bash
+# 构建生产版本
+npm run build
+
+# 预览生产版本
+npm run preview
+```
+
+## 🤝 贡献
+
+欢迎提交 Issue 和 Pull Request！
+
+## 📄 License
+
+MIT License
+
+---
+
+<p align="center">
+  Made with ❤️ and ✨ particles
+</p>
