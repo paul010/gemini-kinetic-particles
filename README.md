@@ -1,6 +1,15 @@
 # ✨ Kinetic Particles - 手势控制的 3D 粒子交互系统
 
 <p align="center">
+  <a href="https://github.com/paul010">
+    <img src="https://img.shields.io/badge/GitHub-paul010-181717?logo=github" alt="GitHub">
+  </a>
+  <a href="https://www.youtube.com/@dalei2025">
+    <img src="https://img.shields.io/badge/YouTube-@dalei2025-FF0000?logo=youtube" alt="YouTube">
+  </a>
+</p>
+
+<p align="center">
   <img src="https://img.shields.io/badge/React-19.2-blue?logo=react" alt="React">
   <img src="https://img.shields.io/badge/Three.js-0.181-black?logo=three.js" alt="Three.js">
   <img src="https://img.shields.io/badge/MediaPipe-Hands-green?logo=google" alt="MediaPipe">
@@ -142,13 +151,4 @@ MIT License
 
 <p align="center">
   Made with ❤️ and ✨ particles
-</p>
-
-<p align="center">
-  <a href="https://github.com/paul010">
-    <img src="https://img.shields.io/badge/GitHub-paul010-181717?logo=github" alt="GitHub">
-  </a>
-  <a href="https://www.youtube.com/@dalei2025">
-    <img src="https://img.shields.io/badge/YouTube-@dalei2025-FF0000?logo=youtube" alt="YouTube">
-  </a>
 </p>
