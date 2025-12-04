@@ -30,8 +30,11 @@
   <a href="https://www.youtube.com/watch?v=dYTeo_qNX6E">
     <img src="https://img.youtube.com/vi/dYTeo_qNX6E/maxresdefault.jpg" alt="Demo Video" width="600">
   </a>
-  <br/>
-  <sub>👆 Click to watch demo video | 点击观看演示视频</sub>
+</p>
+<p align="center">
+  <a href="https://www.youtube.com/watch?v=dYTeo_qNX6E">
+    <img src="https://img.shields.io/badge/▶_Watch_Demo_观看演示-FF0000?style=for-the-badge&logo=youtube&logoColor=white" alt="Watch Demo">
+  </a>
 </p>
 
 ---
