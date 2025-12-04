@@ -11,6 +11,10 @@
   🖐️ 用手势控制的沉浸式 3D 粒子效果，<b>无需任何 API Key</b>，开箱即用！
 </p>
 
+<p align="center">
+  🌐 <b>在线体验</b>: <a href="https://dailycosmos.net">https://dailycosmos.net</a>
+</p>
+
 ---
 
 ## ✨ 特性
