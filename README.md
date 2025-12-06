@@ -1,5 +1,24 @@
 # ✨ Kinetic Particles
 
+<h2 align="center">
+  🌐 <a href="https://dailycosmos.net">dailycosmos.net</a>
+</h2>
+
+<p align="center">
+  <a href="https://dailycosmos.net">
+    <img src="https://img.shields.io/badge/🚀_Launch_Experience_立即体验-dailycosmos.net-06b6d4?style=for-the-badge&logo=rocket&logoColor=white" alt="Launch App">
+  </a>
+</p>
+
+<h3 align="center">
+  🖐️ Hand gesture-controlled immersive 3D particle effects.<br/>
+  <b>No API Key required</b>, works out of the box!
+</h3>
+
+<p align="center">
+  <i>🖐️ 用手势控制的沉浸式 3D 粒子效果，<b>无需任何 API Key</b>，开箱即用！</i>
+</p>
+
 <p align="center">
   <a href="https://github.com/paul010">
     <img src="https://img.shields.io/badge/GitHub-paul010-181717?logo=github" alt="GitHub">
@@ -17,16 +36,6 @@
 </p>
 
 <p align="center">
-  🖐️ Hand gesture-controlled immersive 3D particle effects. <b>No API Key required</b>, works out of the box!
-  <br/>
-  🖐️ 用手势控制的沉浸式 3D 粒子效果，<b>无需任何 API Key</b>，开箱即用！
-</p>
-
-<p align="center">
-  🌐 <b>Live Demo</b>: <a href="https://dailycosmos.net">https://dailycosmos.net</a>
-</p>
-
-<p align="center">
   <a href="https://www.youtube.com/watch?v=dYTeo_qNX6E">
     <img src="https://img.youtube.com/vi/dYTeo_qNX6E/maxresdefault.jpg" alt="Demo Video" width="600">
   </a>
@@ -40,7 +49,7 @@
 ## 📸 Preview / 预览
 
 <p align="center">
-  <img src="preview.png" alt="Sci-Fi HUD Interface Preview" width="100%" style="border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 0 20px rgba(0,0,0,0.5);">
+  <img src="https://raw.githubusercontent.com/paul010/gemini-kinetic-particles/main/image-1764988597247.png" alt="Sci-Fi HUD Interface Preview" width="100%" style="border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 0 20px rgba(0,0,0,0.5);">
 </p>
 
 ---
