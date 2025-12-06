@@ -61,7 +61,7 @@
 - 🎯 **No API Key Required** - Runs locally using MediaPipe for hand tracking
 - 🖥️ **Sci-Fi HUD Interface** - Advanced operational feel with terminal-style controls & glassmorphism
 - 🖐️ **Real-time Hand Tracking** - Detects palm open/close gestures to control particles
-- ✌️ **Gesture Recognition** - Victory gesture (✌️) triggers special text effects
+- ✌️ **Advanced Gesture Recognition** - Supports Victory (✌️), Love (🤟), Thumbs Up (👍), and Pointing (☝️) gestures
 - 🎨 **8+ Particle Shapes** - Sphere, Heart, Flower, Saturn, Galaxy, DNA, and more
 - 🌈 **Customizable Colors** - Multiple presets + custom color picker
 - 💫 **Stunning Visual Effects** - Explosion, shockwave, vortex, breathing animations
@@ -95,6 +95,9 @@ Visit `http://localhost:3000`, click **"Start Tracking"** to begin!
 | 🖐️ **Open Palm** | Particles explode outward |
 | ✊ **Closed Fist** | Particles contract and vibrate |
 | ✌️ **Victory Sign** | Particles form "大雷早上好" text |
+| 🤟 **Love Sign** | Particles form a Heart shape |
+| 👍 **Thumbs Up** | Particles form Fireworks |
+| ☝️ **Pointing** | Particles form Saturn |
 | 🔄 **Quick Open/Close** | Trigger dramatic explosion |
 
 ## 🛠️ Tech Stack
@@ -182,8 +185,8 @@ Issues and Pull Requests are welcome!
 
 - 🎯 **无需 API Key** - 纯本地运行，使用 MediaPipe 进行手势识别
 - �️ **科幻 HUD 界面** - 极具未来感的操作终端风格，玻璃拟态设计
-- �🖐️ **实时手势追踪** - 识别手掌开合程度，精准控制粒子效果
-- ✌️ **手势识别** - 支持胜利手势（V字手势）触发特殊效果
+- ️ **实时手势追踪** - 识别手掌开合程度，精准控制粒子效果
+- ✌️ **多重手势识别** - 支持胜利(✌️)、爱心(🤟)、点赞(👍)、指天(☝️)等多种手势触发特效
 - 🎨 **8+ 粒子形状** - 球体、爱心、花朵、土星、银河、DNA 等
 - 🌈 **自定义颜色** - 多种预设颜色 + 自定义取色器
 - 💫 **震撼视觉效果** - 爆炸、冲击波、漩涡、呼吸等动态效果
@@ -217,6 +220,9 @@ npm run dev
 | 🖐️ **张开手掌** | 粒子向外爆炸扩散 |
 | ✊ **握紧拳头** | 粒子收缩聚拢并抖动 |
 | ✌️ **胜利手势** | 粒子变成 "大雷早上好" 文字 |
+| 🤟 **爱心手势** | 粒子变成爱心形状 |
+| 👍 **竖大拇指** | 粒子变成烟花形状 |
+| ☝️ **食指指天** | 粒子变成土星形状 |
 | 🔄 **快速开合** | 触发震撼的爆炸特效 |
 
 ## 🛠️ 技术栈

@@ -18,7 +18,7 @@ export interface ParticleState {
   isStreaming: boolean;
 }
 
-export type GestureType = 'none' | 'open' | 'fist' | 'victory';
+export type GestureType = 'none' | 'open' | 'fist' | 'victory' | 'love' | 'thumbs_up' | 'point';
 
 export interface HandData {
   tension: number; // 0 (open) to 1 (closed)

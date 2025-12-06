@@ -100,18 +100,18 @@ export class HandTrackingService {
       const tension = this.calculateTension(landmarks);
       totalTension += tension;
       
-      // Check for victory gesture (✌️)
+      // Check for specific gestures
       const gesture = this.detectGesture(landmarks);
-      if (gesture === 'victory') {
-        detectedGesture = 'victory';
+      if (gesture !== 'none') {
+        detectedGesture = gesture;
       }
     }
 
     // Average tension across all detected hands
     const avgTension = totalTension / multiHandLandmarks.length;
     
-    // Determine overall gesture
-    if (detectedGesture !== 'victory') {
+    // Determine overall gesture if no specific gesture detected
+    if (detectedGesture === 'none') {
       if (avgTension > 0.7) {
         detectedGesture = 'fist';
       } else if (avgTension < 0.3) {
@@ -129,7 +129,6 @@ export class HandTrackingService {
   }
 
   private detectGesture(landmarks: NormalizedLandmark[]): GestureType {
-    // Victory gesture (✌️): Index and Middle fingers extended, others curled
     // Finger tip indices: Thumb=4, Index=8, Middle=12, Ring=16, Pinky=20
     // Finger PIP indices: Thumb=3, Index=6, Middle=10, Ring=14, Pinky=18
     
@@ -137,31 +136,49 @@ export class HandTrackingService {
     const palmBase = landmarks[9]; // Middle finger MCP
     const palmSize = this.distance(wrist, palmBase);
     
-    // Check if index finger is extended (tip far from palm)
+    // Check finger states
     const indexTip = landmarks[8];
     const indexPIP = landmarks[6];
     const indexExtended = this.distance(indexTip, wrist) > this.distance(indexPIP, wrist) * 1.2;
     
-    // Check if middle finger is extended
     const middleTip = landmarks[12];
     const middlePIP = landmarks[10];
     const middleExtended = this.distance(middleTip, wrist) > this.distance(middlePIP, wrist) * 1.2;
     
-    // Check if ring finger is curled (tip close to palm)
     const ringTip = landmarks[16];
+    const ringPIP = landmarks[14];
+    const ringExtended = this.distance(ringTip, wrist) > this.distance(ringPIP, wrist) * 1.1;
     const ringCurled = this.distance(ringTip, palmBase) < palmSize * 1.2;
     
-    // Check if pinky is curled
     const pinkyTip = landmarks[20];
+    const pinkyPIP = landmarks[18];
+    const pinkyExtended = this.distance(pinkyTip, wrist) > this.distance(pinkyPIP, wrist) * 1.1;
     const pinkyCurled = this.distance(pinkyTip, palmBase) < palmSize * 1.2;
     
-    // Check if thumb is not blocking (either curled or to the side)
+    // Thumb check
     const thumbTip = landmarks[4];
-    const thumbOK = this.distance(thumbTip, indexTip) > palmSize * 0.5;
+    const indexMCP = landmarks[5];
+    // Thumb is extended if tip is far from Index MCP
+    const thumbExtended = this.distance(thumbTip, indexMCP) > palmSize * 0.6;
     
-    // Victory: Index + Middle extended, Ring + Pinky curled
-    if (indexExtended && middleExtended && ringCurled && pinkyCurled && thumbOK) {
+    // Victory (✌️): Index + Middle extended, Ring + Pinky curled
+    if (indexExtended && middleExtended && ringCurled && pinkyCurled) {
       return 'victory';
+    }
+    
+    // Love (🤟): Thumb + Index + Pinky extended, Middle + Ring curled
+    if (thumbExtended && indexExtended && !middleExtended && !ringExtended && pinkyExtended) {
+      return 'love';
+    }
+    
+    // Thumbs Up (👍): Thumb extended, others curled
+    if (thumbExtended && !indexExtended && !middleExtended && !ringExtended && !pinkyExtended) {
+      return 'thumbs_up';
+    }
+    
+    // Point (☝️): Index extended, others curled
+    if (indexExtended && !middleExtended && !ringExtended && !pinkyExtended) {
+      return 'point';
     }
     
     return 'none';

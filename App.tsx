@@ -14,6 +14,7 @@ const App: React.FC = () => {
   const [smoothTension, setSmoothTension] = useState(0);
   const [currentGesture, setCurrentGesture] = useState<GestureType>('none');
   const [previousShape, setPreviousShape] = useState<ParticleShape>(ParticleShape.SPHERE);
+  const [previousColor, setPreviousColor] = useState<string>('#4ade80');
   const [isPanelOpen, setIsPanelOpen] = useState(false); // Control panel visibility
   const [customText, setCustomText] = useState('大雷早上好');
   const [inputText, setInputText] = useState('大雷早上好');
@@ -39,33 +40,61 @@ const App: React.FC = () => {
     return () => clearInterval(interval);
   }, [handData.tension, handData.detected]);
 
-  // Handle victory gesture - switch to text shape
+  // Handle gestures - switch shapes dynamically
   useEffect(() => {
-    if (handData.gesture === 'victory' && currentGesture !== 'victory') {
-      // Victory gesture detected! Switch to text
+    const gesture = handData.gesture;
+    const specialGestures = ['victory', 'love', 'thumbs_up', 'point'];
+    
+    // If gesture changed
+    if (gesture !== currentGesture) {
       if (gestureTimerRef.current) {
         clearTimeout(gestureTimerRef.current);
       }
-      
-      // Wait a moment to confirm the gesture
-      gestureTimerRef.current = setTimeout(() => {
-        if (activeShape !== ParticleShape.TEXT) {
-          setPreviousShape(activeShape);
-        }
-        setActiveShape(ParticleShape.TEXT);
-        setParticleColor('#ffd700'); // Golden color for the greeting!
-        setCurrentGesture('victory');
-      }, 300);
-    } else if (handData.gesture !== 'victory' && currentGesture === 'victory') {
-      // Victory gesture ended, wait a moment then restore
-      if (gestureTimerRef.current) {
-        clearTimeout(gestureTimerRef.current);
+
+      // If it's a "special" gesture
+      if (specialGestures.includes(gesture || '')) {
+        gestureTimerRef.current = setTimeout(() => {
+          // Save previous state if we are entering a special gesture from a non-special one
+          if (!specialGestures.includes(currentGesture)) {
+             setPreviousShape(activeShape);
+             setPreviousColor(particleColor);
+          }
+
+          setCurrentGesture(gesture as GestureType);
+
+          // Apply effects based on gesture
+          switch (gesture) {
+            case 'victory':
+              setActiveShape(ParticleShape.TEXT);
+              setParticleColor('#ffd700'); // Gold
+              break;
+            case 'love':
+              setActiveShape(ParticleShape.HEART);
+              setParticleColor('#ec4899'); // Pink
+              break;
+            case 'thumbs_up':
+              setActiveShape(ParticleShape.FIREWORKS);
+              setParticleColor('#ef4444'); // Red
+              break;
+            case 'point':
+              setActiveShape(ParticleShape.SATURN);
+              setParticleColor('#06b6d4'); // Cyan
+              break;
+          }
+        }, 300); // 300ms debounce
+      } else if (specialGestures.includes(currentGesture)) {
+        // If we were in a special gesture and now we are not (none/open/fist)
+        // Wait a bit longer before reverting, to avoid flickering
+        gestureTimerRef.current = setTimeout(() => {
+          setCurrentGesture('none');
+          // Revert to previous shape and color
+          setActiveShape(previousShape);
+          setParticleColor(previousColor);
+        }, 1000);
+      } else {
+        // Just normal state change (open <-> fist), update immediately or ignore
+        setCurrentGesture(gesture as GestureType);
       }
-      
-      gestureTimerRef.current = setTimeout(() => {
-        setActiveShape(previousShape);
-        setCurrentGesture('none');
-      }, 1000); // Keep text visible for 1 second after gesture ends
     }
     
     return () => {
@@ -73,7 +102,7 @@ const App: React.FC = () => {
         clearTimeout(gestureTimerRef.current);
       }
     };
-  }, [handData.gesture, currentGesture, activeShape, previousShape]);
+  }, [handData.gesture, currentGesture, activeShape, particleColor, previousShape, previousColor]);
 
   // Handle tracking start/stop
   const handleStartTracking = async () => {
@@ -384,7 +413,11 @@ const App: React.FC = () => {
             <div className={`w-1.5 h-1.5 rounded-full ${isTracking ? 'bg-green-500 animate-pulse' : 'bg-red-500'}`}></div>
             {isTracking ? 'SYSTEM_ONLINE' : 'SYSTEM_STANDBY'}
             <span className="mx-1">|</span>
-            <span>V.1.0.4</span>
+            <span className={currentGesture !== 'none' && currentGesture !== 'open' && currentGesture !== 'fist' ? 'text-cyan-400 animate-pulse font-bold' : ''}>
+              GESTURE: {currentGesture.toUpperCase()}
+            </span>
+            <span className="mx-1">|</span>
+            <span>V.1.0.5</span>
           </div>
 
         </div>
