@@ -37,6 +37,12 @@
   </a>
 </p>
 
+## 📸 Preview / 预览
+
+<p align="center">
+  <img src="preview.png" alt="Sci-Fi HUD Interface Preview" width="100%" style="border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 0 20px rgba(0,0,0,0.5);">
+</p>
+
 ---
 
 **English** | [中文](#中文文档)
@@ -44,6 +50,7 @@
 ## ✨ Features
 
 - 🎯 **No API Key Required** - Runs locally using MediaPipe for hand tracking
+- 🖥️ **Sci-Fi HUD Interface** - Advanced operational feel with terminal-style controls & glassmorphism
 - 🖐️ **Real-time Hand Tracking** - Detects palm open/close gestures to control particles
 - ✌️ **Gesture Recognition** - Victory gesture (✌️) triggers special text effects
 - 🎨 **8+ Particle Shapes** - Sphere, Heart, Flower, Saturn, Galaxy, DNA, and more
@@ -165,7 +172,8 @@ Issues and Pull Requests are welcome!
 ## ✨ 特性
 
 - 🎯 **无需 API Key** - 纯本地运行，使用 MediaPipe 进行手势识别
-- 🖐️ **实时手势追踪** - 识别手掌开合程度，精准控制粒子效果
+- �️ **科幻 HUD 界面** - 极具未来感的操作终端风格，玻璃拟态设计
+- �🖐️ **实时手势追踪** - 识别手掌开合程度，精准控制粒子效果
 - ✌️ **手势识别** - 支持胜利手势（V字手势）触发特殊效果
 - 🎨 **8+ 粒子形状** - 球体、爱心、花朵、土星、银河、DNA 等
 - 🌈 **自定义颜色** - 多种预设颜色 + 自定义取色器
