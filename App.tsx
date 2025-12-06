@@ -21,10 +21,10 @@ const App: React.FC = () => {
   const handTrackingRef = useRef<HandTrackingService | null>(null);
   const gestureTimerRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Smooth tension for better visual effect - SUPER FAST response!
+  // Smooth tension for better visual effect - INSTANT response!
   useEffect(() => {
     const targetTension = handData.detected ? handData.tension : smoothTension;
-    const smoothingFactor = 0.5; // Much faster response for dramatic effect!
+    const smoothingFactor = 0.8; // Almost instant response
     
     const interval = setInterval(() => {
       setSmoothTension(prev => {
@@ -32,7 +32,7 @@ const App: React.FC = () => {
         if (Math.abs(diff) < 0.003) return targetTension;
         return prev + diff * smoothingFactor;
       });
-    }, 12); // Faster update rate
+    }, 10); // Ultra fast update rate
     
     return () => clearInterval(interval);
   }, [handData.tension, handData.detected]);
@@ -167,215 +167,149 @@ const App: React.FC = () => {
       />
 
       {/* UI Overlay */}
-      <div className="absolute inset-0 z-10 pointer-events-none flex flex-col justify-between p-4 md:p-6">
+      <div className="absolute inset-0 z-10 pointer-events-none flex flex-col justify-between p-6">
         
-        {/* Header */}
+        {/* Header - Minimalist */}
         <div className="flex justify-between items-start pointer-events-auto">
           <div>
-            <h1 className="text-2xl md:text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500">
-              Kinetic Particles
+            <h1 className="text-3xl font-light tracking-tight text-white/90">
+              Kinetic<span className="font-bold text-white">Particles</span>
             </h1>
-            <p className="text-gray-400 text-xs md:text-sm mt-1 max-w-xs">
-              {isTracking 
-                ? currentGesture === 'victory'
-                  ? "✌️ 大雷早上好！"
-                  : "Open palms to expand • Fists to contract • ✌️ for surprise" 
-                : "Start tracking to control with hand gestures"}
+            <p className="text-[10px] text-cyan-400/90 tracking-[0.25em] uppercase font-medium mt-1 mb-1">
+              dailycosmos.net
             </p>
-            {/* Social Links */}
-            <div className="flex items-center gap-3 mt-2">
-              <a 
-                href="https://github.com/paul010" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="flex items-center gap-1.5 text-gray-500 hover:text-white transition-colors text-xs"
-              >
-                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-                <span>paul010</span>
-              </a>
-              <a 
-                href="https://www.youtube.com/@dalei2025" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="flex items-center gap-1.5 text-gray-500 hover:text-red-500 transition-colors text-xs"
-              >
-                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-                <span>@dalei2025</span>
-              </a>
-              <a 
-                href="https://dailycosmos.net" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="flex items-center gap-1.5 text-gray-500 hover:text-cyan-400 transition-colors text-xs"
-              >
-                <span>🌐</span>
-                <span>dailycosmos.net</span>
-              </a>
+            <div className="flex items-center gap-4 mt-2">
+              <div className={`flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium transition-colors duration-300
+                ${handData.detected ? 'bg-green-500/20 text-green-400 border border-green-500/30' : 'bg-white/5 text-gray-500 border border-white/10'}`}>
+                <span className={`w-2 h-2 rounded-full ${handData.detected ? 'bg-green-400 animate-pulse' : 'bg-gray-500'}`}></span>
+                {handData.detected ? 'Camera Active' : 'Camera Standby'}
+              </div>
+              
+              {/* Hand Indicators */}
+              <div className="flex gap-1">
+                <div className={`w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold border transition-all duration-300
+                  ${handData.leftHand ? 'bg-white/20 border-white/40 text-white' : 'bg-black/20 border-white/5 text-gray-600'}`}>
+                  L
+                </div>
+                <div className={`w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold border transition-all duration-300
+                  ${handData.rightHand ? 'bg-white/20 border-white/40 text-white' : 'bg-black/20 border-white/5 text-gray-600'}`}>
+                  R
+                </div>
+              </div>
             </div>
           </div>
 
-          <div className="flex flex-col items-end gap-2">
+          <div className="flex flex-col items-end gap-3">
             {!isTracking ? (
               <button 
                 onClick={handleStartTracking}
-                className="group relative px-5 py-2.5 bg-gradient-to-r from-cyan-500 to-purple-600 text-white font-semibold rounded-full 
-                         hover:from-cyan-400 hover:to-purple-500 transition-all shadow-lg shadow-purple-500/30
-                         flex items-center gap-2"
+                className="px-6 py-2.5 bg-white text-black font-medium rounded-full hover:bg-gray-200 transition-all shadow-lg shadow-white/10 flex items-center gap-2"
               >
-                <span className="text-lg">👋</span>
-                <span>Start Tracking</span>
+                <span>Start Experience</span>
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
               </button>
             ) : (
-              <div className="flex items-center gap-3">
-                <div className={`px-3 py-1.5 rounded-full text-xs font-mono backdrop-blur-md border
-                              ${currentGesture === 'victory'
-                                ? 'border-yellow-500/50 text-yellow-400 bg-yellow-500/10'
-                                : handData.detected 
-                                  ? smoothTension > 0.7 
-                                    ? 'border-orange-500/50 text-orange-400 bg-orange-500/10' 
-                                    : smoothTension < 0.3
-                                      ? 'border-cyan-500/50 text-cyan-400 bg-cyan-500/10'
-                                      : 'border-green-500/50 text-green-400 bg-green-500/10'
-                                  : 'border-gray-500/50 text-gray-400 bg-gray-500/10'}`}>
-                  {currentGesture === 'victory'
-                    ? '✌️ Victory! 大雷早上好'
-                    : handData.detected 
-                      ? smoothTension > 0.7 
-                        ? `✊ ${(smoothTension * 100).toFixed(0)}% Tension`
-                        : smoothTension < 0.3
-                          ? `🖐️ ${(smoothTension * 100).toFixed(0)}% Relaxed`
-                          : `✋ ${(smoothTension * 100).toFixed(0)}% Tension`
-                      : '🔍 Searching...'}
-                </div>
-                <button 
-                  onClick={handleStopTracking}
-                  className="px-4 py-1.5 bg-red-500/10 border border-red-500/50 text-red-400 rounded-full 
-                           hover:bg-red-500/20 transition-all text-sm font-medium"
-                >
-                  Stop
-                </button>
-              </div>
+              <button 
+                onClick={handleStopTracking}
+                className="px-6 py-2.5 bg-red-500/10 border border-red-500/20 text-red-400 font-medium rounded-full hover:bg-red-500/20 transition-all"
+              >
+                Stop Camera
+              </button>
             )}
+            
+            {/* Social Links - Minimal */}
+            <div className="flex items-center gap-3 opacity-60 hover:opacity-100 transition-opacity">
+              <a href="https://github.com/paul010/gemini-kinetic-particles" target="_blank" rel="noopener noreferrer" className="text-white hover:text-white/80">
+                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+              </a>
+              <a href="https://www.youtube.com/@dalei2025" target="_blank" rel="noopener noreferrer" className="text-white hover:text-red-500">
+                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+              </a>
+            </div>
           </div>
         </div>
 
-        {/* Bottom Controls - Collapsible */}
-        <div className="pointer-events-auto">
-          {/* Toggle Button */}
-          <div className="flex justify-center mb-2">
+        {/* Bottom Controls - Modern Floating Bar */}
+        <div className="pointer-events-auto flex flex-col items-center gap-4">
+          
+          {/* Main Control Bar */}
+          <div className="bg-black/60 backdrop-blur-xl border border-white/10 rounded-2xl p-2 flex items-center gap-4 shadow-2xl">
+            
+            {/* Primary Shapes - Highlighted */}
+            <div className="flex gap-1 p-1 bg-white/5 rounded-xl">
+              {[ParticleShape.HEART, ParticleShape.FLOWER, ParticleShape.SATURN, ParticleShape.FIREWORKS].map((shape) => (
+                <button
+                  key={shape}
+                  onClick={() => setActiveShape(shape)}
+                  className={`
+                    w-10 h-10 rounded-lg flex items-center justify-center text-lg transition-all duration-300
+                    ${activeShape === shape 
+                      ? 'bg-white text-black shadow-lg scale-110' 
+                      : 'text-white/60 hover:text-white hover:bg-white/10'}
+                  `}
+                  title={shape}
+                >
+                  {shapeIcons[shape]}
+                </button>
+              ))}
+            </div>
+
+            <div className="w-px h-8 bg-white/10"></div>
+
+            {/* Color Picker - Compact */}
+            <div className="flex items-center gap-2 px-2">
+              {colorPresets.slice(0, 5).map(({ color }) => (
+                <button
+                  key={color}
+                  onClick={() => setParticleColor(color)}
+                  className={`w-6 h-6 rounded-full transition-all duration-300 ${particleColor === color ? 'scale-125 ring-2 ring-white ring-offset-2 ring-offset-black' : 'hover:scale-110 opacity-80 hover:opacity-100'}`}
+                  style={{ backgroundColor: color }}
+                />
+              ))}
+              <div className="relative w-6 h-6 rounded-full bg-gradient-to-tr from-blue-500 to-purple-500 cursor-pointer hover:scale-110 transition-transform">
+                <input 
+                  type="color" 
+                  value={particleColor} 
+                  onChange={(e) => setParticleColor(e.target.value)}
+                  className="opacity-0 absolute inset-0 w-full h-full cursor-pointer"
+                />
+              </div>
+            </div>
+
+            <div className="w-px h-8 bg-white/10"></div>
+
+            {/* More Options Toggle */}
             <button
               onClick={() => setIsPanelOpen(!isPanelOpen)}
-              className={`px-4 py-2 rounded-full backdrop-blur-md border transition-all duration-300 flex items-center gap-2
-                        ${isPanelOpen 
-                          ? 'bg-white/10 border-white/20 text-white' 
-                          : 'bg-black/40 border-white/10 text-gray-400 hover:text-white hover:border-white/20'}`}
+              className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all ${isPanelOpen ? 'bg-white/20 text-white' : 'text-white/60 hover:bg-white/10'}`}
             >
-              <span className="text-sm">{isPanelOpen ? '收起菜单' : '展开菜单'}</span>
-              <span className={`transition-transform duration-300 ${isPanelOpen ? 'rotate-180' : ''}`}>
-                ▲
-              </span>
+              <span className={`transition-transform duration-300 ${isPanelOpen ? 'rotate-180' : ''}`}>▲</span>
             </button>
           </div>
 
-          {/* Collapsible Panel */}
-          <div className={`transition-all duration-500 ease-in-out overflow-hidden ${isPanelOpen ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'}`}>
-            <div className="bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-4 md:p-5 
-                          w-full max-w-xl mx-auto shadow-2xl shadow-black/50">
-              
-              {/* Shape Selector */}
-              <div className="mb-4">
-                <label className="text-xs uppercase tracking-wider text-gray-500 font-semibold mb-3 block">
-                  Shape Template
-                </label>
-                <div className="grid grid-cols-4 md:grid-cols-8 gap-2">
-                  {Object.values(ParticleShape).map((shape) => (
-                    <button
-                      key={shape}
-                      onClick={() => setActiveShape(shape)}
-                      className={`
-                        flex flex-col items-center justify-center py-2 px-1 rounded-xl text-xs font-medium transition-all
-                        ${activeShape === shape 
-                          ? 'bg-gradient-to-br from-cyan-500/30 to-purple-500/30 border border-white/20 text-white shadow-lg' 
-                          : 'bg-white/5 text-gray-400 hover:bg-white/10 border border-transparent'}
-                      `}
-                      title={shape}
-                    >
-                      <span className="text-xl mb-1">{shapeIcons[shape]}</span>
-                      <span className="text-[10px] opacity-80">{shape}</span>
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {/* Color Picker */}
-              <div>
-                <label className="text-xs uppercase tracking-wider text-gray-500 font-semibold mb-3 block">
-                  Particle Color
-                </label>
-                <div className="flex items-center gap-2 flex-wrap">
-                  {colorPresets.map(({ color, name }) => (
-                    <button
-                      key={color}
-                      onClick={() => setParticleColor(color)}
-                      className={`w-8 h-8 rounded-full transition-all duration-200 hover:scale-110
-                                ${particleColor === color 
-                                  ? 'ring-2 ring-white ring-offset-2 ring-offset-gray-900 scale-110' 
-                                  : 'ring-1 ring-white/20'}`}
-                      style={{ backgroundColor: color }}
-                      title={name}
-                    />
-                  ))}
-                  <div className="relative ml-1">
-                    <input 
-                      type="color" 
-                      value={particleColor} 
-                      onChange={(e) => setParticleColor(e.target.value)}
-                      className="w-8 h-8 rounded-full bg-transparent cursor-pointer opacity-0 absolute inset-0"
-                      title="Custom color"
-                    />
-                    <div 
-                      className="w-8 h-8 rounded-full bg-gradient-to-br from-red-500 via-green-500 to-blue-500 
-                               ring-1 ring-white/20 flex items-center justify-center"
-                    >
-                      <span className="text-xs">+</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Manual Control (when not tracking) */}
-              {!isTracking && (
-                <div className="mt-4 pt-4 border-t border-white/10">
-                  <label className="text-xs uppercase tracking-wider text-gray-500 font-semibold mb-2 flex justify-between">
-                    <span>Manual Control</span>
-                    <span className="text-cyan-400">{(smoothTension * 100).toFixed(0)}%</span>
-                  </label>
-                  <input 
-                    type="range" 
-                    min="0" 
-                    max="1" 
-                    step="0.01" 
-                    value={smoothTension}
-                    onChange={(e) => setSmoothTension(parseFloat(e.target.value))}
-                    className="w-full h-2 bg-gray-700/50 rounded-full appearance-none cursor-pointer
-                             [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 
-                             [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-gradient-to-r 
-                             [&::-webkit-slider-thumb]:from-cyan-400 [&::-webkit-slider-thumb]:to-purple-500
-                             [&::-webkit-slider-thumb]:shadow-lg [&::-webkit-slider-thumb]:shadow-cyan-500/50"
-                    title="Tension control"
-                  />
-                  <div className="flex justify-between text-[10px] text-gray-500 mt-1">
-                    <span>Open Palm</span>
-                    <span>Closed Fist</span>
-                  </div>
-                </div>
-              )}
+          {/* Expanded Panel - Other Shapes */}
+          <div className={`transition-all duration-300 ease-out overflow-hidden ${isPanelOpen ? 'max-h-24 opacity-100 translate-y-0' : 'max-h-0 opacity-0 translate-y-4'}`}>
+            <div className="bg-black/60 backdrop-blur-xl border border-white/10 rounded-xl p-2 flex gap-2">
+              {[ParticleShape.SPHERE, ParticleShape.GALAXY, ParticleShape.DNA, ParticleShape.BUDDHA].map((shape) => (
+                <button
+                  key={shape}
+                  onClick={() => setActiveShape(shape)}
+                  className={`
+                    px-3 py-1.5 rounded-lg text-xs font-medium transition-all
+                    ${activeShape === shape 
+                      ? 'bg-white/20 text-white border border-white/20' 
+                      : 'text-white/50 hover:text-white hover:bg-white/10'}
+                  `}
+                >
+                  {shape}
+                </button>
+              ))}
             </div>
           </div>
-
-          {/* Instructions hint */}
-          <p className="text-center text-gray-600 text-xs mt-3">
-            Drag to rotate • Scroll to zoom • {isTracking ? 'Move hands in view' : 'Click Start to begin'}
+          
+          {/* Instructions */}
+          <p className="text-white/40 text-xs font-light tracking-wide">
+            {isTracking ? 'Open hand to expand • Close fist to contract' : 'Ready to start'}
           </p>
         </div>
       </div>

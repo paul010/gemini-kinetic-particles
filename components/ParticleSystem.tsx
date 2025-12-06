@@ -381,9 +381,9 @@ export const ParticleSystem: React.FC<ParticleSystemProps> = ({
     cumulativeExplosion.current *= 0.98;
     shockwaveRadius.current *= 0.96;
     
-    // Dynamic morph speed
-    const baseMorphSpeed = 5.0;
-    const morphSpeed = (baseMorphSpeed + Math.abs(tensionVelocity.current) * 4) * delta;
+    // Dynamic morph speed - FASTER RESPONSE
+    const baseMorphSpeed = 8.0; // Increased from 5.0
+    const morphSpeed = (baseMorphSpeed + Math.abs(tensionVelocity.current) * 6) * delta; // Increased multiplier
     
     for (let i = 0; i < actualCount; i++) {
       const i3 = i * 3;
@@ -488,7 +488,7 @@ export const ParticleSystem: React.FC<ParticleSystemProps> = ({
       ty += explosionVelocities[i3 + 1];
       tz += explosionVelocities[i3 + 2];
 
-      // Smooth interpolation with velocity
+      // Smooth interpolation with velocity - SNAPPY RESPONSE
       const currentX = positions[i3];
       const currentY = positions[i3 + 1];
       const currentZ = positions[i3 + 2];
@@ -496,9 +496,10 @@ export const ParticleSystem: React.FC<ParticleSystemProps> = ({
       // Add some randomness to morph speed for organic feel
       const particleMorphSpeed = morphSpeed * (0.8 + Math.sin(i * 0.1) * 0.4);
       
-      velocities[i3] = velocities[i3] * 0.82 + (tx - currentX) * particleMorphSpeed;
-      velocities[i3 + 1] = velocities[i3 + 1] * 0.82 + (ty - currentY) * particleMorphSpeed;
-      velocities[i3 + 2] = velocities[i3 + 2] * 0.82 + (tz - currentZ) * particleMorphSpeed;
+      // Lower damping (0.75) for faster reaction, less floaty
+      velocities[i3] = velocities[i3] * 0.75 + (tx - currentX) * particleMorphSpeed;
+      velocities[i3 + 1] = velocities[i3 + 1] * 0.75 + (ty - currentY) * particleMorphSpeed;
+      velocities[i3 + 2] = velocities[i3 + 2] * 0.75 + (tz - currentZ) * particleMorphSpeed;
       
       positions[i3] = currentX + velocities[i3];
       positions[i3 + 1] = currentY + velocities[i3 + 1];
