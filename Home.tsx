@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { StarfieldBackground } from './components/StarfieldBackground';
 import { COPY, PROJECTS, SOCIALS, Lang, LocalizedText, Project } from './data/site';
 
@@ -14,6 +14,10 @@ const detectInitialLang = (): Lang => {
   const saved = window.localStorage.getItem(STORAGE_KEY);
   return saved === 'zh' ? 'zh' : 'en';
 };
+
+const prefersReduced = () =>
+  typeof window !== 'undefined' &&
+  window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 /* ---------- Icons ---------- */
 
@@ -32,6 +36,13 @@ const YouTubeIcon = (props: React.SVGProps<SVGSVGElement>) => (
 const XIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path d="M18.24 2.25h3.31l-7.23 8.26 8.5 11.24h-6.65l-5.21-6.82-5.97 6.82H1.68l7.73-8.83L1.25 2.25h6.82l4.71 6.23 5.46-6.23Zm-1.16 17.52h1.83L7.01 4.12H5.04l12.04 15.65Z" />
+  </svg>
+);
+
+const MailIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" {...props}>
+    <rect x="3" y="5" width="18" height="14" rx="2" />
+    <path d="m3 7 9 6 9-6" />
   </svg>
 );
 
@@ -72,6 +83,81 @@ const useReveal = () => {
   }, []);
 };
 
+/* ---------- Scroll progress bar ---------- */
+
+const useScrollProgress = (ref: React.RefObject<HTMLDivElement>) => {
+  useEffect(() => {
+    let raf = 0;
+    const update = () => {
+      raf = 0;
+      const el = ref.current;
+      if (!el) return;
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      const p = max > 0 ? Math.min(1, window.scrollY / max) : 0;
+      el.style.transform = `scaleX(${p})`;
+    };
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+      cancelAnimationFrame(raf);
+    };
+  }, [ref]);
+};
+
+/* ---------- Magnetic wrapper (subtle pull toward cursor) ---------- */
+
+const Magnetic: React.FC<{ children: React.ReactNode; strength?: number; className?: string }> = ({
+  children,
+  strength = 0.3,
+  className,
+}) => {
+  const ref = useRef<HTMLSpanElement>(null);
+
+  const onMove = (e: React.MouseEvent) => {
+    if (prefersReduced()) return;
+    const el = ref.current;
+    if (!el) return;
+    const r = el.getBoundingClientRect();
+    const x = (e.clientX - (r.left + r.width / 2)) * strength;
+    const y = (e.clientY - (r.top + r.height / 2)) * strength;
+    el.style.transform = `translate(${x}px, ${y}px)`;
+  };
+  const reset = () => {
+    if (ref.current) ref.current.style.transform = '';
+  };
+
+  return (
+    <span ref={ref} className={`magnetic ${className ?? ''}`} onMouseMove={onMove} onMouseLeave={reset}>
+      {children}
+    </span>
+  );
+};
+
+/* ---------- Pointer-driven 3D tilt ---------- */
+
+const useTilt = (max = 6) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const onMove = (e: React.MouseEvent) => {
+    if (prefersReduced()) return;
+    const el = ref.current;
+    if (!el) return;
+    const r = el.getBoundingClientRect();
+    const px = (e.clientX - r.left) / r.width - 0.5;
+    const py = (e.clientY - r.top) / r.height - 0.5;
+    el.style.transform = `perspective(1100px) rotateX(${-py * max}deg) rotateY(${px * max}deg)`;
+  };
+  const reset = () => {
+    if (ref.current) ref.current.style.transform = '';
+  };
+  return { ref, onMouseMove: onMove, onMouseLeave: reset };
+};
+
 /* ---------- Small pieces ---------- */
 
 const statusBadge = (status: Project['status'], lang: Lang) => {
@@ -99,8 +185,15 @@ const FeaturedCard: React.FC<{
   lang: Lang;
   t: (txt: LocalizedText) => string;
   onInternal: (href: string) => void;
-}> = ({ project: p, lang, t, onInternal }) => (
-  <article className="project-card reveal flex flex-col overflow-hidden rounded-3xl border border-white/10 bg-surface/60 backdrop-blur-sm lg:flex-row">
+}> = ({ project: p, lang, t, onInternal }) => {
+  const tilt = useTilt(5);
+  return (
+  <article
+    ref={tilt.ref}
+    onMouseMove={tilt.onMouseMove}
+    onMouseLeave={tilt.onMouseLeave}
+    className="project-card tilt reveal flex flex-col overflow-hidden rounded-3xl border border-white/10 bg-surface/60 backdrop-blur-sm lg:flex-row"
+  >
     {p.cover && (
       <button
         onClick={() => onInternal('/particles')}
@@ -161,7 +254,8 @@ const FeaturedCard: React.FC<{
       </div>
     </div>
   </article>
-);
+  );
+};
 
 /* ---------- Non-featured project (editorial row) ---------- */
 
@@ -211,8 +305,10 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const t = (txt: LocalizedText) => txt[lang];
+  const progressRef = useRef<HTMLDivElement>(null);
 
   useReveal();
+  useScrollProgress(progressRef);
 
   useEffect(() => {
     document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
@@ -243,7 +339,9 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
 
   return (
     <div className="home-root font-sans">
+      <div ref={progressRef} className="scroll-progress" />
       <StarfieldBackground />
+      <div className="bg-aurora" />
       <div className="bg-vignette" />
       <div className="bg-grain" />
 
@@ -314,39 +412,43 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
       <main className="mx-auto max-w-5xl px-5 sm:px-8">
         {/* Hero */}
         <section id="home" className="flex min-h-[92vh] flex-col justify-center pt-28 pb-20">
-          <p className="reveal mb-7 inline-flex w-fit items-center gap-2 rounded-full border border-white/12 bg-white/5 px-3.5 py-1.5 font-mono text-xs uppercase tracking-[0.18em] text-white/65">
+          <p className="hero-in mb-7 inline-flex w-fit items-center gap-2 rounded-full border border-white/12 bg-white/5 px-3.5 py-1.5 font-mono text-xs uppercase tracking-[0.18em] text-white/65" style={{ animationDelay: '0.05s' }}>
             <span className="pulse-dot h-1.5 w-1.5 rounded-full bg-accent" />
             {t(COPY.hero.eyebrow)}
           </p>
 
-          <p className="reveal font-mono text-sm text-accent/80">{t(COPY.hero.greeting)} 大雷 👋</p>
+          <p className="hero-in font-mono text-sm text-accent/80" style={{ animationDelay: '0.15s' }}>{t(COPY.hero.greeting)} 大雷 👋</p>
 
-          <h1 className="reveal mt-4 max-w-4xl font-display text-[2.6rem] font-bold leading-[1.04] tracking-tight sm:text-6xl lg:text-[4.5rem]">
+          <h1 className="hero-in mt-4 max-w-4xl font-display text-[2.6rem] font-bold leading-[1.04] tracking-tight sm:text-6xl lg:text-[4.5rem]" style={{ animationDelay: '0.25s' }}>
             <span className="block">{t(COPY.hero.titleLine1)}</span>
             <span className="block text-gradient">{t(COPY.hero.titleLine2)}</span>
           </h1>
 
-          <p className="reveal mt-8 max-w-2xl text-base leading-relaxed text-white/65 sm:text-lg">
+          <p className="hero-in mt-8 max-w-2xl text-base leading-relaxed text-white/65 sm:text-lg" style={{ animationDelay: '0.4s' }}>
             {t(COPY.hero.intro)}
           </p>
 
-          <div className="reveal mt-9 flex flex-wrap items-center gap-3">
-            <button
-              onClick={() => onNavigate('/particles')}
-              className="group inline-flex items-center gap-2 rounded-full bg-accent px-5 py-3 text-sm font-semibold text-ink transition-transform hover:scale-[1.03]"
-            >
-              {t(COPY.hero.ctaLaunch)}
-              <ArrowIcon className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-            </button>
-            <button
-              onClick={() => goTo('work')}
-              className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-5 py-3 text-sm font-semibold text-white/85 transition-colors hover:border-white/30 hover:text-white"
-            >
-              {t(COPY.hero.ctaWork)}
-            </button>
+          <div className="hero-in mt-9 flex flex-wrap items-center gap-3" style={{ animationDelay: '0.55s' }}>
+            <Magnetic strength={0.4}>
+              <button
+                onClick={() => onNavigate('/particles')}
+                className="btn-sheen group inline-flex items-center gap-2 rounded-full bg-accent px-5 py-3 text-sm font-semibold text-ink transition-transform hover:scale-[1.03]"
+              >
+                {t(COPY.hero.ctaLaunch)}
+                <ArrowIcon className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+              </button>
+            </Magnetic>
+            <Magnetic strength={0.4}>
+              <button
+                onClick={() => goTo('work')}
+                className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-5 py-3 text-sm font-semibold text-white/85 transition-colors hover:border-white/30 hover:text-white"
+              >
+                {t(COPY.hero.ctaWork)}
+              </button>
+            </Magnetic>
           </div>
 
-          <div className="reveal mt-14 flex flex-wrap items-center gap-5 text-white/55">
+          <div className="hero-in mt-14 flex flex-wrap items-center gap-5 text-white/55" style={{ animationDelay: '0.7s' }}>
             <a href={SOCIALS.github} target="_blank" rel="noreferrer" className="transition-colors hover:text-white" aria-label="GitHub">
               <GitHubIcon className="h-5 w-5" />
             </a>
@@ -355,6 +457,9 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
             </a>
             <a href={SOCIALS.twitter} target="_blank" rel="noreferrer" className="transition-colors hover:text-white" aria-label="X">
               <XIcon className="h-[18px] w-[18px]" />
+            </a>
+            <a href={SOCIALS.email} className="transition-colors hover:text-accent" aria-label="Email">
+              <MailIcon className="h-5 w-5" />
             </a>
             <span className="font-mono text-xs tracking-wide text-white/35">@dalei2025 · @paul010318</span>
           </div>
@@ -396,11 +501,12 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
               <p className="mt-6 text-base leading-relaxed text-white/65">{t(COPY.about.body)}</p>
             </div>
 
-            <div className="reveal grid gap-4 self-center">
+            <div className="grid gap-4 self-center">
               {COPY.about.pillars.map((pillar, i) => (
                 <div
                   key={i}
-                  className="flex items-start gap-4 rounded-xl border border-white/10 bg-surface/50 p-5 backdrop-blur-sm transition-colors hover:border-accent/30"
+                  className="reveal flex items-start gap-4 rounded-xl border border-white/10 bg-surface/50 p-5 backdrop-blur-sm transition-all hover:-translate-y-0.5 hover:border-accent/30"
+                  style={{ transitionDelay: `${i * 90}ms` }}
                 >
                   <span className="mt-0.5 font-mono text-sm text-accent/70">0{i + 1}</span>
                   <div>
@@ -425,27 +531,29 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
             </h2>
             <p className="mt-5 max-w-md text-sm leading-relaxed text-white/60 sm:text-base">{t(COPY.connect.sub)}</p>
 
-            <div className="mt-9 grid gap-3 sm:grid-cols-3">
+            <div className="mt-9 grid gap-3 sm:grid-cols-2">
               {[
-                { icon: <GitHubIcon className="h-5 w-5" />, label: 'GitHub', handle: 'paul010', href: SOCIALS.github },
-                { icon: <YouTubeIcon className="h-5 w-5" />, label: 'YouTube', handle: '@dalei2025', href: SOCIALS.youtube },
-                { icon: <XIcon className="h-[18px] w-[18px]" />, label: 'X / Twitter', handle: '@paul010318', href: SOCIALS.twitter },
-              ].map((s) => (
+                { icon: <GitHubIcon className="h-5 w-5" />, label: 'GitHub', handle: 'paul010', href: SOCIALS.github, external: true },
+                { icon: <YouTubeIcon className="h-5 w-5" />, label: 'YouTube', handle: '@dalei2025', href: SOCIALS.youtube, external: true },
+                { icon: <XIcon className="h-[18px] w-[18px]" />, label: 'X / Twitter', handle: '@paul010318', href: SOCIALS.twitter, external: true },
+                { icon: <MailIcon className="h-5 w-5" />, label: 'Email', handle: 'panlei318@gmail.com', href: SOCIALS.email, external: false },
+              ].map((s, i) => (
                 <a
                   key={s.label}
                   href={s.href}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="group flex items-center gap-3 rounded-xl border border-white/10 bg-white/5 p-4 transition-all hover:-translate-y-0.5 hover:border-accent/40 hover:bg-white/[0.08]"
+                  target={s.external ? '_blank' : undefined}
+                  rel={s.external ? 'noreferrer' : undefined}
+                  className="reveal group flex items-center gap-3 rounded-xl border border-white/10 bg-white/5 p-4 transition-all hover:-translate-y-0.5 hover:border-accent/40 hover:bg-white/[0.08]"
+                  style={{ transitionDelay: `${i * 80}ms` }}
                 >
-                  <span className="grid h-10 w-10 place-items-center rounded-lg bg-white/5 text-white/80 transition-colors group-hover:text-accent">
+                  <span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-white/5 text-white/80 transition-colors group-hover:text-accent">
                     {s.icon}
                   </span>
-                  <span className="flex flex-col">
+                  <span className="flex min-w-0 flex-col">
                     <span className="text-sm font-semibold">{s.label}</span>
-                    <span className="font-mono text-xs text-white/45">{s.handle}</span>
+                    <span className="truncate font-mono text-xs text-white/45">{s.handle}</span>
                   </span>
-                  <ArrowUpRight className="ml-auto h-4 w-4 text-white/30 transition-all group-hover:translate-x-0.5 group-hover:text-accent" />
+                  <ArrowUpRight className="ml-auto h-4 w-4 shrink-0 text-white/30 transition-all group-hover:translate-x-0.5 group-hover:text-accent" />
                 </a>
               ))}
             </div>
