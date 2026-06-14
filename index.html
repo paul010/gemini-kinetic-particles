@@ -3,7 +3,23 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Gemini Kinetic Particles</title>
+    <title>大雷 · Da Lei — Creative Developer & Open Source</title>
+    <meta name="description" content="Da Lei (大雷) — creative developer building open-source, interactive web experiences with code, particles, and a little bit of AI. Home of Kinetic Particles and more." />
+    <meta name="author" content="Da Lei (大雷)" />
+    <meta name="theme-color" content="#05060a" />
+
+    <!-- Open Graph / social -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="大雷 · Da Lei — Creative Developer & Open Source" />
+    <meta property="og:description" content="Building open-source, interactive web experiences with code, particles, and a little bit of AI." />
+    <meta property="og:url" content="https://dailycosmos.net" />
+    <meta property="og:image" content="https://raw.githubusercontent.com/paul010/gemini-kinetic-particles/main/image-1764988597247.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@paul010318" />
+    <meta name="twitter:title" content="大雷 · Da Lei — Creative Developer & Open Source" />
+    <meta name="twitter:description" content="Building open-source, interactive web experiences with code, particles, and a little bit of AI." />
+    <meta name="twitter:image" content="https://raw.githubusercontent.com/paul010/gemini-kinetic-particles/main/image-1764988597247.png" />
+
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-WLS95HQMY4"></script>
     <script>
@@ -15,9 +31,35 @@
     </script>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5247375025065411"
      crossorigin="anonymous"></script>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              display: ['"Space Grotesk"', 'system-ui', 'sans-serif'],
+              sans: ['Inter', 'system-ui', 'sans-serif'],
+              mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
+            },
+            colors: {
+              ink: '#05060a',
+              surface: '#0b0e16',
+              accent: '#22d3ee',
+              accent2: '#a78bfa',
+              ember: '#fb923c',
+            },
+          },
+        },
+      };
+    </script>
     <style>
-      body { margin: 0; overflow: hidden; background-color: #000; color: white; }
+      body { margin: 0; background-color: #05060a; color: white; }
       canvas { display: block; }
     </style>
   <script type="importmap">

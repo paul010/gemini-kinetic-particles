@@ -54,6 +54,25 @@
 
 ---
 
+## 🪐 Personal Site / 个人主页
+
+This repo now doubles as **Da Lei's (大雷) personal homepage**. The landing page (`/`)
+is a portfolio that showcases open-source projects, with **Kinetic Particles** as the
+first featured project. The full particle experience lives at **`/particles`**.
+
+本仓库现在同时是 **大雷的个人主页**。首页 (`/`) 是一个展示开源项目的作品集，
+**Kinetic Particles** 是第一个精选项目；完整的粒子体验位于 **`/particles`**。
+
+- **Homepage / 首页** — bilingual (EN / 中文), animated cosmic background, project cards
+- **`/particles`** — the interactive hand-gesture particle app (below)
+- Adding a new project = one entry in [`data/site.ts`](./data/site.ts)
+
+> Routing is client-side (History API) with a hash fallback (`/#/particles`).
+> Static hosts should rewrite unknown paths to `index.html`
+> (`public/_redirects` for Netlify, `vercel.json` for Vercel are included).
+
+---
+
 **English** | [中文](#中文文档)
 
 ## ✨ Features
