@@ -6,9 +6,11 @@ interface HomeProps {
   onNavigate: (path: string) => void;
 }
 
-const STORAGE_KEY = 'dalei-lang';
+// v2 key: ignores any auto-detected 'zh' stored by the earlier version so the
+// site always defaults to English unless the visitor explicitly picks 中文.
+const STORAGE_KEY = 'dalei-lang-v2';
 
-/** Default to English; only switch if the visitor previously chose 中文. */
+/** Always default to English; only switch if the visitor explicitly chose 中文. */
 const detectInitialLang = (): Lang => {
   if (typeof window === 'undefined') return 'en';
   const saved = window.localStorage.getItem(STORAGE_KEY);
