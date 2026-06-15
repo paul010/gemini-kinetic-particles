@@ -24,11 +24,37 @@ interface HomeProps {
 // site always defaults to English unless the visitor explicitly picks 中文.
 const STORAGE_KEY = 'dalei-lang-v2';
 
-/** Always default to English; only switch if the visitor explicitly chose 中文. */
+/** Always default to English; only switch if the visitor explicitly chose 简/繁. */
 const detectInitialLang = (): Lang => {
   if (typeof window === 'undefined') return 'en';
   const saved = window.localStorage.getItem(STORAGE_KEY);
-  return saved === 'zh' ? 'zh' : 'en';
+  return saved === 'zh' || saved === 'zhHant' ? saved : 'en';
+};
+
+/**
+ * Simplified → Traditional via OpenCC, lazy-loaded only when 繁體 is chosen
+ * (keeps it out of the default bundle). Returns the converter once ready.
+ */
+let _s2t: ((s: string) => string) | null = null;
+const useS2T = (active: boolean) => {
+  const [conv, setConv] = useState<((s: string) => string) | null>(() => _s2t);
+  useEffect(() => {
+    if (!active || _s2t) {
+      if (_s2t && !conv) setConv(() => _s2t);
+      return;
+    }
+    let alive = true;
+    import('opencc-js')
+      .then((m) => {
+        _s2t = m.Converter({ from: 'cn', to: 'tw' });
+        if (alive) setConv(() => _s2t);
+      })
+      .catch(() => {});
+    return () => {
+      alive = false;
+    };
+  }, [active, conv]);
+  return conv;
 };
 
 const prefersReduced = () =>
@@ -230,7 +256,7 @@ const Typewriter: React.FC<{ text: string; className?: string; speed?: number }>
 
 /* ---------- Small pieces ---------- */
 
-const statusBadge = (status: Project['status'], lang: Lang) => {
+const statusBadge = (status: Project['status'], t: (txt: LocalizedText) => string) => {
   const map = {
     live: { en: 'Live', zh: '已上线', cls: 'text-accent border-accent/40 bg-accent/10' },
     wip: { en: 'In progress', zh: '开发中', cls: 'text-ember border-ember/40 bg-ember/10' },
@@ -240,7 +266,7 @@ const statusBadge = (status: Project['status'], lang: Lang) => {
   return (
     <span className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 font-mono text-[11px] uppercase tracking-wider ${s.cls}`}>
       <span className="h-1.5 w-1.5 rounded-full bg-current" />
-      {s[lang]}
+      {t({ en: s.en, zh: s.zh })}
     </span>
   );
 };
@@ -289,7 +315,7 @@ const FeaturedCard: React.FC<{
 
     <div className="flex flex-1 flex-col justify-center p-7 sm:p-9 lg:p-10">
       <div className="mb-5 flex items-center justify-between gap-3">
-        {statusBadge(p.status, lang)}
+        {statusBadge(p.status, t)}
         <span className="font-mono text-xs text-ink/40">{p.year}</span>
       </div>
 
@@ -347,7 +373,7 @@ const ProjectCard: React.FC<{
 
     <div className="flex flex-wrap items-center gap-3">
       <h3 className="font-display text-2xl font-semibold tracking-tight">{p.title}</h3>
-      {statusBadge(p.status, lang)}
+      {statusBadge(p.status, t)}
     </div>
     <p className="mt-2 flex-1 text-sm leading-relaxed text-ink/60">{t(p.tagline)}</p>
 
@@ -455,7 +481,9 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
   const [lang, setLang] = useState<Lang>(detectInitialLang);
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const t = (txt: LocalizedText) => txt[lang];
+  const s2t = useS2T(lang === 'zhHant');
+  const t = (txt: LocalizedText) =>
+    lang === 'en' ? txt.en : lang === 'zhHant' ? (s2t ? s2t(txt.zh) : txt.zh) : txt.zh;
   const progressRef = useRef<HTMLDivElement>(null);
   const [videos, setVideos] = useState<VideoItem[]>(VIDEOS);
 
@@ -477,7 +505,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
   }, []);
 
   useEffect(() => {
-    document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+    document.documentElement.lang = lang === 'zh' ? 'zh-CN' : lang === 'zhHant' ? 'zh-Hant' : 'en';
     window.localStorage.setItem(STORAGE_KEY, lang);
   }, [lang]);
 
@@ -543,13 +571,20 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
           </div>
 
           <div className="flex items-center gap-2">
-            <button
-              onClick={() => setLang(lang === 'en' ? 'zh' : 'en')}
-              className="rounded-full border border-ink/15 bg-ink/5 px-3 py-1.5 font-mono text-xs text-ink/80 transition-colors hover:border-accent/50 hover:text-ink"
-              aria-label="Toggle language"
-            >
-              {lang === 'en' ? '中文' : 'EN'}
-            </button>
+            <div className="inline-flex items-center rounded-full border border-ink/15 bg-ink/5 p-0.5 font-mono text-xs" role="group" aria-label="Language">
+              {([['en', 'EN'], ['zh', '简'], ['zhHant', '繁']] as [Lang, string][]).map(([code, label]) => (
+                <button
+                  key={code}
+                  onClick={() => setLang(code)}
+                  aria-pressed={lang === code}
+                  className={`rounded-full px-2.5 py-1 transition-colors ${
+                    lang === code ? 'bg-accent text-paper' : 'text-ink/60 hover:text-ink'
+                  }`}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
             <button
               onClick={() => setMenuOpen((v) => !v)}
               className="grid h-9 w-9 place-items-center rounded-full border border-ink/15 bg-ink/5 text-ink/80 md:hidden"

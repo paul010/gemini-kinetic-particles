@@ -1,4 +1,6 @@
-export type Lang = 'en' | 'zh';
+// 'zhHant' (繁體) is derived at runtime from the 'zh' (简体) strings via OpenCC,
+// so LocalizedText only stores en + zh.
+export type Lang = 'en' | 'zh' | 'zhHant';
 
 export interface LocalizedText {
   en: string;
