@@ -29,6 +29,7 @@ export const SOCIALS = {
   youtube: 'https://www.youtube.com/@dalei2025',
   twitter: 'https://x.com/paul010318',
   email: 'mailto:panlei318@gmail.com',
+  membership: 'https://www.youtube.com/channel/UCk9tu0mFtXj_rOEfIncxuJQ/join',
 };
 
 /** Shared image assets, served from the dalei-youtube repo via jsDelivr CDN. */
@@ -236,6 +237,15 @@ export const COPY = {
       zh: '每周更新的 AI 自动化实战、工具与 AI 资讯 ——「大雷早上好」。',
     },
     all: { en: 'View all on YouTube', zh: '在 YouTube 查看全部' },
+  },
+  membership: {
+    label: { en: 'Membership', zh: '频道会员' },
+    heading: { en: 'Join the channel membership', zh: '加入频道会员' },
+    sub: {
+      en: 'Support the work and unlock member-only perks — and help keep it all open source.',
+      zh: '支持创作、解锁会员专属福利，也让这一切持续开源。',
+    },
+    cta: { en: 'Become a member', zh: '成为会员' },
   },
   about: {
     label: { en: 'About', zh: '关于' },
