@@ -363,6 +363,7 @@ const Arsenal: React.FC<ArsenalProps> = ({ onHome }) => {
   const [tab, setTab] = useState<Tab>('radar');
   const [q, setQ] = useState('');
   const [cat, setCat] = useState('all');
+  const [status, setStatus] = useState('all');
   const [maxDiff, setMaxDiff] = useState(5);
   const [openId, setOpenId] = useState<string | null>(null);
 
@@ -370,6 +371,7 @@ const Arsenal: React.FC<ArsenalProps> = ({ onHome }) => {
     const query = q.trim().toLowerCase();
     return PROJECTS.filter((p) => {
       if (cat !== 'all' && !p.category.includes(cat)) return false;
+      if (status !== 'all' && p.status !== status) return false;
       if (p.difficulty > maxDiff) return false;
       if (query) {
         const hay = `${p.title} ${p.summary} ${p.tags.join(' ')}`.toLowerCase();
@@ -377,7 +379,7 @@ const Arsenal: React.FC<ArsenalProps> = ({ onHome }) => {
       }
       return true;
     });
-  }, [q, cat, maxDiff]);
+  }, [q, cat, status, maxDiff]);
 
   const openProject = openId ? PROJECTS.find((p) => p.id === openId) ?? null : null;
 
@@ -448,6 +450,22 @@ const Arsenal: React.FC<ArsenalProps> = ({ onHome }) => {
                   难度 ≤ {maxDiff}
                   <input type="range" min={1} max={5} value={maxDiff} onChange={(e) => setMaxDiff(Number(e.target.value))} className="accent-[#8a682c]" />
                 </span>
+              </div>
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="font-mono text-[11px] uppercase tracking-wider text-ink/40">复现状态</span>
+                {([['all', '全部'], ...(Object.entries(STATUS_LABEL) as [Project['status'], string][])] as [string, string][]).map(
+                  ([key, label]) => (
+                    <button
+                      key={key}
+                      onClick={() => setStatus(key)}
+                      className={`rounded-full px-3 py-1 font-mono text-[11px] transition-colors ${
+                        status === key ? 'border border-gold/50 bg-gold/10 text-gold' : 'border border-ink/15 text-ink/55 hover:text-ink'
+                      }`}
+                    >
+                      {label}
+                    </button>
+                  )
+                )}
               </div>
             </div>
 
