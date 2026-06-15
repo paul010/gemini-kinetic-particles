@@ -342,6 +342,69 @@ const ProjectRow: React.FC<{
   );
 };
 
+/* ---------- Hero editorial figure (museum plate) ---------- */
+
+const HeroFigure: React.FC<{
+  project: Project;
+  t: (txt: LocalizedText) => string;
+  onOpen: () => void;
+}> = ({ project: p, t, onOpen }) => {
+  const plateRef = useRef<HTMLDivElement>(null);
+
+  const onMove = (e: React.MouseEvent) => {
+    if (prefersReduced()) return;
+    const el = plateRef.current;
+    if (!el) return;
+    const r = el.getBoundingClientRect();
+    const x = ((e.clientX - r.left) / r.width - 0.5) * 16;
+    const y = ((e.clientY - r.top) / r.height - 0.5) * 16;
+    el.style.transform = `translate(${x}px, ${y}px)`;
+  };
+  const reset = () => {
+    if (plateRef.current) plateRef.current.style.transform = '';
+  };
+
+  return (
+    <figure className="hero-figure mx-auto w-full max-w-sm lg:ml-auto lg:max-w-none">
+      <div
+        ref={plateRef}
+        onMouseMove={onMove}
+        onMouseLeave={reset}
+        onClick={onOpen}
+        onKeyDown={(e) => (e.key === 'Enter' ? onOpen() : undefined)}
+        role="button"
+        tabIndex={0}
+        aria-label={p.title}
+        className="plate group relative aspect-[4/5] cursor-pointer transition-transform duration-300 ease-out"
+      >
+        {p.cover && <img src={p.cover} alt={p.title} className="ken-burns" />}
+
+        {/* corner registration ticks */}
+        <span className="pointer-events-none absolute left-3 top-3 h-4 w-4 border-l border-t border-paper/70" />
+        <span className="pointer-events-none absolute right-3 top-3 h-4 w-4 border-r border-t border-paper/70" />
+        <span className="pointer-events-none absolute bottom-3 left-3 h-4 w-4 border-b border-l border-paper/70" />
+        <span className="pointer-events-none absolute bottom-3 right-3 h-4 w-4 border-b border-r border-paper/70" />
+
+        <span className="pointer-events-none absolute left-5 top-5 font-mono text-[10px] uppercase tracking-[0.22em] text-paper/85">
+          Fig. 01 — Live
+        </span>
+
+        <span className="absolute bottom-5 left-1/2 inline-flex -translate-x-1/2 items-center gap-2 rounded-full border border-paper/30 bg-black/50 px-4 py-2 text-xs font-semibold text-paper opacity-0 backdrop-blur-md transition-all duration-300 group-hover:opacity-100">
+          {t(COPY.hero.ctaLaunch)}
+          <ArrowIcon className="h-3.5 w-3.5" />
+        </span>
+      </div>
+
+      <figcaption className="mt-3 flex items-baseline justify-between gap-3">
+        <span className="font-display text-lg italic text-ink/80">{p.title}</span>
+        <span className="font-mono text-[11px] uppercase tracking-[0.15em] text-ink/45">
+          {p.year} · {p.tags[0]}
+        </span>
+      </figcaption>
+    </figure>
+  );
+};
+
 /* ---------- Main ---------- */
 
 const Home: React.FC<HomeProps> = ({ onNavigate }) => {
@@ -455,58 +518,66 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
 
       <main className="mx-auto max-w-5xl px-5 sm:px-8">
         {/* Hero */}
-        <section id="home" className="flex min-h-[92vh] flex-col justify-center pt-28 pb-20">
-          <p className="hero-in mb-7 inline-flex w-fit items-center gap-2 rounded-full border border-ink/12 bg-ink/5 px-3.5 py-1.5 font-mono text-xs uppercase tracking-[0.18em] text-ink/65" style={{ animationDelay: '0.05s' }}>
-            <span className="pulse-dot h-1.5 w-1.5 rounded-full bg-accent" />
-            {t(COPY.hero.eyebrow)}
-          </p>
+        <section id="home" className="grid min-h-[92vh] items-center gap-12 pt-28 pb-20 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14">
+          <div className="flex flex-col">
+            <p className="hero-in mb-7 inline-flex w-fit items-center gap-2 rounded-full border border-ink/12 bg-ink/5 px-3.5 py-1.5 font-mono text-xs uppercase tracking-[0.18em] text-ink/65" style={{ animationDelay: '0.05s' }}>
+              <span className="pulse-dot h-1.5 w-1.5 rounded-full bg-accent" />
+              {t(COPY.hero.eyebrow)}
+            </p>
 
-          <p className="hero-in font-mono text-sm text-accent/80" style={{ animationDelay: '0.15s' }}>{t(COPY.hero.greeting)} 大雷 👋</p>
+            <p className="hero-in font-mono text-sm text-accent/80" style={{ animationDelay: '0.15s' }}>{t(COPY.hero.greeting)} 大雷 👋</p>
 
-          <h1 className="hero-in mt-3 max-w-4xl font-display text-[3rem] font-semibold leading-[1.02] tracking-[-0.01em] sm:text-7xl lg:text-[5.25rem]" style={{ animationDelay: '0.25s' }}>
-            <span className="block">{t(COPY.hero.titleLine1)}</span>
-            <span className="block italic text-gradient">{t(COPY.hero.titleLine2)}</span>
-          </h1>
+            <h1 className="hero-in mt-3 font-display text-[2.9rem] font-semibold leading-[1.02] tracking-[-0.01em] sm:text-6xl lg:text-[4.4rem]" style={{ animationDelay: '0.25s' }}>
+              <span className="block">{t(COPY.hero.titleLine1)}</span>
+              <span className="block italic text-gradient">{t(COPY.hero.titleLine2)}</span>
+            </h1>
 
-          <div className="hero-in mt-8 max-w-2xl text-base leading-relaxed text-ink/70 sm:text-lg" style={{ animationDelay: '0.4s' }}>
-            <Typewriter key={lang} text={t(COPY.hero.intro)} />
+            <div className="hero-in mt-7 max-w-xl text-base leading-relaxed text-ink/70 sm:text-lg" style={{ animationDelay: '0.4s' }}>
+              <Typewriter key={lang} text={t(COPY.hero.intro)} />
+            </div>
+
+            <div className="hero-in mt-9 flex flex-wrap items-center gap-3" style={{ animationDelay: '0.55s' }}>
+              <Magnetic strength={0.4}>
+                <button
+                  onClick={() => onNavigate('/particles')}
+                  className="btn-sheen group inline-flex items-center gap-2 rounded-full bg-accent px-5 py-3 text-sm font-semibold text-paper transition-transform hover:scale-[1.03]"
+                >
+                  {t(COPY.hero.ctaLaunch)}
+                  <ArrowIcon className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                </button>
+              </Magnetic>
+              <Magnetic strength={0.4}>
+                <button
+                  onClick={() => goTo('work')}
+                  className="inline-flex items-center gap-2 rounded-full border border-ink/15 bg-ink/5 px-5 py-3 text-sm font-semibold text-ink/85 transition-colors hover:border-ink/30 hover:text-ink"
+                >
+                  {t(COPY.hero.ctaWork)}
+                </button>
+              </Magnetic>
+            </div>
+
+            <div className="hero-in mt-12 flex flex-wrap items-center gap-5 text-ink/55" style={{ animationDelay: '0.7s' }}>
+              <a href={SOCIALS.github} target="_blank" rel="noreferrer" className="transition-colors hover:text-ink" aria-label="GitHub">
+                <GitHubIcon className="h-5 w-5" />
+              </a>
+              <a href={SOCIALS.youtube} target="_blank" rel="noreferrer" className="transition-colors hover:text-ink" aria-label="YouTube">
+                <YouTubeIcon className="h-5 w-5" />
+              </a>
+              <a href={SOCIALS.twitter} target="_blank" rel="noreferrer" className="transition-colors hover:text-ink" aria-label="X">
+                <XIcon className="h-[18px] w-[18px]" />
+              </a>
+              <a href={SOCIALS.email} className="transition-colors hover:text-accent" aria-label="Email">
+                <MailIcon className="h-5 w-5" />
+              </a>
+              <span className="font-mono text-xs tracking-wide text-ink/35">@dalei2025 · @paul010318</span>
+            </div>
           </div>
 
-          <div className="hero-in mt-9 flex flex-wrap items-center gap-3" style={{ animationDelay: '0.55s' }}>
-            <Magnetic strength={0.4}>
-              <button
-                onClick={() => onNavigate('/particles')}
-                className="btn-sheen group inline-flex items-center gap-2 rounded-full bg-accent px-5 py-3 text-sm font-semibold text-paper transition-transform hover:scale-[1.03]"
-              >
-                {t(COPY.hero.ctaLaunch)}
-                <ArrowIcon className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-              </button>
-            </Magnetic>
-            <Magnetic strength={0.4}>
-              <button
-                onClick={() => goTo('work')}
-                className="inline-flex items-center gap-2 rounded-full border border-ink/15 bg-ink/5 px-5 py-3 text-sm font-semibold text-ink/85 transition-colors hover:border-ink/30 hover:text-ink"
-              >
-                {t(COPY.hero.ctaWork)}
-              </button>
-            </Magnetic>
-          </div>
-
-          <div className="hero-in mt-14 flex flex-wrap items-center gap-5 text-ink/55" style={{ animationDelay: '0.7s' }}>
-            <a href={SOCIALS.github} target="_blank" rel="noreferrer" className="transition-colors hover:text-ink" aria-label="GitHub">
-              <GitHubIcon className="h-5 w-5" />
-            </a>
-            <a href={SOCIALS.youtube} target="_blank" rel="noreferrer" className="transition-colors hover:text-ink" aria-label="YouTube">
-              <YouTubeIcon className="h-5 w-5" />
-            </a>
-            <a href={SOCIALS.twitter} target="_blank" rel="noreferrer" className="transition-colors hover:text-ink" aria-label="X">
-              <XIcon className="h-[18px] w-[18px]" />
-            </a>
-            <a href={SOCIALS.email} className="transition-colors hover:text-accent" aria-label="Email">
-              <MailIcon className="h-5 w-5" />
-            </a>
-            <span className="font-mono text-xs tracking-wide text-ink/35">@dalei2025 · @paul010318</span>
-          </div>
+          {featured[0] && (
+            <div className="hero-in" style={{ animationDelay: '0.5s' }}>
+              <HeroFigure project={featured[0]} t={t} onOpen={() => onNavigate('/particles')} />
+            </div>
+          )}
         </section>
 
         {/* Work */}
