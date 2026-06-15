@@ -160,6 +160,48 @@ const useTilt = (max = 6) => {
   return { ref, onMouseMove: onMove, onMouseLeave: reset };
 };
 
+/* ---------- Typewriter ---------- */
+
+const Typewriter: React.FC<{ text: string; className?: string; speed?: number }> = ({
+  text,
+  className,
+  speed = 24,
+}) => {
+  const chars = React.useMemo(() => Array.from(text), [text]);
+  const [count, setCount] = useState(() => (prefersReduced() ? chars.length : 0));
+
+  useEffect(() => {
+    if (prefersReduced()) {
+      setCount(chars.length);
+      return;
+    }
+    setCount(0);
+    let i = 0;
+    const id = window.setInterval(() => {
+      i += 1;
+      setCount(i);
+      if (i >= chars.length) window.clearInterval(id);
+    }, speed);
+    return () => window.clearInterval(id);
+  }, [chars, speed]);
+
+  const done = count >= chars.length;
+
+  // An invisible full-text copy reserves the final height so nothing reflows
+  // while typing; the visible text is layered on top.
+  return (
+    <span className={`relative block ${className ?? ''}`} aria-label={text}>
+      <span className="invisible" aria-hidden="true">
+        {text}
+      </span>
+      <span className="absolute inset-0" aria-hidden="true">
+        {chars.slice(0, count).join('')}
+        <span className={`type-cursor ${done ? 'type-cursor--done' : ''}`}>▌</span>
+      </span>
+    </span>
+  );
+};
+
 /* ---------- Small pieces ---------- */
 
 const statusBadge = (status: Project['status'], lang: Lang) => {
@@ -178,7 +220,7 @@ const statusBadge = (status: Project['status'], lang: Lang) => {
 };
 
 const projectLinkColor = (kind: string) =>
-  kind === 'internal' || kind === 'live' ? 'text-accent' : 'text-white/75';
+  kind === 'internal' || kind === 'live' ? 'text-accent' : 'text-ink/75';
 
 /* ---------- Featured project (large split card) ---------- */
 
@@ -194,7 +236,7 @@ const FeaturedCard: React.FC<{
     ref={tilt.ref}
     onMouseMove={tilt.onMouseMove}
     onMouseLeave={tilt.onMouseLeave}
-    className="project-card tilt reveal flex flex-col overflow-hidden rounded-3xl border border-white/10 bg-surface/60 backdrop-blur-sm lg:flex-row"
+    className="project-card tilt reveal flex flex-col overflow-hidden rounded-3xl border border-ink/10 bg-surface/60 backdrop-blur-sm lg:flex-row"
   >
     {p.cover && (
       <button
@@ -206,10 +248,10 @@ const FeaturedCard: React.FC<{
           src={p.cover}
           alt={p.title}
           loading="lazy"
-          className="h-64 w-full object-cover opacity-90 transition-transform duration-700 group-hover:scale-[1.04] sm:h-80 lg:h-full"
+          className="h-64 w-full object-cover opacity-90 grayscale transition-all duration-700 group-hover:scale-[1.04] group-hover:grayscale-0 sm:h-80 lg:h-full"
         />
         <span className="pointer-events-none absolute inset-0 bg-gradient-to-t from-surface/85 via-transparent to-transparent lg:bg-gradient-to-r" />
-        <span className="absolute bottom-4 left-4 inline-flex items-center gap-2 rounded-full border border-white/20 bg-black/40 px-3.5 py-1.5 text-xs font-semibold text-white/90 backdrop-blur-md transition-colors group-hover:border-accent/60 group-hover:text-white">
+        <span className="absolute bottom-4 left-4 inline-flex items-center gap-2 rounded-full border border-paper/25 bg-black/45 px-3.5 py-1.5 text-xs font-semibold text-paper/90 backdrop-blur-md transition-colors group-hover:border-paper/60 group-hover:text-paper">
           {t(COPY.hero.ctaLaunch)}
           <ArrowIcon className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
         </span>
@@ -219,16 +261,16 @@ const FeaturedCard: React.FC<{
     <div className="flex flex-1 flex-col justify-center p-7 sm:p-9 lg:p-10">
       <div className="mb-5 flex items-center justify-between gap-3">
         {statusBadge(p.status, lang)}
-        <span className="font-mono text-xs text-white/40">{p.year}</span>
+        <span className="font-mono text-xs text-ink/40">{p.year}</span>
       </div>
 
       <h3 className="font-display text-3xl font-semibold tracking-tight sm:text-4xl">{p.title}</h3>
       <p className="mt-3 text-sm font-medium text-accent/90">{t(p.tagline)}</p>
-      <p className="mt-5 max-w-xl text-sm leading-relaxed text-white/60">{t(p.description)}</p>
+      <p className="mt-5 max-w-xl text-sm leading-relaxed text-ink/60">{t(p.description)}</p>
 
       <div className="mt-6 flex flex-wrap gap-2">
         {p.tags.map((tag) => (
-          <span key={tag} className="rounded-md border border-white/10 bg-white/5 px-2.5 py-1 font-mono text-[11px] text-white/55">
+          <span key={tag} className="rounded-md border border-ink/10 bg-ink/5 px-2.5 py-1 font-mono text-[11px] text-ink/55">
             {tag}
           </span>
         ))}
@@ -284,16 +326,16 @@ const ProjectRow: React.FC<{
       role="link"
       tabIndex={0}
       onKeyDown={(e) => (e.key === 'Enter' ? handle(e as unknown as React.MouseEvent) : undefined)}
-      className="work-row reveal group grid cursor-pointer grid-cols-[auto_1fr_auto] items-center gap-4 rounded-2xl border border-white/8 px-5 py-6 hover:bg-white/[0.03] sm:gap-6 sm:px-7"
+      className="work-row reveal group grid cursor-pointer grid-cols-[auto_1fr_auto] items-center gap-4 rounded-2xl border border-ink/8 px-5 py-6 hover:bg-ink/[0.03] sm:gap-6 sm:px-7"
     >
       <span className="font-mono text-xs text-accent/60">0{index}</span>
       <div className="min-w-0">
         <div className="flex flex-wrap items-center gap-3">
           <h3 className="work-title font-display text-xl font-semibold tracking-tight sm:text-2xl">{p.title}</h3>
           {statusBadge(p.status, lang)}
-          <span className="font-mono text-xs text-white/35">{p.year}</span>
+          <span className="font-mono text-xs text-ink/35">{p.year}</span>
         </div>
-        <p className="mt-1.5 truncate text-sm text-white/55">{t(p.tagline)}</p>
+        <p className="mt-1.5 truncate text-sm text-ink/55">{t(p.tagline)}</p>
       </div>
       <ArrowUpRight className="work-arrow h-5 w-5 text-accent" />
     </div>
@@ -350,7 +392,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
       {/* Nav */}
       <header
         className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
-          scrolled ? 'border-b border-white/10 bg-ink/70 backdrop-blur-xl' : 'border-b border-transparent'
+          scrolled ? 'border-b border-ink/10 bg-paper/80 backdrop-blur-xl' : 'border-b border-transparent'
         }`}
       >
         <nav className="mx-auto flex max-w-5xl items-center justify-between px-5 py-4 sm:px-8">
@@ -358,7 +400,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
             onClick={() => goTo('home')}
             className="group flex items-center gap-2.5 font-display text-base font-semibold tracking-tight"
           >
-            <span className="grid h-7 w-7 place-items-center rounded-md border border-white/15 bg-white/5 font-mono text-xs text-accent transition-colors group-hover:border-accent/50">
+            <span className="grid h-7 w-7 place-items-center rounded-md border border-ink/15 bg-ink/5 font-mono text-xs text-accent transition-colors group-hover:border-accent/50">
               大
             </span>
             <span>Da&nbsp;Lei</span>
@@ -369,7 +411,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
               <button
                 key={item.id}
                 onClick={() => goTo(item.id)}
-                className="link-underline text-sm text-white/70 transition-colors hover:text-white"
+                className="link-underline text-sm text-ink/70 transition-colors hover:text-ink"
               >
                 <span className="mr-1.5 font-mono text-[11px] text-accent/70">0{i + 1}</span>
                 {t(item.label)}
@@ -380,14 +422,14 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
           <div className="flex items-center gap-2">
             <button
               onClick={() => setLang(lang === 'en' ? 'zh' : 'en')}
-              className="rounded-full border border-white/15 bg-white/5 px-3 py-1.5 font-mono text-xs text-white/80 transition-colors hover:border-accent/50 hover:text-white"
+              className="rounded-full border border-ink/15 bg-ink/5 px-3 py-1.5 font-mono text-xs text-ink/80 transition-colors hover:border-accent/50 hover:text-ink"
               aria-label="Toggle language"
             >
               {lang === 'en' ? '中文' : 'EN'}
             </button>
             <button
               onClick={() => setMenuOpen((v) => !v)}
-              className="grid h-9 w-9 place-items-center rounded-full border border-white/15 bg-white/5 text-white/80 md:hidden"
+              className="grid h-9 w-9 place-items-center rounded-full border border-ink/15 bg-ink/5 text-ink/80 md:hidden"
               aria-label="Menu"
             >
               <span className="text-lg leading-none">{menuOpen ? '×' : '≡'}</span>
@@ -396,12 +438,12 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
         </nav>
 
         {menuOpen && (
-          <div className="border-t border-white/10 bg-ink/95 px-5 py-4 backdrop-blur-xl md:hidden">
+          <div className="border-t border-ink/10 bg-paper/95 px-5 py-4 backdrop-blur-xl md:hidden">
             {navItems.map((item, i) => (
               <button
                 key={item.id}
                 onClick={() => goTo(item.id)}
-                className="flex w-full items-center gap-3 py-2.5 text-left text-white/80"
+                className="flex w-full items-center gap-3 py-2.5 text-left text-ink/80"
               >
                 <span className="font-mono text-xs text-accent/70">0{i + 1}</span>
                 {t(item.label)}
@@ -414,27 +456,27 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
       <main className="mx-auto max-w-5xl px-5 sm:px-8">
         {/* Hero */}
         <section id="home" className="flex min-h-[92vh] flex-col justify-center pt-28 pb-20">
-          <p className="hero-in mb-7 inline-flex w-fit items-center gap-2 rounded-full border border-white/12 bg-white/5 px-3.5 py-1.5 font-mono text-xs uppercase tracking-[0.18em] text-white/65" style={{ animationDelay: '0.05s' }}>
+          <p className="hero-in mb-7 inline-flex w-fit items-center gap-2 rounded-full border border-ink/12 bg-ink/5 px-3.5 py-1.5 font-mono text-xs uppercase tracking-[0.18em] text-ink/65" style={{ animationDelay: '0.05s' }}>
             <span className="pulse-dot h-1.5 w-1.5 rounded-full bg-accent" />
             {t(COPY.hero.eyebrow)}
           </p>
 
           <p className="hero-in font-mono text-sm text-accent/80" style={{ animationDelay: '0.15s' }}>{t(COPY.hero.greeting)} 大雷 👋</p>
 
-          <h1 className="hero-in mt-4 max-w-4xl font-display text-[2.6rem] font-bold leading-[1.04] tracking-tight sm:text-6xl lg:text-[4.5rem]" style={{ animationDelay: '0.25s' }}>
+          <h1 className="hero-in mt-3 max-w-4xl font-display text-[3rem] font-semibold leading-[1.02] tracking-[-0.01em] sm:text-7xl lg:text-[5.25rem]" style={{ animationDelay: '0.25s' }}>
             <span className="block">{t(COPY.hero.titleLine1)}</span>
-            <span className="block text-gradient">{t(COPY.hero.titleLine2)}</span>
+            <span className="block italic text-gradient">{t(COPY.hero.titleLine2)}</span>
           </h1>
 
-          <p className="hero-in mt-8 max-w-2xl text-base leading-relaxed text-white/65 sm:text-lg" style={{ animationDelay: '0.4s' }}>
-            {t(COPY.hero.intro)}
-          </p>
+          <div className="hero-in mt-8 max-w-2xl text-base leading-relaxed text-ink/70 sm:text-lg" style={{ animationDelay: '0.4s' }}>
+            <Typewriter key={lang} text={t(COPY.hero.intro)} />
+          </div>
 
           <div className="hero-in mt-9 flex flex-wrap items-center gap-3" style={{ animationDelay: '0.55s' }}>
             <Magnetic strength={0.4}>
               <button
                 onClick={() => onNavigate('/particles')}
-                className="btn-sheen group inline-flex items-center gap-2 rounded-full bg-accent px-5 py-3 text-sm font-semibold text-ink transition-transform hover:scale-[1.03]"
+                className="btn-sheen group inline-flex items-center gap-2 rounded-full bg-accent px-5 py-3 text-sm font-semibold text-paper transition-transform hover:scale-[1.03]"
               >
                 {t(COPY.hero.ctaLaunch)}
                 <ArrowIcon className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
@@ -443,27 +485,27 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
             <Magnetic strength={0.4}>
               <button
                 onClick={() => goTo('work')}
-                className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-5 py-3 text-sm font-semibold text-white/85 transition-colors hover:border-white/30 hover:text-white"
+                className="inline-flex items-center gap-2 rounded-full border border-ink/15 bg-ink/5 px-5 py-3 text-sm font-semibold text-ink/85 transition-colors hover:border-ink/30 hover:text-ink"
               >
                 {t(COPY.hero.ctaWork)}
               </button>
             </Magnetic>
           </div>
 
-          <div className="hero-in mt-14 flex flex-wrap items-center gap-5 text-white/55" style={{ animationDelay: '0.7s' }}>
-            <a href={SOCIALS.github} target="_blank" rel="noreferrer" className="transition-colors hover:text-white" aria-label="GitHub">
+          <div className="hero-in mt-14 flex flex-wrap items-center gap-5 text-ink/55" style={{ animationDelay: '0.7s' }}>
+            <a href={SOCIALS.github} target="_blank" rel="noreferrer" className="transition-colors hover:text-ink" aria-label="GitHub">
               <GitHubIcon className="h-5 w-5" />
             </a>
-            <a href={SOCIALS.youtube} target="_blank" rel="noreferrer" className="transition-colors hover:text-[#ff0000]" aria-label="YouTube">
+            <a href={SOCIALS.youtube} target="_blank" rel="noreferrer" className="transition-colors hover:text-ink" aria-label="YouTube">
               <YouTubeIcon className="h-5 w-5" />
             </a>
-            <a href={SOCIALS.twitter} target="_blank" rel="noreferrer" className="transition-colors hover:text-white" aria-label="X">
+            <a href={SOCIALS.twitter} target="_blank" rel="noreferrer" className="transition-colors hover:text-ink" aria-label="X">
               <XIcon className="h-[18px] w-[18px]" />
             </a>
             <a href={SOCIALS.email} className="transition-colors hover:text-accent" aria-label="Email">
               <MailIcon className="h-5 w-5" />
             </a>
-            <span className="font-mono text-xs tracking-wide text-white/35">@dalei2025 · @paul010318</span>
+            <span className="font-mono text-xs tracking-wide text-ink/35">@dalei2025 · @paul010318</span>
           </div>
         </section>
 
@@ -474,7 +516,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
               <p className="font-mono text-xs uppercase tracking-[0.2em] text-accent/80">{t(COPY.work.label)}</p>
               <h2 className="mt-3 font-display text-3xl font-bold tracking-tight sm:text-4xl">{t(COPY.work.heading)}</h2>
             </div>
-            <p className="max-w-sm text-sm text-white/55 sm:text-right">{t(COPY.work.sub)}</p>
+            <p className="max-w-sm text-sm text-ink/55 sm:text-right">{t(COPY.work.sub)}</p>
           </div>
 
           <div className="flex flex-col gap-6">
@@ -500,20 +542,20 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
               <h2 className="mt-3 font-display text-3xl font-bold leading-tight tracking-tight sm:text-4xl">
                 {t(COPY.about.heading)}
               </h2>
-              <p className="mt-6 text-base leading-relaxed text-white/65">{t(COPY.about.body)}</p>
+              <p className="mt-6 text-base leading-relaxed text-ink/65">{t(COPY.about.body)}</p>
             </div>
 
             <div className="grid gap-4 self-center">
               {COPY.about.pillars.map((pillar, i) => (
                 <div
                   key={i}
-                  className="reveal flex items-start gap-4 rounded-xl border border-white/10 bg-surface/50 p-5 backdrop-blur-sm transition-all hover:-translate-y-0.5 hover:border-accent/30"
+                  className="reveal flex items-start gap-4 rounded-xl border border-ink/10 bg-surface/50 p-5 backdrop-blur-sm transition-all hover:-translate-y-0.5 hover:border-accent/30"
                   style={{ transitionDelay: `${i * 90}ms` }}
                 >
                   <span className="mt-0.5 font-mono text-sm text-accent/70">0{i + 1}</span>
                   <div>
                     <h3 className="font-display text-lg font-semibold">{t(pillar.title)}</h3>
-                    <p className="mt-1 text-sm leading-relaxed text-white/55">{t(pillar.text)}</p>
+                    <p className="mt-1 text-sm leading-relaxed text-ink/55">{t(pillar.text)}</p>
                   </div>
                 </div>
               ))}
@@ -523,7 +565,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
 
         {/* Connect */}
         <section id="connect" className="scroll-mt-24 py-20">
-          <div className="reveal relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-surface/80 to-ink/40 p-8 backdrop-blur-sm sm:p-14">
+          <div className="reveal relative overflow-hidden rounded-3xl border border-ink/10 bg-gradient-to-br from-surface/90 to-surface/40 p-8 backdrop-blur-sm sm:p-14">
             <div className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-accent/10 blur-3xl" />
             <div className="pointer-events-none absolute -bottom-20 -left-10 h-56 w-56 rounded-full bg-accent2/10 blur-3xl" />
 
@@ -531,7 +573,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
             <h2 className="mt-3 max-w-xl font-display text-3xl font-bold tracking-tight sm:text-5xl">
               {t(COPY.connect.heading)}
             </h2>
-            <p className="mt-5 max-w-md text-sm leading-relaxed text-white/60 sm:text-base">{t(COPY.connect.sub)}</p>
+            <p className="mt-5 max-w-md text-sm leading-relaxed text-ink/60 sm:text-base">{t(COPY.connect.sub)}</p>
 
             <div className="mt-9 grid gap-3 sm:grid-cols-2">
               {[
@@ -545,17 +587,17 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
                   href={s.href}
                   target={s.external ? '_blank' : undefined}
                   rel={s.external ? 'noreferrer' : undefined}
-                  className="reveal group flex items-center gap-3 rounded-xl border border-white/10 bg-white/5 p-4 transition-all hover:-translate-y-0.5 hover:border-accent/40 hover:bg-white/[0.08]"
+                  className="reveal group flex items-center gap-3 rounded-xl border border-ink/10 bg-ink/5 p-4 transition-all hover:-translate-y-0.5 hover:border-accent/40 hover:bg-ink/[0.08]"
                   style={{ transitionDelay: `${i * 80}ms` }}
                 >
-                  <span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-white/5 text-white/80 transition-colors group-hover:text-accent">
+                  <span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-ink/5 text-ink/80 transition-colors group-hover:text-accent">
                     {s.icon}
                   </span>
                   <span className="flex min-w-0 flex-col">
                     <span className="text-sm font-semibold">{s.label}</span>
-                    <span className="truncate font-mono text-xs text-white/45">{s.handle}</span>
+                    <span className="truncate font-mono text-xs text-ink/45">{s.handle}</span>
                   </span>
-                  <ArrowUpRight className="ml-auto h-4 w-4 shrink-0 text-white/30 transition-all group-hover:translate-x-0.5 group-hover:text-accent" />
+                  <ArrowUpRight className="ml-auto h-4 w-4 shrink-0 text-ink/30 transition-all group-hover:translate-x-0.5 group-hover:text-accent" />
                 </a>
               ))}
             </div>
@@ -564,13 +606,13 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-white/10">
+      <footer className="border-t border-ink/10">
         <div className="mx-auto flex max-w-5xl flex-col items-center justify-between gap-4 px-5 py-8 sm:flex-row sm:px-8">
           <div className="flex items-center gap-2.5 font-display text-sm font-semibold">
-            <span className="grid h-6 w-6 place-items-center rounded border border-white/15 bg-white/5 font-mono text-[10px] text-accent">大</span>
+            <span className="grid h-6 w-6 place-items-center rounded border border-ink/15 bg-ink/5 font-mono text-[10px] text-accent">大</span>
             Da Lei · 大雷
           </div>
-          <p className="font-mono text-xs text-white/40">
+          <p className="font-mono text-xs text-ink/40">
             © {new Date().getFullYear()} · {t(COPY.footer.tagline)}
           </p>
         </div>
