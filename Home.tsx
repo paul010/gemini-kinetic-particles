@@ -7,8 +7,10 @@ import {
   ASSETS,
   CHANNEL,
   VIDEOS,
+  fetchLatestVideos,
   youtubeWatch,
   youtubeThumb,
+  VideoItem,
   Lang,
   LocalizedText,
   Project,
@@ -446,9 +448,24 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
   const [scrolled, setScrolled] = useState(false);
   const t = (txt: LocalizedText) => txt[lang];
   const progressRef = useRef<HTMLDivElement>(null);
+  const [videos, setVideos] = useState<VideoItem[]>(VIDEOS);
 
   useReveal();
   useScrollProgress(progressRef);
+
+  // Keep the videos list fresh from the dalei-youtube README; fall back silently
+  // to the bundled list if the fetch/parse fails.
+  useEffect(() => {
+    let alive = true;
+    fetchLatestVideos(6)
+      .then((v) => {
+        if (alive) setVideos(v);
+      })
+      .catch(() => {});
+    return () => {
+      alive = false;
+    };
+  }, []);
 
   useEffect(() => {
     document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
@@ -657,7 +674,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
           </div>
 
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {VIDEOS.map((v, i) => (
+            {videos.map((v, i) => (
               <a
                 key={v.id}
                 href={youtubeWatch(v.id)}
