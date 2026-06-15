@@ -5,7 +5,7 @@ interface Props {
   onHome: () => void;
 }
 
-type Tab = 'wechat' | 'youtube';
+type Tab = 'wechat' | 'youtube' | 'thread' | 'toc' | 'plain';
 
 const SAMPLE = `# 用 AI 一句话生成排版
 
@@ -14,6 +14,8 @@ const SAMPLE = `# 用 AI 一句话生成排版
 ## 视频亮点
 
 正文支持 **加粗**、*斜体*、\`行内代码\` 与 [我的频道](https://www.youtube.com/@dalei2025)。
+
+### 三步走
 
 - 看到项目
 - 配好 Skill
@@ -33,28 +35,109 @@ console.log('Hello')
 
 marked.use({ breaks: true, gfm: true });
 
-/**
- * Markdown → YouTube-description-ready plain text. YT descriptions are plain
- * text (URLs auto-link; *bold* and _italic_ supported). Bold is parked on an
- * ASCII placeholder so the italic pass can't touch it, then restored.
- */
-function toYouTube(md: string): string {
+/** Strip Markdown to clean plain text. */
+function stripToPlain(md: string): string {
   let s = md;
-  s = s.replace(/!\[[^\]]*\]\([^)]*\)/g, ''); // images
-  s = s.replace(/```[^\n]*\n([\s\S]*?)```/g, '$1'); // fenced code -> inner
-  s = s.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '$1 ($2)'); // links -> text (url)
-  s = s.replace(/^\s{0,3}#{1,6}\s*(.+?)\s*$/gm, '$1'); // headings -> plain line
-  s = s.replace(/\*\*([^*]+)\*\*/g, '@@B@@$1@@B@@'); // **bold** -> placeholder
-  s = s.replace(/__([^_]+)__/g, '@@B@@$1@@B@@'); // __bold__ -> placeholder
-  s = s.replace(/(?<![*\w])\*([^*\n]+)\*(?!\*)/g, '_$1_'); // *italic* -> _italic_
-  s = s.replace(/@@B@@([\s\S]*?)@@B@@/g, '*$1*'); // restore -> YT *bold*
-  s = s.replace(/`([^`]+)`/g, '$1'); // inline code
-  s = s.replace(/^\s*>\s?/gm, ''); // blockquote
-  s = s.replace(/^\s*([-*_])\1{2,}\s*$/gm, '——————————'); // hr
-  s = s.replace(/^\s*[-*]\s+/gm, '• '); // bullets
-  s = s.replace(/\n{3,}/g, '\n\n'); // collapse blank lines
+  s = s.replace(/!\[[^\]]*\]\([^)]*\)/g, '');
+  s = s.replace(/```[^\n]*\n([\s\S]*?)```/g, '$1');
+  s = s.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '$1 ($2)');
+  s = s.replace(/^\s{0,3}#{1,6}\s*(.+?)\s*$/gm, '$1');
+  s = s.replace(/\*\*([^*]+)\*\*/g, '$1').replace(/__([^_]+)__/g, '$1');
+  s = s.replace(/(?<![*\w])\*([^*\n]+)\*(?!\*)/g, '$1').replace(/(?<![_\w])_([^_\n]+)_(?!_)/g, '$1');
+  s = s.replace(/`([^`]+)`/g, '$1');
+  s = s.replace(/^\s*>\s?/gm, '');
+  s = s.replace(/^\s*([-*_])\1{2,}\s*$/gm, '');
+  s = s.replace(/^\s*[-*]\s+/gm, '• ');
+  s = s.replace(/\n{3,}/g, '\n\n');
   return s.trim();
 }
+
+/** Markdown → YouTube-description-ready plain text. */
+function toYouTube(md: string): string {
+  let s = md;
+  s = s.replace(/!\[[^\]]*\]\([^)]*\)/g, '');
+  s = s.replace(/```[^\n]*\n([\s\S]*?)```/g, '$1');
+  s = s.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '$1 ($2)');
+  s = s.replace(/^\s{0,3}#{1,6}\s*(.+?)\s*$/gm, '$1');
+  s = s.replace(/\*\*([^*]+)\*\*/g, '@@B@@$1@@B@@');
+  s = s.replace(/__([^_]+)__/g, '@@B@@$1@@B@@');
+  s = s.replace(/(?<![*\w])\*([^*\n]+)\*(?!\*)/g, '_$1_');
+  s = s.replace(/@@B@@([\s\S]*?)@@B@@/g, '*$1*');
+  s = s.replace(/`([^`]+)`/g, '$1');
+  s = s.replace(/^\s*>\s?/gm, '');
+  s = s.replace(/^\s*([-*_])\1{2,}\s*$/gm, '——————————');
+  s = s.replace(/^\s*[-*]\s+/gm, '• ');
+  s = s.replace(/\n{3,}/g, '\n\n');
+  return s.trim();
+}
+
+const slugify = (t: string) =>
+  t.toLowerCase().trim().replace(/[^\w一-龥\s-]/g, '').replace(/\s+/g, '-');
+
+/** Markdown headings → a nested Markdown table of contents. */
+function toTOC(md: string): string {
+  const out: string[] = [];
+  let inFence = false;
+  for (const ln of md.split('\n')) {
+    if (/^```/.test(ln)) {
+      inFence = !inFence;
+      continue;
+    }
+    if (inFence) continue;
+    const m = /^(#{1,6})\s+(.+?)\s*$/.exec(ln);
+    if (m) {
+      const level = m[1].length;
+      const text = m[2].replace(/[*_`]/g, '');
+      out.push(`${'  '.repeat(Math.max(0, level - 1))}- [${text}](#${slugify(text)})`);
+    }
+  }
+  return out.join('\n') || '（没有检测到标题）';
+}
+
+/** Split text into ≤limit-char tweets, numbered (i/n). */
+function splitThread(md: string, limit = 270): { text: string; count: number } {
+  const text = stripToPlain(md);
+  const chunks: string[] = [];
+  let cur = '';
+  const push = () => {
+    if (cur.trim()) chunks.push(cur.trim());
+    cur = '';
+  };
+  for (const para of text.split(/\n{2,}/)) {
+    if (cur && (cur + '\n\n' + para).length <= limit) {
+      cur = cur + '\n\n' + para;
+    } else if (para.length <= limit) {
+      push();
+      cur = para;
+    } else {
+      push();
+      for (const sen of para.split(/(?<=[。！？.!?])\s*/)) {
+        if ((cur + sen).length <= limit) {
+          cur += sen;
+        } else {
+          push();
+          if (sen.length <= limit) {
+            cur = sen;
+          } else {
+            for (let i = 0; i < sen.length; i += limit) chunks.push(sen.slice(i, i + limit));
+          }
+        }
+      }
+    }
+  }
+  push();
+  const n = chunks.length || 1;
+  const text2 = chunks.map((c, i) => `${c}\n\n(${i + 1}/${n})`).join('\n\n———\n\n');
+  return { text: text2, count: chunks.length };
+}
+
+const TABS: [Tab, string][] = [
+  ['wechat', '公众号排版'],
+  ['youtube', 'YouTube 简介'],
+  ['thread', 'X 推文拆条'],
+  ['toc', '目录 TOC'],
+  ['plain', '纯文本'],
+];
 
 const MarkdownStudio: React.FC<Props> = ({ onHome }) => {
   const [tab, setTab] = useState<Tab>('wechat');
@@ -69,7 +152,12 @@ const MarkdownStudio: React.FC<Props> = ({ onHome }) => {
       return '<p>解析出错</p>';
     }
   }, [md]);
-  const ytText = useMemo(() => toYouTube(md), [md]);
+  const youtube = useMemo(() => toYouTube(md), [md]);
+  const plain = useMemo(() => stripToPlain(md), [md]);
+  const toc = useMemo(() => toTOC(md), [md]);
+  const thread = useMemo(() => splitThread(md), [md]);
+
+  const output = tab === 'youtube' ? youtube : tab === 'thread' ? thread.text : tab === 'toc' ? toc : plain;
 
   useEffect(() => {
     if (!msg) return;
@@ -131,20 +219,20 @@ const MarkdownStudio: React.FC<Props> = ({ onHome }) => {
               </button>
             </>
           ) : (
-            <button onClick={() => copyText(ytText, '已复制 YouTube 简介纯文本')} className="rounded-full bg-accent px-4 py-1.5 text-xs font-semibold text-paper transition-transform hover:scale-[1.03]">
-              复制简介纯文本
+            <button onClick={() => copyText(output, '已复制')} className="rounded-full bg-accent px-4 py-1.5 text-xs font-semibold text-paper transition-transform hover:scale-[1.03]">
+              复制
             </button>
           )}
         </div>
       </header>
 
       {/* Tabs */}
-      <div className="flex items-center gap-1 border-b border-ink/10 px-5 py-2 sm:px-8">
-        {([['wechat', '公众号排版'], ['youtube', 'YouTube 简介']] as [Tab, string][]).map(([k, label]) => (
+      <div className="flex items-center gap-1 overflow-x-auto border-b border-ink/10 px-5 py-2 sm:px-8">
+        {TABS.map(([k, label]) => (
           <button
             key={k}
             onClick={() => setTab(k)}
-            className={`rounded-full px-3.5 py-1 text-sm transition-colors ${
+            className={`shrink-0 rounded-full px-3.5 py-1 text-sm transition-colors ${
               tab === k ? 'bg-accent text-paper' : 'text-ink/60 hover:text-ink'
             }`}
           >
@@ -152,10 +240,11 @@ const MarkdownStudio: React.FC<Props> = ({ onHome }) => {
           </button>
         ))}
         {tab === 'youtube' && (
-          <span className={`ml-auto font-mono text-xs ${ytText.length > 5000 ? 'text-ember' : 'text-ink/45'}`}>
-            {ytText.length} / 5000
+          <span className={`ml-auto shrink-0 font-mono text-xs ${youtube.length > 5000 ? 'text-ember' : 'text-ink/45'}`}>
+            {youtube.length} / 5000
           </span>
         )}
+        {tab === 'thread' && <span className="ml-auto shrink-0 font-mono text-xs text-ink/45">{thread.count} 条推文</span>}
       </div>
 
       {/* Panes */}
@@ -173,7 +262,7 @@ const MarkdownStudio: React.FC<Props> = ({ onHome }) => {
           </div>
         ) : (
           <textarea
-            value={ytText}
+            value={output}
             readOnly
             spellCheck={false}
             className="h-full w-full resize-none bg-surface/30 p-5 font-mono text-sm leading-relaxed text-ink/80 outline-none sm:p-8"
