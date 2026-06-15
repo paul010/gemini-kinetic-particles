@@ -1,0 +1,25 @@
+{
+  "updatedAt": "2026-06-15",
+  "policy": "每次「每日任务」取第一个 status=pending 的条目推进，开一个 Draft PR，把该条目改为 in_review；PR 合并后改为 featured。一次只做一个项目。详见 arsenal/DAILY_PLAYBOOK.md。",
+  "statuses": ["pending", "in_review", "featured", "skipped"],
+  "queue": [
+    { "order": 1, "projectId": "wechat-md-editor", "status": "pending", "plan": "feature-on-home", "note": "门槛最低、即用，作为第一个对外展示的复现项目。" },
+    { "order": 2, "projectId": "screenshot-to-code", "status": "pending", "plan": "lightweight-repro", "note": "截图转代码，演示爆点高。" },
+    { "order": 3, "projectId": "vercel-ai-chatbot", "status": "pending", "plan": "deploy-and-brand", "note": "官方模板，一键部署成自己的 AI 助手。" },
+    { "order": 4, "projectId": "lobe-chat", "status": "pending", "plan": "deploy-and-brand", "note": "高颜值聊天框架。" },
+    { "order": 5, "projectId": "excalidraw-clone", "status": "pending", "plan": "lightweight-repro", "note": "嵌入式白板小工具。" },
+    { "order": 6, "projectId": "r3f-3d-demo", "status": "pending", "plan": "lightweight-repro", "note": "3D 视觉 Demo。" },
+    { "order": 7, "projectId": "browser-use-agent", "status": "pending", "plan": "demo-script", "note": "浏览器智能体实操。" },
+    { "order": 8, "projectId": "midscene-ai-qa", "status": "pending", "plan": "demo-script", "note": "自然语言浏览器自动化。" },
+    { "order": 9, "projectId": "open-webui", "status": "pending", "plan": "demo-script", "note": "完全本地的私人 AI。" },
+    { "order": 10, "projectId": "dub-links", "status": "pending", "plan": "deploy-and-brand", "note": "自建短链 + 现代全栈范本。" },
+    { "order": 11, "projectId": "pyvideotrans", "status": "pending", "plan": "demo-script", "note": "视频翻译配音。" },
+    { "order": 12, "projectId": "whisper-cpp", "status": "pending", "plan": "demo-script", "note": "本地语音转写。" },
+    { "order": 13, "projectId": "quivr-rag", "status": "pending", "plan": "demo-script", "note": "文档问答 RAG。" },
+    { "order": 14, "projectId": "n8n-content-automation", "status": "pending", "plan": "demo-script", "note": "内容发布自动化。" },
+    { "order": 15, "projectId": "cobalt-media", "status": "pending", "plan": "demo-script", "note": "素材下载（注意合规）。" },
+    { "order": 16, "projectId": "comfyui", "status": "pending", "plan": "demo-script", "note": "图像生成工作流（需 GPU）。" },
+    { "order": 17, "projectId": "dify-llmops", "status": "pending", "plan": "demo-script", "note": "LLM 应用平台（部署较重）。" },
+    { "order": 18, "projectId": "ai-town-npc-game", "status": "pending", "plan": "demo-script", "note": "AI 小镇 Agent（最重，放最后）。" }
+  ]
+}
