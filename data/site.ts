@@ -179,10 +179,10 @@ export const PROJECTS: Project[] = [
       zh: 'Markdown 一键转公众号排版 & YouTube 视频简介。',
     },
     description: {
-      en: 'A lightweight, in-browser Markdown toolbox: a live WeChat-article preview with one-click rich-text copy, plus a Markdown → YouTube-description converter (links, bold/italic, lists, timestamps, with a 5000-char counter). More converters get added over time.',
-      zh: '浏览器端的轻量 Markdown 工具箱：实时公众号样式预览 + 一键复制富文本；以及 Markdown → YouTube 视频简介转换器（链接、粗/斜体、列表、时间戳，带 5000 字计数）。后续持续累加更多转换。',
+      en: 'A lightweight, in-browser Markdown toolbox with five converters: WeChat-article preview (one-click rich-text copy), YouTube description, X/Twitter thread splitter (≤280 chars, numbered), table-of-contents generator, and plain-text strip. All client-side; more get added over time.',
+      zh: '浏览器端的轻量 Markdown 工具箱，五个转换器：公众号排版预览（一键复制富文本）、YouTube 视频简介、X 推文拆条（≤280 字、自动编号）、目录 TOC 生成、纯文本去格式。全部纯前端，持续累加更多。',
     },
-    tags: ['React', 'marked', 'WeChat', 'YouTube'],
+    tags: ['React', 'marked', 'WeChat', 'YouTube', 'X'],
     links: [
       { label: { en: 'Launch', zh: '立即体验' }, href: '/md', kind: 'internal' },
       { label: { en: 'Inspiration', zh: '灵感来源' }, href: 'https://github.com/doocs/md', kind: 'github' },
