@@ -319,46 +319,59 @@ const FeaturedCard: React.FC<{
   );
 };
 
-/* ---------- Non-featured project (editorial row) ---------- */
+/* ---------- Non-featured project (card in the grid) ---------- */
 
-const ProjectRow: React.FC<{
+const ProjectCard: React.FC<{
   project: Project;
   index: number;
   lang: Lang;
   t: (txt: LocalizedText) => string;
   onInternal: (href: string) => void;
-}> = ({ project: p, index, lang, t, onInternal }) => {
-  const primary = p.links[0];
-  const handle = (e: React.MouseEvent) => {
-    if (!primary) return;
-    if (primary.kind === 'internal') {
-      e.preventDefault();
-      onInternal(primary.href);
-    } else {
-      window.open(primary.href, '_blank', 'noopener');
-    }
-  };
-  return (
-    <div
-      onClick={handle}
-      role="link"
-      tabIndex={0}
-      onKeyDown={(e) => (e.key === 'Enter' ? handle(e as unknown as React.MouseEvent) : undefined)}
-      className="work-row reveal group grid cursor-pointer grid-cols-[auto_1fr_auto] items-center gap-4 rounded-2xl border border-ink/8 px-5 py-6 hover:bg-ink/[0.03] sm:gap-6 sm:px-7"
-    >
-      <span className="font-mono text-xs text-accent/60">0{index}</span>
-      <div className="min-w-0">
-        <div className="flex flex-wrap items-center gap-3">
-          <h3 className="work-title font-display text-xl font-semibold tracking-tight sm:text-2xl">{p.title}</h3>
-          {statusBadge(p.status, lang)}
-          <span className="font-mono text-xs text-ink/35">{p.year}</span>
-        </div>
-        <p className="mt-1.5 truncate text-sm text-ink/55">{t(p.tagline)}</p>
-      </div>
-      <ArrowUpRight className="work-arrow h-5 w-5 text-accent" />
+}> = ({ project: p, index, lang, t, onInternal }) => (
+  <article className="reveal group flex flex-col rounded-2xl border border-ink/10 bg-surface/50 p-6 backdrop-blur-sm transition-all hover:-translate-y-1 hover:border-gold/40 sm:p-7">
+    <div className="mb-4 flex items-center justify-between gap-3">
+      <span className="font-mono text-xs text-gold">0{index}</span>
+      <span className="font-mono text-xs text-ink/40">{p.year}</span>
     </div>
-  );
-};
+
+    <div className="flex flex-wrap items-center gap-3">
+      <h3 className="font-display text-2xl font-semibold tracking-tight">{p.title}</h3>
+      {statusBadge(p.status, lang)}
+    </div>
+    <p className="mt-2 flex-1 text-sm leading-relaxed text-ink/60">{t(p.tagline)}</p>
+
+    {p.tags.length > 0 && (
+      <div className="mt-4 flex flex-wrap gap-2">
+        {p.tags.map((tag) => (
+          <span key={tag} className="rounded-md border border-ink/10 bg-ink/[0.03] px-2.5 py-1 font-mono text-[11px] text-ink/55">
+            {tag}
+          </span>
+        ))}
+      </div>
+    )}
+
+    <div className="mt-5 flex flex-wrap gap-x-5 gap-y-2 pt-1">
+      {p.links.map((l) => (
+        <a
+          key={l.href + l.kind}
+          href={l.href}
+          onClick={(e) => {
+            if (l.kind === 'internal') {
+              e.preventDefault();
+              onInternal(l.href);
+            }
+          }}
+          target={l.kind === 'internal' ? undefined : '_blank'}
+          rel={l.kind === 'internal' ? undefined : 'noreferrer'}
+          className={`link-underline inline-flex items-center gap-1.5 text-sm font-semibold ${projectLinkColor(l.kind)}`}
+        >
+          {t(l.label)}
+          <ArrowUpRight className="h-3.5 w-3.5" />
+        </a>
+      ))}
+    </div>
+  </article>
+);
 
 /* ---------- Hero portrait (editorial avatar plate) ---------- */
 
@@ -484,7 +497,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
             onClick={() => goTo('home')}
             className="group flex items-center gap-2.5 font-display text-base font-semibold tracking-tight"
           >
-            <span className="grid h-7 w-7 place-items-center rounded-md border border-ink/15 bg-ink/5 font-mono text-xs text-accent transition-colors group-hover:border-accent/50">
+            <span className="grid h-7 w-7 place-items-center rounded-md border border-ink/15 bg-ink/5 font-mono text-xs text-gold transition-colors group-hover:border-gold/50">
               大
             </span>
             <span>Da&nbsp;Lei</span>
@@ -497,7 +510,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
                 onClick={() => goTo(item.id)}
                 className="link-underline text-sm text-ink/70 transition-colors hover:text-ink"
               >
-                <span className="mr-1.5 font-mono text-[11px] text-accent/70">0{i + 1}</span>
+                <span className="mr-1.5 font-mono text-[11px] text-gold">0{i + 1}</span>
                 {t(item.label)}
               </button>
             ))}
@@ -529,7 +542,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
                 onClick={() => goTo(item.id)}
                 className="flex w-full items-center gap-3 py-2.5 text-left text-ink/80"
               >
-                <span className="font-mono text-xs text-accent/70">0{i + 1}</span>
+                <span className="font-mono text-xs text-gold">0{i + 1}</span>
                 {t(item.label)}
               </button>
             ))}
@@ -542,11 +555,11 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
         <section id="home" className="grid min-h-[92vh] items-center gap-12 pt-28 pb-20 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14">
           <div className="flex flex-col">
             <p className="hero-in mb-7 inline-flex w-fit items-center gap-2 rounded-full border border-ink/12 bg-ink/5 px-3.5 py-1.5 font-mono text-xs uppercase tracking-[0.18em] text-ink/65" style={{ animationDelay: '0.05s' }}>
-              <span className="pulse-dot h-1.5 w-1.5 rounded-full bg-accent" />
+              <span className="pulse-dot h-1.5 w-1.5 rounded-full bg-gold" />
               {t(COPY.hero.eyebrow)}
             </p>
 
-            <p className="hero-in font-mono text-sm text-accent/80" style={{ animationDelay: '0.15s' }}>{t(COPY.hero.greeting)} 大雷 👋</p>
+            <p className="hero-in font-mono text-sm text-gold" style={{ animationDelay: '0.15s' }}>{t(COPY.hero.greeting)} 大雷 👋</p>
 
             <h1 className="hero-in mt-3 font-display text-[2.9rem] font-semibold leading-[1.02] tracking-[-0.01em] sm:text-6xl lg:text-[4.4rem]" style={{ animationDelay: '0.25s' }}>
               <span className="block">{t(COPY.hero.titleLine1)}</span>
@@ -603,7 +616,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
         <section id="work" className="scroll-mt-24 py-20">
           <div className="reveal mb-12 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              <p className="font-mono text-xs uppercase tracking-[0.2em] text-accent/80">{t(COPY.work.label)}</p>
+              <p className="font-mono text-xs uppercase tracking-[0.2em] text-gold">{t(COPY.work.label)}</p>
               <h2 className="mt-3 font-display text-3xl font-bold tracking-tight sm:text-4xl">{t(COPY.work.heading)}</h2>
             </div>
             <p className="max-w-sm text-sm text-ink/55 sm:text-right">{t(COPY.work.sub)}</p>
@@ -615,9 +628,9 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
             ))}
 
             {rest.length > 0 && (
-              <div className="mt-2 flex flex-col gap-3">
+              <div className="mt-2 grid gap-6 sm:grid-cols-2">
                 {rest.map((p, i) => (
-                  <ProjectRow key={p.id} project={p} index={featured.length + i + 1} lang={lang} t={t} onInternal={onNavigate} />
+                  <ProjectCard key={p.id} project={p} index={featured.length + i + 1} lang={lang} t={t} onInternal={onNavigate} />
                 ))}
               </div>
             )}
@@ -628,7 +641,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
         <section id="videos" className="scroll-mt-24 py-20">
           <div className="reveal mb-12 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              <p className="font-mono text-xs uppercase tracking-[0.2em] text-accent/80">{t(COPY.videos.label)}</p>
+              <p className="font-mono text-xs uppercase tracking-[0.2em] text-gold">{t(COPY.videos.label)}</p>
               <h2 className="mt-3 font-display text-3xl font-bold tracking-tight sm:text-4xl">{t(COPY.videos.heading)}</h2>
               <p className="mt-3 max-w-md text-sm text-ink/55">{t(COPY.videos.sub)}</p>
             </div>
@@ -684,7 +697,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
         <section id="about" className="scroll-mt-24 py-20">
           <div className="grid gap-12 lg:grid-cols-[1fr_1.1fr] lg:gap-16">
             <div className="reveal">
-              <p className="font-mono text-xs uppercase tracking-[0.2em] text-accent/80">{t(COPY.about.label)}</p>
+              <p className="font-mono text-xs uppercase tracking-[0.2em] text-gold">{t(COPY.about.label)}</p>
               <h2 className="mt-3 font-display text-3xl font-bold leading-tight tracking-tight sm:text-4xl">
                 {t(COPY.about.heading)}
               </h2>
@@ -698,7 +711,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
                   className="reveal flex items-start gap-4 rounded-xl border border-ink/10 bg-surface/50 p-5 backdrop-blur-sm transition-all hover:-translate-y-0.5 hover:border-accent/30"
                   style={{ transitionDelay: `${i * 90}ms` }}
                 >
-                  <span className="mt-0.5 font-mono text-sm text-accent/70">0{i + 1}</span>
+                  <span className="mt-0.5 font-mono text-sm text-gold">0{i + 1}</span>
                   <div>
                     <h3 className="font-display text-lg font-semibold">{t(pillar.title)}</h3>
                     <p className="mt-1 text-sm leading-relaxed text-ink/55">{t(pillar.text)}</p>
@@ -715,7 +728,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
             <div className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-accent/10 blur-3xl" />
             <div className="pointer-events-none absolute -bottom-20 -left-10 h-56 w-56 rounded-full bg-accent2/10 blur-3xl" />
 
-            <p className="font-mono text-xs uppercase tracking-[0.2em] text-accent/80">{t(COPY.connect.label)}</p>
+            <p className="font-mono text-xs uppercase tracking-[0.2em] text-gold">{t(COPY.connect.label)}</p>
             <h2 className="mt-3 max-w-xl font-display text-3xl font-bold tracking-tight sm:text-5xl">
               {t(COPY.connect.heading)}
             </h2>
@@ -755,7 +768,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
       <footer className="border-t border-ink/10">
         <div className="mx-auto flex max-w-5xl flex-col items-center justify-between gap-4 px-5 py-8 sm:flex-row sm:px-8">
           <div className="flex items-center gap-2.5 font-display text-sm font-semibold">
-            <span className="grid h-6 w-6 place-items-center rounded border border-ink/15 bg-ink/5 font-mono text-[10px] text-accent">大</span>
+            <span className="grid h-6 w-6 place-items-center rounded border border-ink/15 bg-ink/5 font-mono text-[10px] text-gold">大</span>
             Da Lei · 大雷
           </div>
           <p className="font-mono text-xs text-ink/40">

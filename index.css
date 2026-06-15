@@ -9,6 +9,7 @@
   --accent: #1c1a17;
   --accent-2: #8a8175;
   --ember: #8a8175;
+  --gold: #8a682c;
   --line: rgba(28, 26, 23, 0.12);
   --muted: rgba(28, 26, 23, 0.58);
 }
@@ -131,9 +132,9 @@ p {
   background: linear-gradient(
     100deg,
     var(--ink) 0%,
-    var(--accent-2) 38%,
-    #b8a98f 52%,
-    var(--accent-2) 66%,
+    var(--gold) 40%,
+    #c9a868 52%,
+    var(--gold) 64%,
     var(--ink) 100%
   );
   background-size: 250% 100%;
@@ -277,9 +278,9 @@ p {
 
 /* Pulsing availability dot */
 @keyframes pulse-dot {
-  0% { box-shadow: 0 0 0 0 rgba(28, 26, 23, 0.45); }
-  70% { box-shadow: 0 0 0 6px rgba(28, 26, 23, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(28, 26, 23, 0); }
+  0% { box-shadow: 0 0 0 0 rgba(138, 104, 44, 0.5); }
+  70% { box-shadow: 0 0 0 6px rgba(138, 104, 44, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(138, 104, 44, 0); }
 }
 .pulse-dot {
   animation: pulse-dot 2.4s ease-out infinite;
