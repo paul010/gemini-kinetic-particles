@@ -1,0 +1,12 @@
+[
+  { "id": "src-ai-town", "type": "github", "title": "a16z AI Town", "url": "https://github.com/a16z-infra/ai-town", "author": "a16z-infra", "capturedAt": "2026-06-15", "credibility": "high", "notes": "公开 GitHub 项目。" },
+  { "id": "src-screenshot-to-code", "type": "github", "title": "screenshot-to-code", "url": "https://github.com/abi/screenshot-to-code", "author": "abi", "capturedAt": "2026-06-15", "credibility": "high" },
+  { "id": "src-r3f-next", "type": "github", "title": "react-three-next", "url": "https://github.com/pmndrs/react-three-next", "author": "pmndrs", "capturedAt": "2026-06-15", "credibility": "high" },
+  { "id": "src-browser-use", "type": "github", "title": "browser-use", "url": "https://github.com/browser-use/browser-use", "author": "browser-use", "capturedAt": "2026-06-15", "credibility": "high" },
+  { "id": "src-quivr", "type": "github", "title": "Quivr", "url": "https://github.com/QuivrHQ/quivr", "author": "QuivrHQ", "capturedAt": "2026-06-15", "credibility": "high" },
+  { "id": "src-doocs-md", "type": "github", "title": "doocs/md 微信 Markdown 编辑器", "url": "https://github.com/doocs/md", "author": "doocs", "capturedAt": "2026-06-15", "credibility": "high" },
+  { "id": "src-midscene", "type": "github", "title": "Midscene.js", "url": "https://github.com/web-infra-dev/midscene", "author": "web-infra-dev", "capturedAt": "2026-06-15", "credibility": "high" },
+  { "id": "src-ai-chatbot", "type": "github", "title": "Vercel AI Chatbot", "url": "https://github.com/vercel/ai-chatbot", "author": "vercel", "capturedAt": "2026-06-15", "credibility": "high" },
+  { "id": "src-n8n", "type": "github", "title": "n8n", "url": "https://github.com/n8n-io/n8n", "author": "n8n-io", "capturedAt": "2026-06-15", "credibility": "high" },
+  { "id": "src-pyvideotrans", "type": "github", "title": "pyVideoTrans 视频翻译配音", "url": "https://github.com/jianchang512/pyvideotrans", "author": "jianchang512", "capturedAt": "2026-06-15", "credibility": "high" }
+]

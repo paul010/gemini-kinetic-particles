@@ -1,0 +1,112 @@
+[
+  {
+    "id": "content-ai-town",
+    "projectId": "ai-town-npc-game",
+    "shortVideoTitle": "我让 AI 在小镇里自己社交，结果……",
+    "xThreadAngle": "AI Agent 真正难的不是聊天，是记忆和行动。拆 AI Town 的三层设计。",
+    "linkedinAngle": "Agentic products need memory, tools, and observable behavior — not just chat.",
+    "zsxqPostTitle": "今天复现一个 AI 小镇：3 角色 + 记忆 + 自主行动",
+    "wechatAngle": "Agent 不是聊天框，是会行动的角色",
+    "demoShots": ["展示小地图全景", "三个角色自发对话", "记忆如何影响下一轮行动"],
+    "status": "draft"
+  },
+  {
+    "id": "content-screenshot-to-code",
+    "projectId": "screenshot-to-code",
+    "shortVideoTitle": "上传一张截图，AI 直接还原成网页",
+    "xThreadAngle": "从设计稿到可运行原型只差一次粘贴。screenshot-to-code 实测。",
+    "linkedinAngle": "Vision models collapse the gap between design and a working prototype.",
+    "zsxqPostTitle": "实操：截图转代码本地跑通全过程",
+    "wechatAngle": "一张图变网页，AI 把前端的活干了",
+    "demoShots": ["拖入一张界面截图", "实时生成代码", "预览还原效果对比原图"],
+    "status": "draft"
+  },
+  {
+    "id": "content-r3f",
+    "projectId": "r3f-3d-demo",
+    "shortVideoTitle": "用 React 写 3D，10 分钟做个会转的星球",
+    "xThreadAngle": "想做 3D 网页又怕 Three.js？React Three Fiber 是新手最优解。",
+    "linkedinAngle": "Declarative 3D with React Three Fiber lowers the barrier to interactive web.",
+    "zsxqPostTitle": "3D 起手式：r3f 模板跑通并部署",
+    "wechatAngle": "让网页动起来：用 React 写 3D 的最短路径",
+    "demoShots": ["空场景到加入 3D 物体", "鼠标拖拽旋转", "部署后手机端打开"],
+    "status": "draft"
+  },
+  {
+    "id": "content-browser-use",
+    "projectId": "browser-use-agent",
+    "shortVideoTitle": "我让 AI 自己打开浏览器帮我干活",
+    "xThreadAngle": "浏览器是 Agent 最大的工具。browser-use 让它点击、填表、抓取。",
+    "linkedinAngle": "The browser is the universal API — agents that operate it unlock real workflows.",
+    "zsxqPostTitle": "实操：让 Agent 自动完成一次网页任务",
+    "wechatAngle": "会上网的 AI：浏览器智能体实测",
+    "demoShots": ["输入一句任务指令", "AI 自动操作页面", "提取并返回结果"],
+    "status": "draft"
+  },
+  {
+    "id": "content-quivr",
+    "projectId": "quivr-rag",
+    "shortVideoTitle": "把一本书喂给 AI，它变成你的私人助手",
+    "xThreadAngle": "RAG 的关键不是模型，是检索质量。用 Quivr 拆给你看。",
+    "linkedinAngle": "RAG quality is a retrieval problem first, a model problem second.",
+    "zsxqPostTitle": "搭一个能问答的私人知识库",
+    "wechatAngle": "第二大脑：让 AI 记住你所有的文档",
+    "demoShots": ["导入几个 PDF", "基于内容提问", "回答并展示引用来源"],
+    "status": "draft"
+  },
+  {
+    "id": "content-wechat-md",
+    "projectId": "wechat-md-editor",
+    "shortVideoTitle": "公众号排版别再手调了，用这个",
+    "xThreadAngle": "写作只管内容，排版交给工具。Markdown 转公众号实测。",
+    "linkedinAngle": "Separate writing from formatting — tooling should own the layout.",
+    "zsxqPostTitle": "半天复现一个公众号排版神器",
+    "wechatAngle": "Markdown 一键变公众号，再也不手调样式",
+    "demoShots": ["粘贴 Markdown", "实时预览公众号样式", "一键复制到公众号后台"],
+    "status": "ready"
+  },
+  {
+    "id": "content-midscene",
+    "projectId": "midscene-ai-qa",
+    "shortVideoTitle": "写测试不用学 Playwright 了，说人话就行",
+    "xThreadAngle": "自然语言驱动浏览器自动化，QA 的门槛被打下来了。",
+    "linkedinAngle": "Natural-language browser automation makes UI testing accessible to everyone.",
+    "zsxqPostTitle": "用一句话写一条 UI 自动化用例",
+    "wechatAngle": "说人话就能测网页：AI 浏览器自动化",
+    "demoShots": ["输入自然语言指令", "AI 定位并点击元素", "断言结果通过"],
+    "status": "draft"
+  },
+  {
+    "id": "content-ai-chatbot",
+    "projectId": "vercel-ai-chatbot",
+    "shortVideoTitle": "30 分钟上线一个属于你的 AI 助手",
+    "xThreadAngle": "想学现代 AI 应用结构？从 Vercel 官方模板开始最稳。",
+    "linkedinAngle": "Ship a production-grade AI chat app in an afternoon with the Vercel template.",
+    "zsxqPostTitle": "一键部署自己的 AI 聊天机器人",
+    "wechatAngle": "半天上线你自己的 AI 助手",
+    "demoShots": ["Fork 模板配置 Key", "一键部署到 Vercel", "多轮对话演示"],
+    "status": "draft"
+  },
+  {
+    "id": "content-n8n",
+    "projectId": "n8n-content-automation",
+    "shortVideoTitle": "我的内容分发流水线，全自动",
+    "xThreadAngle": "重复的发布工作该交给工作流。n8n 内容自动化拆解。",
+    "linkedinAngle": "Automate distribution: one piece of content, many channels, zero manual steps.",
+    "zsxqPostTitle": "搭一个内容自动分发工作流",
+    "wechatAngle": "一条内容自动分发全平台，解放双手",
+    "demoShots": ["展示工作流画布", "触发一次自动分发", "多平台草稿生成结果"],
+    "status": "draft"
+  },
+  {
+    "id": "content-pyvideotrans",
+    "projectId": "pyvideotrans",
+    "shortVideoTitle": "一条视频自动出中英双语，做出海太香了",
+    "xThreadAngle": "内容出海的瓶颈是字幕配音。pyVideoTrans 一条龙搞定。",
+    "linkedinAngle": "Localization is the bottleneck for content reach — automate transcript, translation, dubbing.",
+    "zsxqPostTitle": "把自己的视频自动翻译成双语",
+    "wechatAngle": "视频出海神器：自动翻译配音加字幕",
+    "demoShots": ["导入一段短视频", "自动转写与翻译", "导出中英双语字幕成片"],
+    "status": "draft"
+  }
+]

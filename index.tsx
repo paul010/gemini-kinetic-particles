@@ -2,54 +2,60 @@ import React, { useEffect, useState, useCallback, Suspense } from 'react';
 import ReactDOM from 'react-dom/client';
 import Home from './Home';
 
-// Three.js + the particle engine only load when the experience is opened.
+// Heavier routes load on demand so the homepage bundle stays small.
 const App = React.lazy(() => import('./App'));
+const Arsenal = React.lazy(() => import('./arsenal/Arsenal'));
 
-const ParticlesLoader: React.FC = () => (
+const Loader: React.FC<{ label: string }> = ({ label }) => (
   <div
     className="fixed inset-0 grid place-items-center bg-ink text-white/70"
     style={{ fontFamily: '"JetBrains Mono", monospace' }}
   >
     <div className="flex flex-col items-center gap-3">
       <span className="h-8 w-8 animate-spin rounded-full border-2 border-white/20 border-t-accent" />
-      <span className="text-xs tracking-widest">LOADING PARTICLES…</span>
+      <span className="text-xs tracking-widest">{label}</span>
     </div>
   </div>
 );
 
-const isParticlesPath = () => {
+type Route = 'home' | 'particles' | 'arsenal';
+
+const routeFromLocation = (): Route => {
   const { pathname, hash } = window.location;
-  return pathname.replace(/\/+$/, '').endsWith('/particles') || hash === '#/particles';
+  const p = pathname.replace(/\/+$/, '');
+  if (p.endsWith('/particles') || hash === '#/particles') return 'particles';
+  if (p.endsWith('/arsenal') || hash === '#/arsenal') return 'arsenal';
+  return 'home';
 };
 
 const Router: React.FC = () => {
-  const [onParticles, setOnParticles] = useState<boolean>(isParticlesPath());
+  const [route, setRoute] = useState<Route>(routeFromLocation());
 
   const navigate = useCallback((path: string) => {
     if (window.location.pathname !== path) {
       window.history.pushState({}, '', path);
     }
-    setOnParticles(path.replace(/\/+$/, '').endsWith('/particles'));
+    setRoute(routeFromLocation());
     window.scrollTo(0, 0);
   }, []);
 
   useEffect(() => {
-    const onPop = () => setOnParticles(isParticlesPath());
+    const onPop = () => setRoute(routeFromLocation());
     window.addEventListener('popstate', onPop);
     return () => window.removeEventListener('popstate', onPop);
   }, []);
 
-  // The particle experience is a fixed full-screen canvas; the homepage scrolls.
+  // The particle experience is a fixed full-screen canvas; other routes scroll.
   useEffect(() => {
-    document.body.style.overflow = onParticles ? 'hidden' : 'auto';
+    document.body.style.overflow = route === 'particles' ? 'hidden' : 'auto';
     return () => {
       document.body.style.overflow = 'auto';
     };
-  }, [onParticles]);
+  }, [route]);
 
-  if (onParticles) {
+  if (route === 'particles') {
     return (
-      <Suspense fallback={<ParticlesLoader />}>
+      <Suspense fallback={<Loader label="LOADING PARTICLES…" />}>
         <App />
         <button
           onClick={() => navigate('/')}
@@ -59,6 +65,14 @@ const Router: React.FC = () => {
           <span aria-hidden="true">←</span>
           Da Lei · 大雷
         </button>
+      </Suspense>
+    );
+  }
+
+  if (route === 'arsenal') {
+    return (
+      <Suspense fallback={<Loader label="LOADING ARSENAL…" />}>
+        <Arsenal onHome={() => navigate('/')} />
       </Suspense>
     );
   }
