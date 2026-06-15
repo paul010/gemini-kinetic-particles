@@ -294,6 +294,60 @@ p {
   animation: float-slow 7s ease-in-out infinite;
 }
 
+/* ---- Hero editorial figure (huashu-style museum plate) ---- */
+.hero-figure {
+  position: relative;
+  animation: figure-float 9s ease-in-out infinite;
+}
+@keyframes figure-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.plate {
+  position: relative;
+  overflow: hidden;
+  border-radius: 3px;
+  border: 1px solid rgba(28, 26, 23, 0.18);
+  background: var(--surface);
+  box-shadow: 0 40px 70px -38px rgba(28, 26, 23, 0.55);
+}
+.plate img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(0.3) sepia(0.42) saturate(1.15) brightness(0.95);
+  transition: filter 0.8s ease;
+}
+.plate:hover img {
+  filter: none;
+}
+
+/* Slow Ken Burns drift */
+.ken-burns {
+  animation: ken-burns 22s ease-in-out infinite alternate;
+}
+@keyframes ken-burns {
+  0% { transform: scale(1.03) translate(0, 0); }
+  100% { transform: scale(1.13) translate(-2.5%, -2%); }
+}
+
+/* Sweeping light across the plate */
+.plate::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(115deg, transparent 32%, rgba(246, 243, 236, 0.18) 48%, transparent 62%);
+  transform: translateX(-110%);
+  animation: plate-sweep 7.5s ease-in-out infinite;
+}
+@keyframes plate-sweep {
+  0%, 65% { transform: translateX(-110%); }
+  100% { transform: translateX(110%); }
+}
+
 /* Typewriter cursor */
 .type-cursor {
   display: inline-block;
@@ -313,7 +367,8 @@ p {
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .reveal { opacity: 1; transform: none; transition: none; }
-  .float-slow, .pulse-dot, .type-cursor { animation: none; }
+  .float-slow, .pulse-dot, .type-cursor, .hero-figure, .ken-burns { animation: none; }
+  .plate::after { animation: none; display: none; }
   .type-cursor { opacity: 0; }
   .work-row:hover .work-title { transform: none; }
 }
