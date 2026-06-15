@@ -138,7 +138,7 @@
     "estimatedTime": "半天",
     "audience": ["creator", "AI coding beginner"],
     "mvp": "本地跑通，粘贴 Markdown 看到公众号样式并复制。",
-    "status": "reproduced",
+    "status": "deployed",
     "recommendedSkillIds": ["shadcn-ui", "vercel", "github-cli"],
     "recommendedRecipeIds": ["wechat-article-flow", "web-tool-mvp"],
     "contentValueScore": 4,
