@@ -23,6 +23,7 @@ export default {
         accent: '#1c1a17',
         accent2: '#8a8175',
         ember: '#8a8175',
+        gold: '#8a682c',
       },
     },
   },
