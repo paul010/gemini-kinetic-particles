@@ -266,7 +266,7 @@ const FeaturedCard: React.FC<{
           src={p.cover}
           alt={p.title}
           loading="lazy"
-          className="h-64 w-full object-cover opacity-90 grayscale transition-all duration-700 group-hover:scale-[1.04] group-hover:grayscale-0 sm:h-80 lg:h-full"
+          className="h-64 w-full object-cover transition-transform duration-700 group-hover:scale-[1.04] sm:h-80 lg:h-full"
         />
         <span className="pointer-events-none absolute inset-0 bg-gradient-to-t from-surface/85 via-transparent to-transparent lg:bg-gradient-to-r" />
         <span className="absolute bottom-4 left-4 inline-flex items-center gap-2 rounded-full border border-paper/25 bg-black/45 px-3.5 py-1.5 text-xs font-semibold text-paper/90 backdrop-blur-md transition-colors group-hover:border-paper/60 group-hover:text-paper">
@@ -360,13 +360,12 @@ const ProjectRow: React.FC<{
   );
 };
 
-/* ---------- Hero editorial figure (museum plate) ---------- */
+/* ---------- Hero portrait (editorial avatar plate) ---------- */
 
 const HeroFigure: React.FC<{
-  project: Project;
   t: (txt: LocalizedText) => string;
   onOpen: () => void;
-}> = ({ project: p, t, onOpen }) => {
+}> = ({ t, onOpen }) => {
   const plateRef = useRef<HTMLDivElement>(null);
 
   const onMove = (e: React.MouseEvent) => {
@@ -374,8 +373,8 @@ const HeroFigure: React.FC<{
     const el = plateRef.current;
     if (!el) return;
     const r = el.getBoundingClientRect();
-    const x = ((e.clientX - r.left) / r.width - 0.5) * 16;
-    const y = ((e.clientY - r.top) / r.height - 0.5) * 16;
+    const x = ((e.clientX - r.left) / r.width - 0.5) * 14;
+    const y = ((e.clientY - r.top) / r.height - 0.5) * 14;
     el.style.transform = `translate(${x}px, ${y}px)`;
   };
   const reset = () => {
@@ -383,7 +382,7 @@ const HeroFigure: React.FC<{
   };
 
   return (
-    <figure className="hero-figure mx-auto w-full max-w-sm lg:ml-auto lg:max-w-none">
+    <figure className="hero-figure mx-auto w-full max-w-[20rem] lg:ml-auto lg:max-w-sm">
       <div
         ref={plateRef}
         onMouseMove={onMove}
@@ -392,31 +391,34 @@ const HeroFigure: React.FC<{
         onKeyDown={(e) => (e.key === 'Enter' ? onOpen() : undefined)}
         role="button"
         tabIndex={0}
-        aria-label={p.title}
+        aria-label="大雷 · Da Lei — YouTube"
         className="plate group relative aspect-[4/5] cursor-pointer transition-transform duration-300 ease-out"
       >
-        {p.cover && <img src={p.cover} alt={p.title} className="ken-burns" />}
+        <img src={ASSETS.avatar} alt="大雷 · Da Lei" />
+
+        {/* readability scrim for the label */}
+        <span className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/55 to-transparent" />
 
         {/* corner registration ticks */}
-        <span className="pointer-events-none absolute left-3 top-3 h-4 w-4 border-l border-t border-paper/70" />
-        <span className="pointer-events-none absolute right-3 top-3 h-4 w-4 border-r border-t border-paper/70" />
-        <span className="pointer-events-none absolute bottom-3 left-3 h-4 w-4 border-b border-l border-paper/70" />
-        <span className="pointer-events-none absolute bottom-3 right-3 h-4 w-4 border-b border-r border-paper/70" />
+        <span className="pointer-events-none absolute left-3 top-3 h-4 w-4 border-l border-t border-paper/80" />
+        <span className="pointer-events-none absolute right-3 top-3 h-4 w-4 border-r border-t border-paper/80" />
+        <span className="pointer-events-none absolute bottom-3 left-3 h-4 w-4 border-b border-l border-paper/80" />
+        <span className="pointer-events-none absolute bottom-3 right-3 h-4 w-4 border-b border-r border-paper/80" />
 
-        <span className="pointer-events-none absolute left-5 top-5 font-mono text-[10px] uppercase tracking-[0.22em] text-paper/85">
-          Fig. 01 — Live
+        <span className="pointer-events-none absolute bottom-5 left-5 font-mono text-[10px] uppercase tracking-[0.22em] text-paper/90">
+          {t(CHANNEL.name)}
         </span>
 
-        <span className="absolute bottom-5 left-1/2 inline-flex -translate-x-1/2 items-center gap-2 rounded-full border border-paper/30 bg-black/50 px-4 py-2 text-xs font-semibold text-paper opacity-0 backdrop-blur-md transition-all duration-300 group-hover:opacity-100">
-          {t(COPY.hero.ctaLaunch)}
-          <ArrowIcon className="h-3.5 w-3.5" />
+        <span className="absolute right-5 top-5 inline-flex items-center gap-1.5 rounded-full border border-paper/30 bg-black/50 px-3 py-1.5 text-[11px] font-semibold text-paper opacity-0 backdrop-blur-md transition-all duration-300 group-hover:opacity-100">
+          <YouTubeIcon className="h-3.5 w-3.5" />
+          YouTube
         </span>
       </div>
 
       <figcaption className="mt-3 flex items-baseline justify-between gap-3">
-        <span className="font-display text-lg italic text-ink/80">{p.title}</span>
+        <span className="font-display text-lg italic text-ink/80">大雷 · Da Lei</span>
         <span className="font-mono text-[11px] uppercase tracking-[0.15em] text-ink/45">
-          {p.year} · {p.tags[0]}
+          {CHANNEL.handle}
         </span>
       </figcaption>
     </figure>
@@ -592,11 +594,9 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
             </div>
           </div>
 
-          {featured[0] && (
-            <div className="hero-in" style={{ animationDelay: '0.5s' }}>
-              <HeroFigure project={featured[0]} t={t} onOpen={() => onNavigate('/particles')} />
-            </div>
-          )}
+          <div className="hero-in" style={{ animationDelay: '0.5s' }}>
+            <HeroFigure t={t} onOpen={() => window.open(SOCIALS.youtube, '_blank', 'noopener')} />
+          </div>
         </section>
 
         {/* Work */}
@@ -684,20 +684,6 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
         <section id="about" className="scroll-mt-24 py-20">
           <div className="grid gap-12 lg:grid-cols-[1fr_1.1fr] lg:gap-16">
             <div className="reveal">
-              <div className="mb-6 flex items-center gap-3.5">
-                <img
-                  src={ASSETS.avatar}
-                  alt="Da Lei"
-                  loading="lazy"
-                  className="h-14 w-14 rounded-full object-cover ring-1 ring-ink/15"
-                />
-                <div>
-                  <p className="font-display text-lg font-semibold leading-tight">{t(CHANNEL.name)}</p>
-                  <p className="font-mono text-xs text-ink/45">
-                    {CHANNEL.handle} · {CHANNEL.subscribers} subscribers
-                  </p>
-                </div>
-              </div>
               <p className="font-mono text-xs uppercase tracking-[0.2em] text-accent/80">{t(COPY.about.label)}</p>
               <h2 className="mt-3 font-display text-3xl font-bold leading-tight tracking-tight sm:text-4xl">
                 {t(COPY.about.heading)}
