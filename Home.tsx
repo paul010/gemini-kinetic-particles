@@ -257,6 +257,9 @@ const FeaturedCard: React.FC<{
   onInternal: (href: string) => void;
 }> = ({ project: p, lang, t, onInternal }) => {
   const tilt = useTilt(5);
+  const launchLink = p.links.find((l) => l.kind === 'internal');
+  const launchHref = launchLink?.href ?? '/particles';
+  const launchLabel = launchLink ? t(launchLink.label) : t(COPY.hero.ctaLaunch);
   return (
   <article
     ref={tilt.ref}
@@ -266,7 +269,7 @@ const FeaturedCard: React.FC<{
   >
     {p.cover && (
       <button
-        onClick={() => onInternal('/particles')}
+        onClick={() => onInternal(launchHref)}
         className="group relative block overflow-hidden lg:w-[55%]"
         aria-label={p.title}
       >
@@ -278,7 +281,7 @@ const FeaturedCard: React.FC<{
         />
         <span className="pointer-events-none absolute inset-0 bg-gradient-to-t from-surface/85 via-transparent to-transparent lg:bg-gradient-to-r" />
         <span className="absolute bottom-4 left-4 inline-flex items-center gap-2 rounded-full border border-paper/25 bg-black/45 px-3.5 py-1.5 text-xs font-semibold text-paper/90 backdrop-blur-md transition-colors group-hover:border-paper/60 group-hover:text-paper">
-          {t(COPY.hero.ctaLaunch)}
+          {launchLabel}
           <ArrowIcon className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
         </span>
       </button>

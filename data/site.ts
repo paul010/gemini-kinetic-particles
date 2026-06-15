@@ -151,6 +151,8 @@ export const PROJECTS: Project[] = [
     title: 'AI Coding Arsenal',
     year: '2026',
     status: 'wip',
+    featured: true,
+    cover: '/arsenal-cover.png',
     tagline: {
       en: 'An open-source launchpad from an AI-coding idea to a running demo.',
       zh: '从 AI Coding 灵感到可运行 Demo 的开源开工库。',
