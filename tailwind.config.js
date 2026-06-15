@@ -6,6 +6,8 @@ export default {
     './components/**/*.{ts,tsx}',
     './data/**/*.{ts,tsx}',
     './services/**/*.{ts,tsx}',
+    './arsenal/**/*.{ts,tsx}',
+    './tools/**/*.{ts,tsx}',
   ],
   theme: {
     extend: {

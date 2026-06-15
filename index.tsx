@@ -5,6 +5,7 @@ import Home from './Home';
 // Heavier routes load on demand so the homepage bundle stays small.
 const App = React.lazy(() => import('./App'));
 const Arsenal = React.lazy(() => import('./arsenal/Arsenal'));
+const MarkdownStudio = React.lazy(() => import('./tools/MarkdownStudio'));
 
 const Loader: React.FC<{ label: string }> = ({ label }) => (
   <div
@@ -18,13 +19,14 @@ const Loader: React.FC<{ label: string }> = ({ label }) => (
   </div>
 );
 
-type Route = 'home' | 'particles' | 'arsenal';
+type Route = 'home' | 'particles' | 'arsenal' | 'md';
 
 const routeFromLocation = (): Route => {
   const { pathname, hash } = window.location;
   const p = pathname.replace(/\/+$/, '');
   if (p.endsWith('/particles') || hash === '#/particles') return 'particles';
   if (p.endsWith('/arsenal') || hash === '#/arsenal') return 'arsenal';
+  if (p.endsWith('/md') || hash === '#/md') return 'md';
   return 'home';
 };
 
@@ -47,7 +49,7 @@ const Router: React.FC = () => {
 
   // The particle experience is a fixed full-screen canvas; other routes scroll.
   useEffect(() => {
-    document.body.style.overflow = route === 'particles' ? 'hidden' : 'auto';
+    document.body.style.overflow = route === 'particles' || route === 'md' ? 'hidden' : 'auto';
     return () => {
       document.body.style.overflow = 'auto';
     };
@@ -73,6 +75,14 @@ const Router: React.FC = () => {
     return (
       <Suspense fallback={<Loader label="LOADING ARSENAL…" />}>
         <Arsenal onHome={() => navigate('/')} />
+      </Suspense>
+    );
+  }
+
+  if (route === 'md') {
+    return (
+      <Suspense fallback={<Loader label="LOADING EDITOR…" />}>
+        <MarkdownStudio onHome={() => navigate('/')} />
       </Suspense>
     );
   }
