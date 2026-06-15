@@ -67,7 +67,7 @@ export const StarfieldBackground: React.FC = () => {
 
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(235, 235, 235, 0.7)';
+        ctx.fillStyle = 'rgba(15, 15, 15, 0.45)';
         ctx.fill();
 
         // Link to nearby particles.
@@ -78,7 +78,7 @@ export const StarfieldBackground: React.FC = () => {
           const dist = dx * dx + dy * dy;
           if (dist < 120 * 120) {
             const alpha = (1 - dist / (120 * 120)) * 0.14;
-            ctx.strokeStyle = `rgba(200, 200, 200, ${alpha})`;
+            ctx.strokeStyle = `rgba(30, 30, 30, ${alpha})`;
             ctx.lineWidth = 0.5;
             ctx.beginPath();
             ctx.moveTo(p.x, p.y);
@@ -93,7 +93,7 @@ export const StarfieldBackground: React.FC = () => {
         const pdist = pdx * pdx + pdy * pdy;
         if (pdist < 160 * 160) {
           const alpha = (1 - pdist / (160 * 160)) * 0.5;
-          ctx.strokeStyle = `rgba(255, 255, 255, ${alpha})`;
+          ctx.strokeStyle = `rgba(0, 0, 0, ${alpha})`;
           ctx.lineWidth = 0.6;
           ctx.beginPath();
           ctx.moveTo(p.x, p.y);
