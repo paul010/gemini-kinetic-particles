@@ -10,18 +10,19 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        display: ['"Space Grotesk"', 'system-ui', 'sans-serif'],
+        display: ['"Cormorant Garamond"', '"Noto Serif SC"', 'Georgia', 'serif'],
+        serif: ['"Cormorant Garamond"', '"Noto Serif SC"', 'Georgia', 'serif'],
         sans: ['Inter', 'system-ui', 'sans-serif'],
         mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
       },
       colors: {
-        // Light monochrome palette — black ink on white paper.
-        paper: '#ffffff',
-        ink: '#0a0a0a',
-        surface: '#f4f4f5',
-        accent: '#0a0a0a',
-        accent2: '#71717a',
-        ember: '#71717a',
+        // Warm editorial palette — ink on cream paper (huashu-inspired).
+        paper: '#f6f3ec',
+        ink: '#1c1a17',
+        surface: '#ece6da',
+        accent: '#1c1a17',
+        accent2: '#8a8175',
+        ember: '#8a8175',
       },
     },
   },

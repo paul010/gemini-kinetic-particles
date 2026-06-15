@@ -3,14 +3,14 @@
 @tailwind utilities;
 
 :root {
-  --paper: #ffffff;
-  --ink: #0a0a0a;
-  --surface: #f4f4f5;
-  --accent: #0a0a0a;
-  --accent-2: #71717a;
-  --ember: #71717a;
-  --line: rgba(10, 10, 10, 0.1);
-  --muted: rgba(10, 10, 10, 0.56);
+  --paper: #f6f3ec;
+  --ink: #1c1a17;
+  --surface: #ece6da;
+  --accent: #1c1a17;
+  --accent-2: #8a8175;
+  --ember: #8a8175;
+  --line: rgba(28, 26, 23, 0.12);
+  --muted: rgba(28, 26, 23, 0.58);
 }
 
 * {
@@ -30,9 +30,17 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+/* Publication-grade text flow */
+h1, h2, h3 {
+  text-wrap: balance;
+}
+p {
+  text-wrap: pretty;
+}
+
 ::selection {
-  background: rgba(10, 10, 10, 0.85);
-  color: #ffffff;
+  background: rgba(28, 26, 23, 0.88);
+  color: var(--paper);
 }
 
 /* Scrollbar */
@@ -43,11 +51,11 @@ body {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(10, 10, 10, 0.18);
+  background: rgba(28, 26, 23, 0.2);
   border-radius: 999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(10, 10, 10, 0.3);
+  background: rgba(28, 26, 23, 0.32);
 }
 
 /* Layout helpers */
@@ -65,27 +73,27 @@ body {
   height: 100%;
 }
 
-/* Soft light wash — subtle gray vignette toward the edges */
+/* Soft warm wash — subtle vignette toward the edges */
 .bg-vignette {
   position: fixed;
   inset: 0;
   z-index: -2;
   pointer-events: none;
   background:
-    radial-gradient(120% 80% at 50% -10%, rgba(10, 10, 10, 0.04), transparent 55%),
-    radial-gradient(140% 95% at 50% 120%, rgba(10, 10, 10, 0.05), transparent 60%);
+    radial-gradient(120% 80% at 50% -10%, rgba(28, 26, 23, 0.05), transparent 55%),
+    radial-gradient(140% 95% at 50% 120%, rgba(28, 26, 23, 0.06), transparent 60%);
 }
 
-/* Drifting aurora — soft gray light that slowly breathes */
+/* Drifting aurora — soft warm light that slowly breathes */
 .bg-aurora {
   position: fixed;
   inset: -20%;
   z-index: -2;
   pointer-events: none;
   background:
-    radial-gradient(35% 35% at 25% 30%, rgba(10, 10, 10, 0.04), transparent 70%),
-    radial-gradient(40% 40% at 78% 22%, rgba(10, 10, 10, 0.035), transparent 70%),
-    radial-gradient(45% 45% at 60% 80%, rgba(10, 10, 10, 0.03), transparent 70%);
+    radial-gradient(35% 35% at 25% 30%, rgba(120, 90, 50, 0.05), transparent 70%),
+    radial-gradient(40% 40% at 78% 22%, rgba(28, 26, 23, 0.035), transparent 70%),
+    radial-gradient(45% 45% at 60% 80%, rgba(120, 90, 50, 0.04), transparent 70%);
   filter: blur(20px);
   animation: aurora-drift 22s ease-in-out infinite alternate;
 }
@@ -118,14 +126,14 @@ body {
   transform: none;
 }
 
-/* Gradient text — slow flowing shimmer (dark on light) */
+/* Gradient text — gentle warm tonal shimmer (editorial) */
 .text-gradient {
   background: linear-gradient(
     100deg,
     var(--ink) 0%,
-    var(--accent-2) 35%,
-    #c4c4c8 52%,
-    var(--accent-2) 70%,
+    var(--accent-2) 38%,
+    #b8a98f 52%,
+    var(--accent-2) 66%,
     var(--ink) 100%
   );
   background-size: 250% 100%;
@@ -255,7 +263,7 @@ body {
   inset: -1px;
   border-radius: inherit;
   padding: 1px;
-  background: linear-gradient(130deg, rgba(10, 10, 10, 0.5), transparent 42%, rgba(10, 10, 10, 0.28));
+  background: linear-gradient(130deg, rgba(28, 26, 23, 0.5), transparent 42%, rgba(28, 26, 23, 0.28));
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
@@ -269,9 +277,9 @@ body {
 
 /* Pulsing availability dot */
 @keyframes pulse-dot {
-  0% { box-shadow: 0 0 0 0 rgba(10, 10, 10, 0.45); }
-  70% { box-shadow: 0 0 0 6px rgba(10, 10, 10, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(10, 10, 10, 0); }
+  0% { box-shadow: 0 0 0 0 rgba(28, 26, 23, 0.45); }
+  70% { box-shadow: 0 0 0 6px rgba(28, 26, 23, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(28, 26, 23, 0); }
 }
 .pulse-dot {
   animation: pulse-dot 2.4s ease-out infinite;

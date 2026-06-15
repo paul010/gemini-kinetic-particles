@@ -463,9 +463,9 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
 
           <p className="hero-in font-mono text-sm text-accent/80" style={{ animationDelay: '0.15s' }}>{t(COPY.hero.greeting)} 大雷 👋</p>
 
-          <h1 className="hero-in mt-4 max-w-4xl font-display text-[2.6rem] font-bold leading-[1.04] tracking-tight sm:text-6xl lg:text-[4.5rem]" style={{ animationDelay: '0.25s' }}>
+          <h1 className="hero-in mt-3 max-w-4xl font-display text-[3rem] font-semibold leading-[1.02] tracking-[-0.01em] sm:text-7xl lg:text-[5.25rem]" style={{ animationDelay: '0.25s' }}>
             <span className="block">{t(COPY.hero.titleLine1)}</span>
-            <span className="block text-gradient">{t(COPY.hero.titleLine2)}</span>
+            <span className="block italic text-gradient">{t(COPY.hero.titleLine2)}</span>
           </h1>
 
           <div className="hero-in mt-8 max-w-2xl text-base leading-relaxed text-ink/70 sm:text-lg" style={{ animationDelay: '0.4s' }}>
