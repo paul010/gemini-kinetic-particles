@@ -3,11 +3,11 @@
 @tailwind utilities;
 
 :root {
-  --ink: #06070b;
-  --surface: #0c0e16;
-  --accent: #22d3ee;
-  --accent-2: #a78bfa;
-  --ember: #fb923c;
+  --ink: #0a0a0a;
+  --surface: #161616;
+  --accent: #ffffff;
+  --accent-2: #a3a3a3;
+  --ember: #d4d4d4;
   --line: rgba(255, 255, 255, 0.08);
   --muted: rgba(255, 255, 255, 0.56);
 }
@@ -30,7 +30,7 @@ body {
 }
 
 ::selection {
-  background: rgba(34, 211, 238, 0.25);
+  background: rgba(255, 255, 255, 0.22);
   color: #ffffff;
 }
 
@@ -64,28 +64,28 @@ body {
   height: 100%;
 }
 
-/* Soft cosmic light wash — calmer than neon */
+/* Soft monochrome light wash */
 .bg-vignette {
   position: fixed;
   inset: 0;
   z-index: -2;
   pointer-events: none;
   background:
-    radial-gradient(110% 70% at 50% -10%, rgba(34, 211, 238, 0.08), transparent 55%),
-    radial-gradient(80% 55% at 108% 8%, rgba(167, 139, 250, 0.08), transparent 50%),
-    radial-gradient(140% 90% at 50% 120%, rgba(6, 7, 11, 0.92), rgba(6, 7, 11, 0.15));
+    radial-gradient(110% 70% at 50% -10%, rgba(255, 255, 255, 0.07), transparent 55%),
+    radial-gradient(80% 55% at 108% 8%, rgba(255, 255, 255, 0.05), transparent 50%),
+    radial-gradient(140% 90% at 50% 120%, rgba(10, 10, 10, 0.92), rgba(10, 10, 10, 0.15));
 }
 
-/* Drifting aurora — soft colored light that slowly breathes */
+/* Drifting aurora — soft white light that slowly breathes */
 .bg-aurora {
   position: fixed;
   inset: -20%;
   z-index: -2;
   pointer-events: none;
   background:
-    radial-gradient(35% 35% at 25% 30%, rgba(34, 211, 238, 0.12), transparent 70%),
-    radial-gradient(40% 40% at 78% 22%, rgba(167, 139, 250, 0.12), transparent 70%),
-    radial-gradient(45% 45% at 60% 80%, rgba(34, 211, 238, 0.08), transparent 70%);
+    radial-gradient(35% 35% at 25% 30%, rgba(255, 255, 255, 0.1), transparent 70%),
+    radial-gradient(40% 40% at 78% 22%, rgba(255, 255, 255, 0.08), transparent 70%),
+    radial-gradient(45% 45% at 60% 80%, rgba(255, 255, 255, 0.06), transparent 70%);
   filter: blur(20px);
   animation: aurora-drift 22s ease-in-out infinite alternate;
 }
@@ -255,7 +255,7 @@ body {
   inset: -1px;
   border-radius: inherit;
   padding: 1px;
-  background: linear-gradient(130deg, rgba(34, 211, 238, 0.5), transparent 42%, rgba(167, 139, 250, 0.4));
+  background: linear-gradient(130deg, rgba(255, 255, 255, 0.55), transparent 42%, rgba(255, 255, 255, 0.3));
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
@@ -269,9 +269,9 @@ body {
 
 /* Pulsing availability dot */
 @keyframes pulse-dot {
-  0% { box-shadow: 0 0 0 0 rgba(34, 211, 238, 0.5); }
-  70% { box-shadow: 0 0 0 6px rgba(34, 211, 238, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(34, 211, 238, 0); }
+  0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.5); }
+  70% { box-shadow: 0 0 0 6px rgba(255, 255, 255, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
 }
 .pulse-dot {
   animation: pulse-dot 2.4s ease-out infinite;

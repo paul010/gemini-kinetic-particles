@@ -206,7 +206,7 @@ const FeaturedCard: React.FC<{
           src={p.cover}
           alt={p.title}
           loading="lazy"
-          className="h-64 w-full object-cover opacity-90 transition-transform duration-700 group-hover:scale-[1.04] sm:h-80 lg:h-full"
+          className="h-64 w-full object-cover opacity-90 grayscale transition-all duration-700 group-hover:scale-[1.04] group-hover:grayscale-0 sm:h-80 lg:h-full"
         />
         <span className="pointer-events-none absolute inset-0 bg-gradient-to-t from-surface/85 via-transparent to-transparent lg:bg-gradient-to-r" />
         <span className="absolute bottom-4 left-4 inline-flex items-center gap-2 rounded-full border border-white/20 bg-black/40 px-3.5 py-1.5 text-xs font-semibold text-white/90 backdrop-blur-md transition-colors group-hover:border-accent/60 group-hover:text-white">
@@ -454,7 +454,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
             <a href={SOCIALS.github} target="_blank" rel="noreferrer" className="transition-colors hover:text-white" aria-label="GitHub">
               <GitHubIcon className="h-5 w-5" />
             </a>
-            <a href={SOCIALS.youtube} target="_blank" rel="noreferrer" className="transition-colors hover:text-[#ff0000]" aria-label="YouTube">
+            <a href={SOCIALS.youtube} target="_blank" rel="noreferrer" className="transition-colors hover:text-white" aria-label="YouTube">
               <YouTubeIcon className="h-5 w-5" />
             </a>
             <a href={SOCIALS.twitter} target="_blank" rel="noreferrer" className="transition-colors hover:text-white" aria-label="X">

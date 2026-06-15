@@ -15,11 +15,12 @@ export default {
         mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
       },
       colors: {
-        ink: '#06070b',
-        surface: '#0c0e16',
-        accent: '#22d3ee',
-        accent2: '#a78bfa',
-        ember: '#fb923c',
+        // Monochrome palette — pure black & white with neutral grays.
+        ink: '#0a0a0a',
+        surface: '#161616',
+        accent: '#ffffff',
+        accent2: '#a3a3a3',
+        ember: '#d4d4d4',
       },
     },
   },
