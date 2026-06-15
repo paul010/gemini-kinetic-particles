@@ -1,0 +1,98 @@
+[
+  {
+    "id": "web-tool-mvp",
+    "name": "网页工具 MVP",
+    "goal": "快速做一个可上线的小工具。",
+    "skillIds": ["shadcn-ui", "tailwind-ui", "github-cli", "vercel", "playwright"],
+    "projectIds": ["screenshot-to-code", "wechat-md-editor", "vercel-ai-chatbot"],
+    "steps": ["明确输入和输出", "做一个单页可用原型", "用 Playwright 检查关键流程", "部署到 Vercel"],
+    "promptTemplate": "请帮我做一个网页工具 MVP：明确输入输出，做单页原型，用 Playwright 验收关键流程，最后部署到 Vercel。",
+    "difficulty": "easy",
+    "expectedOutput": "一个可打开、可操作、可部署的网页工具。",
+    "acceptanceCriteria": ["页面可在桌面和手机端使用", "核心按钮能工作", "无明显布局重叠", "可复制部署链接"]
+  },
+  {
+    "id": "three-d-demo",
+    "name": "3D 视觉 Demo",
+    "goal": "做一个观赏性强、可分享的 3D 网页。",
+    "skillIds": ["react-three-fiber", "threejs", "screenshot-review", "vercel"],
+    "projectIds": ["r3f-3d-demo"],
+    "steps": ["搭起 r3f 场景", "加入物体/粒子与交互", "用截图评审让 AI 自己调好看", "部署并测移动端"],
+    "promptTemplate": "请用 React Three Fiber 做一个可交互 3D 场景，加入光照与一个可旋转物体，截图自检视觉效果后部署到 Vercel。",
+    "difficulty": "medium",
+    "expectedOutput": "一个可交互、好看、可部署的 3D 页面。",
+    "acceptanceCriteria": ["3D 场景流畅渲染", "支持鼠标/触摸交互", "移动端可用", "可分享链接"]
+  },
+  {
+    "id": "browser-automation-flow",
+    "name": "浏览器自动化",
+    "goal": "让 AI 自动完成一段真实的网页任务。",
+    "skillIds": ["browser-automation", "playwright", "screenshot-review", "llm-docs"],
+    "projectIds": ["browser-use-agent", "midscene-ai-qa"],
+    "steps": ["定义目标任务与成功标准", "在简单站点跑通最小流程", "加错误处理与重试", "截图留证"],
+    "promptTemplate": "请用浏览器自动化完成以下任务：{{task}}。先在最小流程跑通，再加错误处理，每步截图留证。",
+    "difficulty": "medium",
+    "expectedOutput": "一个能稳定完成指定网页任务的自动化脚本。",
+    "acceptanceCriteria": ["能完成端到端任务", "失败有重试或报错定位", "有过程截图", "不违反目标站点条款"]
+  },
+  {
+    "id": "content-publish-flow",
+    "name": "内容发布工作流",
+    "goal": "把一条内容自动转换并分发到多平台。",
+    "skillIds": ["inngest", "cron-scheduler", "browser-automation", "video-workflow"],
+    "projectIds": ["n8n-content-automation", "pyvideotrans"],
+    "steps": ["定义内容源与目标平台", "搭最小两节点工作流", "加多平台文案生成", "定时触发"],
+    "promptTemplate": "请帮我搭一个内容发布工作流：从 {{source}} 触发，自动生成 {{platforms}} 的文案草稿。先做最小可用版本。",
+    "difficulty": "medium",
+    "expectedOutput": "一个可触发、可生成多平台草稿的工作流。",
+    "acceptanceCriteria": ["能从源触发", "生成至少 2 个平台草稿", "失败可重试", "凭证安全存储"]
+  },
+  {
+    "id": "wechat-article-flow",
+    "name": "公众号文章工作流",
+    "goal": "从草稿到排版精美的公众号文章。",
+    "skillIds": ["markitdown", "shadcn-ui", "imagegen", "vercel"],
+    "projectIds": ["wechat-md-editor"],
+    "steps": ["把素材转成 Markdown", "套用公众号主题排版", "生成封面图", "复制到公众号后台"],
+    "promptTemplate": "请把这段内容整理成公众号文章：转 Markdown、套用排版主题、生成一张封面图，并给出可直接粘贴的版本。",
+    "difficulty": "easy",
+    "expectedOutput": "一篇排版完成、带封面的公众号文章。",
+    "acceptanceCriteria": ["排版无错位", "有封面图", "可一键复制到后台", "图文版权合规"]
+  },
+  {
+    "id": "youtube-script-flow",
+    "name": "YouTube 视频脚本工作流",
+    "goal": "把一个项目 Demo 变成可拍的脚本与镜头。",
+    "skillIds": ["video-workflow", "subtitle-gen", "canva", "yt-dlp"],
+    "projectIds": ["ai-town-npc-game", "browser-use-agent"],
+    "steps": ["确定钩子与一句话价值", "写分段脚本", "列 Demo 镜头", "生成封面与字幕"],
+    "promptTemplate": "请基于这个项目写一条 YouTube 视频脚本：开头钩子、3 段讲解、Demo 镜头清单、结尾 CTA，并给中英标题。",
+    "difficulty": "easy",
+    "expectedOutput": "可直接开拍的脚本 + 镜头清单 + 标题与封面方向。",
+    "acceptanceCriteria": ["有明确钩子", "镜头清单可执行", "中英标题各一", "时长可控在 8 分钟内"]
+  },
+  {
+    "id": "agent-demo-mvp",
+    "name": "AI Agent Demo",
+    "goal": "做一个会记忆、会行动的 Agent 演示。",
+    "skillIds": ["llm-docs", "memory", "sequential-thinking", "github-cli"],
+    "projectIds": ["ai-town-npc-game"],
+    "steps": ["定义角色与目标", "接入记忆", "让 Agent 自主规划行动", "可视化其决策"],
+    "promptTemplate": "请帮我做一个最小 Agent Demo：{{role}} 拥有记忆，能自主规划并执行行动，把决策过程可视化出来。",
+    "difficulty": "hard",
+    "expectedOutput": "一个能自主行动并可观察其推理的 Agent 演示。",
+    "acceptanceCriteria": ["Agent 能记住上下文", "能自主规划多步行动", "决策过程可见", "成本可控"]
+  },
+  {
+    "id": "doc-rag-mvp",
+    "name": "文档问答 (RAG)",
+    "goal": "把文档变成可问答、带引用的知识库。",
+    "skillIds": ["markitdown", "pdf-extract", "document-skills", "llm-docs"],
+    "projectIds": ["quivr-rag"],
+    "steps": ["把文档转干净文本", "切块并建索引", "检索 + 生成回答", "回答附引用"],
+    "promptTemplate": "请帮我做一个最小 RAG：把这些文档转文本、切块建索引，问答时检索相关片段并在回答中标注来源。",
+    "difficulty": "medium",
+    "expectedOutput": "一个能基于文档问答并给出引用的最小系统。",
+    "acceptanceCriteria": ["回答基于文档内容", "附带来源引用", "对未知问题会拒答", "检索结果相关"]
+  }
+]

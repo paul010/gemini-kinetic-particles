@@ -147,21 +147,22 @@ export const PROJECTS: Project[] = [
     ],
   },
   {
-    id: 'next-experiment',
-    title: 'Something new',
+    id: 'ai-coding-arsenal',
+    title: 'AI Coding Arsenal',
     year: '2026',
-    status: 'soon',
+    status: 'wip',
     tagline: {
-      en: 'The next open-source experiment is taking shape.',
-      zh: '下一个开源实验正在成形。',
+      en: 'An open-source launchpad from an AI-coding idea to a running demo.',
+      zh: '从 AI Coding 灵感到可运行 Demo 的开源开工库。',
     },
     description: {
-      en: 'More interactive, AI-flavored web toys are on the way. Follow along on YouTube and X to catch them as they ship.',
-      zh: '更多融入 AI 的互动网页小玩意正在路上。关注 YouTube 与 X，第一时间见证它们诞生。',
+      en: 'A project radar + skill armory + recipe recommender + content workbench: see a project, judge if it’s worth doing, get the right Skills, copy a kick-off prompt for Codex / Claude Code, then turn it into content.',
+      zh: '项目灵感库 + Skill 装备库 + 复现路径推荐器 + 内容转化工作台：看到项目、判断值不值得做、配好 Skill、复制给 Codex / Claude Code 的开工 Prompt，再转化成短视频与图文内容。',
     },
-    tags: ['Creative coding', 'WebGL', 'AI'],
+    tags: ['React', 'TypeScript', 'AI Coding', 'Skills'],
     links: [
-      { label: { en: 'Follow on YouTube', zh: '关注 YouTube' }, href: SOCIALS.youtube, kind: 'youtube' },
+      { label: { en: 'Launch', zh: '立即体验' }, href: '/arsenal', kind: 'internal' },
+      { label: { en: 'Watch demo', zh: '观看演示' }, href: SOCIALS.youtube, kind: 'youtube' },
     ],
   },
 ];
