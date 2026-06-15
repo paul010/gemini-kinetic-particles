@@ -53,6 +53,13 @@ export interface VideoItem {
 export const youtubeWatch = (id: string) => `https://www.youtube.com/watch?v=${id}`;
 export const youtubeThumb = (id: string) => `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
 
+/**
+ * The video index is kept in the dalei-youtube repo's README. We fetch it at
+ * runtime (via jsDelivr's CORS-enabled CDN) and parse the latest episodes, so
+ * the homepage stays current without code changes. Falls back to VIDEOS below.
+ */
+export const VIDEOS_README_URL = 'https://cdn.jsdelivr.net/gh/paul010/dalei-youtube@master/README.md';
+
 /** Latest episodes — sourced from github.com/paul010/dalei-youtube. */
 export const VIDEOS: VideoItem[] = [
   {
@@ -157,6 +164,40 @@ export const PROJECTS: Project[] = [
     ],
   },
 ];
+
+/** Bilingual title overrides for episodes we've curated; others fall back to
+ * the (Chinese) title parsed from the README. */
+const CURATED_TITLES: Record<string, LocalizedText> = Object.fromEntries(
+  VIDEOS.map((v) => [v.id, v.title])
+);
+
+/** Parse the README's "视频索引" table rows into VideoItems (newest first). */
+export function parseVideosFromReadme(markdown: string, limit = 6): VideoItem[] {
+  const re =
+    /\|\s*(\d{2}-\d{2})\s*\|\s*\[([^\]]+)\]\(episodes\/(\d{4})-\d{2}\/([A-Za-z0-9_-]+)\.md\)\s*\|\s*([\d:]+)\s*\|/g;
+  const out: VideoItem[] = [];
+  let m: RegExpExecArray | null;
+  while ((m = re.exec(markdown)) !== null && out.length < limit) {
+    const [, mmdd, title, year, id, duration] = m;
+    out.push({
+      id,
+      date: `${year}-${mmdd}`,
+      duration,
+      title: CURATED_TITLES[id] ?? { en: title.trim(), zh: title.trim() },
+    });
+  }
+  return out;
+}
+
+/** Fetch the latest episodes from the dalei-youtube README. Throws on failure
+ * so callers can fall back to the bundled VIDEOS list. */
+export async function fetchLatestVideos(limit = 6): Promise<VideoItem[]> {
+  const res = await fetch(VIDEOS_README_URL, { cache: 'no-store' });
+  if (!res.ok) throw new Error(`README fetch failed: ${res.status}`);
+  const parsed = parseVideosFromReadme(await res.text(), limit);
+  if (!parsed.length) throw new Error('No videos parsed from README');
+  return parsed;
+}
 
 export const COPY = {
   nav: {
