@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import projectsData from './data/projects.json';
 import skillsData from './data/skills.json';
 import recipesData from './data/recipes.json';
@@ -162,6 +162,20 @@ const DetailModal: React.FC<{ project: Project; onClose: () => void; onOpenProje
   const prompt = buildPrompt(p, skills, recipes);
   const content = contentByProject.get(p.id);
   const source = SOURCES.find((s) => p.sourceIds.includes(s.id));
+
+  // Close on Escape and lock background scroll while the modal is open.
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    document.addEventListener('keydown', onKey);
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.removeEventListener('keydown', onKey);
+      document.body.style.overflow = prev;
+    };
+  }, [onClose]);
 
   return (
     <div
