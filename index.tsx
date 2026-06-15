@@ -55,6 +55,17 @@ const Router: React.FC = () => {
     };
   }, [route]);
 
+  // Per-route document title for SEO / sharing / browser history.
+  useEffect(() => {
+    const titles: Record<Route, string> = {
+      home: '大雷 · Da Lei — AI Automation & Creative Coding',
+      particles: 'Kinetic Particles · 大雷',
+      arsenal: 'AI Coding Arsenal · 大雷 AI 编程装备库',
+      md: 'Markdown 工具箱 · 大雷',
+    };
+    document.title = titles[route];
+  }, [route]);
+
   if (route === 'particles') {
     return (
       <Suspense fallback={<Loader label="LOADING PARTICLES…" />}>

@@ -44,6 +44,13 @@ p {
   color: var(--paper);
 }
 
+/* Keyboard-only focus ring (accessibility) */
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
 /* Scrollbar */
 ::-webkit-scrollbar {
   width: 10px;
