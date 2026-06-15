@@ -31,6 +31,86 @@ export const SOCIALS = {
   email: 'mailto:panlei318@gmail.com',
 };
 
+/** Shared image assets, served from the dalei-youtube repo via jsDelivr CDN. */
+export const ASSETS = {
+  avatar: 'https://cdn.jsdelivr.net/gh/paul010/dalei-youtube@master/avatar.jpg',
+};
+
+export const CHANNEL = {
+  name: { en: 'Da Lei · Good Morning', zh: '大雷早上好' } as LocalizedText,
+  handle: '@dalei2025',
+  subscribers: '4K+',
+  videos: '400+',
+};
+
+export interface VideoItem {
+  id: string; // YouTube video id (doubles as the resource filename in dalei-youtube)
+  title: LocalizedText;
+  date: string;
+  duration: string;
+}
+
+export const youtubeWatch = (id: string) => `https://www.youtube.com/watch?v=${id}`;
+export const youtubeThumb = (id: string) => `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
+
+/** Latest episodes — sourced from github.com/paul010/dalei-youtube. */
+export const VIDEOS: VideoItem[] = [
+  {
+    id: 'Zv4hXUhzwbU',
+    date: '2026-06-11',
+    duration: '7:49',
+    title: {
+      en: 'Fable 5 is INSANE! Create a game in one sentence',
+      zh: 'Fable 5 强到离谱！一句话生成游戏，最强 AI 王座易主？',
+    },
+  },
+  {
+    id: 'XjYrACWk-98',
+    date: '2026-06-10',
+    duration: '17:47',
+    title: {
+      en: 'Billion-dollar valuation, yet calling for an AI pause?',
+      zh: '估值千亿却叫停 AI？Anthropic 内部揭秘：RSI 的真相！',
+    },
+  },
+  {
+    id: 'DYoum8FiOzI',
+    date: '2026-06-07',
+    duration: '9:35',
+    title: {
+      en: "AI world quake! Anthropic's new ace halted by an insider leak",
+      zh: 'AI 圈大地震！Anthropic 新王牌因内鬼泄密，紧急叫停',
+    },
+  },
+  {
+    id: 'i0fgwuxG4p0',
+    date: '2026-06-06',
+    duration: '9:57',
+    title: {
+      en: 'AI gods at war! GPT-5.6 next week? Microsoft & Alibaba go all in',
+      zh: 'AI 圈神仙打架！GPT 5.6 下周发布？微软阿里连放大招',
+    },
+  },
+  {
+    id: 'q4X4cD-Phyk',
+    date: '2026-06-03',
+    duration: '7:26',
+    title: {
+      en: "Microsoft's AI bombshell! New Windows features nobody told you about",
+      zh: '微软 AI 王炸！没人告诉你的 Windows 新功能，开发者狂喜！',
+    },
+  },
+  {
+    id: 'kxQpKt17qnM',
+    date: '2026-06-03',
+    duration: '11:27',
+    title: {
+      en: 'MiniMax M3 shocks! Performance surpasses GPT-5.5',
+      zh: 'MiniMax M3 震撼发布！性能反超 GPT-5.5，最强开源 AI 来了？',
+    },
+  },
+];
+
 /**
  * Adding a future project = append one object here.
  * `status`: live | wip | soon · `featured` makes it the large hero card.
@@ -82,6 +162,7 @@ export const COPY = {
   nav: {
     home: { en: 'Home', zh: '首页' },
     work: { en: 'Work', zh: '作品' },
+    videos: { en: 'Videos', zh: '视频' },
     about: { en: 'About', zh: '关于' },
     connect: { en: 'Connect', zh: '联系' },
   },
@@ -105,6 +186,15 @@ export const COPY = {
       en: 'Open-source things I build in the open. More on the way.',
       zh: '我在公开构建的开源作品，更多正在路上。',
     },
+  },
+  videos: {
+    label: { en: 'From YouTube', zh: '来自 YouTube' },
+    heading: { en: 'Latest videos', zh: '最新视频' },
+    sub: {
+      en: 'Hands-on AI automation, tools, and AI news — new most weeks on 大雷早上好.',
+      zh: '每周更新的 AI 自动化实战、工具与 AI 资讯 ——「大雷早上好」。',
+    },
+    all: { en: 'View all on YouTube', zh: '在 YouTube 查看全部' },
   },
   about: {
     label: { en: 'About', zh: '关于' },

@@ -1,6 +1,18 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { StarfieldBackground } from './components/StarfieldBackground';
-import { COPY, PROJECTS, SOCIALS, Lang, LocalizedText, Project } from './data/site';
+import {
+  COPY,
+  PROJECTS,
+  SOCIALS,
+  ASSETS,
+  CHANNEL,
+  VIDEOS,
+  youtubeWatch,
+  youtubeThumb,
+  Lang,
+  LocalizedText,
+  Project,
+} from './data/site';
 
 interface HomeProps {
   onNavigate: (path: string) => void;
@@ -45,6 +57,12 @@ const MailIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" {...props}>
     <rect x="3" y="5" width="18" height="14" rx="2" />
     <path d="m3 7 9 6 9-6" />
+  </svg>
+);
+
+const PlayIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
+    <path d="M8 5v14l11-7z" />
   </svg>
 );
 
@@ -432,6 +450,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
   const navItems = [
     { id: 'home', label: COPY.nav.home },
     { id: 'work', label: COPY.nav.work },
+    { id: 'videos', label: COPY.nav.videos },
     { id: 'about', label: COPY.nav.about },
     { id: 'connect', label: COPY.nav.connect },
   ];
@@ -605,10 +624,80 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
           </div>
         </section>
 
+        {/* Videos */}
+        <section id="videos" className="scroll-mt-24 py-20">
+          <div className="reveal mb-12 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <p className="font-mono text-xs uppercase tracking-[0.2em] text-accent/80">{t(COPY.videos.label)}</p>
+              <h2 className="mt-3 font-display text-3xl font-bold tracking-tight sm:text-4xl">{t(COPY.videos.heading)}</h2>
+              <p className="mt-3 max-w-md text-sm text-ink/55">{t(COPY.videos.sub)}</p>
+            </div>
+            <a
+              href={SOCIALS.youtube}
+              target="_blank"
+              rel="noreferrer"
+              className="link-underline inline-flex w-fit items-center gap-1.5 text-sm font-semibold text-accent"
+            >
+              {t(COPY.videos.all)}
+              <ArrowUpRight className="h-3.5 w-3.5" />
+            </a>
+          </div>
+
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {VIDEOS.map((v, i) => (
+              <a
+                key={v.id}
+                href={youtubeWatch(v.id)}
+                target="_blank"
+                rel="noreferrer"
+                className="video-card reveal group flex flex-col"
+                style={{ transitionDelay: `${(i % 3) * 80}ms` }}
+              >
+                <div className="relative aspect-video overflow-hidden rounded-xl border border-ink/10 bg-surface">
+                  <img
+                    src={youtubeThumb(v.id)}
+                    alt={t(v.title)}
+                    loading="lazy"
+                    className="h-full w-full object-cover grayscale transition-all duration-500 group-hover:scale-[1.05] group-hover:grayscale-0"
+                  />
+                  <span className="absolute bottom-2 right-2 rounded bg-black/75 px-1.5 py-0.5 font-mono text-[11px] text-white">
+                    {v.duration}
+                  </span>
+                  <span className="absolute inset-0 grid place-items-center">
+                    <span className="grid h-12 w-12 scale-90 place-items-center rounded-full bg-paper/90 text-ink opacity-0 shadow-lg transition-all duration-300 group-hover:scale-100 group-hover:opacity-100">
+                      <PlayIcon className="ml-0.5 h-5 w-5" />
+                    </span>
+                  </span>
+                </div>
+                <h3 className="mt-3 line-clamp-2 text-sm font-semibold leading-snug text-ink/90 transition-colors group-hover:text-ink">
+                  {t(v.title)}
+                </h3>
+                <p className="mt-1.5 font-mono text-[11px] uppercase tracking-wider text-ink/40">
+                  {v.date} · {v.duration}
+                </p>
+              </a>
+            ))}
+          </div>
+        </section>
+
         {/* About */}
         <section id="about" className="scroll-mt-24 py-20">
           <div className="grid gap-12 lg:grid-cols-[1fr_1.1fr] lg:gap-16">
             <div className="reveal">
+              <div className="mb-6 flex items-center gap-3.5">
+                <img
+                  src={ASSETS.avatar}
+                  alt="Da Lei"
+                  loading="lazy"
+                  className="h-14 w-14 rounded-full object-cover ring-1 ring-ink/15"
+                />
+                <div>
+                  <p className="font-display text-lg font-semibold leading-tight">{t(CHANNEL.name)}</p>
+                  <p className="font-mono text-xs text-ink/45">
+                    {CHANNEL.handle} · {CHANNEL.subscribers} subscribers
+                  </p>
+                </div>
+              </div>
               <p className="font-mono text-xs uppercase tracking-[0.2em] text-accent/80">{t(COPY.about.label)}</p>
               <h2 className="mt-3 font-display text-3xl font-bold leading-tight tracking-tight sm:text-4xl">
                 {t(COPY.about.heading)}
