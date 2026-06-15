@@ -108,5 +108,94 @@
     "wechatAngle": "视频出海神器：自动翻译配音加字幕",
     "demoShots": ["导入一段短视频", "自动转写与翻译", "导出中英双语字幕成片"],
     "status": "draft"
+  },
+  {
+    "id": "content-lobe-chat",
+    "projectId": "lobe-chat",
+    "shortVideoTitle": "10 分钟上线最好看的开源 AI 聊天",
+    "xThreadAngle": "好的 AI 产品，UI 也是产品力。拆 Lobe Chat 的体验细节。",
+    "linkedinAngle": "Great AI UX is a product moat — Lobe Chat shows what polished looks like.",
+    "zsxqPostTitle": "一键部署一个高颜值 AI 助手",
+    "wechatAngle": "最好看的开源 AI 聊天，半天上线",
+    "demoShots": ["一键部署过程", "切换模型与角色", "插件能力演示"],
+    "status": "draft"
+  },
+  {
+    "id": "content-dify",
+    "projectId": "dify-llmops",
+    "shortVideoTitle": "不写代码也能搭 AI 工作流？Dify 实测",
+    "xThreadAngle": "可视化编排 vs 写代码，LLMOps 平台到底替你做了什么。",
+    "linkedinAngle": "Visual LLMOps lowers the barrier — but know what it abstracts away.",
+    "zsxqPostTitle": "用 Dify 拖一个 RAG 应用出来",
+    "wechatAngle": "拖拖拽拽搭 AI 应用：Dify 上手",
+    "demoShots": ["拖出一个问答 App", "接入知识库", "对话并看引用"],
+    "status": "draft"
+  },
+  {
+    "id": "content-open-webui",
+    "projectId": "open-webui",
+    "shortVideoTitle": "完全本地、零 API 费用的私人 AI",
+    "xThreadAngle": "隐私优先的 AI：本地模型 + Open WebUI 的组合。",
+    "linkedinAngle": "Local-first AI: privacy and zero per-token cost with Open WebUI + Ollama.",
+    "zsxqPostTitle": "搭一个完全离线的私人 AI",
+    "wechatAngle": "不花 API 钱：完全本地的私人 AI",
+    "demoShots": ["Docker 一键起服务", "接入本地模型", "离线对话演示"],
+    "status": "draft"
+  },
+  {
+    "id": "content-excalidraw",
+    "projectId": "excalidraw-clone",
+    "shortVideoTitle": "半天做个自己的手绘风白板",
+    "xThreadAngle": "Canvas 交互没那么难，从复现 Excalidraw 开始。",
+    "linkedinAngle": "Reproducing Excalidraw is a great way to learn canvas interactions.",
+    "zsxqPostTitle": "嵌入 Excalidraw 做一个白板工具",
+    "wechatAngle": "半天复现一个手绘风白板",
+    "demoShots": ["嵌入白板组件", "画图与保存", "导出图片"],
+    "status": "draft"
+  },
+  {
+    "id": "content-cobalt",
+    "projectId": "cobalt-media",
+    "shortVideoTitle": "自建一个干净无广告的素材下载站",
+    "xThreadAngle": "内容创作的第一步是素材。自建 cobalt 实测(合规前提)。",
+    "linkedinAngle": "Self-hosted media tooling — with a strong note on rights and compliance.",
+    "zsxqPostTitle": "自建素材下载站(注意合规)",
+    "wechatAngle": "干净无广告：自建素材下载站",
+    "demoShots": ["本地起服务", "粘贴授权链接", "下载素材"],
+    "status": "draft"
+  },
+  {
+    "id": "content-whisper-cpp",
+    "projectId": "whisper-cpp",
+    "shortVideoTitle": "完全离线把视频转字幕，免费又快",
+    "xThreadAngle": "字幕不用上云。whisper.cpp 本地转写实测。",
+    "linkedinAngle": "On-device transcription with whisper.cpp — fast, private, free.",
+    "zsxqPostTitle": "本地把音频转成带时间戳的文本",
+    "wechatAngle": "离线转字幕：whisper.cpp 上手",
+    "demoShots": ["编译运行", "导入一段音频", "输出带时间戳字幕"],
+    "status": "draft"
+  },
+  {
+    "id": "content-dub",
+    "projectId": "dub-links",
+    "shortVideoTitle": "自建短链平台，顺便看现代全栈怎么写",
+    "xThreadAngle": "想学 Next.js 全栈？读 Dub 的代码胜过看十篇教程。",
+    "linkedinAngle": "Dub is a masterclass in modern full-stack Next.js — read the source.",
+    "zsxqPostTitle": "部署一个自己的短链 + 分析",
+    "wechatAngle": "自建短链平台:现代全栈范本",
+    "demoShots": ["创建一个短链", "访问并统计点击", "看分析面板"],
+    "status": "draft"
+  },
+  {
+    "id": "content-comfyui",
+    "projectId": "comfyui",
+    "shortVideoTitle": "用节点工作流批量出封面图",
+    "xThreadAngle": "ComfyUI 的节点思维，比写 prompt 强在哪里。",
+    "linkedinAngle": "Node-based diffusion workflows make image generation reproducible and scalable.",
+    "zsxqPostTitle": "搭一个文生图工作流出封面",
+    "wechatAngle": "节点工作流:批量生成封面图",
+    "demoShots": ["展示节点画布", "跑一个文生图流程", "批量导出图片"],
+    "status": "draft"
   }
 ]
+

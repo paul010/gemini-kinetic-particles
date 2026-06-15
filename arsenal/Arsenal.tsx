@@ -49,6 +49,8 @@ const SKILL_CAT_LABEL: Record<string, string> = {
   content: '内容创作',
   scraping: '数据抓取',
   automation: '自动化调度',
+  data: '数据与存储',
+  ai: '模型与编排',
 };
 
 const skillById = new Map(SKILLS.map((s) => [s.id, s]));

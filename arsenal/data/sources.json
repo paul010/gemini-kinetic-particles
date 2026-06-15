@@ -8,5 +8,13 @@
   { "id": "src-midscene", "type": "github", "title": "Midscene.js", "url": "https://github.com/web-infra-dev/midscene", "author": "web-infra-dev", "capturedAt": "2026-06-15", "credibility": "high" },
   { "id": "src-ai-chatbot", "type": "github", "title": "Vercel AI Chatbot", "url": "https://github.com/vercel/ai-chatbot", "author": "vercel", "capturedAt": "2026-06-15", "credibility": "high" },
   { "id": "src-n8n", "type": "github", "title": "n8n", "url": "https://github.com/n8n-io/n8n", "author": "n8n-io", "capturedAt": "2026-06-15", "credibility": "high" },
-  { "id": "src-pyvideotrans", "type": "github", "title": "pyVideoTrans 视频翻译配音", "url": "https://github.com/jianchang512/pyvideotrans", "author": "jianchang512", "capturedAt": "2026-06-15", "credibility": "high" }
+  { "id": "src-pyvideotrans", "type": "github", "title": "pyVideoTrans 视频翻译配音", "url": "https://github.com/jianchang512/pyvideotrans", "author": "jianchang512", "capturedAt": "2026-06-15", "credibility": "high" },
+  { "id": "src-lobe-chat", "type": "github", "title": "Lobe Chat", "url": "https://github.com/lobehub/lobe-chat", "author": "lobehub", "capturedAt": "2026-06-15", "credibility": "high" },
+  { "id": "src-dify", "type": "github", "title": "Dify", "url": "https://github.com/langgenius/dify", "author": "langgenius", "capturedAt": "2026-06-15", "credibility": "high" },
+  { "id": "src-open-webui", "type": "github", "title": "Open WebUI", "url": "https://github.com/open-webui/open-webui", "author": "open-webui", "capturedAt": "2026-06-15", "credibility": "high" },
+  { "id": "src-excalidraw", "type": "github", "title": "Excalidraw", "url": "https://github.com/excalidraw/excalidraw", "author": "excalidraw", "capturedAt": "2026-06-15", "credibility": "high" },
+  { "id": "src-cobalt", "type": "github", "title": "cobalt 媒体下载", "url": "https://github.com/imputnet/cobalt", "author": "imputnet", "capturedAt": "2026-06-15", "credibility": "high" },
+  { "id": "src-whisper-cpp", "type": "github", "title": "whisper.cpp", "url": "https://github.com/ggml-org/whisper.cpp", "author": "ggml-org", "capturedAt": "2026-06-15", "credibility": "high" },
+  { "id": "src-dub", "type": "github", "title": "Dub 短链", "url": "https://github.com/dubinc/dub", "author": "dubinc", "capturedAt": "2026-06-15", "credibility": "high" },
+  { "id": "src-comfyui", "type": "github", "title": "ComfyUI", "url": "https://github.com/comfyanonymous/ComfyUI", "author": "comfyanonymous", "capturedAt": "2026-06-15", "credibility": "high" }
 ]
