@@ -68,6 +68,12 @@ const PlayIcon = (props: React.SVGProps<SVGSVGElement>) => (
   </svg>
 );
 
+const StarIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
+    <path d="M12 2.5l2.6 6.3 6.8.5-5.2 4.4 1.6 6.6L12 17.3 6.2 20.8l1.6-6.6L2.6 9.8l6.8-.5L12 2.5Z" />
+  </svg>
+);
+
 const ArrowIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" {...props}>
     <path d="M5 12h14M13 6l6 6-6 6" />
@@ -707,6 +713,31 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
                 </p>
               </a>
             ))}
+          </div>
+
+          {/* Membership CTA */}
+          <div className="reveal mt-10 flex flex-col items-start justify-between gap-5 overflow-hidden rounded-2xl border border-gold/30 bg-gold/[0.06] p-7 sm:flex-row sm:items-center sm:p-8">
+            <div className="flex items-start gap-4">
+              <span className="mt-0.5 grid h-10 w-10 shrink-0 place-items-center rounded-full border border-gold/40 bg-gold/10 text-gold">
+                <StarIcon className="h-5 w-5" />
+              </span>
+              <div>
+                <p className="font-mono text-xs uppercase tracking-[0.2em] text-gold">{t(COPY.membership.label)}</p>
+                <h3 className="mt-1.5 font-display text-2xl font-semibold tracking-tight">{t(COPY.membership.heading)}</h3>
+                <p className="mt-1 max-w-md text-sm leading-relaxed text-ink/60">{t(COPY.membership.sub)}</p>
+              </div>
+            </div>
+            <Magnetic strength={0.35}>
+              <a
+                href={SOCIALS.membership}
+                target="_blank"
+                rel="noreferrer"
+                className="btn-sheen inline-flex shrink-0 items-center gap-2 rounded-full bg-gold px-5 py-3 text-sm font-semibold text-paper transition-transform hover:scale-[1.03]"
+              >
+                <StarIcon className="h-4 w-4" />
+                {t(COPY.membership.cta)}
+              </a>
+            </Magnetic>
           </div>
         </section>
 
