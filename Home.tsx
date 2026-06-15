@@ -658,7 +658,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
                     src={youtubeThumb(v.id)}
                     alt={t(v.title)}
                     loading="lazy"
-                    className="h-full w-full object-cover grayscale transition-all duration-500 group-hover:scale-[1.05] group-hover:grayscale-0"
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.05]"
                   />
                   <span className="absolute bottom-2 right-2 rounded bg-black/75 px-1.5 py-0.5 font-mono text-[11px] text-white">
                     {v.duration}
