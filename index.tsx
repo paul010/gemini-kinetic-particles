@@ -6,6 +6,7 @@ import Home from './Home';
 const App = React.lazy(() => import('./App'));
 const Arsenal = React.lazy(() => import('./arsenal/Arsenal'));
 const MarkdownStudio = React.lazy(() => import('./tools/MarkdownStudio'));
+const ImageStudio = React.lazy(() => import('./tools/ImageStudio'));
 
 const Loader: React.FC<{ label: string }> = ({ label }) => (
   <div
@@ -19,7 +20,7 @@ const Loader: React.FC<{ label: string }> = ({ label }) => (
   </div>
 );
 
-type Route = 'home' | 'particles' | 'arsenal' | 'md';
+type Route = 'home' | 'particles' | 'arsenal' | 'md' | 'img';
 
 const routeFromLocation = (): Route => {
   const { pathname, hash } = window.location;
@@ -27,6 +28,7 @@ const routeFromLocation = (): Route => {
   if (p.endsWith('/particles') || hash === '#/particles') return 'particles';
   if (p.endsWith('/arsenal') || hash === '#/arsenal') return 'arsenal';
   if (p.endsWith('/md') || hash === '#/md') return 'md';
+  if (p.endsWith('/img') || hash === '#/img') return 'img';
   return 'home';
 };
 
@@ -62,6 +64,7 @@ const Router: React.FC = () => {
       particles: 'Kinetic Particles · 大雷',
       arsenal: 'AI Coding Arsenal · 大雷 AI 编程装备库',
       md: 'Markdown 工具箱 · 大雷',
+      img: '图片工具箱 · 大雷',
     };
     document.title = titles[route];
   }, [route]);
@@ -94,6 +97,14 @@ const Router: React.FC = () => {
     return (
       <Suspense fallback={<Loader label="LOADING EDITOR…" />}>
         <MarkdownStudio onHome={() => navigate('/')} />
+      </Suspense>
+    );
+  }
+
+  if (route === 'img') {
+    return (
+      <Suspense fallback={<Loader label="LOADING IMAGE STUDIO…" />}>
+        <ImageStudio onHome={() => navigate('/')} />
       </Suspense>
     );
   }

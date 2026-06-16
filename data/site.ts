@@ -188,6 +188,24 @@ export const PROJECTS: Project[] = [
       { label: { en: 'Inspiration', zh: '灵感来源' }, href: 'https://github.com/doocs/md', kind: 'github' },
     ],
   },
+  {
+    id: 'image-studio',
+    title: '图片工具箱 Image Studio',
+    year: '2026',
+    status: 'live',
+    tagline: {
+      en: 'Compress, resize & convert images — 100% in your browser, no upload.',
+      zh: '压缩、缩放、转格式 —— 全程浏览器本地处理,图片不上传。',
+    },
+    description: {
+      en: 'A zero-dependency, Canvas-based image tool: drop an image, resize to a max width, convert between JPG / WebP / PNG and tune quality, with a YouTube-thumbnail preset and live size-savings readout. Everything runs locally — nothing leaves your device.',
+      zh: '零依赖、基于 Canvas 的图片工具:拖入图片,按最大宽度缩放,在 JPG / WebP / PNG 间转换并调质量,内置 YouTube 封面预设与实时体积压缩比。全部本地运行,图片不离开你的设备。',
+    },
+    tags: ['React', 'Canvas', 'Image', 'Privacy'],
+    links: [
+      { label: { en: 'Launch', zh: '立即体验' }, href: '/img', kind: 'internal' },
+    ],
+  },
 ];
 
 /** Bilingual title overrides for episodes we've curated; others fall back to
