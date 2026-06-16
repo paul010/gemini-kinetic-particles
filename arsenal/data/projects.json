@@ -4,24 +4,53 @@
     "title": "AI 小镇 / NPC 社交游戏",
     "summary": "一张小地图，几个会记忆、聊天、行动的 AI 角色。",
     "whyItMatters": "理解 AI Agent 的记忆、行动与多角色互动的最佳入门。",
-    "sourceIds": ["src-ai-town"],
+    "sourceIds": [
+      "src-ai-town"
+    ],
     "sourceUrl": "https://github.com/a16z-infra/ai-town",
     "sourceType": "github",
-    "category": ["play", "agent"],
-    "tags": ["NPC", "memory", "llm", "agent", "game"],
+    "category": [
+      "play",
+      "agent"
+    ],
+    "tags": [
+      "NPC",
+      "memory",
+      "llm",
+      "agent",
+      "game"
+    ],
     "difficulty": 4,
     "estimatedTime": "3-7 天",
-    "audience": ["AI coding beginner", "creator"],
+    "audience": [
+      "AI coding beginner",
+      "creator"
+    ],
     "mvp": "3 个角色、1 个场景、10 条记忆，能自主对话与行动。",
     "status": "unverified",
-    "recommendedSkillIds": ["llm-docs", "github-cli", "memory", "docker-deploy"],
-    "recommendedRecipeIds": ["agent-demo-mvp"],
+    "recommendedSkillIds": [
+      "llm-docs",
+      "github-cli",
+      "memory",
+      "docker-deploy"
+    ],
+    "recommendedRecipeIds": [
+      "agent-demo-mvp"
+    ],
     "contentValueScore": 5,
     "daleiTake": "适合做一期「Agent 不是聊天框，而是会行动的角色」。",
     "verdict": "worth",
     "reason": "话题性强、画面好演示，但完整版依赖较多。建议抽核心做轻量版。",
-    "prepItems": ["LLM API Key", "Node / Docker 环境", "向量库或本地存储"],
-    "risks": ["完整栈较重(Convex/数据库)", "多角色 token 成本", "首次跑通耗时"],
+    "prepItems": [
+      "LLM API Key",
+      "Node / Docker 环境",
+      "向量库或本地存储"
+    ],
+    "risks": [
+      "完整栈较重(Convex/数据库)",
+      "多角色 token 成本",
+      "首次跑通耗时"
+    ],
     "nextStep": "先读 README 跑官方 demo；若太重，抽「3 角色 + 记忆」做轻量复刻。"
   },
   {
@@ -29,24 +58,50 @@
     "title": "截图转代码",
     "summary": "上传一张界面截图，自动生成可运行的前端代码。",
     "whyItMatters": "把设计稿/灵感秒变原型，是最实用的 AI Coding 演示之一。",
-    "sourceIds": ["src-screenshot-to-code"],
+    "sourceIds": [
+      "src-screenshot-to-code"
+    ],
     "sourceUrl": "https://github.com/abi/screenshot-to-code",
     "sourceType": "github",
-    "category": ["use", "engineering"],
-    "tags": ["frontend", "tool", "vision", "llm"],
+    "category": [
+      "use",
+      "engineering"
+    ],
+    "tags": [
+      "frontend",
+      "tool",
+      "vision",
+      "llm"
+    ],
     "difficulty": 2,
     "estimatedTime": "半天-1 天",
-    "audience": ["AI coding beginner", "creator"],
+    "audience": [
+      "AI coding beginner",
+      "creator"
+    ],
     "mvp": "本地跑通，上传一张截图生成 HTML/Tailwind 并预览。",
     "status": "readme_checked",
-    "recommendedSkillIds": ["shadcn-ui", "playwright", "vercel", "llm-docs"],
-    "recommendedRecipeIds": ["web-tool-mvp"],
+    "recommendedSkillIds": [
+      "shadcn-ui",
+      "playwright",
+      "vercel",
+      "llm-docs"
+    ],
+    "recommendedRecipeIds": [
+      "web-tool-mvp"
+    ],
     "contentValueScore": 5,
     "daleiTake": "演示效果炸裂，适合做「一张图变网页」的爽点视频。",
     "verdict": "worth",
     "reason": "上手快、效果直观、内容价值高，新手首选。",
-    "prepItems": ["多模态模型 API Key", "Node 环境"],
-    "risks": ["视觉模型调用成本", "复杂界面还原度有限"],
+    "prepItems": [
+      "多模态模型 API Key",
+      "Node 环境"
+    ],
+    "risks": [
+      "视觉模型调用成本",
+      "复杂界面还原度有限"
+    ],
     "nextStep": "按 README 配好 Key 跑通，先用简单截图验证效果。"
   },
   {
@@ -54,24 +109,50 @@
     "title": "React Three Fiber 3D 起手式",
     "summary": "用 React 写 Three.js 的生产级 3D 项目模板。",
     "whyItMatters": "做交互式 3D Demo 的最佳脚手架，可直接部署。",
-    "sourceIds": ["src-r3f-next"],
+    "sourceIds": [
+      "src-r3f-next"
+    ],
     "sourceUrl": "https://github.com/pmndrs/react-three-next",
     "sourceType": "github",
-    "category": ["play", "engineering"],
-    "tags": ["3d", "three", "webgl", "frontend"],
+    "category": [
+      "play",
+      "engineering"
+    ],
+    "tags": [
+      "3d",
+      "three",
+      "webgl",
+      "frontend"
+    ],
     "difficulty": 3,
     "estimatedTime": "1-2 天",
-    "audience": ["AI coding beginner", "creator"],
+    "audience": [
+      "AI coding beginner",
+      "creator"
+    ],
     "mvp": "跑通模板，放一个可旋转的 3D 物体并部署到 Vercel。",
     "status": "reproduced",
-    "recommendedSkillIds": ["react-three-fiber", "threejs", "screenshot-review", "vercel"],
-    "recommendedRecipeIds": ["three-d-demo"],
+    "recommendedSkillIds": [
+      "react-three-fiber",
+      "threejs",
+      "screenshot-review",
+      "vercel"
+    ],
+    "recommendedRecipeIds": [
+      "three-d-demo"
+    ],
     "contentValueScore": 4,
     "daleiTake": "做视觉爽片的底座，搭配截图评审让 AI 自己调好看。",
     "verdict": "worth",
     "reason": "模板成熟、部署简单，3D 内容观赏性高。",
-    "prepItems": ["Node 环境", "基础 React 认知"],
-    "risks": ["着色器/性能调优有门槛", "移动端适配"],
+    "prepItems": [
+      "Node 环境",
+      "基础 React 认知"
+    ],
+    "risks": [
+      "着色器/性能调优有门槛",
+      "移动端适配"
+    ],
     "nextStep": "克隆模板本地跑通，换上自己的 3D 物体。"
   },
   {
@@ -79,24 +160,52 @@
     "title": "Browser Use 浏览器智能体",
     "summary": "让 AI 像人一样操作浏览器：点击、填表、抓取、下单。",
     "whyItMatters": "浏览器自动化是 Agent 落地最强场景之一。",
-    "sourceIds": ["src-browser-use"],
+    "sourceIds": [
+      "src-browser-use"
+    ],
     "sourceUrl": "https://github.com/browser-use/browser-use",
     "sourceType": "github",
-    "category": ["use", "agent"],
-    "tags": ["agent", "automation", "browser", "llm"],
+    "category": [
+      "use",
+      "agent"
+    ],
+    "tags": [
+      "agent",
+      "automation",
+      "browser",
+      "llm"
+    ],
     "difficulty": 3,
     "estimatedTime": "1-2 天",
-    "audience": ["AI coding beginner", "creator"],
+    "audience": [
+      "AI coding beginner",
+      "creator"
+    ],
     "mvp": "让 Agent 打开一个站点，完成一次搜索并提取结果。",
     "status": "unverified",
-    "recommendedSkillIds": ["browser-automation", "playwright", "llm-docs", "github-cli"],
-    "recommendedRecipeIds": ["browser-automation-flow"],
+    "recommendedSkillIds": [
+      "browser-automation",
+      "playwright",
+      "llm-docs",
+      "github-cli"
+    ],
+    "recommendedRecipeIds": [
+      "browser-automation-flow"
+    ],
     "contentValueScore": 5,
     "daleiTake": "适合做「我让 AI 自己上网帮我干活」的实操视频。",
     "verdict": "worth",
     "reason": "演示直观、实用性强；注意目标站点条款与稳定性。",
-    "prepItems": ["LLM API Key", "Python 环境", "浏览器驱动"],
-    "risks": ["页面结构变化导致流程失败", "反爬与登录态", "误操作风险"],
+    "prepItems": [
+      "LLM API Key",
+      "Python 环境",
+      "浏览器驱动"
+    ],
+    "risks": [
+      "页面结构变化导致流程失败",
+      "反爬与登录态",
+      "误操作风险"
+    ],
     "nextStep": "先在一个简单公开站点跑通最小流程，再加复杂任务。"
   },
   {
@@ -104,24 +213,51 @@
     "title": "Quivr 第二大脑 (RAG)",
     "summary": "把文档喂给它，变成可问答的私人知识库。",
     "whyItMatters": "RAG + 文档处理是 AI 应用最高频的真实需求。",
-    "sourceIds": ["src-quivr"],
+    "sourceIds": [
+      "src-quivr"
+    ],
     "sourceUrl": "https://github.com/QuivrHQ/quivr",
     "sourceType": "github",
-    "category": ["use", "agent"],
-    "tags": ["rag", "document", "llm", "agent"],
+    "category": [
+      "use",
+      "agent"
+    ],
+    "tags": [
+      "rag",
+      "document",
+      "llm",
+      "agent"
+    ],
     "difficulty": 4,
     "estimatedTime": "2-4 天",
-    "audience": ["AI coding beginner"],
+    "audience": [
+      "AI coding beginner"
+    ],
     "mvp": "导入几个 PDF，能基于内容问答并给出引用。",
     "status": "unverified",
-    "recommendedSkillIds": ["markitdown", "pdf-extract", "document-skills", "docker-deploy"],
-    "recommendedRecipeIds": ["doc-rag-mvp"],
+    "recommendedSkillIds": [
+      "markitdown",
+      "pdf-extract",
+      "document-skills",
+      "docker-deploy"
+    ],
+    "recommendedRecipeIds": [
+      "doc-rag-mvp"
+    ],
     "contentValueScore": 4,
     "daleiTake": "做「把一本书变成能聊天的助手」很有共鸣。",
     "verdict": "cautious",
     "reason": "功能强但部署较重，新手建议先做轻量 RAG 再上完整版。",
-    "prepItems": ["LLM API Key", "向量数据库", "Docker"],
-    "risks": ["依赖多、部署复杂", "嵌入与检索调参", "成本控制"],
+    "prepItems": [
+      "LLM API Key",
+      "向量数据库",
+      "Docker"
+    ],
+    "risks": [
+      "依赖多、部署复杂",
+      "嵌入与检索调参",
+      "成本控制"
+    ],
     "nextStep": "先用一个最小 RAG 脚本跑通问答闭环，再评估完整部署。"
   },
   {
@@ -129,24 +265,48 @@
     "title": "微信公众号 Markdown 编辑器",
     "summary": "写 Markdown，一键变成排版精美的公众号文章。",
     "whyItMatters": "内容创作者高频刚需，复现简单、即用。",
-    "sourceIds": ["src-doocs-md"],
+    "sourceIds": [
+      "src-doocs-md"
+    ],
     "sourceUrl": "https://github.com/doocs/md",
     "sourceType": "github",
-    "category": ["content", "use"],
-    "tags": ["content", "markdown", "wechat", "frontend"],
+    "category": [
+      "content",
+      "use"
+    ],
+    "tags": [
+      "content",
+      "markdown",
+      "wechat",
+      "frontend"
+    ],
     "difficulty": 1,
     "estimatedTime": "半天",
-    "audience": ["creator", "AI coding beginner"],
+    "audience": [
+      "creator",
+      "AI coding beginner"
+    ],
     "mvp": "本地跑通，粘贴 Markdown 看到公众号样式并复制。",
     "status": "deployed",
-    "recommendedSkillIds": ["shadcn-ui", "vercel", "github-cli"],
-    "recommendedRecipeIds": ["wechat-article-flow", "web-tool-mvp"],
+    "recommendedSkillIds": [
+      "shadcn-ui",
+      "vercel",
+      "github-cli"
+    ],
+    "recommendedRecipeIds": [
+      "wechat-article-flow",
+      "web-tool-mvp"
+    ],
     "contentValueScore": 4,
     "daleiTake": "可以做「公众号排版别再手调了」的效率向内容。",
     "verdict": "worth",
     "reason": "门槛极低、即用即得，适合第一个复现项目。",
-    "prepItems": ["Node 环境"],
-    "risks": ["自定义主题需要 CSS 基础"],
+    "prepItems": [
+      "Node 环境"
+    ],
+    "risks": [
+      "自定义主题需要 CSS 基础"
+    ],
     "nextStep": "克隆跑通，定制成自己的品牌主题并部署。"
   },
   {
@@ -154,24 +314,50 @@
     "title": "Midscene 自然语言浏览器自动化",
     "summary": "用一句话指挥浏览器做 UI 测试与自动化。",
     "whyItMatters": "把 Playwright 的门槛降到「说人话」，QA 与自动化都能用。",
-    "sourceIds": ["src-midscene"],
+    "sourceIds": [
+      "src-midscene"
+    ],
     "sourceUrl": "https://github.com/web-infra-dev/midscene",
     "sourceType": "github",
-    "category": ["engineering", "agent"],
-    "tags": ["qa", "browser", "automation", "agent"],
+    "category": [
+      "engineering",
+      "agent"
+    ],
+    "tags": [
+      "qa",
+      "browser",
+      "automation",
+      "agent"
+    ],
     "difficulty": 3,
     "estimatedTime": "1 天",
-    "audience": ["AI coding beginner", "creator"],
+    "audience": [
+      "AI coding beginner",
+      "creator"
+    ],
     "mvp": "用自然语言让它打开页面、点击并断言一个结果。",
     "status": "unverified",
-    "recommendedSkillIds": ["playwright", "browser-automation", "screenshot-review", "llm-docs"],
-    "recommendedRecipeIds": ["browser-automation-flow"],
+    "recommendedSkillIds": [
+      "playwright",
+      "browser-automation",
+      "screenshot-review",
+      "llm-docs"
+    ],
+    "recommendedRecipeIds": [
+      "browser-automation-flow"
+    ],
     "contentValueScore": 4,
     "daleiTake": "适合做「写测试不用学 Playwright 了」的开发者向内容。",
     "verdict": "worth",
     "reason": "实用、演示清晰；依赖多模态模型与浏览器环境。",
-    "prepItems": ["多模态模型 API Key", "Node 环境"],
-    "risks": ["模型识别误差", "复杂页面稳定性"],
+    "prepItems": [
+      "多模态模型 API Key",
+      "Node 环境"
+    ],
+    "risks": [
+      "模型识别误差",
+      "复杂页面稳定性"
+    ],
     "nextStep": "按文档跑官方示例，用自己的页面写一条自然语言用例。"
   },
   {
@@ -179,24 +365,50 @@
     "title": "Vercel AI 聊天机器人模板",
     "summary": "生产级的 Next.js AI 聊天应用脚手架，开箱即用。",
     "whyItMatters": "学习现代 AI 应用结构 + 一键部署的标准范本。",
-    "sourceIds": ["src-ai-chatbot"],
+    "sourceIds": [
+      "src-ai-chatbot"
+    ],
     "sourceUrl": "https://github.com/vercel/ai-chatbot",
     "sourceType": "github",
-    "category": ["use", "agent", "engineering"],
-    "tags": ["llm", "frontend", "tool", "agent"],
+    "category": [
+      "use",
+      "agent",
+      "engineering"
+    ],
+    "tags": [
+      "llm",
+      "frontend",
+      "tool",
+      "agent"
+    ],
     "difficulty": 2,
     "estimatedTime": "半天-1 天",
-    "audience": ["AI coding beginner"],
+    "audience": [
+      "AI coding beginner"
+    ],
     "mvp": "部署到 Vercel，接入一个模型，能多轮对话。",
     "status": "deployed",
-    "recommendedSkillIds": ["shadcn-ui", "vercel", "github-cli", "llm-docs"],
-    "recommendedRecipeIds": ["web-tool-mvp"],
+    "recommendedSkillIds": [
+      "shadcn-ui",
+      "vercel",
+      "github-cli",
+      "llm-docs"
+    ],
+    "recommendedRecipeIds": [
+      "web-tool-mvp"
+    ],
     "contentValueScore": 3,
     "daleiTake": "适合做「30 分钟上线自己的 AI 助手」入门视频。",
     "verdict": "worth",
     "reason": "官方模板、文档完善、部署顺滑，新手友好。",
-    "prepItems": ["LLM API Key", "Vercel 账号"],
-    "risks": ["环境变量配置", "模型费用"],
+    "prepItems": [
+      "LLM API Key",
+      "Vercel 账号"
+    ],
+    "risks": [
+      "环境变量配置",
+      "模型费用"
+    ],
     "nextStep": "Fork → 配 Key → 一键部署，再换成自己的提示词与品牌。"
   },
   {
@@ -204,24 +416,49 @@
     "title": "n8n 内容发布自动化",
     "summary": "可视化编排：把一条内容自动分发到多个平台。",
     "whyItMatters": "把重复的发布/同步工作交给自动化工作流。",
-    "sourceIds": ["src-n8n"],
+    "sourceIds": [
+      "src-n8n"
+    ],
     "sourceUrl": "https://github.com/n8n-io/n8n",
     "sourceType": "github",
-    "category": ["use", "content"],
-    "tags": ["automation", "content", "workflow"],
+    "category": [
+      "use",
+      "content"
+    ],
+    "tags": [
+      "automation",
+      "content",
+      "workflow"
+    ],
     "difficulty": 3,
     "estimatedTime": "1-2 天",
-    "audience": ["creator"],
+    "audience": [
+      "creator"
+    ],
     "mvp": "搭一个「新视频→自动生成多平台文案草稿」的工作流。",
     "status": "unverified",
-    "recommendedSkillIds": ["inngest", "cron-scheduler", "browser-automation", "github-cli"],
-    "recommendedRecipeIds": ["content-publish-flow"],
+    "recommendedSkillIds": [
+      "inngest",
+      "cron-scheduler",
+      "browser-automation",
+      "github-cli"
+    ],
+    "recommendedRecipeIds": [
+      "content-publish-flow"
+    ],
     "contentValueScore": 4,
     "daleiTake": "适合做「我的内容分发流水线长什么样」幕后向内容。",
     "verdict": "cautious",
     "reason": "能力强但节点学习曲线存在，先做一个最小工作流。",
-    "prepItems": ["Docker 或 n8n 云", "各平台 API/凭证"],
-    "risks": ["平台 API 限制", "凭证安全", "工作流调试"],
+    "prepItems": [
+      "Docker 或 n8n 云",
+      "各平台 API/凭证"
+    ],
+    "risks": [
+      "平台 API 限制",
+      "凭证安全",
+      "工作流调试"
+    ],
     "nextStep": "本地起 n8n，先搭一个两节点的最小流跑通。"
   },
   {
@@ -229,24 +466,48 @@
     "title": "pyVideoTrans 视频翻译配音",
     "summary": "把一段视频自动转写、翻译、配音、加字幕。",
     "whyItMatters": "内容出海与二创的高价值素材生产工具。",
-    "sourceIds": ["src-pyvideotrans"],
+    "sourceIds": [
+      "src-pyvideotrans"
+    ],
     "sourceUrl": "https://github.com/jianchang512/pyvideotrans",
     "sourceType": "github",
-    "category": ["content"],
-    "tags": ["video", "content", "subtitle", "tool"],
+    "category": [
+      "content"
+    ],
+    "tags": [
+      "video",
+      "content",
+      "subtitle",
+      "tool"
+    ],
     "difficulty": 2,
     "estimatedTime": "半天-1 天",
-    "audience": ["creator"],
+    "audience": [
+      "creator"
+    ],
     "mvp": "把一段短视频翻译成中英双语字幕并导出。",
     "status": "unverified",
-    "recommendedSkillIds": ["subtitle-gen", "yt-dlp", "video-workflow"],
-    "recommendedRecipeIds": ["content-publish-flow"],
+    "recommendedSkillIds": [
+      "subtitle-gen",
+      "yt-dlp",
+      "video-workflow"
+    ],
+    "recommendedRecipeIds": [
+      "content-publish-flow"
+    ],
     "contentValueScore": 4,
     "daleiTake": "适合做「一条视频自动出中英双语」的内容创作者福利。",
     "verdict": "worth",
     "reason": "即用、价值清晰；注意素材授权与模型依赖。",
-    "prepItems": ["Python 环境", "转写/翻译模型或 Key"],
-    "risks": ["大模型/显卡依赖", "长视频耗时", "版权合规"],
+    "prepItems": [
+      "Python 环境",
+      "转写/翻译模型或 Key"
+    ],
+    "risks": [
+      "大模型/显卡依赖",
+      "长视频耗时",
+      "版权合规"
+    ],
     "nextStep": "用一段自有短视频跑通「转写→翻译→字幕」最小链路。"
   },
   {
@@ -254,24 +515,50 @@
     "title": "Lobe Chat 现代 AI 对话框架",
     "summary": "颜值高、可插件、可部署的开源 AI 聊天应用。",
     "whyItMatters": "学习现代多模型聊天 UI 与插件体系的好范本。",
-    "sourceIds": ["src-lobe-chat"],
+    "sourceIds": [
+      "src-lobe-chat"
+    ],
     "sourceUrl": "https://github.com/lobehub/lobe-chat",
     "sourceType": "github",
-    "category": ["use", "agent"],
-    "tags": ["llm", "frontend", "tool", "agent"],
+    "category": [
+      "use",
+      "agent"
+    ],
+    "tags": [
+      "llm",
+      "frontend",
+      "tool",
+      "agent"
+    ],
     "difficulty": 2,
     "estimatedTime": "半天-1 天",
-    "audience": ["AI coding beginner", "creator"],
+    "audience": [
+      "AI coding beginner",
+      "creator"
+    ],
     "mvp": "一键部署，接入一个模型，能多轮对话并切换角色。",
     "status": "deployed",
-    "recommendedSkillIds": ["shadcn-ui", "vercel", "llm-docs", "framer-motion"],
-    "recommendedRecipeIds": ["web-tool-mvp"],
+    "recommendedSkillIds": [
+      "shadcn-ui",
+      "vercel",
+      "llm-docs",
+      "framer-motion"
+    ],
+    "recommendedRecipeIds": [
+      "web-tool-mvp"
+    ],
     "contentValueScore": 4,
     "daleiTake": "适合做「最好看的开源 AI 聊天，10 分钟上线」。",
     "verdict": "worth",
     "reason": "部署简单、界面好演示、可扩展性强。",
-    "prepItems": ["LLM API Key", "Vercel 账号"],
-    "risks": ["环境变量较多", "插件配置门槛"],
+    "prepItems": [
+      "LLM API Key",
+      "Vercel 账号"
+    ],
+    "risks": [
+      "环境变量较多",
+      "插件配置门槛"
+    ],
     "nextStep": "一键部署到 Vercel，先接一个模型跑通对话。"
   },
   {
@@ -279,24 +566,52 @@
     "title": "Dify LLM 应用平台",
     "summary": "可视化搭建 AI 工作流、Agent 与 RAG 应用。",
     "whyItMatters": "理解 LLMOps 与可视化编排的代表项目。",
-    "sourceIds": ["src-dify"],
+    "sourceIds": [
+      "src-dify"
+    ],
     "sourceUrl": "https://github.com/langgenius/dify",
     "sourceType": "github",
-    "category": ["use", "agent"],
-    "tags": ["agent", "rag", "workflow", "llm"],
+    "category": [
+      "use",
+      "agent"
+    ],
+    "tags": [
+      "agent",
+      "rag",
+      "workflow",
+      "llm"
+    ],
     "difficulty": 4,
     "estimatedTime": "2-4 天",
-    "audience": ["AI coding beginner"],
+    "audience": [
+      "AI coding beginner"
+    ],
     "mvp": "本地起服务，拖出一个最简问答 App 并对话。",
     "status": "unverified",
-    "recommendedSkillIds": ["docker-deploy", "llm-docs", "pinecone", "langgraph"],
-    "recommendedRecipeIds": ["agent-demo-mvp", "doc-rag-mvp"],
+    "recommendedSkillIds": [
+      "docker-deploy",
+      "llm-docs",
+      "pinecone",
+      "langgraph"
+    ],
+    "recommendedRecipeIds": [
+      "agent-demo-mvp",
+      "doc-rag-mvp"
+    ],
     "contentValueScore": 4,
     "daleiTake": "适合做「不写代码也能搭 AI 工作流」的对比测评。",
     "verdict": "cautious",
     "reason": "功能强大但部署偏重，建议先用云版体验再自托管。",
-    "prepItems": ["Docker", "LLM API Key", "向量库"],
-    "risks": ["依赖多、资源占用高", "首次部署耗时", "升级迁移成本"],
+    "prepItems": [
+      "Docker",
+      "LLM API Key",
+      "向量库"
+    ],
+    "risks": [
+      "依赖多、资源占用高",
+      "首次部署耗时",
+      "升级迁移成本"
+    ],
     "nextStep": "先用官方云版跑通一个 App，再决定是否本地部署。"
   },
   {
@@ -304,24 +619,46 @@
     "title": "Open WebUI 本地大模型界面",
     "summary": "给本地/自托管模型一个好用的聊天界面。",
     "whyItMatters": "本地模型 + 隐私优先的最佳入口。",
-    "sourceIds": ["src-open-webui"],
+    "sourceIds": [
+      "src-open-webui"
+    ],
     "sourceUrl": "https://github.com/open-webui/open-webui",
     "sourceType": "github",
-    "category": ["use", "engineering"],
-    "tags": ["llm", "tool", "self-host"],
+    "category": [
+      "use",
+      "engineering"
+    ],
+    "tags": [
+      "llm",
+      "tool",
+      "self-host"
+    ],
     "difficulty": 2,
     "estimatedTime": "半天",
-    "audience": ["AI coding beginner"],
+    "audience": [
+      "AI coding beginner"
+    ],
     "mvp": "用 Docker 起服务，接本地 Ollama 模型聊天。",
     "status": "unverified",
-    "recommendedSkillIds": ["docker-deploy", "llm-docs", "railway"],
-    "recommendedRecipeIds": ["web-tool-mvp"],
+    "recommendedSkillIds": [
+      "docker-deploy",
+      "llm-docs",
+      "railway"
+    ],
+    "recommendedRecipeIds": [
+      "web-tool-mvp"
+    ],
     "contentValueScore": 3,
     "daleiTake": "适合做「完全本地、零 API 费用的私人 AI」。",
     "verdict": "worth",
     "reason": "一条 Docker 命令即可起，隐私话题有共鸣。",
-    "prepItems": ["Docker", "本地模型 (如 Ollama)"],
-    "risks": ["本地模型对硬件有要求"],
+    "prepItems": [
+      "Docker",
+      "本地模型 (如 Ollama)"
+    ],
+    "risks": [
+      "本地模型对硬件有要求"
+    ],
     "nextStep": "Docker 一键起服务，连上本地模型聊一句。"
   },
   {
@@ -329,24 +666,46 @@
     "title": "Excalidraw 手绘风白板",
     "summary": "开源的手绘风协作白板，复现一个画板很解压。",
     "whyItMatters": "练习 Canvas 交互与协作同步的经典项目。",
-    "sourceIds": ["src-excalidraw"],
+    "sourceIds": [
+      "src-excalidraw"
+    ],
     "sourceUrl": "https://github.com/excalidraw/excalidraw",
     "sourceType": "github",
-    "category": ["use", "engineering"],
-    "tags": ["frontend", "canvas", "tool"],
+    "category": [
+      "use",
+      "engineering"
+    ],
+    "tags": [
+      "frontend",
+      "canvas",
+      "tool"
+    ],
     "difficulty": 3,
     "estimatedTime": "1-2 天",
-    "audience": ["AI coding beginner"],
+    "audience": [
+      "AI coding beginner"
+    ],
     "mvp": "嵌入 Excalidraw 组件，能画图、保存与导出。",
     "status": "reproduced",
-    "recommendedSkillIds": ["shadcn-ui", "vercel", "playwright"],
-    "recommendedRecipeIds": ["web-tool-mvp"],
+    "recommendedSkillIds": [
+      "shadcn-ui",
+      "vercel",
+      "playwright"
+    ],
+    "recommendedRecipeIds": [
+      "web-tool-mvp"
+    ],
     "contentValueScore": 3,
     "daleiTake": "适合做「半天做个自己的白板工具」。",
     "verdict": "worth",
     "reason": "组件成熟、可嵌入，复现门槛低。",
-    "prepItems": ["Node 环境"],
-    "risks": ["实时协作需要后端", "大文件性能"],
+    "prepItems": [
+      "Node 环境"
+    ],
+    "risks": [
+      "实时协作需要后端",
+      "大文件性能"
+    ],
     "nextStep": "用官方 npm 包嵌入一个最小白板页面。"
   },
   {
@@ -354,24 +713,46 @@
     "title": "cobalt 媒体下载器",
     "summary": "干净无广告地下载各平台视频/音频做素材。",
     "whyItMatters": "内容创作者的素材获取利器，UI 简洁可复现。",
-    "sourceIds": ["src-cobalt"],
+    "sourceIds": [
+      "src-cobalt"
+    ],
     "sourceUrl": "https://github.com/imputnet/cobalt",
     "sourceType": "github",
-    "category": ["content", "use"],
-    "tags": ["video", "tool", "content"],
+    "category": [
+      "content",
+      "use"
+    ],
+    "tags": [
+      "video",
+      "tool",
+      "content"
+    ],
     "difficulty": 2,
     "estimatedTime": "半天-1 天",
-    "audience": ["creator"],
+    "audience": [
+      "creator"
+    ],
     "mvp": "本地起服务，粘贴链接下载一段视频。",
     "status": "unverified",
-    "recommendedSkillIds": ["yt-dlp", "docker-deploy", "vercel"],
-    "recommendedRecipeIds": ["content-publish-flow"],
+    "recommendedSkillIds": [
+      "yt-dlp",
+      "docker-deploy",
+      "vercel"
+    ],
+    "recommendedRecipeIds": [
+      "content-publish-flow"
+    ],
     "contentValueScore": 3,
     "daleiTake": "适合做「自建一个干净的素材下载站」。",
     "verdict": "cautious",
     "reason": "实用但务必合规，仅下载有授权的内容。",
-    "prepItems": ["Node / Docker 环境"],
-    "risks": ["版权与平台条款", "需自行承担合规责任"],
+    "prepItems": [
+      "Node / Docker 环境"
+    ],
+    "risks": [
+      "版权与平台条款",
+      "需自行承担合规责任"
+    ],
     "nextStep": "本地起服务，先用授权素材验证下载流程。"
   },
   {
@@ -379,24 +760,48 @@
     "title": "whisper.cpp 本地语音转写",
     "summary": "在本地高效把语音转成文字，免云端。",
     "whyItMatters": "字幕、会议纪要、播客转写的离线底座。",
-    "sourceIds": ["src-whisper-cpp"],
+    "sourceIds": [
+      "src-whisper-cpp"
+    ],
     "sourceUrl": "https://github.com/ggml-org/whisper.cpp",
     "sourceType": "github",
-    "category": ["content", "engineering"],
-    "tags": ["subtitle", "document", "tool"],
+    "category": [
+      "content",
+      "engineering"
+    ],
+    "tags": [
+      "subtitle",
+      "document",
+      "tool"
+    ],
     "difficulty": 3,
     "estimatedTime": "1 天",
-    "audience": ["creator", "AI coding beginner"],
+    "audience": [
+      "creator",
+      "AI coding beginner"
+    ],
     "mvp": "编译运行，把一段音频转成带时间戳的文本。",
     "status": "unverified",
-    "recommendedSkillIds": ["subtitle-gen", "yt-dlp", "document-skills"],
-    "recommendedRecipeIds": ["youtube-script-flow"],
+    "recommendedSkillIds": [
+      "subtitle-gen",
+      "yt-dlp",
+      "document-skills"
+    ],
+    "recommendedRecipeIds": [
+      "youtube-script-flow"
+    ],
     "contentValueScore": 3,
     "daleiTake": "适合做「完全离线把视频转字幕」的硬核向内容。",
     "verdict": "worth",
     "reason": "离线、省钱、实用；需要一点编译与模型下载。",
-    "prepItems": ["C/C++ 编译环境", "模型权重文件"],
-    "risks": ["编译依赖", "大模型权重较大"],
+    "prepItems": [
+      "C/C++ 编译环境",
+      "模型权重文件"
+    ],
+    "risks": [
+      "编译依赖",
+      "大模型权重较大"
+    ],
     "nextStep": "下载一个小模型，转一段短音频验证效果。"
   },
   {
@@ -404,24 +809,47 @@
     "title": "Dub 开源短链与分析",
     "summary": "做自己的短链平台，带点击分析。",
     "whyItMatters": "现代全栈 Next.js 应用的优秀学习样本。",
-    "sourceIds": ["src-dub"],
+    "sourceIds": [
+      "src-dub"
+    ],
     "sourceUrl": "https://github.com/dubinc/dub",
     "sourceType": "github",
-    "category": ["use", "engineering"],
-    "tags": ["frontend", "tool", "analytics"],
+    "category": [
+      "use",
+      "engineering"
+    ],
+    "tags": [
+      "frontend",
+      "tool",
+      "analytics"
+    ],
     "difficulty": 3,
     "estimatedTime": "1-2 天",
-    "audience": ["AI coding beginner"],
+    "audience": [
+      "AI coding beginner"
+    ],
     "mvp": "部署一个能创建短链并统计点击的页面。",
     "status": "unverified",
-    "recommendedSkillIds": ["shadcn-ui", "supabase", "vercel", "github-cli"],
-    "recommendedRecipeIds": ["web-tool-mvp"],
+    "recommendedSkillIds": [
+      "shadcn-ui",
+      "supabase",
+      "vercel",
+      "github-cli"
+    ],
+    "recommendedRecipeIds": [
+      "web-tool-mvp"
+    ],
     "contentValueScore": 3,
     "daleiTake": "适合做「自建短链 + 看现代全栈怎么写」。",
     "verdict": "worth",
     "reason": "代码质量高、可部署，学习价值大。",
-    "prepItems": ["数据库", "Vercel 账号"],
-    "risks": ["环境变量与服务依赖较多"],
+    "prepItems": [
+      "数据库",
+      "Vercel 账号"
+    ],
+    "risks": [
+      "环境变量与服务依赖较多"
+    ],
     "nextStep": "按文档配好环境变量，先本地跑通创建短链。"
   },
   {
@@ -429,24 +857,48 @@
     "title": "ComfyUI 图像生成工作流",
     "summary": "用节点搭建可视化的图像生成流程。",
     "whyItMatters": "理解扩散模型工作流与可复用节点的代表项目。",
-    "sourceIds": ["src-comfyui"],
+    "sourceIds": [
+      "src-comfyui"
+    ],
     "sourceUrl": "https://github.com/comfyanonymous/ComfyUI",
     "sourceType": "github",
-    "category": ["content", "play"],
-    "tags": ["image", "workflow", "content"],
+    "category": [
+      "content",
+      "play"
+    ],
+    "tags": [
+      "image",
+      "workflow",
+      "content"
+    ],
     "difficulty": 3,
     "estimatedTime": "1-2 天",
-    "audience": ["creator"],
+    "audience": [
+      "creator"
+    ],
     "mvp": "跑通一个最简文生图工作流并导出图片。",
     "status": "unverified",
-    "recommendedSkillIds": ["imagegen", "canva", "docker-deploy"],
-    "recommendedRecipeIds": ["wechat-article-flow"],
+    "recommendedSkillIds": [
+      "imagegen",
+      "canva",
+      "docker-deploy"
+    ],
+    "recommendedRecipeIds": [
+      "wechat-article-flow"
+    ],
     "contentValueScore": 4,
     "daleiTake": "适合做「用节点工作流批量出封面图」。",
     "verdict": "cautious",
     "reason": "玩法丰富但对显卡有要求，新手先用最简工作流。",
-    "prepItems": ["GPU 或云 GPU", "基础模型权重"],
-    "risks": ["显卡依赖", "节点与模型版本兼容", "上手曲线"],
+    "prepItems": [
+      "GPU 或云 GPU",
+      "基础模型权重"
+    ],
+    "risks": [
+      "显卡依赖",
+      "节点与模型版本兼容",
+      "上手曲线"
+    ],
     "nextStep": "装好基础模型，跑官方最简文生图流程。"
   }
 ]
