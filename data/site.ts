@@ -206,6 +206,25 @@ export const PROJECTS: Project[] = [
       { label: { en: 'Launch', zh: '立即体验' }, href: '/img', kind: 'internal' },
     ],
   },
+  {
+    id: 'screenshot-to-code',
+    title: '截图转代码 Screenshot → Code',
+    year: '2026',
+    status: 'wip',
+    tagline: {
+      en: 'Drop a UI screenshot, get a self-contained HTML page (bring your own Gemini key).',
+      zh: '上传界面截图,生成自包含 HTML 页面(自带 Gemini Key,实验性)。',
+    },
+    description: {
+      en: 'Upload a screenshot and Gemini reproduces it as a single Tailwind HTML file, with live preview and copy/download. Experimental & bring-your-own-key: your Gemini API key stays in your browser and calls Google directly — nothing is proxied or stored server-side.',
+      zh: '上传一张界面截图,Gemini 把它还原成单文件 Tailwind HTML,带实时预览与复制/下载。实验性、自带 Key:你的 Gemini API Key 只存在浏览器本地、直连 Google,不经任何服务器中转或存储。',
+    },
+    tags: ['Gemini', 'Vision', 'React', 'BYO-Key'],
+    links: [
+      { label: { en: 'Launch', zh: '立即体验' }, href: '/s2c', kind: 'internal' },
+      { label: { en: 'Inspiration', zh: '灵感来源' }, href: 'https://github.com/abi/screenshot-to-code', kind: 'github' },
+    ],
+  },
 ];
 
 /** Bilingual title overrides for episodes we've curated; others fall back to
