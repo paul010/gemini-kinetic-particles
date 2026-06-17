@@ -225,6 +225,25 @@ export const PROJECTS: Project[] = [
       { label: { en: 'Inspiration', zh: '灵感来源' }, href: 'https://github.com/abi/screenshot-to-code', kind: 'github' },
     ],
   },
+  {
+    id: 'fluid-playground',
+    title: 'Fluid 流体 Playground',
+    year: '2026',
+    status: 'live',
+    tagline: {
+      en: 'A full-screen WebGL fluid you paint with your cursor.',
+      zh: '用鼠标/手指绘制的全屏 WebGL 流体。',
+    },
+    description: {
+      en: 'An interactive, full-screen fluid simulation — move your cursor (or touch) to paint glowing, swirling color. Built on Pavel Dobryakov’s WebGL-Fluid-Simulation (MIT); the homepage hero also carries a warm, toned-down version of it.',
+      zh: '全屏交互式流体模拟 —— 移动鼠标或触摸,绘制流动发光的色彩。基于 Pavel Dobryakov 的 WebGL-Fluid-Simulation(MIT);首页 hero 背景也用了它的暖色克制版。',
+    },
+    tags: ['WebGL', 'Fluid', 'Shaders', 'Interactive'],
+    links: [
+      { label: { en: 'Launch', zh: '立即体验' }, href: '/fluid', kind: 'internal' },
+      { label: { en: 'Original', zh: '原库' }, href: 'https://github.com/PavelDoGreat/WebGL-Fluid-Simulation', kind: 'github' },
+    ],
+  },
 ];
 
 /** Bilingual title overrides for episodes we've curated; others fall back to
