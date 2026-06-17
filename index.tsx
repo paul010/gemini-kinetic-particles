@@ -8,6 +8,7 @@ const Arsenal = React.lazy(() => import('./arsenal/Arsenal'));
 const MarkdownStudio = React.lazy(() => import('./tools/MarkdownStudio'));
 const ImageStudio = React.lazy(() => import('./tools/ImageStudio'));
 const ScreenshotToCode = React.lazy(() => import('./tools/ScreenshotToCode'));
+const FluidPlayground = React.lazy(() => import('./tools/FluidPlayground'));
 
 const Loader: React.FC<{ label: string }> = ({ label }) => (
   <div
@@ -21,7 +22,7 @@ const Loader: React.FC<{ label: string }> = ({ label }) => (
   </div>
 );
 
-type Route = 'home' | 'particles' | 'arsenal' | 'md' | 'img' | 's2c';
+type Route = 'home' | 'particles' | 'arsenal' | 'md' | 'img' | 's2c' | 'fluid';
 
 const routeFromLocation = (): Route => {
   const { pathname, hash } = window.location;
@@ -31,6 +32,7 @@ const routeFromLocation = (): Route => {
   if (p.endsWith('/md') || hash === '#/md') return 'md';
   if (p.endsWith('/img') || hash === '#/img') return 'img';
   if (p.endsWith('/s2c') || hash === '#/s2c') return 's2c';
+  if (p.endsWith('/fluid') || hash === '#/fluid') return 'fluid';
   return 'home';
 };
 
@@ -53,7 +55,7 @@ const Router: React.FC = () => {
 
   // The particle experience is a fixed full-screen canvas; other routes scroll.
   useEffect(() => {
-    document.body.style.overflow = route === 'particles' || route === 'md' || route === 's2c' ? 'hidden' : 'auto';
+    document.body.style.overflow = route === 'particles' || route === 'md' || route === 's2c' || route === 'fluid' ? 'hidden' : 'auto';
     return () => {
       document.body.style.overflow = 'auto';
     };
@@ -68,6 +70,7 @@ const Router: React.FC = () => {
       md: 'Markdown 工具箱 · 大雷',
       img: '图片工具箱 · 大雷',
       s2c: '截图转代码 · 大雷',
+      fluid: 'Fluid 流体 · 大雷',
     };
     document.title = titles[route];
   }, [route]);
@@ -116,6 +119,14 @@ const Router: React.FC = () => {
     return (
       <Suspense fallback={<Loader label="LOADING…" />}>
         <ScreenshotToCode onHome={() => navigate('/')} />
+      </Suspense>
+    );
+  }
+
+  if (route === 'fluid') {
+    return (
+      <Suspense fallback={<Loader label="LOADING FLUID…" />}>
+        <FluidPlayground onHome={() => navigate('/')} />
       </Suspense>
     );
   }

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { StarfieldBackground } from './components/StarfieldBackground';
+import { FluidBackground } from './components/FluidBackground';
 import {
   COPY,
   PROJECTS,
@@ -535,7 +535,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
   return (
     <div className="home-root font-sans">
       <div ref={progressRef} className="scroll-progress" />
-      <StarfieldBackground />
+      <FluidBackground />
       <div className="bg-aurora" />
       <div className="bg-vignette" />
       <div className="bg-grain" />
