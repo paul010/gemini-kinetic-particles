@@ -46,9 +46,9 @@
     {
       "order": 6,
       "projectId": "r3f-3d-demo",
-      "status": "pending",
+      "status": "in_review",
       "plan": "lightweight-repro",
-      "note": "3D 视觉 Demo。"
+      "note": "已做 /r3f 3D 起手式(R3F+drei)并上首页;PR 待 review。"
     },
     {
       "order": 7,

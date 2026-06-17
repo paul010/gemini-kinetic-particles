@@ -131,7 +131,7 @@
       "creator"
     ],
     "mvp": "跑通模板，放一个可旋转的 3D 物体并部署到 Vercel。",
-    "status": "reproduced",
+    "status": "deployed",
     "recommendedSkillIds": [
       "react-three-fiber",
       "threejs",

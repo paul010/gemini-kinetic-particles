@@ -244,6 +244,25 @@ export const PROJECTS: Project[] = [
       { label: { en: 'Original', zh: '原库' }, href: 'https://github.com/PavelDoGreat/WebGL-Fluid-Simulation', kind: 'github' },
     ],
   },
+  {
+    id: 'three-orb',
+    title: '3D 起手式 React Three Fiber',
+    year: '2026',
+    status: 'live',
+    tagline: {
+      en: 'Drag to orbit a sculpted, distorting 3D orb.',
+      zh: '拖拽环绕一个会形变的雕塑感 3D 物体。',
+    },
+    description: {
+      en: 'A minimal interactive 3D scene built with React Three Fiber and drei — a metallic, gently distorting orb with floating sparks you can orbit by dragging. A clean starting point for declarative 3D on the web.',
+      zh: '用 React Three Fiber 与 drei 搭的最小交互 3D 场景 —— 一个金属质感、缓缓形变的物体,配漂浮碎片,可拖拽环绕。声明式 Web 3D 的干净起手式。',
+    },
+    tags: ['React Three Fiber', 'Three.js', 'drei', 'WebGL'],
+    links: [
+      { label: { en: 'Launch', zh: '立即体验' }, href: '/r3f', kind: 'internal' },
+      { label: { en: 'Template', zh: '模板' }, href: 'https://github.com/pmndrs/react-three-next', kind: 'github' },
+    ],
+  },
 ];
 
 /** Bilingual title overrides for episodes we've curated; others fall back to

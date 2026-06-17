@@ -9,6 +9,7 @@ const MarkdownStudio = React.lazy(() => import('./tools/MarkdownStudio'));
 const ImageStudio = React.lazy(() => import('./tools/ImageStudio'));
 const ScreenshotToCode = React.lazy(() => import('./tools/ScreenshotToCode'));
 const FluidPlayground = React.lazy(() => import('./tools/FluidPlayground'));
+const ThreeOrb = React.lazy(() => import('./tools/ThreeOrb'));
 
 const Loader: React.FC<{ label: string }> = ({ label }) => (
   <div
@@ -22,7 +23,7 @@ const Loader: React.FC<{ label: string }> = ({ label }) => (
   </div>
 );
 
-type Route = 'home' | 'particles' | 'arsenal' | 'md' | 'img' | 's2c' | 'fluid';
+type Route = 'home' | 'particles' | 'arsenal' | 'md' | 'img' | 's2c' | 'fluid' | 'r3f';
 
 const routeFromLocation = (): Route => {
   const { pathname, hash } = window.location;
@@ -33,6 +34,7 @@ const routeFromLocation = (): Route => {
   if (p.endsWith('/img') || hash === '#/img') return 'img';
   if (p.endsWith('/s2c') || hash === '#/s2c') return 's2c';
   if (p.endsWith('/fluid') || hash === '#/fluid') return 'fluid';
+  if (p.endsWith('/r3f') || hash === '#/r3f') return 'r3f';
   return 'home';
 };
 
@@ -55,7 +57,7 @@ const Router: React.FC = () => {
 
   // The particle experience is a fixed full-screen canvas; other routes scroll.
   useEffect(() => {
-    document.body.style.overflow = route === 'particles' || route === 'md' || route === 's2c' || route === 'fluid' ? 'hidden' : 'auto';
+    document.body.style.overflow = route === 'particles' || route === 'md' || route === 's2c' || route === 'fluid' || route === 'r3f' ? 'hidden' : 'auto';
     return () => {
       document.body.style.overflow = 'auto';
     };
@@ -71,6 +73,7 @@ const Router: React.FC = () => {
       img: '图片工具箱 · 大雷',
       s2c: '截图转代码 · 大雷',
       fluid: 'Fluid 流体 · 大雷',
+      r3f: '3D 起手式 · 大雷',
     };
     document.title = titles[route];
   }, [route]);
@@ -127,6 +130,14 @@ const Router: React.FC = () => {
     return (
       <Suspense fallback={<Loader label="LOADING FLUID…" />}>
         <FluidPlayground onHome={() => navigate('/')} />
+      </Suspense>
+    );
+  }
+
+  if (route === 'r3f') {
+    return (
+      <Suspense fallback={<Loader label="LOADING 3D…" />}>
+        <ThreeOrb onHome={() => navigate('/')} />
       </Suspense>
     );
   }
