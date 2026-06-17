@@ -64,7 +64,7 @@ const Router: React.FC = () => {
   // Per-route document title for SEO / sharing / browser history.
   useEffect(() => {
     const titles: Record<Route, string> = {
-      home: '大雷 · Da Lei — AI Automation & Creative Coding',
+      home: '大雷 Da Lei — AI 自动化 · 创意编程 · 开源工具',
       particles: 'Kinetic Particles · 大雷',
       arsenal: 'AI Coding Arsenal · 大雷 AI 编程装备库',
       md: 'Markdown 工具箱 · 大雷',

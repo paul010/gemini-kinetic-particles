@@ -689,7 +689,13 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
             ))}
 
             {rest.length > 0 && (
-              <div className="mt-2 grid gap-6 sm:grid-cols-2">
+              <div className="reveal mt-6 flex items-baseline justify-between gap-3 border-t border-ink/10 pt-8">
+                <h3 className="font-mono text-xs uppercase tracking-[0.2em] text-gold">{t(COPY.work.tools)}</h3>
+                <p className="font-mono text-[11px] text-ink/45">{t(COPY.work.toolsSub)}</p>
+              </div>
+            )}
+            {rest.length > 0 && (
+              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-2">
                 {rest.map((p, i) => (
                   <ProjectCard key={p.id} project={p} index={featured.length + i + 1} lang={lang} t={t} onInternal={onNavigate} />
                 ))}

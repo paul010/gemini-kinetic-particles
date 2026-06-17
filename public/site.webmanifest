@@ -1,0 +1,14 @@
+{
+  "name": "大雷 Da Lei",
+  "short_name": "大雷",
+  "description": "AI 自动化实践者 × 创意开发者 · 开源工具与互动作品",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f6f3ec",
+  "theme_color": "#f6f3ec",
+  "icons": [
+    { "src": "/favicon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/favicon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" },
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}

@@ -308,6 +308,11 @@ export const COPY = {
       en: 'Open-source things I build in the open. More on the way.',
       zh: '我在公开构建的开源作品，更多正在路上。',
     },
+    tools: { en: 'Tools', zh: '小工具' },
+    toolsSub: {
+      en: 'Small, free, in-browser tools from my creator workflow.',
+      zh: '来自我创作流程的免费、纯浏览器小工具。',
+    },
   },
   videos: {
     label: { en: 'From YouTube', zh: '来自 YouTube' },

@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-15",
+  "updatedAt": "2026-06-17",
   "policy": "每次「每日任务」取第一个 status=pending 的条目推进，开一个 Draft PR，把该条目改为 in_review；PR 合并后改为 featured。一次只做一个项目。详见 arsenal/DAILY_PLAYBOOK.md。",
   "statuses": [
     "pending",
@@ -11,16 +11,16 @@
     {
       "order": 1,
       "projectId": "wechat-md-editor",
-      "status": "in_review",
+      "status": "featured",
       "plan": "feature-on-home",
-      "note": "已做轻量复现 /md 并作为第三个项目上首页；PR 待 review。"
+      "note": "已做轻量复现 /md 并作为第三个项目上首页，已合并。PR 已合并上线。"
     },
     {
       "order": 2,
       "projectId": "screenshot-to-code",
-      "status": "in_review",
+      "status": "featured",
       "plan": "lightweight-repro",
-      "note": "已做 BYO-Key 截图转代码工具 /s2c 上首页；端到端生成需自配 Gemini Key。"
+      "note": "已做 BYO-Key 截图转代码工具 /s2c 上首页，已合并。端到端生成需自配 Gemini Key。"
     },
     {
       "order": 3,
