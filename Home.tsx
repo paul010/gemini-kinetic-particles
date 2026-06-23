@@ -481,6 +481,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
   const [lang, setLang] = useState<Lang>(detectInitialLang);
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [active, setActive] = useState('home');
   const s2t = useS2T(lang === 'zhHant');
   const t = (txt: LocalizedText) =>
     lang === 'en' ? txt.en : lang === 'zhHant' ? (s2t ? s2t(txt.zh) : txt.zh) : txt.zh;
@@ -489,6 +490,33 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
 
   useReveal();
   useScrollProgress(progressRef);
+
+  // Scroll-spy: highlight the nav item for the section currently in view.
+  useEffect(() => {
+    const ids = ['home', 'work', 'videos', 'about', 'now', 'connect'];
+    let raf = 0;
+    const compute = () => {
+      raf = 0;
+      const line = window.innerHeight * 0.35;
+      let current = ids[0];
+      for (const id of ids) {
+        const el = document.getElementById(id);
+        if (el && el.getBoundingClientRect().top <= line) current = id;
+      }
+      setActive(current);
+    };
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(compute);
+    };
+    compute();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+      cancelAnimationFrame(raf);
+    };
+  }, []);
 
   // Keep the videos list fresh from the dalei-youtube README; fall back silently
   // to the bundled list if the fetch/parse fails.
@@ -563,9 +591,10 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
               <button
                 key={item.id}
                 onClick={() => goTo(item.id)}
-                className="link-underline text-sm text-ink/70 transition-colors hover:text-ink"
+                aria-current={active === item.id ? 'true' : undefined}
+                className={`link-underline text-sm transition-colors hover:text-ink ${active === item.id ? 'text-ink' : 'text-ink/55'}`}
               >
-                <span className="mr-1.5 font-mono text-[11px] text-gold">0{i + 1}</span>
+                <span className={`mr-1.5 font-mono text-[11px] ${active === item.id ? 'text-gold' : 'text-gold/50'}`}>0{i + 1}</span>
                 {t(item.label)}
               </button>
             ))}
