@@ -305,6 +305,7 @@ export const COPY = {
     work: { en: 'Work', zh: '作品' },
     videos: { en: 'Videos', zh: '视频' },
     about: { en: 'About', zh: '关于' },
+    now: { en: 'Now', zh: '近况' },
     connect: { en: 'Connect', zh: '联系' },
   },
   hero: {
@@ -370,6 +371,25 @@ export const COPY = {
       {
         title: { en: 'Open source', zh: '开源共享' },
         text: { en: 'Interactive web experiments, built in the open and free to fork.', zh: '互动网页实验，公开构建，可自由 fork 与二次创作。' },
+      },
+    ],
+  },
+  now: {
+    label: { en: 'Now', zh: '近况' },
+    heading: { en: "What I'm up to right now", zh: '我最近在忙什么' },
+    updated: { en: 'Updated Jun 2026', zh: '更新于 2026 年 6 月' },
+    items: [
+      {
+        en: 'Reproducing one AI-coding project a day and shipping it live here — Markdown Studio, Screenshot→Code and a 3D starter are already up.',
+        zh: '每天复现一个 AI Coding 项目并上线到这个站 —— Markdown 工具箱、截图转代码、3D 起手式已上线。',
+      },
+      {
+        en: 'Growing AI Coding Arsenal — an idea radar + skill armory that turns "saw a cool repo" into "shipped a demo".',
+        zh: '持续打磨 AI Coding Arsenal —— 把「看到一个好项目」变成「跑出一个 Demo」的灵感库 + 装备库。',
+      },
+      {
+        en: 'Shipping hands-on AI-automation videos on YouTube as 大雷, and keeping up the running streak. 🏃',
+        zh: '在 YouTube 以「大雷」更新 AI 自动化实战，也在坚持跑步。🏃',
       },
     ],
   },
