@@ -4,6 +4,8 @@ import {
   COPY,
   PROJECTS,
   SOCIALS,
+  getEmail,
+  openEmail,
   ASSETS,
   CHANNEL,
   VIDEOS,
@@ -691,7 +693,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
               <a href={SOCIALS.twitter} target="_blank" rel="noreferrer" className="transition-colors hover:text-ink" aria-label="X">
                 <XIcon className="h-[18px] w-[18px]" />
               </a>
-              <a href={SOCIALS.email} className="transition-colors hover:text-accent" aria-label="Email">
+              <a href="#" onClick={(e) => { e.preventDefault(); openEmail(); }} className="transition-colors hover:text-accent" aria-label="Email">
                 <MailIcon className="h-5 w-5" />
               </a>
               <span className="font-mono text-xs tracking-wide text-ink/35">@dalei2025 · @paul010318</span>
@@ -880,14 +882,15 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
 
             <div className="mt-9 grid gap-3 sm:grid-cols-2">
               {[
-                { icon: <GitHubIcon className="h-5 w-5" />, label: 'GitHub', handle: 'paul010', href: SOCIALS.github, external: true },
-                { icon: <YouTubeIcon className="h-5 w-5" />, label: 'YouTube', handle: '@dalei2025', href: SOCIALS.youtube, external: true },
-                { icon: <XIcon className="h-[18px] w-[18px]" />, label: 'X / Twitter', handle: '@paul010318', href: SOCIALS.twitter, external: true },
-                { icon: <MailIcon className="h-5 w-5" />, label: 'Email', handle: 'panlei318@gmail.com', href: SOCIALS.email, external: false },
+                { icon: <GitHubIcon className="h-5 w-5" />, label: 'GitHub', handle: 'paul010', href: SOCIALS.github, external: true, mail: false },
+                { icon: <YouTubeIcon className="h-5 w-5" />, label: 'YouTube', handle: '@dalei2025', href: SOCIALS.youtube, external: true, mail: false },
+                { icon: <XIcon className="h-[18px] w-[18px]" />, label: 'X / Twitter', handle: '@paul010318', href: SOCIALS.twitter, external: true, mail: false },
+                { icon: <MailIcon className="h-5 w-5" />, label: 'Email', handle: getEmail(), href: '#', external: false, mail: true },
               ].map((s, i) => (
                 <a
                   key={s.label}
                   href={s.href}
+                  onClick={s.mail ? (e) => { e.preventDefault(); openEmail(); } : undefined}
                   target={s.external ? '_blank' : undefined}
                   rel={s.external ? 'noreferrer' : undefined}
                   className="reveal group flex items-center gap-3 rounded-xl border border-ink/10 bg-ink/5 p-4 transition-all hover:-translate-y-0.5 hover:border-accent/40 hover:bg-ink/[0.08]"
