@@ -521,6 +521,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
     { id: 'work', label: COPY.nav.work },
     { id: 'videos', label: COPY.nav.videos },
     { id: 'about', label: COPY.nav.about },
+    { id: 'now', label: COPY.nav.now },
     { id: 'connect', label: COPY.nav.connect },
   ];
 
@@ -814,6 +815,28 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
           </div>
         </section>
 
+        {/* Now */}
+        <section id="now" className="scroll-mt-24 py-20">
+          <div className="reveal rounded-3xl border border-ink/10 bg-surface/40 p-8 backdrop-blur-sm sm:p-12">
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <p className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-gold">
+                <span className="pulse-dot h-1.5 w-1.5 rounded-full bg-gold" />
+                {t(COPY.now.label)}
+              </p>
+              <span className="font-mono text-[11px] text-ink/40">{t(COPY.now.updated)}</span>
+            </div>
+            <h2 className="mt-3 font-display text-3xl font-bold tracking-tight sm:text-4xl">{t(COPY.now.heading)}</h2>
+            <ul className="mt-6 flex flex-col gap-4">
+              {COPY.now.items.map((item, i) => (
+                <li key={i} className="flex items-start gap-3 text-base leading-relaxed text-ink/70">
+                  <span className="mt-1 font-mono text-sm text-gold">0{i + 1}</span>
+                  <span>{t(item)}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+
         {/* Connect */}
         <section id="connect" className="scroll-mt-24 py-20">
           <div className="reveal relative overflow-hidden rounded-3xl border border-ink/10 bg-gradient-to-br from-surface/90 to-surface/40 p-8 backdrop-blur-sm sm:p-14">
@@ -863,9 +886,18 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
             <span className="grid h-6 w-6 place-items-center rounded border border-ink/15 bg-ink/5 font-mono text-[10px] text-gold">大</span>
             Da Lei · 大雷
           </div>
-          <p className="font-mono text-xs text-ink/40">
-            © {new Date().getFullYear()} · {t(COPY.footer.tagline)}
-          </p>
+          <div className="flex items-center gap-4">
+            <p className="font-mono text-xs text-ink/40">
+              © {new Date().getFullYear()} · {t(COPY.footer.tagline)}
+            </p>
+            <button
+              onClick={() => goTo('home')}
+              className="inline-flex items-center gap-1 rounded-full border border-ink/15 bg-ink/5 px-3 py-1.5 font-mono text-[11px] text-ink/60 transition-colors hover:border-gold/50 hover:text-ink"
+              aria-label="回到顶部"
+            >
+              ↑ Top
+            </button>
+          </div>
         </div>
       </footer>
     </div>
