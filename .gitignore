@@ -12,6 +12,17 @@ dist
 dist-ssr
 *.local
 
+# Secrets & env — never commit real keys to this public repo
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+*.p12
+*.pfx
+secrets.json
+*.secret
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
