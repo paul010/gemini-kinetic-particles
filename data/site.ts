@@ -30,8 +30,16 @@ export const SOCIALS = {
   github: 'https://github.com/paul010',
   youtube: 'https://www.youtube.com/@dalei2025',
   twitter: 'https://x.com/paul010318',
-  email: 'mailto:panlei318@gmail.com',
   membership: 'https://www.youtube.com/channel/UCk9tu0mFtXj_rOEfIncxuJQ/join',
+};
+
+// Email is split into parts so the full address never appears as a literal in
+// the source/bundle — assembled at runtime, and the mailto: is only built on
+// click, so simple scrapers/crawlers can't harvest it.
+const EMAIL_PARTS = ['panlei318', 'gmail.com'];
+export const getEmail = () => EMAIL_PARTS.join('@');
+export const openEmail = () => {
+  if (typeof window !== 'undefined') window.location.href = 'mailto:' + getEmail();
 };
 
 /** Shared image assets, served from the dalei-youtube repo via jsDelivr CDN. */
