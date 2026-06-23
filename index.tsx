@@ -97,7 +97,7 @@ const Router: React.FC = () => {
   if (route === 'arsenal') {
     return (
       <Suspense fallback={<Loader label="LOADING ARSENAL…" />}>
-        <Arsenal onHome={() => navigate('/')} />
+        <Arsenal onHome={() => navigate('/')} onNavigate={navigate} />
       </Suspense>
     );
   }

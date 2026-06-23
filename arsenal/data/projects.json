@@ -102,7 +102,8 @@
       "视觉模型调用成本",
       "复杂界面还原度有限"
     ],
-    "nextStep": "按 README 配好 Key 跑通，先用简单截图验证效果。"
+    "nextStep": "按 README 配好 Key 跑通，先用简单截图验证效果。",
+    "liveUrl": "/s2c"
   },
   {
     "id": "r3f-3d-demo",
@@ -153,7 +154,8 @@
       "着色器/性能调优有门槛",
       "移动端适配"
     ],
-    "nextStep": "克隆模板本地跑通，换上自己的 3D 物体。"
+    "nextStep": "克隆模板本地跑通，换上自己的 3D 物体。",
+    "liveUrl": "/r3f"
   },
   {
     "id": "browser-use-agent",
@@ -307,7 +309,8 @@
     "risks": [
       "自定义主题需要 CSS 基础"
     ],
-    "nextStep": "克隆跑通，定制成自己的品牌主题并部署。"
+    "nextStep": "克隆跑通，定制成自己的品牌主题并部署。",
+    "liveUrl": "/md"
   },
   {
     "id": "midscene-ai-qa",

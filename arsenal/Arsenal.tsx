@@ -17,6 +17,7 @@ const CONTENT = contentData as unknown as ContentOutput[];
 
 interface ArsenalProps {
   onHome: () => void;
+  onNavigate: (path: string) => void;
 }
 
 /* ---------- helpers ---------- */
@@ -98,18 +99,22 @@ const verdictTone = (v: Project['verdict']) =>
 
 /* ---------- Project card ---------- */
 
-const ProjectCard: React.FC<{ project: Project; onOpen: () => void }> = ({ project: p, onOpen }) => {
+const ProjectCard: React.FC<{ project: Project; onOpen: () => void; onNavigate: (path: string) => void }> = ({ project: p, onOpen, onNavigate }) => {
   const skills = recommendSkills(p, SKILLS).slice(0, 3);
   const prompt = buildPrompt(p, recommendSkills(p, SKILLS), recommendRecipes(p, RECIPES));
   return (
-    <article className="flex flex-col rounded-2xl border border-ink/10 bg-surface/50 p-5 transition-all hover:-translate-y-0.5 hover:border-gold/40">
+    <article className={`flex flex-col rounded-2xl border bg-surface/50 p-5 transition-all hover:-translate-y-0.5 ${p.liveUrl ? 'border-gold/40 hover:border-gold/60' : 'border-ink/10 hover:border-gold/40'}`}>
       <div className="mb-2 flex items-center justify-between gap-2">
         <span className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 font-mono text-[11px] ${verdictTone(p.verdict)}`}>
           {verdictLabel(p.verdict)}
         </span>
-        <span className="rounded-full border border-ink/15 px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider text-ink/45">
-          {STATUS_LABEL[p.status]}
-        </span>
+        {p.liveUrl ? (
+          <span className="rounded-full border border-gold/40 bg-gold/10 px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider text-gold">大雷版已上线</span>
+        ) : (
+          <span className="rounded-full border border-ink/15 px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider text-ink/45">
+            {STATUS_LABEL[p.status]}
+          </span>
+        )}
       </div>
 
       <h3 className="font-display text-xl font-semibold tracking-tight">{p.title}</h3>
@@ -130,6 +135,14 @@ const ProjectCard: React.FC<{ project: Project; onOpen: () => void }> = ({ proje
       </div>
 
       <div className="mt-4 flex flex-wrap items-center gap-2">
+        {p.liveUrl ? (
+          <button
+            onClick={() => onNavigate(p.liveUrl!)}
+            className="inline-flex items-center gap-1.5 rounded-full bg-gold px-3.5 py-1.5 text-xs font-semibold text-paper transition-transform hover:scale-[1.03]"
+          >
+            ▶ 大雷版
+          </button>
+        ) : null}
         <button
           onClick={onOpen}
           className="inline-flex items-center gap-1.5 rounded-full bg-accent px-3.5 py-1.5 text-xs font-semibold text-paper transition-transform hover:scale-[1.03]"
@@ -152,9 +165,10 @@ const ProjectCard: React.FC<{ project: Project; onOpen: () => void }> = ({ proje
 
 /* ---------- Detail / checkup modal ---------- */
 
-const DetailModal: React.FC<{ project: Project; onClose: () => void; onOpenProject: (id: string) => void }> = ({
+const DetailModal: React.FC<{ project: Project; onClose: () => void; onNavigate: (path: string) => void }> = ({
   project: p,
   onClose,
+  onNavigate,
 }) => {
   const checkup = getCheckup(p);
   const skills = recommendSkills(p, SKILLS);
@@ -201,7 +215,15 @@ const DetailModal: React.FC<{ project: Project; onClose: () => void; onOpenProje
           <span className="font-mono text-[11px] uppercase tracking-wider text-ink/45">{STATUS_LABEL[p.status]}</span>
         </div>
         <h2 className="mt-2 font-display text-3xl font-semibold tracking-tight">{p.title}</h2>
-        <p className="mt-2 text-sm leading-relaxed text-ink/65">{p.whyItMatters}</p>
+        {p.liveUrl && (
+          <button
+            onClick={() => { onNavigate(p.liveUrl!); onClose(); }}
+            className="mt-3 inline-flex items-center gap-2 rounded-full bg-gold px-4 py-2 text-sm font-semibold text-paper transition-transform hover:scale-[1.03]"
+          >
+            ▶ 体验大雷复现的版本
+          </button>
+        )}
+        <p className="mt-3 text-sm leading-relaxed text-ink/65">{p.whyItMatters}</p>
         <p className="mt-2 text-sm leading-relaxed text-ink/70">
           <span className="text-gold">体检结论：</span>
           {checkup.reason}
@@ -375,7 +397,7 @@ const RecipeCard: React.FC<{ recipe: Recipe }> = ({ recipe: r }) => (
 
 type Tab = 'radar' | 'skills' | 'recipes';
 
-const Arsenal: React.FC<ArsenalProps> = ({ onHome }) => {
+const Arsenal: React.FC<ArsenalProps> = ({ onHome, onNavigate }) => {
   const [tab, setTab] = useState<Tab>('radar');
   const [q, setQ] = useState('');
   const [cat, setCat] = useState('all');
@@ -488,7 +510,7 @@ const Arsenal: React.FC<ArsenalProps> = ({ onHome }) => {
             <p className="mb-4 font-mono text-xs text-ink/45">{filtered.length} 个项目</p>
             <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {filtered.map((p) => (
-                <ProjectCard key={p.id} project={p} onOpen={() => setOpenId(p.id)} />
+                <ProjectCard key={p.id} project={p} onOpen={() => setOpenId(p.id)} onNavigate={onNavigate} />
               ))}
             </div>
             {filtered.length === 0 && <p className="py-16 text-center text-sm text-ink/45">没有匹配的项目，试试放宽筛选。</p>}
@@ -525,7 +547,7 @@ const Arsenal: React.FC<ArsenalProps> = ({ onHome }) => {
         </div>
       </footer>
 
-      {openProject && <DetailModal project={openProject} onClose={() => setOpenId(null)} onOpenProject={setOpenId} />}
+      {openProject && <DetailModal project={openProject} onClose={() => setOpenId(null)} onNavigate={onNavigate} />}
     </div>
   );
 };

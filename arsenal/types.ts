@@ -67,6 +67,8 @@ export interface Project {
   recommendedRecipeIds: string[];
   contentValueScore: number; // 1-5
   daleiTake?: string;
+  /** Da Lei's own reproduced version, live on this site (internal route). */
+  liveUrl?: string;
   // Project checkup (体检) fields
   verdict: 'worth' | 'cautious' | 'skip';
   reason: string;
