@@ -775,6 +775,11 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
                   <span className="absolute bottom-2 right-2 rounded bg-black/75 px-1.5 py-0.5 font-mono text-[11px] text-white">
                     {v.duration}
                   </span>
+                  {i === 0 && (
+                    <span className="absolute left-2 top-2 rounded-full bg-gold px-2 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-wider text-paper shadow">
+                      最新 New
+                    </span>
+                  )}
                   <span className="absolute inset-0 grid place-items-center">
                     <span className="grid h-12 w-12 scale-90 place-items-center rounded-full bg-paper/90 text-ink opacity-0 shadow-lg transition-all duration-300 group-hover:scale-100 group-hover:opacity-100">
                       <PlayIcon className="ml-0.5 h-5 w-5" />
