@@ -40,6 +40,14 @@ const CATEGORIES: { key: string; label: string }[] = [
   { key: 'agent', label: 'Agent' },
 ];
 
+type SortKey = 'recommended' | 'difficulty' | 'value';
+
+const SORTS: { key: SortKey; label: string }[] = [
+  { key: 'recommended', label: '推荐（已上线优先）' },
+  { key: 'difficulty', label: '难度低→高' },
+  { key: 'value', label: '内容价值高→低' },
+];
+
 const SKILL_CAT_LABEL: Record<string, string> = {
   core: '基础增强',
   'code-repo': '代码与仓库',
@@ -403,11 +411,12 @@ const Arsenal: React.FC<ArsenalProps> = ({ onHome, onNavigate }) => {
   const [cat, setCat] = useState('all');
   const [status, setStatus] = useState('all');
   const [maxDiff, setMaxDiff] = useState(5);
+  const [sort, setSort] = useState<SortKey>('recommended');
   const [openId, setOpenId] = useState<string | null>(null);
 
   const filtered = useMemo(() => {
     const query = q.trim().toLowerCase();
-    return PROJECTS.filter((p) => {
+    const list = PROJECTS.filter((p) => {
       if (cat !== 'all' && !p.category.includes(cat)) return false;
       if (status !== 'all' && p.status !== status) return false;
       if (p.difficulty > maxDiff) return false;
@@ -417,7 +426,26 @@ const Arsenal: React.FC<ArsenalProps> = ({ onHome, onNavigate }) => {
       }
       return true;
     });
-  }, [q, cat, status, maxDiff]);
+    // "推荐"：已上线优先 → 内容价值高 → 难度低；其它排序在并列时回退到推荐序。
+    const byRecommended = (a: Project, b: Project) =>
+      Number(Boolean(b.liveUrl)) - Number(Boolean(a.liveUrl)) ||
+      b.contentValueScore - a.contentValueScore ||
+      a.difficulty - b.difficulty;
+    const cmp: Record<SortKey, (a: Project, b: Project) => number> = {
+      recommended: byRecommended,
+      difficulty: (a, b) => a.difficulty - b.difficulty || byRecommended(a, b),
+      value: (a, b) => b.contentValueScore - a.contentValueScore || byRecommended(a, b),
+    };
+    return [...list].sort(cmp[sort]);
+  }, [q, cat, status, maxDiff, sort]);
+
+  const hasFilters = q.trim() !== '' || cat !== 'all' || status !== 'all' || maxDiff !== 5;
+  const resetFilters = () => {
+    setQ('');
+    setCat('all');
+    setStatus('all');
+    setMaxDiff(5);
+  };
 
   const openProject = openId ? PROJECTS.find((p) => p.id === openId) ?? null : null;
 
@@ -450,6 +478,7 @@ const Arsenal: React.FC<ArsenalProps> = ({ onHome, onNavigate }) => {
               <button
                 key={k}
                 onClick={() => setTab(k)}
+                aria-pressed={tab === k}
                 className={`rounded-full px-4 py-1.5 text-sm font-medium transition-colors ${
                   tab === k ? 'bg-accent text-paper' : 'border border-ink/15 text-ink/65 hover:text-ink'
                 }`}
@@ -477,6 +506,7 @@ const Arsenal: React.FC<ArsenalProps> = ({ onHome, onNavigate }) => {
                   <button
                     key={c.key}
                     onClick={() => setCat(c.key)}
+                    aria-pressed={cat === c.key}
                     className={`rounded-full px-3 py-1 text-xs transition-colors ${
                       cat === c.key ? 'bg-accent text-paper' : 'border border-ink/15 text-ink/60 hover:text-ink'
                     }`}
@@ -484,10 +514,24 @@ const Arsenal: React.FC<ArsenalProps> = ({ onHome, onNavigate }) => {
                     {c.label}
                   </button>
                 ))}
-                <span className="ml-auto inline-flex items-center gap-2 font-mono text-xs text-ink/50">
-                  难度 ≤ {maxDiff}
-                  <input type="range" min={1} max={5} value={maxDiff} onChange={(e) => setMaxDiff(Number(e.target.value))} className="accent-[#8a682c]" />
-                </span>
+                <div className="ml-auto inline-flex flex-wrap items-center gap-x-4 gap-y-2">
+                  <label className="inline-flex items-center gap-1.5 font-mono text-xs text-ink/50">
+                    排序
+                    <select
+                      value={sort}
+                      onChange={(e) => setSort(e.target.value as SortKey)}
+                      className="rounded-full border border-ink/15 bg-ink/[0.02] px-2.5 py-1 text-xs text-ink/70 outline-none focus:border-gold/50"
+                    >
+                      {SORTS.map((s) => (
+                        <option key={s.key} value={s.key}>{s.label}</option>
+                      ))}
+                    </select>
+                  </label>
+                  <span className="inline-flex items-center gap-2 font-mono text-xs text-ink/50">
+                    难度 ≤ {maxDiff}
+                    <input type="range" min={1} max={5} value={maxDiff} onChange={(e) => setMaxDiff(Number(e.target.value))} className="accent-[#8a682c]" />
+                  </span>
+                </div>
               </div>
               <div className="flex flex-wrap items-center gap-2">
                 <span className="font-mono text-[11px] uppercase tracking-wider text-ink/40">复现状态</span>
@@ -496,6 +540,7 @@ const Arsenal: React.FC<ArsenalProps> = ({ onHome, onNavigate }) => {
                     <button
                       key={key}
                       onClick={() => setStatus(key)}
+                      aria-pressed={status === key}
                       className={`rounded-full px-3 py-1 font-mono text-[11px] transition-colors ${
                         status === key ? 'border border-gold/50 bg-gold/10 text-gold' : 'border border-ink/15 text-ink/55 hover:text-ink'
                       }`}
@@ -507,13 +552,35 @@ const Arsenal: React.FC<ArsenalProps> = ({ onHome, onNavigate }) => {
               </div>
             </div>
 
-            <p className="mb-4 font-mono text-xs text-ink/45">{filtered.length} 个项目</p>
+            <div className="mb-4 flex items-center gap-3">
+              <p className="font-mono text-xs text-ink/45">{filtered.length} 个项目</p>
+              {hasFilters && (
+                <button
+                  onClick={resetFilters}
+                  className="font-mono text-xs text-ink/45 underline-offset-2 hover:text-ink hover:underline"
+                >
+                  清除筛选 ×
+                </button>
+              )}
+            </div>
             <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {filtered.map((p) => (
                 <ProjectCard key={p.id} project={p} onOpen={() => setOpenId(p.id)} onNavigate={onNavigate} />
               ))}
             </div>
-            {filtered.length === 0 && <p className="py-16 text-center text-sm text-ink/45">没有匹配的项目，试试放宽筛选。</p>}
+            {filtered.length === 0 && (
+              <div className="py-16 text-center">
+                <p className="text-sm text-ink/45">没有匹配的项目，试试放宽筛选。</p>
+                {hasFilters && (
+                  <button
+                    onClick={resetFilters}
+                    className="mt-3 rounded-full border border-ink/15 px-4 py-1.5 text-xs text-ink/65 transition-colors hover:border-gold/50 hover:text-ink"
+                  >
+                    清除全部筛选
+                  </button>
+                )}
+              </div>
+            )}
           </>
         )}
 
