@@ -35,6 +35,7 @@ export const SOCIALS = {
   youtube: 'https://www.youtube.com/@dalei2025',
   twitter: 'https://x.com/paul010318',
   membership: 'https://www.youtube.com/channel/UCk9tu0mFtXj_rOEfIncxuJQ/join',
+  notion: 'https://aiagentclub.notion.site/1e51f5ff8f8c80a4b849c9526278b791',
 };
 
 // Email is split into parts so the full address never appears as a literal in
