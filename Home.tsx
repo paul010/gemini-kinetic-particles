@@ -572,6 +572,13 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
 
   return (
     <div className="home-root font-sans">
+      {/* Skip link — keyboard/screen-reader users jump straight to content (a11y) */}
+      <a
+        href="#main-content"
+        className="sr-only z-[80] rounded-full border border-ink/15 bg-paper px-4 py-2 font-mono text-xs text-ink shadow-lg focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
+      >
+        {t({ en: 'Skip to content', zh: '跳到主要内容' })}
+      </a>
       <div ref={progressRef} className="scroll-progress" />
       <FluidBackground />
       <div className="bg-aurora" />
@@ -658,7 +665,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
         )}
       </header>
 
-      <main className="mx-auto max-w-5xl px-5 sm:px-8">
+      <main id="main-content" className="mx-auto max-w-5xl px-5 sm:px-8">
         {/* Hero */}
         <section id="home" className="grid min-h-[92vh] items-center gap-12 pt-28 pb-20 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14">
           <div className="flex flex-col">
