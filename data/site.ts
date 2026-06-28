@@ -202,6 +202,28 @@ export const PROJECTS: Project[] = [
     ],
   },
   {
+    id: 'fugu-research',
+    title: { en: 'Fugu / TRINITY — Reproduced', zh: 'Fugu / TRINITY 复现验证' },
+    year: '2026',
+    status: 'live',
+    featured: true,
+    cover: '/fugu-cover.svg',
+    tagline: {
+      en: 'Can a tiny linear router orchestrate a pool of LLMs to beat the best single model? I reproduced the claim on CPU.',
+      zh: '一个极小的线性路由器，真能编排一池大模型、打败最强单模型吗？我在 CPU 上把这个论文结论复现了一遍。',
+    },
+    description: {
+      en: 'A hands-on validation of Sakana AI’s Fugu (the TRINITY coordinator, arXiv:2512.04695), using the open-source openfugu reimplementation. Two independent checks run on CPU with only numpy: (1) I drive the real Coordinator loop with a scripted router — 6/6 control-flow behaviours match the paper; (2) I reproduce the central claim with a from-scratch sep-CMA-ES, training a linear router over a synthetic specialist pool. Across 8 seeds it lifts +79% over the best single worker and recovers 99.9% of the oracle, converging in ~2 generations. Full report + runnable script on the page.',
+      zh: '对 Sakana AI 的 Fugu(TRINITY 协调器,arXiv:2512.04695)做的动手验证,参考开源复现 openfugu。两项独立检验都在 CPU、仅用 numpy 完成:(1) 用脚本化路由器驱动真实的 Coordinator 循环 —— 6/6 条控制流行为与论文一致;(2) 自己实现 sep-CMA-ES,在合成的专家模型池上训练线性路由器复现核心结论。8 个随机种子下,平均比最强单模型高 +79%,达到 oracle 上限的 99.9%,约 2 代收敛。完整报告 + 可运行脚本都在页面里。',
+    },
+    tags: ['Research', 'LLM Orchestration', 'CMA-ES', 'Reproduction'],
+    links: [
+      { label: { en: 'Read the report', zh: '阅读报告' }, href: '/fugu', kind: 'internal' },
+      { label: { en: 'openfugu', zh: 'openfugu' }, href: 'https://github.com/trotsky1997/openfugu', kind: 'github' },
+      { label: { en: 'Sakana Fugu', zh: 'Sakana Fugu' }, href: 'https://sakana.ai/fugu/', kind: 'live' },
+    ],
+  },
+  {
     id: 'markdown-studio',
     title: { en: 'Markdown Studio', zh: 'Markdown 工具箱' },
     year: '2026',
