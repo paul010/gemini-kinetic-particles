@@ -308,7 +308,28 @@ export const PROJECTS: Project[] = [
     tags: ['AI Agent', 'Prompts', 'Templates', 'React'],
     links: [
       { label: { en: 'Browse templates', zh: '浏览模板' }, href: '/agents', kind: 'internal' },
-      { label: { en: 'Copilot matrix', zh: 'Copilot 矩阵' }, href: '/copilot', kind: 'internal' },
+      { label: { en: 'Skill library', zh: 'Skill 技能库' }, href: '/skills', kind: 'internal' },
+    ],
+  },
+  {
+    id: 'skill-library',
+    title: { en: 'Skill Library', zh: 'Skill 技能库' },
+    year: '2026',
+    status: 'live',
+    featured: true,
+    cover: '/skills-cover.svg',
+    tagline: {
+      en: 'Modular agent capabilities — search, render, fetch, compute, transact — by provider.',
+      zh: '可插拔的 Agent 能力 —— 搜索、生成、抓取、计算、交易 —— 按服务接入。',
+    },
+    description: {
+      en: 'If agents are the persona, skills are the powers. A library of ~27 modular capabilities, each backed by a provider/API (Tavily, ElevenLabs, Whisper, pgvector, Playwright, GitHub…), grouped by domain — Media, Research, Data, Commerce, Dev. Copy the skill brief into your agent’s tool definition; keys stay in your own environment. Companion to the Agent Templates.',
+      zh: '如果 Agent 是「人设」，Skill 就是「能力」。约 27 个可插拔能力,每个背后接一个服务/API(Tavily、ElevenLabs、Whisper、pgvector、Playwright、GitHub…),按领域分好 —— 媒体、研究、数据、电商、开发。把技能简介复制进 Agent 的工具定义即可;密钥放你自己的环境。与 Agent 模板库配套。',
+    },
+    tags: ['AI Agent', 'Skills', 'MCP', 'Integrations'],
+    links: [
+      { label: { en: 'Browse skills', zh: '浏览技能' }, href: '/skills', kind: 'internal' },
+      { label: { en: 'Agent templates', zh: 'Agent 模板' }, href: '/agents', kind: 'internal' },
     ],
   },
   {

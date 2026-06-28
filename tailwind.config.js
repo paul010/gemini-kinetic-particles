@@ -12,6 +12,7 @@ export default {
     './fugu/**/*.{ts,tsx}',
     './copilot/**/*.{ts,tsx}',
     './agents/**/*.{ts,tsx}',
+    './skills/**/*.{ts,tsx}',
   ],
   theme: {
     extend: {
