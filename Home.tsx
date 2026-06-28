@@ -317,7 +317,14 @@ const FeaturedCard: React.FC<{
 
     <div className="flex flex-1 flex-col justify-center p-7 sm:p-9 lg:p-10">
       <div className="mb-5 flex items-center justify-between gap-3">
-        {statusBadge(p.status, t)}
+        <div className="flex items-center gap-2">
+          {p.signature && (
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-gold/40 bg-gold/10 px-2.5 py-0.5 font-mono text-[11px] uppercase tracking-wider text-gold">
+              <span className="pulse-dot h-1.5 w-1.5 rounded-full bg-gold" /> 招牌 Signature
+            </span>
+          )}
+          {statusBadge(p.status, t)}
+        </div>
         <span className="font-mono text-xs text-ink/40">{p.year}</span>
       </div>
 
@@ -560,7 +567,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
-  const featured = PROJECTS.filter((p) => p.featured);
+  const featured = PROJECTS.filter((p) => p.featured).sort((a, b) => (b.signature ? 1 : 0) - (a.signature ? 1 : 0));
   const rest = PROJECTS.filter((p) => !p.featured);
 
   return (

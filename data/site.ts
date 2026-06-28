@@ -24,6 +24,8 @@ export interface Project {
   links: ProjectLink[];
   featured?: boolean;
   cover?: string;
+  /** Signature project — gets a highlighted eyebrow and sorts to the top. */
+  signature?: boolean;
 }
 
 export const SOCIALS = {
@@ -183,6 +185,7 @@ export const PROJECTS: Project[] = [
     year: '2026',
     status: 'live',
     featured: true,
+    signature: true,
     cover: '/bench-cover.png',
     tagline: {
       en: 'A fixed personal benchmark — the same prompts, every model, side by side.',
