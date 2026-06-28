@@ -838,6 +838,20 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
                 {t(COPY.about.heading)}
               </h2>
               <p className="mt-6 text-base leading-relaxed text-ink/65">{t(COPY.about.body)}</p>
+
+              {/* At-a-glance stats — scannable social proof */}
+              <dl className="mt-8 flex flex-wrap gap-x-8 gap-y-4">
+                {[
+                  { value: CHANNEL.subscribers, label: { en: 'subscribers', zh: 'YouTube 订阅' } as LocalizedText },
+                  { value: CHANNEL.videos, label: { en: 'videos', zh: '视频' } as LocalizedText },
+                  { value: `${PROJECTS.length}`, label: { en: 'open-source projects', zh: '开源项目' } as LocalizedText },
+                ].map((s, i) => (
+                  <div key={i}>
+                    <dt className="font-display text-3xl font-semibold leading-none tracking-tight">{s.value}</dt>
+                    <dd className="mt-1.5 font-mono text-[11px] uppercase tracking-wider text-ink/45">{t(s.label)}</dd>
+                  </div>
+                ))}
+              </dl>
             </div>
 
             <div className="grid gap-4 self-center">
