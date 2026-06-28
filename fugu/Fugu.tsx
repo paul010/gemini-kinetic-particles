@@ -149,7 +149,8 @@ const Fugu: React.FC<Props> = ({ onHome }) => {
         {/* Title */}
         <p className="font-mono text-xs uppercase tracking-[0.22em] text-ink/45">{t({ en: 'Paper reproduction', zh: '论文复现' })}</p>
         <h1 className="mt-3 font-display text-4xl font-semibold tracking-tight sm:text-5xl">
-          {t({ en: 'Does learned model orchestration actually work?', zh: '「学习式模型编排」真的成立吗?' })}
+          {t({ en: 'Does learned model orchestration ', zh: '「学习式模型编排」' })}
+          <span className="text-gradient">{t({ en: 'actually work?', zh: '真的成立吗?' })}</span>
         </h1>
         <p className="mt-4 max-w-2xl text-base leading-relaxed text-ink/65">
           {t({
