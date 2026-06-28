@@ -178,6 +178,27 @@ export const PROJECTS: Project[] = [
     ],
   },
   {
+    id: 'ai-benchmark',
+    title: '大雷 AI 评测台 Benchmark',
+    year: '2026',
+    status: 'live',
+    featured: true,
+    cover: '/bench-cover.png',
+    tagline: {
+      en: 'A fixed personal benchmark — the same prompts, every model, side by side.',
+      zh: '固定题目 + 统一规范,把各家模型的真实输出横向摆在一起对照。',
+    },
+    description: {
+      en: 'My own scarce, repeatable AI evaluation: a fixed set of prompts (SVG pelican-on-a-bike, gradient butterfly, landing pages…) with each model’s real output — SVG/HTML/screenshots — rendered side by side. Open it on camera and the comparison is right there.',
+      zh: '我自己的稀缺、可复用的 AI 横评:一套固定 Prompt(鹈鹕骑车 SVG、渐变蝴蝶、落地页…),把 Claude / Gemini / ChatGPT 等各家的真实输出(SVG/HTML/截图)并排渲染。录视频时打开页面,对照一目了然 —— 个人唯一的对照价值。',
+    },
+    tags: ['Benchmark', 'LLM Eval', 'SVG', 'React'],
+    links: [
+      { label: { en: 'Launch', zh: '立即体验' }, href: '/bench', kind: 'internal' },
+      { label: { en: 'Watch demo', zh: '观看演示' }, href: SOCIALS.youtube, kind: 'youtube' },
+    ],
+  },
+  {
     id: 'markdown-studio',
     title: 'Markdown 工具箱',
     year: '2026',
