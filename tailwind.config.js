@@ -8,6 +8,7 @@ export default {
     './services/**/*.{ts,tsx}',
     './arsenal/**/*.{ts,tsx}',
     './tools/**/*.{ts,tsx}',
+    './bench/**/*.{ts,tsx}',
   ],
   theme: {
     extend: {

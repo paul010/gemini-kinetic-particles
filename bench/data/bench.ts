@@ -6,6 +6,9 @@
 //   kind 'link' → an external URL (opens out)
 //   kind 'pending' → a reserved slot you'll fill later
 
+import type { LocalizedText } from '../../data/site';
+export type { LocalizedText };
+
 export interface Model {
   id: string;
   name: string;
@@ -24,16 +27,16 @@ export interface Result {
   html?: string;
   image?: string;
   url?: string;
-  note?: string;
+  note?: LocalizedText;
   verdict?: 'win' | 'ok' | 'fail';
 }
 
 export interface BenchTest {
   id: string;
-  title: string;
+  title: LocalizedText;
   category: 'svg' | 'webpage' | 'landing' | 'logic' | 'design';
-  prompt: string;
-  whatItTests: string;
+  prompt: string; // the fixed test prompt — kept verbatim across languages
+  whatItTests: LocalizedText;
   results: Result[];
 }
 
@@ -69,10 +72,13 @@ const REF_BUTTERFLY = `<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/
 export const TESTS: BenchTest[] = [
   {
     id: 'pelican-bike',
-    title: '鹈鹕骑自行车 SVG',
+    title: { en: 'Pelican riding a bicycle (SVG)', zh: '鹈鹕骑自行车 SVG' },
     category: 'svg',
     prompt: 'Generate an SVG of a pelican riding a bicycle.',
-    whatItTests: '空间组合、比例、复杂结构的「一次成型」能力 —— 业界经典硬核题。',
+    whatItTests: {
+      en: 'Spatial composition, proportion, and one-shot complex structure — the industry’s classic hard SVG test.',
+      zh: '空间组合、比例、复杂结构的「一次成型」能力 —— 业界经典硬核题。',
+    },
     results: [
       { modelId: 'claude', kind: 'pending' },
       { modelId: 'gpt', kind: 'pending' },
@@ -82,12 +88,12 @@ export const TESTS: BenchTest[] = [
   },
   {
     id: 'butterfly',
-    title: '对称渐变蝴蝶 SVG',
+    title: { en: 'Symmetric gradient butterfly (SVG)', zh: '对称渐变蝴蝶 SVG' },
     category: 'svg',
     prompt: '用 SVG 画一只左右对称的蝴蝶，翅膀要有渐变色彩、带触角与身体。只输出 SVG。',
-    whatItTests: '对称性、渐变、路径控制与审美。',
+    whatItTests: { en: 'Symmetry, gradients, path control, and taste.', zh: '对称性、渐变、路径控制与审美。' },
     results: [
-      { modelId: 'dalei-ref', kind: 'svg', svg: REF_BUTTERFLY, note: '大雷参考基准（手绘示例）', verdict: 'ok' },
+      { modelId: 'dalei-ref', kind: 'svg', svg: REF_BUTTERFLY, note: { en: 'Da Lei reference (hand-drawn sample)', zh: '大雷参考基准（手绘示例）' }, verdict: 'ok' },
       { modelId: 'claude', kind: 'pending' },
       { modelId: 'gpt', kind: 'pending' },
       { modelId: 'gemini', kind: 'pending' },
@@ -95,11 +101,14 @@ export const TESTS: BenchTest[] = [
   },
   {
     id: 'saas-landing',
-    title: 'AI 笔记 App 落地页',
+    title: { en: 'AI notes app landing page', zh: 'AI 笔记 App 落地页' },
     category: 'landing',
     prompt:
       '做一个 AI 笔记应用的落地页：单文件 HTML + Tailwind(CDN)，含 hero 标题、3 个特性、定价、CTA，配色现代克制，自适应。只输出 HTML。',
-    whatItTests: '排版审美、信息层级、可运行的完整单文件输出。',
+    whatItTests: {
+      en: 'Layout taste, information hierarchy, and a complete runnable single-file output.',
+      zh: '排版审美、信息层级、可运行的完整单文件输出。',
+    },
     results: [
       { modelId: 'claude', kind: 'pending' },
       { modelId: 'gpt', kind: 'pending' },
@@ -109,10 +118,10 @@ export const TESTS: BenchTest[] = [
   },
   {
     id: 'solar-system',
-    title: '太阳系动画 SVG',
+    title: { en: 'Solar-system animation (SVG)', zh: '太阳系动画 SVG' },
     category: 'svg',
     prompt: '用纯 SVG + CSS 动画做一个太阳系：太阳居中，几颗行星沿轨道公转。只输出单文件。',
-    whatItTests: '动画、轨道几何、纯前端实现。',
+    whatItTests: { en: 'Animation, orbital geometry, pure front-end implementation.', zh: '动画、轨道几何、纯前端实现。' },
     results: [
       { modelId: 'claude', kind: 'pending' },
       { modelId: 'gemini', kind: 'pending' },
