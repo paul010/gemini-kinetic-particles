@@ -73,6 +73,8 @@ const ConvergenceChart: React.FC<{ t: (x: LocalizedText) => string }> = ({ t }) 
   const y = (v: number) => padT + (1 - (v - ymin) / (ymax - ymin)) * (H - padT - padB);
   const line = CURVE.map((v, i) => `${i === 0 ? 'M' : 'L'}${x(i).toFixed(1)} ${y(v).toFixed(1)}`).join(' ');
   const hline = (v: number) => `M${padL} ${y(v).toFixed(1)} L${(W - padR).toFixed(1)} ${y(v).toFixed(1)}`;
+  // shaded "lift" region: the gain of the learned curve over the best-single baseline
+  const area = `${line} L${x(CURVE.length - 1).toFixed(1)} ${y(BEST_SINGLE).toFixed(1)} L${x(0).toFixed(1)} ${y(BEST_SINGLE).toFixed(1)} Z`;
   return (
     <svg viewBox={`0 0 ${W} ${H}`} className="w-full" role="img" aria-label="convergence curve">
       {/* y grid + labels */}
@@ -87,6 +89,9 @@ const ConvergenceChart: React.FC<{ t: (x: LocalizedText) => string }> = ({ t }) 
       <text x={W - padR} y={y(ORACLE) - 6} textAnchor="end" fontFamily="'JetBrains Mono', monospace" fontSize="11" fill="#8a682c">oracle {ORACLE}</text>
       <path d={hline(BEST_SINGLE)} stroke="#1c1a17" strokeOpacity={0.4} strokeWidth={1.5} strokeDasharray="3 4" fill="none" />
       <text x={W - padR} y={y(BEST_SINGLE) - 6} textAnchor="end" fontFamily="'JetBrains Mono', monospace" fontSize="11" fill="#1c1a17" fillOpacity={0.55}>{t({ en: 'best single', zh: '最强单模型' })} {BEST_SINGLE}</text>
+      {/* shaded gain over the best single worker (the "+79% lift", made visible) */}
+      <path d={area} fill="#8a682c" fillOpacity={0.1} stroke="none" />
+      <text x={x(CURVE.length - 1) - 6} y={(y(CURVE[CURVE.length - 1]) + y(BEST_SINGLE)) / 2 + 4} textAnchor="end" fontFamily="'JetBrains Mono', monospace" fontSize="11" fontWeight={700} fill="#8a682c" fillOpacity={0.85}>+{LIFT_MEAN}%</text>
       {/* the learned-router curve */}
       <path d={line} stroke="#1c1a17" strokeWidth={2.5} fill="none" />
       {CURVE.map((v, i) => i % 2 === 0 ? <circle key={i} cx={x(i)} cy={y(v)} r={2.4} fill="#1c1a17" /> : null)}
