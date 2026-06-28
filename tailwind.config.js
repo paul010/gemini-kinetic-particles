@@ -10,6 +10,7 @@ export default {
     './tools/**/*.{ts,tsx}',
     './bench/**/*.{ts,tsx}',
     './fugu/**/*.{ts,tsx}',
+    './copilot/**/*.{ts,tsx}',
   ],
   theme: {
     extend: {

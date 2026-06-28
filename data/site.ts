@@ -270,6 +270,27 @@ export const PROJECTS: Project[] = [
     ],
   },
   {
+    id: 'copilot-matrix',
+    title: { en: 'Microsoft Copilot / Agent Matrix', zh: 'Microsoft Copilot / Agent 产品矩阵' },
+    year: '2026',
+    status: 'live',
+    featured: true,
+    cover: '/copilot-cover.svg',
+    tagline: {
+      en: 'The whole Copilot & Agent stack in three tiers — Use → No-code → Develop. My field note, as of June 2026.',
+      zh: '用三层架构看懂 Copilot 与 Agent 全家桶 —— 使用 → 无代码 → 开发。我的阶段性总结，截至 2026 年 6 月。',
+    },
+    description: {
+      en: 'A native, bilingual rebuild of my Microsoft Copilot / Agent product matrix: each product’s license, credit cost (with a usage meter), what it does, and who it’s for — across the Use (Copilot/Cowork), No-code (Agent Builder/Copilot Studio) and Develop (Foundry/dev stack) tiers, plus the employee→developer path. Rebuilt as real web content (not a screenshot), so it’s searchable and stays current.',
+      zh: '把我那张「Microsoft Copilot / Agent 产品矩阵」做成了原生、双语的网页内容:每个产品的许可证、Credit 消耗(带消耗等级条)、能做什么、给谁用 —— 覆盖使用(Copilot/Cowork)、无代码(Agent Builder/Copilot Studio)、开发(Foundry/开发栈)三层,外加员工→开发者的选型路径。用真正的网页重建(不是截图),可检索、好更新。',
+    },
+    tags: ['Microsoft Copilot', 'AI Agent', 'Field Note', 'React'],
+    links: [
+      { label: { en: 'Read the matrix', zh: '查看产品矩阵' }, href: '/copilot', kind: 'internal' },
+      { label: { en: 'Watch on YouTube', zh: 'YouTube 频道' }, href: SOCIALS.youtube, kind: 'youtube' },
+    ],
+  },
+  {
     id: 'markdown-studio',
     title: { en: 'Markdown Studio', zh: 'Markdown 工具箱' },
     year: '2026',
