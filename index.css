@@ -380,6 +380,15 @@ p {
   100% { transform: translateX(110%); }
 }
 
+/* Mobile nav dropdown — slide/fade in */
+@keyframes menu-in {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: none; }
+}
+.menu-in {
+  animation: menu-in 0.28s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
 /* Typewriter cursor */
 .type-cursor {
   display: inline-block;
@@ -399,7 +408,7 @@ p {
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .reveal { opacity: 1; transform: none; transition: none; }
-  .float-slow, .pulse-dot, .type-cursor, .hero-figure, .ken-burns { animation: none; }
+  .float-slow, .pulse-dot, .type-cursor, .hero-figure, .ken-burns, .menu-in { animation: none; }
   .plate::after { animation: none; display: none; }
   .type-cursor { opacity: 0; }
   .work-row:hover .work-title { transform: none; }

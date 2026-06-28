@@ -628,6 +628,8 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
               onClick={() => setMenuOpen((v) => !v)}
               className="grid h-9 w-9 place-items-center rounded-full border border-ink/15 bg-ink/5 text-ink/80 md:hidden"
               aria-label="Menu"
+              aria-expanded={menuOpen}
+              aria-controls="mobile-nav"
             >
               <span className="text-lg leading-none">{menuOpen ? '×' : '≡'}</span>
             </button>
@@ -635,14 +637,20 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
         </nav>
 
         {menuOpen && (
-          <div className="border-t border-ink/10 bg-paper/95 px-5 py-4 backdrop-blur-xl md:hidden">
+          <div
+            id="mobile-nav"
+            className="menu-in border-t border-ink/10 bg-paper px-5 pb-5 pt-2 shadow-[0_26px_44px_-26px_rgba(28,26,23,0.55)] md:hidden"
+          >
             {navItems.map((item, i) => (
               <button
                 key={item.id}
                 onClick={() => goTo(item.id)}
-                className="flex w-full items-center gap-3 py-2.5 text-left text-ink/80"
+                aria-current={active === item.id ? 'page' : undefined}
+                className={`flex w-full items-center gap-3 border-b border-ink/5 py-3 text-left transition-colors last:border-b-0 ${
+                  active === item.id ? 'text-ink' : 'text-ink/70 hover:text-ink'
+                }`}
               >
-                <span className="font-mono text-xs text-gold">0{i + 1}</span>
+                <span className={`font-mono text-xs ${active === item.id ? 'text-gold' : 'text-gold/55'}`}>0{i + 1}</span>
                 {t(item.label)}
               </button>
             ))}
