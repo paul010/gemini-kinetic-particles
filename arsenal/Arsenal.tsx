@@ -107,7 +107,7 @@ const verdictTone = (v: Project['verdict']) =>
 
 /* ---------- Project card ---------- */
 
-const ProjectCard: React.FC<{ project: Project; onOpen: () => void; onNavigate: (path: string) => void }> = ({ project: p, onOpen, onNavigate }) => {
+const ProjectCard: React.FC<{ project: Project; onOpen: () => void; onNavigate: (path: string) => void; onTag: (tag: string) => void }> = ({ project: p, onOpen, onNavigate, onTag }) => {
   const skills = recommendSkills(p, SKILLS).slice(0, 3);
   const prompt = buildPrompt(p, recommendSkills(p, SKILLS), recommendRecipes(p, RECIPES));
   return (
@@ -141,6 +141,21 @@ const ProjectCard: React.FC<{ project: Project; onOpen: () => void; onNavigate: 
           </span>
         ))}
       </div>
+
+      {p.tags.length > 0 && (
+        <div className="mt-2 flex flex-wrap gap-x-2 gap-y-1">
+          {p.tags.slice(0, 4).map((t) => (
+            <button
+              key={t}
+              onClick={() => onTag(t)}
+              className="font-mono text-[10px] text-ink/40 underline-offset-2 transition-colors hover:text-gold hover:underline"
+              aria-label={`按标签 ${t} 筛选`}
+            >
+              #{t}
+            </button>
+          ))}
+        </div>
+      )}
 
       <div className="mt-4 flex flex-wrap items-center gap-2">
         {p.liveUrl ? (
@@ -405,13 +420,34 @@ const RecipeCard: React.FC<{ recipe: Recipe }> = ({ recipe: r }) => (
 
 type Tab = 'radar' | 'skills' | 'recipes';
 
+const CAT_KEYS = new Set(CATEGORIES.map((c) => c.key));
+const STATUS_KEYS = new Set<string>(['all', ...Object.keys(STATUS_LABEL)]);
+const SORT_KEYS = new Set<string>(SORTS.map((s) => s.key));
+
+/** Read filter state from the URL query string so filters survive refresh / sharing. */
+function readFiltersFromUrl() {
+  const sp = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : new URLSearchParams();
+  const cat = sp.get('cat') ?? 'all';
+  const status = sp.get('status') ?? 'all';
+  const sort = sp.get('sort') ?? 'recommended';
+  const diff = Number(sp.get('diff'));
+  return {
+    q: sp.get('q') ?? '',
+    cat: CAT_KEYS.has(cat) ? cat : 'all',
+    status: STATUS_KEYS.has(status) ? status : 'all',
+    sort: (SORT_KEYS.has(sort) ? sort : 'recommended') as SortKey,
+    maxDiff: diff >= 1 && diff <= 5 ? diff : 5,
+  };
+}
+
 const Arsenal: React.FC<ArsenalProps> = ({ onHome, onNavigate }) => {
+  const initial = useMemo(readFiltersFromUrl, []);
   const [tab, setTab] = useState<Tab>('radar');
-  const [q, setQ] = useState('');
-  const [cat, setCat] = useState('all');
-  const [status, setStatus] = useState('all');
-  const [maxDiff, setMaxDiff] = useState(5);
-  const [sort, setSort] = useState<SortKey>('recommended');
+  const [q, setQ] = useState(initial.q);
+  const [cat, setCat] = useState(initial.cat);
+  const [status, setStatus] = useState(initial.status);
+  const [maxDiff, setMaxDiff] = useState(initial.maxDiff);
+  const [sort, setSort] = useState<SortKey>(initial.sort);
   const [openId, setOpenId] = useState<string | null>(null);
 
   const filtered = useMemo(() => {
@@ -445,6 +481,43 @@ const Arsenal: React.FC<ArsenalProps> = ({ onHome, onNavigate }) => {
     setCat('all');
     setStatus('all');
     setMaxDiff(5);
+  };
+
+  // Mirror filters into the URL (non-default values only) so refresh/sharing keeps state.
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const sp = new URLSearchParams();
+    if (q.trim()) sp.set('q', q.trim());
+    if (cat !== 'all') sp.set('cat', cat);
+    if (status !== 'all') sp.set('status', status);
+    if (maxDiff !== 5) sp.set('diff', String(maxDiff));
+    if (sort !== 'recommended') sp.set('sort', sort);
+    const qs = sp.toString();
+    window.history.replaceState(null, '', window.location.pathname + (qs ? `?${qs}` : '') + window.location.hash);
+  }, [q, cat, status, maxDiff, sort]);
+
+  // Per-category counts under the *other* active filters, so each chip shows what you'd get.
+  const catCounts = useMemo(() => {
+    const query = q.trim().toLowerCase();
+    const base = PROJECTS.filter((p) => {
+      if (status !== 'all' && p.status !== status) return false;
+      if (p.difficulty > maxDiff) return false;
+      if (query) {
+        const hay = `${p.title} ${p.summary} ${p.tags.join(' ')}`.toLowerCase();
+        if (!hay.includes(query)) return false;
+      }
+      return true;
+    });
+    const counts: Record<string, number> = { all: base.length };
+    CATEGORIES.forEach((c) => {
+      if (c.key !== 'all') counts[c.key] = base.filter((p) => p.category.includes(c.key)).length;
+    });
+    return counts;
+  }, [q, status, maxDiff]);
+
+  const handleTag = (tag: string) => {
+    setQ(tag);
+    if (typeof window !== 'undefined') window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const openProject = openId ? PROJECTS.find((p) => p.id === openId) ?? null : null;
@@ -512,6 +585,7 @@ const Arsenal: React.FC<ArsenalProps> = ({ onHome, onNavigate }) => {
                     }`}
                   >
                     {c.label}
+                    <span className="ml-1.5 opacity-60">{catCounts[c.key] ?? 0}</span>
                   </button>
                 ))}
                 <div className="ml-auto inline-flex flex-wrap items-center gap-x-4 gap-y-2">
@@ -565,7 +639,7 @@ const Arsenal: React.FC<ArsenalProps> = ({ onHome, onNavigate }) => {
             </div>
             <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {filtered.map((p) => (
-                <ProjectCard key={p.id} project={p} onOpen={() => setOpenId(p.id)} onNavigate={onNavigate} />
+                <ProjectCard key={p.id} project={p} onOpen={() => setOpenId(p.id)} onNavigate={onNavigate} onTag={handleTag} />
               ))}
             </div>
             {filtered.length === 0 && (
