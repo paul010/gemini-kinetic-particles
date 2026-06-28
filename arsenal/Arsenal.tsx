@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import projectsData from './data/projects.json';
 import skillsData from './data/skills.json';
 import recipesData from './data/recipes.json';
@@ -449,6 +449,8 @@ const Arsenal: React.FC<ArsenalProps> = ({ onHome, onNavigate }) => {
   const [maxDiff, setMaxDiff] = useState(initial.maxDiff);
   const [sort, setSort] = useState<SortKey>(initial.sort);
   const [openId, setOpenId] = useState<string | null>(null);
+  const [copiedLink, setCopiedLink] = useState(false);
+  const searchRef = useRef<HTMLInputElement>(null);
 
   const filtered = useMemo(() => {
     const query = q.trim().toLowerCase();
@@ -520,6 +522,30 @@ const Arsenal: React.FC<ArsenalProps> = ({ onHome, onNavigate }) => {
     if (typeof window !== 'undefined') window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  // Press "/" to jump to the search box (ignored while already typing).
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== '/' || e.metaKey || e.ctrlKey || e.altKey) return;
+      const el = document.activeElement as HTMLElement | null;
+      const typing = el instanceof HTMLInputElement || el instanceof HTMLTextAreaElement || el?.isContentEditable;
+      if (typing || !searchRef.current) return;
+      e.preventDefault();
+      searchRef.current.focus();
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, []);
+
+  const shareLink = async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      setCopiedLink(true);
+      setTimeout(() => setCopiedLink(false), 1800);
+    } catch {
+      /* clipboard unavailable */
+    }
+  };
+
   const openProject = openId ? PROJECTS.find((p) => p.id === openId) ?? null : null;
 
   const skillsByCat = useMemo(() => {
@@ -569,9 +595,10 @@ const Arsenal: React.FC<ArsenalProps> = ({ onHome, onNavigate }) => {
             {/* Controls */}
             <div className="mb-6 flex flex-col gap-3">
               <input
+                ref={searchRef}
                 value={q}
                 onChange={(e) => setQ(e.target.value)}
-                placeholder="搜索项目、标签…"
+                placeholder="搜索项目、标签…（按 / 聚焦）"
                 className="w-full rounded-full border border-ink/15 bg-ink/[0.02] px-4 py-2.5 text-sm outline-none focus:border-gold/50"
               />
               <div className="flex flex-wrap items-center gap-2">
@@ -634,6 +661,14 @@ const Arsenal: React.FC<ArsenalProps> = ({ onHome, onNavigate }) => {
                   className="font-mono text-xs text-ink/45 underline-offset-2 hover:text-ink hover:underline"
                 >
                   清除筛选 ×
+                </button>
+              )}
+              {hasFilters && (
+                <button
+                  onClick={shareLink}
+                  className="font-mono text-xs text-ink/45 underline-offset-2 hover:text-ink hover:underline"
+                >
+                  {copiedLink ? '✓ 链接已复制' : '复制筛选链接'}
                 </button>
               )}
             </div>
