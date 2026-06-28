@@ -285,9 +285,22 @@ const FeaturedCard: React.FC<{
   onInternal: (href: string) => void;
 }> = ({ project: p, lang, t, onInternal }) => {
   const tilt = useTilt(5);
+  const [copied, setCopied] = useState(false);
   const launchLink = p.links.find((l) => l.kind === 'internal');
-  const launchHref = launchLink?.href ?? '/particles';
-  const launchLabel = launchLink ? t(launchLink.label) : t(COPY.hero.ctaLaunch);
+  const externalLink = p.links.find((l) => l.kind !== 'internal');
+  const launchLabel = launchLink ? t(launchLink.label) : externalLink ? t(externalLink.label) : t(COPY.hero.ctaLaunch);
+  // Cover click: open the internal route if any, else the external link, else no-op.
+  const onCover = () => {
+    if (launchLink) onInternal(launchLink.href);
+    else if (externalLink) window.open(externalLink.href, '_blank', 'noopener');
+  };
+  const copyPrompt = () => {
+    if (!p.prompt) return;
+    navigator.clipboard?.writeText(p.prompt).then(() => {
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 1600);
+    }).catch(() => {});
+  };
   return (
   <article
     ref={tilt.ref}
@@ -297,7 +310,7 @@ const FeaturedCard: React.FC<{
   >
     {p.cover && (
       <button
-        onClick={() => onInternal(launchHref)}
+        onClick={onCover}
         className="group relative block overflow-hidden lg:w-[55%]"
         aria-label={t(p.title)}
       >
@@ -331,6 +344,24 @@ const FeaturedCard: React.FC<{
       <h3 className="font-display text-3xl font-semibold tracking-tight sm:text-4xl">{t(p.title)}</h3>
       <p className="mt-3 text-sm font-medium text-accent/90">{t(p.tagline)}</p>
       <p className="mt-5 max-w-xl text-sm leading-relaxed text-ink/60">{t(p.description)}</p>
+
+      {p.prompt && (
+        <details className="group/prompt mt-5 rounded-xl border border-ink/10 bg-ink/[0.03] px-4 py-3">
+          <summary className="flex cursor-pointer list-none items-center justify-between gap-3 font-mono text-[11px] uppercase tracking-wider text-ink/55 [&::-webkit-details-marker]:hidden">
+            <span className="inline-flex items-center gap-2">
+              <span className="text-gold">❝</span> {t({ en: 'The prompt', zh: '提示词' })}
+            </span>
+            <span className="transition-transform group-open/prompt:rotate-180">▾</span>
+          </summary>
+          <p className="mt-3 whitespace-pre-wrap font-mono text-[12.5px] leading-relaxed text-ink/65">{p.prompt}</p>
+          <button
+            onClick={copyPrompt}
+            className="mt-3 inline-flex items-center gap-1.5 rounded-full border border-ink/15 bg-paper px-3 py-1 font-mono text-[11px] text-ink/70 transition-colors hover:border-gold/40 hover:text-gold"
+          >
+            {copied ? t({ en: 'Copied ✓', zh: '已复制 ✓' }) : t({ en: 'Copy', zh: '复制' })}
+          </button>
+        </details>
+      )}
 
       <div className="mt-6 flex flex-wrap gap-2">
         {p.tags.map((tag) => (

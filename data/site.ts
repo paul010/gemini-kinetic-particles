@@ -26,6 +26,8 @@ export interface Project {
   cover?: string;
   /** Signature project — gets a highlighted eyebrow and sorts to the top. */
   signature?: boolean;
+  /** For prompt→result showcases: the verbatim prompt, shown in a copyable disclosure. */
+  prompt?: string;
 }
 
 export const SOCIALS = {
@@ -221,6 +223,28 @@ export const PROJECTS: Project[] = [
       { label: { en: 'Read the report', zh: '阅读报告' }, href: '/fugu', kind: 'internal' },
       { label: { en: 'openfugu', zh: 'openfugu' }, href: 'https://github.com/trotsky1997/openfugu', kind: 'github' },
       { label: { en: 'Sakana Fugu', zh: 'Sakana Fugu' }, href: 'https://sakana.ai/fugu/', kind: 'live' },
+    ],
+  },
+  {
+    id: 'whiteboard-portrait',
+    title: { en: 'AI Whiteboard Self-Portrait', zh: 'AI 白板自画像' },
+    year: '2026',
+    status: 'live',
+    featured: true,
+    cover: 'https://cdn.jsdelivr.net/gh/paul010/dalei-youtube@master/whiteboard-dalei.png',
+    tagline: {
+      en: 'One prompt, one photo → a whole hand-drawn whiteboard of who I am and how I work.',
+      zh: '一段提示词 + 一张照片 → 一整张手绘白板,讲清我是谁、我怎么工作。',
+    },
+    description: {
+      en: 'A single-prompt personal infographic: Microsoft Copilot turns a headshot and my LinkedIn / Work IQ profile into a photoreal cartoon whiteboard — what I do, who I work with, my role, my values, my tools, and a day in my life. A fun, repeatable way to render your professional identity. Prompt below, result on the left.',
+      zh: '一段提示词生成的个人信息图:用 Microsoft Copilot,把一张头像加上我的 LinkedIn / Work IQ 资料,变成一整张照片级卡通白板 —— 我做什么、和谁协作、我的角色、价值观、工具栈,还有「一天的生活」。一种好玩又可复用的「职业身份可视化」方式。提示词见下,结果在左侧。',
+    },
+    tags: ['Microsoft Copilot', 'AI Image', 'Infographic', 'Personal Brand'],
+    prompt:
+      "Create a photorealistic image in a clean cartoon whiteboard sketch style that visualises my work life. Include what I do, who I work with, my role, my values and what's important to me. I've attached a headshot so you can guide the sketch of me at the center. Ground your research in Work IQ and the public profile for me on LinkedIn. The graphic should be rich in information. For the avatars of the people I work with, avoid guessing and put a generic icon in place or find their actual profile pictures.",
+    links: [
+      { label: { en: 'See the LinkedIn post', zh: '查看 LinkedIn 帖子' }, href: 'https://www.linkedin.com/feed/update/urn:li:activity:7476873555243323392/', kind: 'live' },
     ],
   },
   {
