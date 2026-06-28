@@ -291,6 +291,27 @@ export const PROJECTS: Project[] = [
     ],
   },
   {
+    id: 'agent-templates',
+    title: { en: 'Agent Templates', zh: 'Agent 模板库' },
+    year: '2026',
+    status: 'live',
+    featured: true,
+    cover: '/agents-cover.svg',
+    tagline: {
+      en: 'Ready-to-use agent templates by scenario — copy the system prompt, ship an agent.',
+      zh: '按场景分好的开箱即用 Agent 模板 —— 复制系统提示词,直接上手建 Agent。',
+    },
+    description: {
+      en: 'A gallery of agent templates across scenarios — Creator, Engineering, Marketing, Productivity, Product, Research. Each card carries a battle-tested, copyable system prompt plus suggested tool integrations and example tasks. Drop the prompt into Copilot Studio or any agent platform and go. Prompts are in English so they’re portable anywhere.',
+      zh: '一组覆盖多场景的 Agent 模板 —— 内容创作、工程开发、营销增长、效率办公、产品、研究。每张卡都配了打磨过、可一键复制的系统提示词,外加建议的工具集成与示例任务。把提示词丢进 Copilot Studio 或任意 Agent 平台即可上手。提示词用英文,便于跨平台通用。',
+    },
+    tags: ['AI Agent', 'Prompts', 'Templates', 'React'],
+    links: [
+      { label: { en: 'Browse templates', zh: '浏览模板' }, href: '/agents', kind: 'internal' },
+      { label: { en: 'Copilot matrix', zh: 'Copilot 矩阵' }, href: '/copilot', kind: 'internal' },
+    ],
+  },
+  {
     id: 'markdown-studio',
     title: { en: 'Markdown Studio', zh: 'Markdown 工具箱' },
     year: '2026',
