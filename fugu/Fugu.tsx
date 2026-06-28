@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 /* ---------------------------------------------------------------------------
  * /fugu — a research report page: an independent, CPU-only reproduction of the
@@ -64,8 +64,34 @@ const CONTROL_CHECKS: LocalizedText[] = [
   { en: 'The full loop runs offline with a mock worker pool — no API keys', zh: '整个循环用 mock 工作池离线跑通 —— 不需要任何 API Key' },
 ];
 
-/* small inline line chart for the convergence curve */
+/* small inline line chart for the convergence curve.
+   The curve draws itself in when scrolled into view (reads well on camera);
+   falls back to fully-drawn instantly under prefers-reduced-motion. */
 const ConvergenceChart: React.FC<{ t: (x: LocalizedText) => string }> = ({ t }) => {
+  const svgRef = useRef<SVGSVGElement>(null);
+  const reduced =
+    typeof window !== 'undefined' &&
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const [shown, setShown] = useState(reduced);
+  useEffect(() => {
+    if (shown || !svgRef.current) return;
+    if (!('IntersectionObserver' in window)) {
+      setShown(true);
+      return;
+    }
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          setShown(true);
+          io.disconnect();
+        }
+      },
+      { threshold: 0.35 }
+    );
+    io.observe(svgRef.current);
+    return () => io.disconnect();
+  }, [shown]);
+
   const W = 680, H = 260, padL = 48, padR = 16, padT = 18, padB = 34;
   const n = CURVE.length;
   const ymin = 0.4, ymax = 0.9;
@@ -76,7 +102,7 @@ const ConvergenceChart: React.FC<{ t: (x: LocalizedText) => string }> = ({ t }) 
   // shaded "lift" region: the gain of the learned curve over the best-single baseline
   const area = `${line} L${x(CURVE.length - 1).toFixed(1)} ${y(BEST_SINGLE).toFixed(1)} L${x(0).toFixed(1)} ${y(BEST_SINGLE).toFixed(1)} Z`;
   return (
-    <svg viewBox={`0 0 ${W} ${H}`} className="w-full" role="img" aria-label="convergence curve">
+    <svg ref={svgRef} viewBox={`0 0 ${W} ${H}`} className="w-full" role="img" aria-label="convergence curve">
       {/* y grid + labels */}
       {[0.4, 0.5, 0.6, 0.7, 0.8, 0.9].map((g) => (
         <g key={g}>
@@ -89,12 +115,39 @@ const ConvergenceChart: React.FC<{ t: (x: LocalizedText) => string }> = ({ t }) 
       <text x={W - padR} y={y(ORACLE) - 6} textAnchor="end" fontFamily="'JetBrains Mono', monospace" fontSize="11" fill="#8a682c">oracle {ORACLE}</text>
       <path d={hline(BEST_SINGLE)} stroke="#1c1a17" strokeOpacity={0.4} strokeWidth={1.5} strokeDasharray="3 4" fill="none" />
       <text x={W - padR} y={y(BEST_SINGLE) - 6} textAnchor="end" fontFamily="'JetBrains Mono', monospace" fontSize="11" fill="#1c1a17" fillOpacity={0.55}>{t({ en: 'best single', zh: '最强单模型' })} {BEST_SINGLE}</text>
-      {/* shaded gain over the best single worker (the "+79% lift", made visible) */}
-      <path d={area} fill="#8a682c" fillOpacity={0.1} stroke="none" />
-      <text x={x(CURVE.length - 1) - 6} y={(y(CURVE[CURVE.length - 1]) + y(BEST_SINGLE)) / 2 + 4} textAnchor="end" fontFamily="'JetBrains Mono', monospace" fontSize="11" fontWeight={700} fill="#8a682c" fillOpacity={0.85}>+{LIFT_MEAN}%</text>
-      {/* the learned-router curve */}
-      <path d={line} stroke="#1c1a17" strokeWidth={2.5} fill="none" />
-      {CURVE.map((v, i) => i % 2 === 0 ? <circle key={i} cx={x(i)} cy={y(v)} r={2.4} fill="#1c1a17" /> : null)}
+      {/* shaded gain over the best single worker (the "+79% lift", made visible) — fades in after the curve draws */}
+      <g style={{ opacity: shown ? 1 : 0, transition: 'opacity 0.6s ease 0.85s' }}>
+        <path d={area} fill="#8a682c" fillOpacity={0.1} stroke="none" />
+        <text x={x(CURVE.length - 1) - 6} y={(y(CURVE[CURVE.length - 1]) + y(BEST_SINGLE)) / 2 + 4} textAnchor="end" fontFamily="'JetBrains Mono', monospace" fontSize="11" fontWeight={700} fill="#8a682c" fillOpacity={0.85}>+{LIFT_MEAN}%</text>
+      </g>
+      {/* the learned-router curve — draws itself in on scroll-into-view */}
+      <path
+        d={line}
+        stroke="#1c1a17"
+        strokeWidth={2.5}
+        fill="none"
+        pathLength={1}
+        style={{
+          strokeDasharray: 1,
+          strokeDashoffset: shown ? 0 : 1,
+          transition: reduced ? 'none' : 'stroke-dashoffset 1.05s cubic-bezier(0.22, 1, 0.36, 1)',
+        }}
+      />
+      {CURVE.map((v, i) =>
+        i % 2 === 0 ? (
+          <circle
+            key={i}
+            cx={x(i)}
+            cy={y(v)}
+            r={2.4}
+            fill="#1c1a17"
+            style={{
+              opacity: shown ? 1 : 0,
+              transition: reduced ? 'none' : `opacity 0.3s ease ${0.2 + (i / n) * 0.85}s`,
+            }}
+          />
+        ) : null
+      )}
       {/* x label */}
       <text x={(W) / 2} y={H - 6} textAnchor="middle" fontFamily="'JetBrains Mono', monospace" fontSize="11" fill="#1c1a17" fillOpacity={0.5}>{t({ en: 'sep-CMA-ES generation', zh: 'sep-CMA-ES 迭代代数' })}</text>
     </svg>

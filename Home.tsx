@@ -603,6 +603,13 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
 
   return (
     <div className="home-root font-sans">
+      {/* Skip link — keyboard/screen-reader users jump straight to content (a11y) */}
+      <a
+        href="#main-content"
+        className="sr-only z-[80] rounded-full border border-ink/15 bg-paper px-4 py-2 font-mono text-xs text-ink shadow-lg focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
+      >
+        {t({ en: 'Skip to content', zh: '跳到主要内容' })}
+      </a>
       <div ref={progressRef} className="scroll-progress" />
       <FluidBackground />
       <div className="bg-aurora" />
@@ -659,6 +666,8 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
               onClick={() => setMenuOpen((v) => !v)}
               className="grid h-9 w-9 place-items-center rounded-full border border-ink/15 bg-ink/5 text-ink/80 md:hidden"
               aria-label="Menu"
+              aria-expanded={menuOpen}
+              aria-controls="mobile-nav"
             >
               <span className="text-lg leading-none">{menuOpen ? '×' : '≡'}</span>
             </button>
@@ -666,14 +675,20 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
         </nav>
 
         {menuOpen && (
-          <div className="border-t border-ink/10 bg-paper/95 px-5 py-4 backdrop-blur-xl md:hidden">
+          <div
+            id="mobile-nav"
+            className="menu-in border-t border-ink/10 bg-paper px-5 pb-5 pt-2 shadow-[0_26px_44px_-26px_rgba(28,26,23,0.55)] md:hidden"
+          >
             {navItems.map((item, i) => (
               <button
                 key={item.id}
                 onClick={() => goTo(item.id)}
-                className="flex w-full items-center gap-3 py-2.5 text-left text-ink/80"
+                aria-current={active === item.id ? 'page' : undefined}
+                className={`flex w-full items-center gap-3 border-b border-ink/5 py-3 text-left transition-colors last:border-b-0 ${
+                  active === item.id ? 'text-ink' : 'text-ink/70 hover:text-ink'
+                }`}
               >
-                <span className="font-mono text-xs text-gold">0{i + 1}</span>
+                <span className={`font-mono text-xs ${active === item.id ? 'text-gold' : 'text-gold/55'}`}>0{i + 1}</span>
                 {t(item.label)}
               </button>
             ))}
@@ -681,7 +696,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
         )}
       </header>
 
-      <main className="mx-auto max-w-5xl px-5 sm:px-8">
+      <main id="main-content" className="mx-auto max-w-5xl px-5 sm:px-8">
         {/* Hero */}
         <section id="home" className="grid min-h-[92vh] items-center gap-12 pt-28 pb-20 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14">
           <div className="flex flex-col">
@@ -869,6 +884,20 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
                 {t(COPY.about.heading)}
               </h2>
               <p className="mt-6 text-base leading-relaxed text-ink/65">{t(COPY.about.body)}</p>
+
+              {/* At-a-glance stats — scannable social proof */}
+              <dl className="mt-8 flex flex-wrap gap-x-8 gap-y-4">
+                {[
+                  { value: CHANNEL.subscribers, label: { en: 'subscribers', zh: 'YouTube 订阅' } as LocalizedText },
+                  { value: CHANNEL.videos, label: { en: 'videos', zh: '视频' } as LocalizedText },
+                  { value: `${PROJECTS.length}`, label: { en: 'open-source projects', zh: '开源项目' } as LocalizedText },
+                ].map((s, i) => (
+                  <div key={i}>
+                    <dt className="font-display text-3xl font-semibold leading-none tracking-tight">{s.value}</dt>
+                    <dd className="mt-1.5 font-mono text-[11px] uppercase tracking-wider text-ink/45">{t(s.label)}</dd>
+                  </div>
+                ))}
+              </dl>
             </div>
 
             <div className="grid gap-4 self-center">
