@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import projectsData from './data/projects.json';
 import skillsData from './data/skills.json';
 import recipesData from './data/recipes.json';
@@ -38,6 +38,14 @@ const CATEGORIES: { key: string; label: string }[] = [
   { key: 'content', label: '内容素材' },
   { key: 'engineering', label: '工程工具' },
   { key: 'agent', label: 'Agent' },
+];
+
+type SortKey = 'recommended' | 'difficulty' | 'value';
+
+const SORTS: { key: SortKey; label: string }[] = [
+  { key: 'recommended', label: '推荐（已上线优先）' },
+  { key: 'difficulty', label: '难度低→高' },
+  { key: 'value', label: '内容价值高→低' },
 ];
 
 const SKILL_CAT_LABEL: Record<string, string> = {
@@ -99,7 +107,7 @@ const verdictTone = (v: Project['verdict']) =>
 
 /* ---------- Project card ---------- */
 
-const ProjectCard: React.FC<{ project: Project; onOpen: () => void; onNavigate: (path: string) => void }> = ({ project: p, onOpen, onNavigate }) => {
+const ProjectCard: React.FC<{ project: Project; onOpen: () => void; onNavigate: (path: string) => void; onTag: (tag: string) => void }> = ({ project: p, onOpen, onNavigate, onTag }) => {
   const skills = recommendSkills(p, SKILLS).slice(0, 3);
   const prompt = buildPrompt(p, recommendSkills(p, SKILLS), recommendRecipes(p, RECIPES));
   return (
@@ -133,6 +141,21 @@ const ProjectCard: React.FC<{ project: Project; onOpen: () => void; onNavigate: 
           </span>
         ))}
       </div>
+
+      {p.tags.length > 0 && (
+        <div className="mt-2 flex flex-wrap gap-x-2 gap-y-1">
+          {p.tags.slice(0, 4).map((t) => (
+            <button
+              key={t}
+              onClick={() => onTag(t)}
+              className="font-mono text-[10px] text-ink/40 underline-offset-2 transition-colors hover:text-gold hover:underline"
+              aria-label={`按标签 ${t} 筛选`}
+            >
+              #{t}
+            </button>
+          ))}
+        </div>
+      )}
 
       <div className="mt-4 flex flex-wrap items-center gap-2">
         {p.liveUrl ? (
@@ -397,17 +420,41 @@ const RecipeCard: React.FC<{ recipe: Recipe }> = ({ recipe: r }) => (
 
 type Tab = 'radar' | 'skills' | 'recipes';
 
+const CAT_KEYS = new Set(CATEGORIES.map((c) => c.key));
+const STATUS_KEYS = new Set<string>(['all', ...Object.keys(STATUS_LABEL)]);
+const SORT_KEYS = new Set<string>(SORTS.map((s) => s.key));
+
+/** Read filter state from the URL query string so filters survive refresh / sharing. */
+function readFiltersFromUrl() {
+  const sp = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : new URLSearchParams();
+  const cat = sp.get('cat') ?? 'all';
+  const status = sp.get('status') ?? 'all';
+  const sort = sp.get('sort') ?? 'recommended';
+  const diff = Number(sp.get('diff'));
+  return {
+    q: sp.get('q') ?? '',
+    cat: CAT_KEYS.has(cat) ? cat : 'all',
+    status: STATUS_KEYS.has(status) ? status : 'all',
+    sort: (SORT_KEYS.has(sort) ? sort : 'recommended') as SortKey,
+    maxDiff: diff >= 1 && diff <= 5 ? diff : 5,
+  };
+}
+
 const Arsenal: React.FC<ArsenalProps> = ({ onHome, onNavigate }) => {
+  const initial = useMemo(readFiltersFromUrl, []);
   const [tab, setTab] = useState<Tab>('radar');
-  const [q, setQ] = useState('');
-  const [cat, setCat] = useState('all');
-  const [status, setStatus] = useState('all');
-  const [maxDiff, setMaxDiff] = useState(5);
+  const [q, setQ] = useState(initial.q);
+  const [cat, setCat] = useState(initial.cat);
+  const [status, setStatus] = useState(initial.status);
+  const [maxDiff, setMaxDiff] = useState(initial.maxDiff);
+  const [sort, setSort] = useState<SortKey>(initial.sort);
   const [openId, setOpenId] = useState<string | null>(null);
+  const [copiedLink, setCopiedLink] = useState(false);
+  const searchRef = useRef<HTMLInputElement>(null);
 
   const filtered = useMemo(() => {
     const query = q.trim().toLowerCase();
-    return PROJECTS.filter((p) => {
+    const list = PROJECTS.filter((p) => {
       if (cat !== 'all' && !p.category.includes(cat)) return false;
       if (status !== 'all' && p.status !== status) return false;
       if (p.difficulty > maxDiff) return false;
@@ -417,7 +464,87 @@ const Arsenal: React.FC<ArsenalProps> = ({ onHome, onNavigate }) => {
       }
       return true;
     });
-  }, [q, cat, status, maxDiff]);
+    // "推荐"：已上线优先 → 内容价值高 → 难度低；其它排序在并列时回退到推荐序。
+    const byRecommended = (a: Project, b: Project) =>
+      Number(Boolean(b.liveUrl)) - Number(Boolean(a.liveUrl)) ||
+      b.contentValueScore - a.contentValueScore ||
+      a.difficulty - b.difficulty;
+    const cmp: Record<SortKey, (a: Project, b: Project) => number> = {
+      recommended: byRecommended,
+      difficulty: (a, b) => a.difficulty - b.difficulty || byRecommended(a, b),
+      value: (a, b) => b.contentValueScore - a.contentValueScore || byRecommended(a, b),
+    };
+    return [...list].sort(cmp[sort]);
+  }, [q, cat, status, maxDiff, sort]);
+
+  const hasFilters = q.trim() !== '' || cat !== 'all' || status !== 'all' || maxDiff !== 5;
+  const resetFilters = () => {
+    setQ('');
+    setCat('all');
+    setStatus('all');
+    setMaxDiff(5);
+  };
+
+  // Mirror filters into the URL (non-default values only) so refresh/sharing keeps state.
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const sp = new URLSearchParams();
+    if (q.trim()) sp.set('q', q.trim());
+    if (cat !== 'all') sp.set('cat', cat);
+    if (status !== 'all') sp.set('status', status);
+    if (maxDiff !== 5) sp.set('diff', String(maxDiff));
+    if (sort !== 'recommended') sp.set('sort', sort);
+    const qs = sp.toString();
+    window.history.replaceState(null, '', window.location.pathname + (qs ? `?${qs}` : '') + window.location.hash);
+  }, [q, cat, status, maxDiff, sort]);
+
+  // Per-category counts under the *other* active filters, so each chip shows what you'd get.
+  const catCounts = useMemo(() => {
+    const query = q.trim().toLowerCase();
+    const base = PROJECTS.filter((p) => {
+      if (status !== 'all' && p.status !== status) return false;
+      if (p.difficulty > maxDiff) return false;
+      if (query) {
+        const hay = `${p.title} ${p.summary} ${p.tags.join(' ')}`.toLowerCase();
+        if (!hay.includes(query)) return false;
+      }
+      return true;
+    });
+    const counts: Record<string, number> = { all: base.length };
+    CATEGORIES.forEach((c) => {
+      if (c.key !== 'all') counts[c.key] = base.filter((p) => p.category.includes(c.key)).length;
+    });
+    return counts;
+  }, [q, status, maxDiff]);
+
+  const handleTag = (tag: string) => {
+    setQ(tag);
+    if (typeof window !== 'undefined') window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  // Press "/" to jump to the search box (ignored while already typing).
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== '/' || e.metaKey || e.ctrlKey || e.altKey) return;
+      const el = document.activeElement as HTMLElement | null;
+      const typing = el instanceof HTMLInputElement || el instanceof HTMLTextAreaElement || el?.isContentEditable;
+      if (typing || !searchRef.current) return;
+      e.preventDefault();
+      searchRef.current.focus();
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, []);
+
+  const shareLink = async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      setCopiedLink(true);
+      setTimeout(() => setCopiedLink(false), 1800);
+    } catch {
+      /* clipboard unavailable */
+    }
+  };
 
   const openProject = openId ? PROJECTS.find((p) => p.id === openId) ?? null : null;
 
@@ -450,6 +577,7 @@ const Arsenal: React.FC<ArsenalProps> = ({ onHome, onNavigate }) => {
               <button
                 key={k}
                 onClick={() => setTab(k)}
+                aria-pressed={tab === k}
                 className={`rounded-full px-4 py-1.5 text-sm font-medium transition-colors ${
                   tab === k ? 'bg-accent text-paper' : 'border border-ink/15 text-ink/65 hover:text-ink'
                 }`}
@@ -467,9 +595,10 @@ const Arsenal: React.FC<ArsenalProps> = ({ onHome, onNavigate }) => {
             {/* Controls */}
             <div className="mb-6 flex flex-col gap-3">
               <input
+                ref={searchRef}
                 value={q}
                 onChange={(e) => setQ(e.target.value)}
-                placeholder="搜索项目、标签…"
+                placeholder="搜索项目、标签…（按 / 聚焦）"
                 className="w-full rounded-full border border-ink/15 bg-ink/[0.02] px-4 py-2.5 text-sm outline-none focus:border-gold/50"
               />
               <div className="flex flex-wrap items-center gap-2">
@@ -477,17 +606,33 @@ const Arsenal: React.FC<ArsenalProps> = ({ onHome, onNavigate }) => {
                   <button
                     key={c.key}
                     onClick={() => setCat(c.key)}
+                    aria-pressed={cat === c.key}
                     className={`rounded-full px-3 py-1 text-xs transition-colors ${
                       cat === c.key ? 'bg-accent text-paper' : 'border border-ink/15 text-ink/60 hover:text-ink'
                     }`}
                   >
                     {c.label}
+                    <span className="ml-1.5 opacity-60">{catCounts[c.key] ?? 0}</span>
                   </button>
                 ))}
-                <span className="ml-auto inline-flex items-center gap-2 font-mono text-xs text-ink/50">
-                  难度 ≤ {maxDiff}
-                  <input type="range" min={1} max={5} value={maxDiff} onChange={(e) => setMaxDiff(Number(e.target.value))} className="accent-[#8a682c]" />
-                </span>
+                <div className="ml-auto inline-flex flex-wrap items-center gap-x-4 gap-y-2">
+                  <label className="inline-flex items-center gap-1.5 font-mono text-xs text-ink/50">
+                    排序
+                    <select
+                      value={sort}
+                      onChange={(e) => setSort(e.target.value as SortKey)}
+                      className="rounded-full border border-ink/15 bg-ink/[0.02] px-2.5 py-1 text-xs text-ink/70 outline-none focus:border-gold/50"
+                    >
+                      {SORTS.map((s) => (
+                        <option key={s.key} value={s.key}>{s.label}</option>
+                      ))}
+                    </select>
+                  </label>
+                  <span className="inline-flex items-center gap-2 font-mono text-xs text-ink/50">
+                    难度 ≤ {maxDiff}
+                    <input type="range" min={1} max={5} value={maxDiff} onChange={(e) => setMaxDiff(Number(e.target.value))} className="accent-[#8a682c]" />
+                  </span>
+                </div>
               </div>
               <div className="flex flex-wrap items-center gap-2">
                 <span className="font-mono text-[11px] uppercase tracking-wider text-ink/40">复现状态</span>
@@ -496,6 +641,7 @@ const Arsenal: React.FC<ArsenalProps> = ({ onHome, onNavigate }) => {
                     <button
                       key={key}
                       onClick={() => setStatus(key)}
+                      aria-pressed={status === key}
                       className={`rounded-full px-3 py-1 font-mono text-[11px] transition-colors ${
                         status === key ? 'border border-gold/50 bg-gold/10 text-gold' : 'border border-ink/15 text-ink/55 hover:text-ink'
                       }`}
@@ -507,13 +653,43 @@ const Arsenal: React.FC<ArsenalProps> = ({ onHome, onNavigate }) => {
               </div>
             </div>
 
-            <p className="mb-4 font-mono text-xs text-ink/45">{filtered.length} 个项目</p>
+            <div className="mb-4 flex items-center gap-3">
+              <p className="font-mono text-xs text-ink/45">{filtered.length} 个项目</p>
+              {hasFilters && (
+                <button
+                  onClick={resetFilters}
+                  className="font-mono text-xs text-ink/45 underline-offset-2 hover:text-ink hover:underline"
+                >
+                  清除筛选 ×
+                </button>
+              )}
+              {hasFilters && (
+                <button
+                  onClick={shareLink}
+                  className="font-mono text-xs text-ink/45 underline-offset-2 hover:text-ink hover:underline"
+                >
+                  {copiedLink ? '✓ 链接已复制' : '复制筛选链接'}
+                </button>
+              )}
+            </div>
             <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {filtered.map((p) => (
-                <ProjectCard key={p.id} project={p} onOpen={() => setOpenId(p.id)} onNavigate={onNavigate} />
+                <ProjectCard key={p.id} project={p} onOpen={() => setOpenId(p.id)} onNavigate={onNavigate} onTag={handleTag} />
               ))}
             </div>
-            {filtered.length === 0 && <p className="py-16 text-center text-sm text-ink/45">没有匹配的项目，试试放宽筛选。</p>}
+            {filtered.length === 0 && (
+              <div className="py-16 text-center">
+                <p className="text-sm text-ink/45">没有匹配的项目，试试放宽筛选。</p>
+                {hasFilters && (
+                  <button
+                    onClick={resetFilters}
+                    className="mt-3 rounded-full border border-ink/15 px-4 py-1.5 text-xs text-ink/65 transition-colors hover:border-gold/50 hover:text-ink"
+                  >
+                    清除全部筛选
+                  </button>
+                )}
+              </div>
+            )}
           </>
         )}
 
