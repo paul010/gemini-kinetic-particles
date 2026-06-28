@@ -9,6 +9,7 @@ export default {
     './arsenal/**/*.{ts,tsx}',
     './tools/**/*.{ts,tsx}',
     './bench/**/*.{ts,tsx}',
+    './fugu/**/*.{ts,tsx}',
   ],
   theme: {
     extend: {
