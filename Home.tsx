@@ -83,6 +83,12 @@ const XIcon = (props: React.SVGProps<SVGSVGElement>) => (
   </svg>
 );
 
+const NotionIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
+    <path d="M4.6 3.4 14.8 2.6c1.3-.1 1.6 0 2.4.6l2.7 1.9c.5.4.7.5.7 1v13c0 .9-.3 1.4-1.5 1.5l-11.8.7c-.8 0-1.2-.1-1.6-.6l-2-2.6c-.4-.6-.6-1-.6-1.6V4.8c0-.7.3-1.3 1.1-1.4Zm.5 1.5c-.2.2-.1.4.2.6l1.9 1.4c.4.3.5.3 1 .3l11-.7c.2 0 .4-.1.2-.4L19 4.9c-.3-.2-.5-.3-1-.3l-11.7.7c-.3 0-.4.1-.2.6Zm9.4 3.6-7.7.5c-.3 0-.4.2-.4.5v9.2c0 .3.2.4.5.4l1.3-.1v-7l.4.5 4 5.7 1.7-.1V9.2l-1.6.1.1 5.1-3.9-5.5 1.6-.1V8.5Z" />
+  </svg>
+);
+
 const MailIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" {...props}>
     <rect x="3" y="5" width="18" height="14" rx="2" />
@@ -285,9 +291,23 @@ const FeaturedCard: React.FC<{
   onInternal: (href: string) => void;
 }> = ({ project: p, lang, t, onInternal }) => {
   const tilt = useTilt(5);
+  const [copied, setCopied] = useState(false);
+  const [imgError, setImgError] = useState(false);
   const launchLink = p.links.find((l) => l.kind === 'internal');
-  const launchHref = launchLink?.href ?? '/particles';
-  const launchLabel = launchLink ? t(launchLink.label) : t(COPY.hero.ctaLaunch);
+  const externalLink = p.links.find((l) => l.kind !== 'internal');
+  const launchLabel = launchLink ? t(launchLink.label) : externalLink ? t(externalLink.label) : t(COPY.hero.ctaLaunch);
+  // Cover click: open the internal route if any, else the external link, else no-op.
+  const onCover = () => {
+    if (launchLink) onInternal(launchLink.href);
+    else if (externalLink) window.open(externalLink.href, '_blank', 'noopener');
+  };
+  const copyPrompt = () => {
+    if (!p.prompt) return;
+    navigator.clipboard?.writeText(p.prompt).then(() => {
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 1600);
+    }).catch(() => {});
+  };
   return (
   <article
     ref={tilt.ref}
@@ -297,16 +317,28 @@ const FeaturedCard: React.FC<{
   >
     {p.cover && (
       <button
-        onClick={() => onInternal(launchHref)}
+        onClick={onCover}
         className="group relative block overflow-hidden lg:w-[55%]"
         aria-label={t(p.title)}
       >
-        <img
-          src={p.cover}
-          alt={t(p.title)}
-          loading="lazy"
-          className="h-64 w-full object-cover transition-transform duration-700 group-hover:scale-[1.04] sm:h-80 lg:h-full"
-        />
+        {imgError ? (
+          // Cover not available yet (e.g. asset still being uploaded) — show a
+          // tasteful placeholder instead of a broken image.
+          <div className="grid h-64 w-full place-items-center bg-gradient-to-br from-surface to-paper sm:h-80 lg:h-full">
+            <div className="flex flex-col items-center gap-2 text-ink/35">
+              <span className="font-display text-5xl">❝</span>
+              <span className="font-mono text-[11px] uppercase tracking-wider">{t(p.title)}</span>
+            </div>
+          </div>
+        ) : (
+          <img
+            src={p.cover}
+            alt={t(p.title)}
+            loading="lazy"
+            onError={() => setImgError(true)}
+            className="h-64 w-full object-cover transition-transform duration-700 group-hover:scale-[1.04] sm:h-80 lg:h-full"
+          />
+        )}
         <span className="pointer-events-none absolute inset-0 bg-gradient-to-t from-surface/85 via-transparent to-transparent lg:bg-gradient-to-r" />
         <span className="absolute bottom-4 left-4 inline-flex items-center gap-2 rounded-full border border-paper/25 bg-black/45 px-3.5 py-1.5 text-xs font-semibold text-paper/90 backdrop-blur-md transition-colors group-hover:border-paper/60 group-hover:text-paper">
           {launchLabel}
@@ -331,6 +363,24 @@ const FeaturedCard: React.FC<{
       <h3 className="font-display text-3xl font-semibold tracking-tight sm:text-4xl">{t(p.title)}</h3>
       <p className="mt-3 text-sm font-medium text-accent/90">{t(p.tagline)}</p>
       <p className="mt-5 max-w-xl text-sm leading-relaxed text-ink/60">{t(p.description)}</p>
+
+      {p.prompt && (
+        <details className="group/prompt mt-5 rounded-xl border border-ink/10 bg-ink/[0.03] px-4 py-3">
+          <summary className="flex cursor-pointer list-none items-center justify-between gap-3 font-mono text-[11px] uppercase tracking-wider text-ink/55 [&::-webkit-details-marker]:hidden">
+            <span className="inline-flex items-center gap-2">
+              <span className="text-gold">❝</span> {t({ en: 'The prompt', zh: '提示词' })}
+            </span>
+            <span className="transition-transform group-open/prompt:rotate-180">▾</span>
+          </summary>
+          <p className="mt-3 whitespace-pre-wrap font-mono text-[12.5px] leading-relaxed text-ink/65">{p.prompt}</p>
+          <button
+            onClick={copyPrompt}
+            className="mt-3 inline-flex items-center gap-1.5 rounded-full border border-ink/15 bg-paper px-3 py-1 font-mono text-[11px] text-ink/70 transition-colors hover:border-gold/40 hover:text-gold"
+          >
+            {copied ? t({ en: 'Copied ✓', zh: '已复制 ✓' }) : t({ en: 'Copy', zh: '复制' })}
+          </button>
+        </details>
+      )}
 
       <div className="mt-6 flex flex-wrap gap-2">
         {p.tags.map((tag) => (
@@ -926,6 +976,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
                 { icon: <GitHubIcon className="h-5 w-5" />, label: 'GitHub', handle: 'paul010', href: SOCIALS.github, external: true, mail: false },
                 { icon: <YouTubeIcon className="h-5 w-5" />, label: 'YouTube', handle: '@dalei2025', href: SOCIALS.youtube, external: true, mail: false },
                 { icon: <XIcon className="h-[18px] w-[18px]" />, label: 'X / Twitter', handle: '@paul010318', href: SOCIALS.twitter, external: true, mail: false },
+                { icon: <NotionIcon className="h-5 w-5" />, label: 'Notion', handle: 'AI Agent Club', href: SOCIALS.notion, external: true, mail: false },
                 { icon: <MailIcon className="h-5 w-5" />, label: 'Email', handle: getEmail(), href: '#', external: false, mail: true },
               ].map((s, i) => (
                 <a
