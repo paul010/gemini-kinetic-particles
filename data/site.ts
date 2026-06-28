@@ -249,6 +249,27 @@ export const PROJECTS: Project[] = [
     ],
   },
   {
+    id: 'ai-solutions-library',
+    title: { en: 'Free AI Solutions Library', zh: '大雷免费 AI 方案库' },
+    year: '2026',
+    status: 'live',
+    featured: true,
+    cover: '/ai-library-cover.svg',
+    tagline: {
+      en: 'A curated, structured Notion library of the latest open-source, landing-ready AI solutions.',
+      zh: '一个结构化、持续更新的 Notion 库 —— 收录最新可落地的开源 AI 方案。',
+    },
+    description: {
+      en: 'The structured backbone of my AI content: a Notion database cataloging open-source / free AI solutions, each scored and tagged by use case (AI Agent, MCP, RAG, Deep Research…), category, maturity, cost, business value, target role, and a “personally tested” flag. Browse it as a gallery, table, board (by industry), or calendar (the AI daily). Free to use.',
+      zh: '我做 AI 内容的结构化底座:一个 Notion 数据库,收录开源/免费的 AI 方案,每条都按应用场景(AI Agent、MCP、RAG、Deep Research…)、分类、成熟度、成本、商业价值、适合人群打分标注,还有「是否亲测」标记。可按画廊、表格、看板(按行业)或日历(AI 日报)浏览。免费取用。',
+    },
+    tags: ['Notion', 'AI Agent', 'Open Source', 'Knowledge Base'],
+    links: [
+      { label: { en: 'Open the library', zh: '打开方案库' }, href: SOCIALS.notion, kind: 'live' },
+      { label: { en: 'Watch on YouTube', zh: 'YouTube 频道' }, href: SOCIALS.youtube, kind: 'youtube' },
+    ],
+  },
+  {
     id: 'markdown-studio',
     title: { en: 'Markdown Studio', zh: 'Markdown 工具箱' },
     year: '2026',
