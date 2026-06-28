@@ -299,11 +299,11 @@ const FeaturedCard: React.FC<{
       <button
         onClick={() => onInternal(launchHref)}
         className="group relative block overflow-hidden lg:w-[55%]"
-        aria-label={p.title}
+        aria-label={t(p.title)}
       >
         <img
           src={p.cover}
-          alt={p.title}
+          alt={t(p.title)}
           loading="lazy"
           className="h-64 w-full object-cover transition-transform duration-700 group-hover:scale-[1.04] sm:h-80 lg:h-full"
         />
@@ -320,7 +320,7 @@ const FeaturedCard: React.FC<{
         <div className="flex items-center gap-2">
           {p.signature && (
             <span className="inline-flex items-center gap-1.5 rounded-full border border-gold/40 bg-gold/10 px-2.5 py-0.5 font-mono text-[11px] uppercase tracking-wider text-gold">
-              <span className="pulse-dot h-1.5 w-1.5 rounded-full bg-gold" /> 招牌 Signature
+              <span className="pulse-dot h-1.5 w-1.5 rounded-full bg-gold" /> {t(COPY.work.signature)}
             </span>
           )}
           {statusBadge(p.status, t)}
@@ -328,7 +328,7 @@ const FeaturedCard: React.FC<{
         <span className="font-mono text-xs text-ink/40">{p.year}</span>
       </div>
 
-      <h3 className="font-display text-3xl font-semibold tracking-tight sm:text-4xl">{p.title}</h3>
+      <h3 className="font-display text-3xl font-semibold tracking-tight sm:text-4xl">{t(p.title)}</h3>
       <p className="mt-3 text-sm font-medium text-accent/90">{t(p.tagline)}</p>
       <p className="mt-5 max-w-xl text-sm leading-relaxed text-ink/60">{t(p.description)}</p>
 
@@ -381,7 +381,7 @@ const ProjectCard: React.FC<{
     </div>
 
     <div className="flex flex-wrap items-center gap-3">
-      <h3 className="font-display text-2xl font-semibold tracking-tight">{p.title}</h3>
+      <h3 className="font-display text-2xl font-semibold tracking-tight">{t(p.title)}</h3>
       {statusBadge(p.status, t)}
     </div>
     <p className="mt-2 flex-1 text-sm leading-relaxed text-ink/60">{t(p.tagline)}</p>
@@ -784,7 +784,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
                   </span>
                   {i === 0 && (
                     <span className="absolute left-2 top-2 rounded-full bg-gold px-2 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-wider text-paper shadow">
-                      最新 New
+                      {t(COPY.videos.new)}
                     </span>
                   )}
                   <span className="absolute inset-0 grid place-items-center">

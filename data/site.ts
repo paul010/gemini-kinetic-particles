@@ -15,7 +15,7 @@ export interface ProjectLink {
 
 export interface Project {
   id: string;
-  title: string;
+  title: LocalizedText;
   year: string;
   status: 'live' | 'wip' | 'soon';
   tagline: LocalizedText;
@@ -138,7 +138,7 @@ export const VIDEOS: VideoItem[] = [
 export const PROJECTS: Project[] = [
   {
     id: 'kinetic-particles',
-    title: 'Kinetic Particles',
+    title: { en: 'Kinetic Particles', zh: 'Kinetic Particles' },
     year: '2025',
     status: 'live',
     featured: true,
@@ -160,7 +160,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'ai-coding-arsenal',
-    title: 'AI Coding Arsenal',
+    title: { en: 'AI Coding Arsenal', zh: 'AI Coding Arsenal' },
     year: '2026',
     status: 'wip',
     featured: true,
@@ -181,7 +181,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'ai-benchmark',
-    title: '大雷 AI 评测台 Benchmark',
+    title: { en: 'Da Lei AI Benchmark', zh: '大雷 AI 评测台' },
     year: '2026',
     status: 'live',
     featured: true,
@@ -203,7 +203,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'markdown-studio',
-    title: 'Markdown 工具箱',
+    title: { en: 'Markdown Studio', zh: 'Markdown 工具箱' },
     year: '2026',
     status: 'live',
     tagline: {
@@ -222,7 +222,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'image-studio',
-    title: '图片工具箱 Image Studio',
+    title: { en: 'Image Studio', zh: '图片工具箱' },
     year: '2026',
     status: 'live',
     tagline: {
@@ -240,7 +240,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'screenshot-to-code',
-    title: '截图转代码 Screenshot → Code',
+    title: { en: 'Screenshot → Code', zh: '截图转代码' },
     year: '2026',
     status: 'wip',
     tagline: {
@@ -259,7 +259,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'fluid-playground',
-    title: 'Fluid 流体 Playground',
+    title: { en: 'Fluid Playground', zh: '流体 Fluid' },
     year: '2026',
     status: 'live',
     tagline: {
@@ -278,7 +278,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'three-orb',
-    title: '3D 起手式 React Three Fiber',
+    title: { en: 'React Three Fiber 3D', zh: '3D 起手式' },
     year: '2026',
     status: 'live',
     tagline: {
@@ -365,6 +365,7 @@ export const COPY = {
       en: 'Small, free, in-browser tools from my creator workflow.',
       zh: '来自我创作流程的免费、纯浏览器小工具。',
     },
+    signature: { en: 'Signature', zh: '招牌' },
   },
   videos: {
     label: { en: 'From YouTube', zh: '来自 YouTube' },
@@ -374,6 +375,7 @@ export const COPY = {
       zh: '每周更新的 AI 自动化实战、工具与 AI 资讯 ——「大雷早上好」。',
     },
     all: { en: 'View all on YouTube', zh: '在 YouTube 查看全部' },
+    new: { en: 'New', zh: '最新' },
   },
   membership: {
     label: { en: 'Membership', zh: '频道会员' },
