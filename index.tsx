@@ -11,6 +11,7 @@ const ScreenshotToCode = React.lazy(() => import('./tools/ScreenshotToCode'));
 const FluidPlayground = React.lazy(() => import('./tools/FluidPlayground'));
 const ThreeOrb = React.lazy(() => import('./tools/ThreeOrb'));
 const Bench = React.lazy(() => import('./bench/Bench'));
+const Fugu = React.lazy(() => import('./fugu/Fugu'));
 
 const Loader: React.FC<{ label: string }> = ({ label }) => (
   <div
@@ -24,7 +25,7 @@ const Loader: React.FC<{ label: string }> = ({ label }) => (
   </div>
 );
 
-type Route = 'home' | 'particles' | 'arsenal' | 'md' | 'img' | 's2c' | 'fluid' | 'r3f' | 'bench';
+type Route = 'home' | 'particles' | 'arsenal' | 'md' | 'img' | 's2c' | 'fluid' | 'r3f' | 'bench' | 'fugu';
 
 const routeFromLocation = (): Route => {
   const { pathname, hash } = window.location;
@@ -37,6 +38,7 @@ const routeFromLocation = (): Route => {
   if (p.endsWith('/fluid') || hash === '#/fluid') return 'fluid';
   if (p.endsWith('/r3f') || hash === '#/r3f') return 'r3f';
   if (p.endsWith('/bench') || hash === '#/bench') return 'bench';
+  if (p.endsWith('/fugu') || hash === '#/fugu') return 'fugu';
   return 'home';
 };
 
@@ -77,6 +79,7 @@ const Router: React.FC = () => {
       fluid: 'Fluid 流体 · 大雷',
       r3f: '3D 起手式 · 大雷',
       bench: '大雷 AI 评测台 · Da Lei AI Benchmark',
+      fugu: 'Fugu / TRINITY 复现验证 · Da Lei Research',
     };
     document.title = titles[route];
   }, [route]);
@@ -149,6 +152,14 @@ const Router: React.FC = () => {
     return (
       <Suspense fallback={<Loader label="LOADING BENCHMARK…" />}>
         <Bench onHome={() => navigate('/')} />
+      </Suspense>
+    );
+  }
+
+  if (route === 'fugu') {
+    return (
+      <Suspense fallback={<Loader label="LOADING RESEARCH…" />}>
+        <Fugu onHome={() => navigate('/')} />
       </Suspense>
     );
   }

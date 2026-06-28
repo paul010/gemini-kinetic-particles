@@ -33,3 +33,6 @@ secrets.json
 *.njsproj
 *.sln
 *.sw?
+
+# Fugu reproduction: user-fetched third-party code cache (not redistributed)
+research/fugu/_vendor/
