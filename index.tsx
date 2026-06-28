@@ -13,6 +13,7 @@ const ThreeOrb = React.lazy(() => import('./tools/ThreeOrb'));
 const Bench = React.lazy(() => import('./bench/Bench'));
 const Fugu = React.lazy(() => import('./fugu/Fugu'));
 const Copilot = React.lazy(() => import('./copilot/Copilot'));
+const Agents = React.lazy(() => import('./agents/Agents'));
 
 const Loader: React.FC<{ label: string }> = ({ label }) => (
   <div
@@ -26,7 +27,7 @@ const Loader: React.FC<{ label: string }> = ({ label }) => (
   </div>
 );
 
-type Route = 'home' | 'particles' | 'arsenal' | 'md' | 'img' | 's2c' | 'fluid' | 'r3f' | 'bench' | 'fugu' | 'copilot';
+type Route = 'home' | 'particles' | 'arsenal' | 'md' | 'img' | 's2c' | 'fluid' | 'r3f' | 'bench' | 'fugu' | 'copilot' | 'agents';
 
 const routeFromLocation = (): Route => {
   const { pathname, hash } = window.location;
@@ -41,6 +42,7 @@ const routeFromLocation = (): Route => {
   if (p.endsWith('/bench') || hash === '#/bench') return 'bench';
   if (p.endsWith('/fugu') || hash === '#/fugu') return 'fugu';
   if (p.endsWith('/copilot') || hash === '#/copilot') return 'copilot';
+  if (p.endsWith('/agents') || hash === '#/agents') return 'agents';
   return 'home';
 };
 
@@ -83,6 +85,7 @@ const Router: React.FC = () => {
       bench: '大雷 AI 评测台 · Da Lei AI Benchmark',
       fugu: 'Fugu / TRINITY 复现验证 · Da Lei Research',
       copilot: 'Microsoft Copilot / Agent 产品矩阵 · 大雷',
+      agents: 'Agent 模板库 · Agent Templates · 大雷',
     };
     document.title = titles[route];
   }, [route]);
@@ -171,6 +174,14 @@ const Router: React.FC = () => {
     return (
       <Suspense fallback={<Loader label="LOADING…" />}>
         <Copilot onHome={() => navigate('/')} />
+      </Suspense>
+    );
+  }
+
+  if (route === 'agents') {
+    return (
+      <Suspense fallback={<Loader label="LOADING AGENTS…" />}>
+        <Agents onHome={() => navigate('/')} />
       </Suspense>
     );
   }
