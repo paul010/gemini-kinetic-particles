@@ -333,6 +333,25 @@ export const PROJECTS: Project[] = [
     ],
   },
   {
+    id: 'plantuml-studio',
+    title: { en: 'PlantUML Renderer', zh: 'PlantUML 渲染器' },
+    year: '2026',
+    status: 'live',
+    tagline: {
+      en: 'Write UML, render it live, and copy the actual diagram.',
+      zh: '写 UML 语法，实时渲染，并一键复制生成的实际图。',
+    },
+    description: {
+      en: 'A live PlantUML editor: type UML (sequence, class, activity, mindmap, gantt, use-case…), see it render instantly, then copy the real image (PNG to clipboard), copy the SVG, copy the URL, or download. Encoding is done in-browser (raw-DEFLATE) — no build step; the diagram is rendered by the public PlantUML server.',
+      zh: '实时 PlantUML 编辑器:输入 UML 语法(时序图、类图、活动图、思维导图、甘特图、用例图…),即时渲染,然后一键复制生成的实际图片(PNG 进剪贴板)、复制 SVG、复制链接或下载。编码在浏览器本地完成(raw-DEFLATE),图由 PlantUML 公共服务器渲染。',
+    },
+    tags: ['PlantUML', 'UML', 'Diagram', 'React'],
+    links: [
+      { label: { en: 'Launch', zh: '立即体验' }, href: '/uml', kind: 'internal' },
+      { label: { en: 'PlantUML', zh: 'PlantUML' }, href: 'https://plantuml.com', kind: 'live' },
+    ],
+  },
+  {
     id: 'markdown-studio',
     title: { en: 'Markdown Studio', zh: 'Markdown 工具箱' },
     year: '2026',

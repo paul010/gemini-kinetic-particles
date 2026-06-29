@@ -15,6 +15,7 @@ const Fugu = React.lazy(() => import('./fugu/Fugu'));
 const Copilot = React.lazy(() => import('./copilot/Copilot'));
 const Agents = React.lazy(() => import('./agents/Agents'));
 const Skills = React.lazy(() => import('./skills/Skills'));
+const PlantUML = React.lazy(() => import('./tools/PlantUML'));
 
 const Loader: React.FC<{ label: string }> = ({ label }) => (
   <div
@@ -28,7 +29,7 @@ const Loader: React.FC<{ label: string }> = ({ label }) => (
   </div>
 );
 
-type Route = 'home' | 'particles' | 'arsenal' | 'md' | 'img' | 's2c' | 'fluid' | 'r3f' | 'bench' | 'fugu' | 'copilot' | 'agents' | 'skills';
+type Route = 'home' | 'particles' | 'arsenal' | 'md' | 'img' | 's2c' | 'fluid' | 'r3f' | 'bench' | 'fugu' | 'copilot' | 'agents' | 'skills' | 'uml';
 
 const routeFromLocation = (): Route => {
   const { pathname, hash } = window.location;
@@ -45,6 +46,7 @@ const routeFromLocation = (): Route => {
   if (p.endsWith('/copilot') || hash === '#/copilot') return 'copilot';
   if (p.endsWith('/agents') || hash === '#/agents') return 'agents';
   if (p.endsWith('/skills') || hash === '#/skills') return 'skills';
+  if (p.endsWith('/uml') || hash === '#/uml') return 'uml';
   return 'home';
 };
 
@@ -67,7 +69,7 @@ const Router: React.FC = () => {
 
   // The particle experience is a fixed full-screen canvas; other routes scroll.
   useEffect(() => {
-    document.body.style.overflow = route === 'particles' || route === 'md' || route === 's2c' || route === 'fluid' || route === 'r3f' ? 'hidden' : 'auto';
+    document.body.style.overflow = route === 'particles' || route === 'md' || route === 's2c' || route === 'fluid' || route === 'r3f' || route === 'uml' ? 'hidden' : 'auto';
     return () => {
       document.body.style.overflow = 'auto';
     };
@@ -89,6 +91,7 @@ const Router: React.FC = () => {
       copilot: 'Microsoft Copilot / Agent 产品矩阵 · 大雷',
       agents: 'Agent 模板库 · Agent Templates · 大雷',
       skills: 'Skill 技能库 · Skill Library · 大雷',
+      uml: 'PlantUML 渲染器 · 大雷',
     };
     document.title = titles[route];
   }, [route]);
@@ -193,6 +196,14 @@ const Router: React.FC = () => {
     return (
       <Suspense fallback={<Loader label="LOADING SKILLS…" />}>
         <Skills onHome={() => navigate('/')} />
+      </Suspense>
+    );
+  }
+
+  if (route === 'uml') {
+    return (
+      <Suspense fallback={<Loader label="LOADING PLANTUML…" />}>
+        <PlantUML onHome={() => navigate('/')} />
       </Suspense>
     );
   }
