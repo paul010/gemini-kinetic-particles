@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" role="img" aria-label="Prompt library — a searchable arsenal of role prompts">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f6f3ec"/><stop offset="1" stop-color="#ece6da"/></linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.4" r="0.6"><stop offset="0" stop-color="#8a682c" stop-opacity="0.13"/><stop offset="1" stop-color="#8a682c" stop-opacity="0"/></radialGradient>
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="1200" height="750" fill="url(#bg)"/>
+  <ellipse cx="600" cy="330" rx="520" ry="360" fill="url(#glow)"/>
+
+  <text x="80" y="100" font-family="'Cormorant Garamond', Georgia, serif" font-size="54" font-weight="600" fill="#1c1a17">提示词弹药库</text>
+  <text x="82" y="146" font-family="'JetBrains Mono', monospace" font-size="20" fill="#8a682c">Prompt Library · 124 条角色提示词 · 搜索 · 一键复制</text>
+
+  <!-- search bar -->
+  <g filter="url(#soft)"><rect x="80" y="195" width="1040" height="58" rx="29" fill="#fffdf8" stroke="rgba(28,26,23,0.12)"/></g>
+  <circle cx="120" cy="224" r="9" fill="none" stroke="rgba(28,26,23,0.4)" stroke-width="2.5"/><line x1="127" y1="231" x2="135" y2="239" stroke="rgba(28,26,23,0.4)" stroke-width="2.5"/>
+  <text x="150" y="231" font-family="'JetBrains Mono', monospace" font-size="17" fill="rgba(28,26,23,0.4)">搜索提示词…  例如 翻译 / 面试 / 终端</text>
+
+  <!-- filter chips -->
+  <g font-family="'JetBrains Mono', monospace" font-size="14">
+    <g><rect x="80" y="280" width="64" height="30" rx="15" fill="#1c1a17"/><text x="112" y="300" text-anchor="middle" fill="#f6f3ec">全部</text></g>
+    <g><rect x="156" y="280" width="92" height="30" rx="15" fill="rgba(28,26,23,0.05)" stroke="rgba(28,26,23,0.12)"/><text x="202" y="300" text-anchor="middle" fill="rgba(28,26,23,0.6)">翻译语言</text></g>
+    <g><rect x="260" y="280" width="92" height="30" rx="15" fill="rgba(28,26,23,0.05)" stroke="rgba(28,26,23,0.12)"/><text x="306" y="300" text-anchor="middle" fill="rgba(28,26,23,0.6)">写作文案</text></g>
+    <g><rect x="364" y="280" width="92" height="30" rx="15" fill="rgba(28,26,23,0.05)" stroke="rgba(28,26,23,0.12)"/><text x="410" y="300" text-anchor="middle" fill="rgba(28,26,23,0.6)">编程技术</text></g>
+    <g><rect x="468" y="280" width="92" height="30" rx="15" fill="rgba(28,26,23,0.05)" stroke="rgba(28,26,23,0.12)"/><text x="514" y="300" text-anchor="middle" fill="rgba(28,26,23,0.6)">职场职业</text></g>
+    <g><rect x="572" y="280" width="92" height="30" rx="15" fill="rgba(28,26,23,0.05)" stroke="rgba(28,26,23,0.12)"/><text x="618" y="300" text-anchor="middle" fill="rgba(28,26,23,0.6)">学习教育</text></g>
+    <g><rect x="676" y="280" width="92" height="30" rx="15" fill="rgba(28,26,23,0.05)" stroke="rgba(28,26,23,0.12)"/><text x="722" y="300" text-anchor="middle" fill="rgba(28,26,23,0.6)">创意娱乐</text></g>
+  </g>
+
+  <!-- prompt cards -->
+  <g font-family="'JetBrains Mono', monospace">
+    <!-- card template -->
+    <g><g filter="url(#soft)"><rect x="80" y="340" width="330" height="150" rx="14" fill="#fffdf8" stroke="rgba(28,26,23,0.1)"/></g>
+      <text x="104" y="378" font-family="Georgia, serif" font-size="19" font-weight="700" fill="#1c1a17">充当 英语翻译</text>
+      <text x="104" y="408" font-size="12.5" fill="rgba(28,26,23,0.45)">我希望你充当英语翻译、拼写</text>
+      <text x="104" y="428" font-size="12.5" fill="rgba(28,26,23,0.45)">纠正和改进者…</text>
+      <rect x="104" y="446" width="80" height="26" rx="13" fill="none" stroke="#8a682c" stroke-opacity="0.5"/><text x="144" y="463" text-anchor="middle" font-size="12" fill="#8a682c">复制</text></g>
+
+    <g><g filter="url(#soft)"><rect x="435" y="340" width="330" height="150" rx="14" fill="#fffdf8" stroke="rgba(28,26,23,0.1)"/></g>
+      <text x="459" y="378" font-family="Georgia, serif" font-size="19" font-weight="700" fill="#1c1a17">担任 Linux 终端</text>
+      <text x="459" y="408" font-size="12.5" fill="rgba(28,26,23,0.45)">我想让你充当 Linux 终端。</text>
+      <text x="459" y="428" font-size="12.5" fill="rgba(28,26,23,0.45)">我将输入命令,你回复终端输出…</text>
+      <rect x="459" y="446" width="80" height="26" rx="13" fill="none" stroke="#8a682c" stroke-opacity="0.5"/><text x="499" y="463" text-anchor="middle" font-size="12" fill="#8a682c">复制</text></g>
+
+    <g><g filter="url(#soft)"><rect x="790" y="340" width="330" height="150" rx="14" fill="#fffdf8" stroke="rgba(28,26,23,0.1)"/></g>
+      <text x="814" y="378" font-family="Georgia, serif" font-size="19" font-weight="700" fill="#1c1a17">担任 面试官</text>
+      <text x="814" y="408" font-size="12.5" fill="rgba(28,26,23,0.45)">我想让你担任面试官。我将是</text>
+      <text x="814" y="428" font-size="12.5" fill="rgba(28,26,23,0.45)">候选人,你将向我提问…</text>
+      <rect x="814" y="446" width="80" height="26" rx="13" fill="none" stroke="#8a682c" stroke-opacity="0.5"/><text x="854" y="463" text-anchor="middle" font-size="12" fill="#8a682c">复制</text></g>
+  </g>
+
+  <text x="80" y="588" font-family="'JetBrains Mono', monospace" font-size="16" fill="rgba(28,26,23,0.5)">翻译 · 写作 · 编程 · 职场 · 学习 · 生活 · 创意 — 任何模型都能用的弹药</text>
+  <text x="80" y="700" font-family="'JetBrains Mono', monospace" font-size="15" fill="#1c1a17" fill-opacity="0.45">来源:PlexPt/awesome-chatgpt-prompts-zh (CC0)</text>
+</svg>

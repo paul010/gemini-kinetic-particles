@@ -375,6 +375,27 @@ export const PROJECTS: Project[] = [
     ],
   },
   {
+    id: 'prompt-library',
+    title: { en: 'Prompt Library', zh: '提示词弹药库' },
+    year: '2026',
+    status: 'live',
+    featured: true,
+    cover: '/prompts-cover.svg',
+    tagline: {
+      en: '124 ready-to-use “act as …” role prompts — search, filter, copy.',
+      zh: '124 条「我希望你充当…」角色提示词 —— 搜索、筛选、一键复制。',
+    },
+    description: {
+      en: 'A base camp of prompt ammo for any model: 124 Chinese role prompts (translator, Linux terminal, interviewer, writing coach, and more) with full-text search and topic quick-filters, each one-click copyable. Sourced from PlexPt/awesome-chatgpt-prompts-zh (CC0); rebuilt as a searchable in-browser library, tri-lingual UI (繁體 converted on the fly).',
+      zh: '任何模型都能用的提示词弹药根据地:124 条中文角色提示词(英语翻译、Linux 终端、面试官、写作教练……),带全文搜索与主题快筛,每条一键复制。来源 PlexPt/awesome-chatgpt-prompts-zh(CC0);重建为可搜索的浏览器内库,UI 三语(繁體实时转换)。',
+    },
+    tags: ['Prompts', 'Library', 'Search', 'React'],
+    links: [
+      { label: { en: 'Open the library', zh: '打开提示词库' }, href: '/prompts', kind: 'internal' },
+      { label: { en: 'Source repo', zh: '原始仓库' }, href: 'https://github.com/PlexPt/awesome-chatgpt-prompts-zh', kind: 'github' },
+    ],
+  },
+  {
     id: 'plantuml-studio',
     title: { en: 'PlantUML Renderer', zh: 'PlantUML 渲染器' },
     year: '2026',

@@ -15,6 +15,7 @@ export default {
     './skills/**/*.{ts,tsx}',
     './town/**/*.{ts,tsx}',
     './patterns/**/*.{ts,tsx}',
+    './prompts/**/*.{ts,tsx}',
   ],
   theme: {
     extend: {
