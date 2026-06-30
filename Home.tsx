@@ -415,59 +415,74 @@ const FeaturedCard: React.FC<{
   );
 };
 
-/* ---------- Non-featured project (card in the grid) ---------- */
+/* ---------- Compact project tile (grid card with cover thumbnail) ---------- */
 
 const ProjectCard: React.FC<{
   project: Project;
-  index: number;
   lang: Lang;
   t: (txt: LocalizedText) => string;
   onInternal: (href: string) => void;
-}> = ({ project: p, index, lang, t, onInternal }) => (
-  <article className="reveal group flex flex-col rounded-2xl border border-ink/10 bg-surface/50 p-6 backdrop-blur-sm transition-all hover:-translate-y-1 hover:border-gold/40 sm:p-7">
-    <div className="mb-4 flex items-center justify-between gap-3">
-      <span className="font-mono text-xs text-gold">0{index}</span>
-      <span className="font-mono text-xs text-ink/40">{p.year}</span>
-    </div>
-
-    <div className="flex flex-wrap items-center gap-3">
-      <h3 className="font-display text-2xl font-semibold tracking-tight">{t(p.title)}</h3>
-      {statusBadge(p.status, t)}
-    </div>
-    <p className="mt-2 flex-1 text-sm leading-relaxed text-ink/60">{t(p.tagline)}</p>
-
-    {p.tags.length > 0 && (
-      <div className="mt-4 flex flex-wrap gap-2">
-        {p.tags.map((tag) => (
-          <span key={tag} className="rounded-md border border-ink/10 bg-ink/[0.03] px-2.5 py-1 font-mono text-[11px] text-ink/55">
-            {tag}
-          </span>
-        ))}
+}> = ({ project: p, lang, t, onInternal }) => {
+  const [imgError, setImgError] = useState(false);
+  const launchLink = p.links.find((l) => l.kind === 'internal');
+  const externalLink = p.links.find((l) => l.kind !== 'internal');
+  const primary = launchLink ?? externalLink;
+  const onCover = () => {
+    if (launchLink) onInternal(launchLink.href);
+    else if (externalLink) window.open(externalLink.href, '_blank', 'noopener');
+  };
+  return (
+    <article className="project-card reveal group flex flex-col overflow-hidden rounded-2xl border border-ink/10 bg-surface/50 backdrop-blur-sm transition-all hover:-translate-y-1 hover:border-gold/40">
+      {p.cover && (
+        <button onClick={onCover} className="relative block aspect-[16/10] w-full overflow-hidden" aria-label={t(p.title)}>
+          {imgError ? (
+            <div className="grid h-full w-full place-items-center bg-gradient-to-br from-surface to-paper text-ink/30">
+              <span className="font-display text-4xl">❝</span>
+            </div>
+          ) : (
+            <img src={p.cover} alt={t(p.title)} loading="lazy" onError={() => setImgError(true)}
+              className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.05]" />
+          )}
+          <span className="pointer-events-none absolute inset-0 bg-gradient-to-t from-surface/35 to-transparent" />
+          {p.signature && (
+            <span className="absolute left-3 top-3 inline-flex items-center gap-1 rounded-full border border-gold/40 bg-paper/85 px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider text-gold backdrop-blur-sm">
+              <span className="pulse-dot h-1 w-1 rounded-full bg-gold" /> {t(COPY.work.signature)}
+            </span>
+          )}
+        </button>
+      )}
+      <div className="flex flex-1 flex-col p-5">
+        <div className="flex items-center justify-between gap-2">
+          {statusBadge(p.status, t)}
+          <span className="font-mono text-[11px] text-ink/40">{p.year}</span>
+        </div>
+        <h3 className="mt-2.5 font-display text-xl font-semibold tracking-tight">{t(p.title)}</h3>
+        <p className="mt-1.5 line-clamp-2 flex-1 text-sm leading-relaxed text-ink/60">{t(p.tagline)}</p>
+        {p.tags.length > 0 && (
+          <div className="mt-3 flex flex-wrap gap-1.5">
+            {p.tags.slice(0, 3).map((tag) => (
+              <span key={tag} className="rounded-md border border-ink/10 bg-ink/[0.03] px-2 py-0.5 font-mono text-[10.5px] text-ink/55">{tag}</span>
+            ))}
+          </div>
+        )}
+        {primary && (
+          <div className="mt-4 pt-1">
+            <a
+              href={primary.href}
+              onClick={(e) => { if (primary.kind === 'internal') { e.preventDefault(); onInternal(primary.href); } }}
+              target={primary.kind === 'internal' ? undefined : '_blank'}
+              rel={primary.kind === 'internal' ? undefined : 'noreferrer'}
+              className={`link-underline inline-flex items-center gap-1.5 text-sm font-semibold ${projectLinkColor(primary.kind)}`}
+            >
+              {t(primary.label)}
+              <ArrowUpRight className="h-3.5 w-3.5" />
+            </a>
+          </div>
+        )}
       </div>
-    )}
-
-    <div className="mt-5 flex flex-wrap gap-x-5 gap-y-2 pt-1">
-      {p.links.map((l) => (
-        <a
-          key={l.href + l.kind}
-          href={l.href}
-          onClick={(e) => {
-            if (l.kind === 'internal') {
-              e.preventDefault();
-              onInternal(l.href);
-            }
-          }}
-          target={l.kind === 'internal' ? undefined : '_blank'}
-          rel={l.kind === 'internal' ? undefined : 'noreferrer'}
-          className={`link-underline inline-flex items-center gap-1.5 text-sm font-semibold ${projectLinkColor(l.kind)}`}
-        >
-          {t(l.label)}
-          <ArrowUpRight className="h-3.5 w-3.5" />
-        </a>
-      ))}
-    </div>
-  </article>
-);
+    </article>
+  );
+};
 
 /* ---------- Hero portrait (editorial avatar plate) ---------- */
 
@@ -617,8 +632,11 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
-  const featured = PROJECTS.filter((p) => p.featured).sort((a, b) => (b.signature ? 1 : 0) - (a.signature ? 1 : 0));
-  const rest = PROJECTS.filter((p) => !p.featured);
+  // One signature project is the big hero; everything else goes into a compact
+  // tile grid so the page stays short and scannable.
+  const signature = PROJECTS.find((p) => p.signature);
+  const tiles = PROJECTS.filter((p) => p.id !== signature?.id)
+    .sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
 
   return (
     <div className="home-root font-sans">
@@ -787,24 +805,20 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
             <p className="max-w-sm text-sm text-ink/55 sm:text-right">{t(COPY.work.sub)}</p>
           </div>
 
-          <div className="flex flex-col gap-6">
-            {featured.map((p) => (
-              <FeaturedCard key={p.id} project={p} lang={lang} t={t} onInternal={onNavigate} />
-            ))}
+          <div className="flex flex-col gap-8">
+            {signature && (
+              <FeaturedCard key={signature.id} project={signature} lang={lang} t={t} onInternal={onNavigate} />
+            )}
 
-            {rest.length > 0 && (
-              <div className="reveal mt-6 flex items-baseline justify-between gap-3 border-t border-ink/10 pt-8">
-                <h3 className="font-mono text-xs uppercase tracking-[0.2em] text-gold">{t(COPY.work.tools)}</h3>
-                <p className="font-mono text-[11px] text-ink/45">{t(COPY.work.toolsSub)}</p>
-              </div>
-            )}
-            {rest.length > 0 && (
-              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-2">
-                {rest.map((p, i) => (
-                  <ProjectCard key={p.id} project={p} index={featured.length + i + 1} lang={lang} t={t} onInternal={onNavigate} />
-                ))}
-              </div>
-            )}
+            <div className="reveal flex items-baseline justify-between gap-3 border-t border-ink/10 pt-8">
+              <h3 className="font-mono text-xs uppercase tracking-[0.2em] text-gold">{t({ en: 'All projects & tools', zh: '全部项目 & 工具' })}</h3>
+              <p className="font-mono text-[11px] text-ink/45">{tiles.length} · {t(COPY.work.toolsSub)}</p>
+            </div>
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {tiles.map((p) => (
+                <ProjectCard key={p.id} project={p} lang={lang} t={t} onInternal={onNavigate} />
+              ))}
+            </div>
           </div>
         </section>
 
