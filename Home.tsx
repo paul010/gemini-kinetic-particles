@@ -122,9 +122,12 @@ const ArrowUpRight = (props: React.SVGProps<SVGSVGElement>) => (
 
 /* ---------- Reveal on scroll ---------- */
 
-const useReveal = () => {
+const useReveal = (dep?: unknown) => {
   useEffect(() => {
-    const els = Array.from(document.querySelectorAll<HTMLElement>('.reveal'));
+    // Only the not-yet-revealed elements — so a re-run (e.g. after filtering
+    // mounts new cards) picks up the newcomers without re-animating the rest.
+    const els = Array.from(document.querySelectorAll<HTMLElement>('.reveal:not(.is-visible)'));
+    if (!els.length) return;
     if (!('IntersectionObserver' in window)) {
       els.forEach((el) => el.classList.add('is-visible'));
       return;
@@ -142,7 +145,7 @@ const useReveal = () => {
     );
     els.forEach((el) => io.observe(el));
     return () => io.disconnect();
-  }, []);
+  }, [dep]);
 };
 
 /* ---------- Scroll progress bar ---------- */
@@ -556,13 +559,14 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState('home');
+  const [workFilter, setWorkFilter] = useState<'all' | 'ai' | 'creative' | 'tool'>('all');
   const s2t = useS2T(lang === 'zhHant');
   const t = (txt: LocalizedText) =>
     lang === 'en' ? txt.en : lang === 'zhHant' ? (s2t ? s2t(txt.zh) : txt.zh) : txt.zh;
   const progressRef = useRef<HTMLDivElement>(null);
   const [videos, setVideos] = useState<VideoItem[]>(VIDEOS);
 
-  useReveal();
+  useReveal(workFilter);
   useScrollProgress(progressRef);
 
   // Scroll-spy: highlight the nav item for the section currently in view.
@@ -635,8 +639,17 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
   // One signature project is the big hero; everything else goes into a compact
   // tile grid so the page stays short and scannable.
   const signature = PROJECTS.find((p) => p.signature);
-  const tiles = PROJECTS.filter((p) => p.id !== signature?.id)
+  const allTiles = PROJECTS.filter((p) => p.id !== signature?.id)
     .sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
+  const tiles = workFilter === 'all' ? allTiles : allTiles.filter((p) => p.category === workFilter);
+
+  // Filter chips for the Work grid — counts come from the unfiltered set.
+  const workFilters: { key: typeof workFilter; label: LocalizedText; count: number }[] = [
+    { key: 'all', label: COPY.work.filterAll, count: allTiles.length },
+    { key: 'ai', label: COPY.work.filterAi, count: allTiles.filter((p) => p.category === 'ai').length },
+    { key: 'creative', label: COPY.work.filterCreative, count: allTiles.filter((p) => p.category === 'creative').length },
+    { key: 'tool', label: COPY.work.filterTool, count: allTiles.filter((p) => p.category === 'tool').length },
+  ];
 
   return (
     <div className="home-root font-sans">
@@ -810,9 +823,26 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
               <FeaturedCard key={signature.id} project={signature} lang={lang} t={t} onInternal={onNavigate} />
             )}
 
-            <div className="reveal flex items-baseline justify-between gap-3 border-t border-ink/10 pt-8">
+            <div className="reveal flex flex-col gap-4 border-t border-ink/10 pt-8 sm:flex-row sm:items-center sm:justify-between">
               <h3 className="font-mono text-xs uppercase tracking-[0.2em] text-gold">{t({ en: 'All projects & tools', zh: '全部项目 & 工具' })}</h3>
-              <p className="font-mono text-[11px] text-ink/45">{tiles.length} · {t(COPY.work.toolsSub)}</p>
+              {/* Category filter — scan by interest instead of one long scroll */}
+              <div className="flex flex-wrap gap-2" role="group" aria-label={t({ en: 'Filter projects', zh: '筛选项目' })}>
+                {workFilters.map((f) => (
+                  <button
+                    key={f.key}
+                    onClick={() => setWorkFilter(f.key)}
+                    aria-pressed={workFilter === f.key}
+                    className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 font-mono text-[11px] transition-colors ${
+                      workFilter === f.key
+                        ? 'border-ink bg-ink text-paper'
+                        : 'border-ink/15 text-ink/60 hover:border-ink/40 hover:text-ink'
+                    }`}
+                  >
+                    {t(f.label)}
+                    <span className={workFilter === f.key ? 'text-paper/55' : 'text-ink/35'}>{f.count}</span>
+                  </button>
+                ))}
+              </div>
             </div>
             <div className="grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-3">
               {tiles.map((p) => (

@@ -24,6 +24,8 @@ export interface Project {
   links: ProjectLink[];
   featured?: boolean;
   cover?: string;
+  /** Coarse grouping for the Work-section filter chips. */
+  category?: 'ai' | 'creative' | 'tool';
   /** Signature project — gets a highlighted eyebrow and sorts to the top. */
   signature?: boolean;
   /** For prompt→result showcases: the verbatim prompt, shown in a copyable disclosure. */
@@ -141,6 +143,7 @@ export const VIDEOS: VideoItem[] = [
 export const PROJECTS: Project[] = [
   {
     id: 'kinetic-particles',
+    category: 'creative',
     title: { en: 'Kinetic Particles', zh: 'Kinetic Particles' },
     year: '2025',
     status: 'live',
@@ -163,6 +166,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'ai-coding-arsenal',
+    category: 'ai',
     title: { en: 'AI Coding Arsenal', zh: 'AI Coding Arsenal' },
     year: '2026',
     status: 'wip',
@@ -184,6 +188,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'ai-benchmark',
+    category: 'ai',
     title: { en: 'Da Lei AI Benchmark', zh: '大雷 AI 评测台' },
     year: '2026',
     status: 'live',
@@ -206,6 +211,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'fugu-research',
+    category: 'ai',
     title: { en: 'Fugu / TRINITY — Reproduced', zh: 'Fugu / TRINITY 复现验证' },
     year: '2026',
     status: 'live',
@@ -228,6 +234,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'whiteboard-portrait',
+    category: 'creative',
     title: { en: 'AI Whiteboard Self-Portrait', zh: 'AI 白板自画像' },
     year: '2026',
     status: 'live',
@@ -250,6 +257,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'ai-solutions-library',
+    category: 'ai',
     title: { en: 'Free AI Solutions Library', zh: '大雷免费 AI 方案库' },
     year: '2026',
     status: 'live',
@@ -271,6 +279,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'copilot-matrix',
+    category: 'ai',
     title: { en: 'Microsoft Copilot / Agent Matrix', zh: 'Microsoft Copilot / Agent 产品矩阵' },
     year: '2026',
     status: 'live',
@@ -292,6 +301,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'agent-templates',
+    category: 'ai',
     title: { en: 'Agent Templates', zh: 'Agent 模板库' },
     year: '2026',
     status: 'live',
@@ -313,6 +323,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'skill-library',
+    category: 'ai',
     title: { en: 'Skill Library', zh: 'Skill 技能库' },
     year: '2026',
     status: 'live',
@@ -334,6 +345,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'smallville',
+    category: 'creative',
     title: { en: 'Smallville — Generative Agents', zh: 'Smallville 小镇 · 生成式智能体' },
     year: '2026',
     status: 'live',
@@ -355,6 +367,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'agent-patterns',
+    category: 'ai',
     title: { en: 'Agent Design Patterns', zh: 'Agent 设计模式' },
     year: '2026',
     status: 'live',
@@ -376,6 +389,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'prompt-library',
+    category: 'ai',
     title: { en: 'Prompt Library', zh: '提示词弹药库' },
     year: '2026',
     status: 'live',
@@ -397,6 +411,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'plantuml-studio',
+    category: 'tool',
     title: { en: 'PlantUML Renderer', zh: 'PlantUML 渲染器' },
     year: '2026',
     status: 'live',
@@ -416,6 +431,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'markdown-studio',
+    category: 'tool',
     title: { en: 'Markdown Studio', zh: 'Markdown 工具箱' },
     year: '2026',
     status: 'live',
@@ -435,6 +451,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'image-studio',
+    category: 'tool',
     title: { en: 'Image Studio', zh: '图片工具箱' },
     year: '2026',
     status: 'live',
@@ -453,6 +470,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'screenshot-to-code',
+    category: 'tool',
     title: { en: 'Screenshot → Code', zh: '截图转代码' },
     year: '2026',
     status: 'wip',
@@ -472,6 +490,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'fluid-playground',
+    category: 'creative',
     title: { en: 'Fluid Playground', zh: '流体 Fluid' },
     year: '2026',
     status: 'live',
@@ -491,6 +510,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'three-orb',
+    category: 'creative',
     title: { en: 'React Three Fiber 3D', zh: '3D 起手式' },
     year: '2026',
     status: 'live',
@@ -579,6 +599,10 @@ export const COPY = {
       zh: '来自我创作流程的免费、纯浏览器小工具。',
     },
     signature: { en: 'Signature', zh: '招牌' },
+    filterAll: { en: 'All', zh: '全部' },
+    filterAi: { en: 'AI & Agents', zh: 'AI & 智能体' },
+    filterCreative: { en: 'Creative', zh: '创意互动' },
+    filterTool: { en: 'Tools', zh: '小工具' },
   },
   videos: {
     label: { en: 'From YouTube', zh: '来自 YouTube' },
