@@ -14,6 +14,7 @@ export default {
     './agents/**/*.{ts,tsx}',
     './skills/**/*.{ts,tsx}',
     './town/**/*.{ts,tsx}',
+    './patterns/**/*.{ts,tsx}',
   ],
   theme: {
     extend: {
