@@ -362,7 +362,7 @@ const FeaturedCard: React.FC<{
 
       <h3 className="font-display text-3xl font-semibold tracking-tight sm:text-4xl">{t(p.title)}</h3>
       <p className="mt-3 text-sm font-medium text-accent/90">{t(p.tagline)}</p>
-      <p className="mt-5 max-w-xl text-sm leading-relaxed text-ink/60">{t(p.description)}</p>
+      <p className="mt-5 line-clamp-4 max-w-xl text-sm leading-relaxed text-ink/60 sm:line-clamp-none">{t(p.description)}</p>
 
       {p.prompt && (
         <details className="group/prompt mt-5 rounded-xl border border-ink/10 bg-ink/[0.03] px-4 py-3">
