@@ -433,24 +433,24 @@ const ProjectCard: React.FC<{
   };
   return (
     <article className="project-card reveal group flex flex-col overflow-hidden rounded-2xl border border-ink/10 bg-surface/50 backdrop-blur-sm transition-all hover:-translate-y-1 hover:border-gold/40">
-      {p.cover && (
-        <button onClick={onCover} className="relative block aspect-[16/10] w-full overflow-hidden" aria-label={t(p.title)}>
-          {imgError ? (
-            <div className="grid h-full w-full place-items-center bg-gradient-to-br from-surface to-paper text-ink/30">
-              <span className="font-display text-4xl">❝</span>
-            </div>
-          ) : (
-            <img src={p.cover} alt={t(p.title)} loading="lazy" onError={() => setImgError(true)}
-              className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.05]" />
-          )}
-          <span className="pointer-events-none absolute inset-0 bg-gradient-to-t from-surface/35 to-transparent" />
-          {p.signature && (
-            <span className="absolute left-3 top-3 inline-flex items-center gap-1 rounded-full border border-gold/40 bg-paper/85 px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider text-gold backdrop-blur-sm">
-              <span className="pulse-dot h-1 w-1 rounded-full bg-gold" /> {t(COPY.work.signature)}
-            </span>
-          )}
-        </button>
-      )}
+      <button onClick={onCover} className="relative block aspect-[16/10] w-full overflow-hidden" aria-label={t(p.title)}>
+        {p.cover && !imgError ? (
+          <img src={p.cover} alt={t(p.title)} loading="lazy" onError={() => setImgError(true)}
+            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.05]" />
+        ) : (
+          // Cover-less tiles (in-browser tools) get a consistent on-palette
+          // header: a large, faded category word so the grid stays even.
+          <div className="grid h-full w-full place-items-center bg-gradient-to-br from-surface to-paper">
+            <span className="px-4 text-center font-mono text-xl font-semibold uppercase tracking-[0.18em] text-ink/[0.13] sm:text-2xl">{p.tags[0] ?? 'TOOL'}</span>
+          </div>
+        )}
+        <span className="pointer-events-none absolute inset-0 bg-gradient-to-t from-surface/35 to-transparent" />
+        {p.signature && (
+          <span className="absolute left-3 top-3 inline-flex items-center gap-1 rounded-full border border-gold/40 bg-paper/85 px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider text-gold backdrop-blur-sm">
+            <span className="pulse-dot h-1 w-1 rounded-full bg-gold" /> {t(COPY.work.signature)}
+          </span>
+        )}
+      </button>
       <div className="flex flex-1 flex-col p-5">
         <div className="flex items-center justify-between gap-2">
           {statusBadge(p.status, t)}
