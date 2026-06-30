@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" role="img" aria-label="Agent design patterns along the agent loop">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f6f3ec"/><stop offset="1" stop-color="#ece6da"/></linearGradient>
+  </defs>
+  <rect width="1200" height="750" fill="url(#bg)"/>
+
+  <text x="80" y="100" font-family="'Cormorant Garamond', Georgia, serif" font-size="54" font-weight="600" fill="#1c1a17">Agent 设计模式</text>
+  <text x="82" y="146" font-family="'JetBrains Mono', monospace" font-size="20" fill="#8a682c">沿 Agent 回路看模式 · 是坐标系,不是清单</text>
+
+  <!-- 7 layer rows -->
+  <g font-family="'JetBrains Mono', monospace">
+    <g transform="translate(80,200)">
+      <!-- row template: number, icon-dot, name, sample pattern chips -->
+      <!-- 01 Perception -->
+      <rect x="0" y="0" width="1040" height="62" rx="12" fill="#fffdf8" stroke="rgba(28,26,23,0.1)"/>
+      <rect x="0" y="0" width="5" height="62" rx="2.5" fill="#3a7a7a"/>
+      <text x="28" y="38" font-size="22">👁️</text>
+      <text x="66" y="30" font-family="Georgia, serif" font-size="20" font-weight="700" fill="#1c1a17">感知 Perception</text>
+      <text x="66" y="50" font-size="12" fill="rgba(28,26,23,0.45)">上下文分诊 · 语义压缩 · 渐进发现 · 多模态融合</text>
+
+      <rect x="0" y="76" width="1040" height="62" rx="12" fill="#fffdf8" stroke="rgba(28,26,23,0.1)"/>
+      <rect x="0" y="76" width="5" height="62" rx="2.5" fill="#7a5cab"/>
+      <text x="28" y="114" font-size="22">🧠</text>
+      <text x="66" y="106" font-family="Georgia, serif" font-size="20" font-weight="700" fill="#1c1a17">记忆 Memory</text>
+      <text x="66" y="126" font-size="12" fill="rgba(28,26,23,0.45)">分层保留 · RAG · 进度追踪 · 失败日记</text>
+
+      <rect x="0" y="152" width="1040" height="62" rx="12" fill="#fffdf8" stroke="rgba(28,26,23,0.1)"/>
+      <rect x="0" y="152" width="5" height="62" rx="2.5" fill="#4285f4"/>
+      <text x="28" y="190" font-size="22">💭</text>
+      <text x="66" y="182" font-family="Georgia, serif" font-size="20" font-weight="700" fill="#1c1a17">推理 Reasoning</text>
+      <text x="66" y="202" font-size="12" fill="rgba(28,26,23,0.45)">思维链 · 复杂度路由 · 并行探索 · 迭代假设</text>
+
+      <rect x="0" y="228" width="1040" height="62" rx="12" fill="#fffdf8" stroke="rgba(28,26,23,0.1)"/>
+      <rect x="0" y="228" width="5" height="62" rx="2.5" fill="#c2703c"/>
+      <text x="28" y="266" font-size="22">⚡</text>
+      <text x="66" y="258" font-family="Georgia, serif" font-size="20" font-weight="700" fill="#1c1a17">行动 Action</text>
+      <text x="66" y="278" font-size="12" fill="rgba(28,26,23,0.45)">提示链 · 工具调度 · 规划执行 · 护栏三明治</text>
+
+      <rect x="0" y="304" width="1040" height="62" rx="12" fill="#fffdf8" stroke="rgba(28,26,23,0.1)"/>
+      <rect x="0" y="304" width="5" height="62" rx="2.5" fill="#5c8a3a"/>
+      <text x="28" y="342" font-size="22">🔁</text>
+      <text x="66" y="334" font-family="Georgia, serif" font-size="20" font-weight="700" fill="#1c1a17">反思 Reflection</text>
+      <text x="66" y="354" font-size="12" fill="rgba(28,26,23,0.45)">生成-批评 · 自愈循环 · 技能包 · 经验回放</text>
+
+      <rect x="0" y="380" width="1040" height="62" rx="12" fill="#fffdf8" stroke="rgba(28,26,23,0.1)"/>
+      <rect x="0" y="380" width="5" height="62" rx="2.5" fill="#8a682c"/>
+      <text x="28" y="418" font-size="22">🤝</text>
+      <text x="66" y="410" font-family="Georgia, serif" font-size="20" font-weight="700" fill="#1c1a17">协作 Collaboration</text>
+      <text x="66" y="430" font-size="12" fill="rgba(28,26,23,0.45)">交接链 · 扇出聚合 · 对抗评审 · 层级委派</text>
+    </g>
+  </g>
+  <text x="80" y="712" font-family="'JetBrains Mono', monospace" font-size="16" fill="#1c1a17" fill-opacity="0.5">+ 治理 Governance · 组合 Composition — 架构参考自黄佳《Agent 设计模式之美》</text>
+</svg>

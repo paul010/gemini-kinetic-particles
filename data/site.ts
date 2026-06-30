@@ -354,6 +354,27 @@ export const PROJECTS: Project[] = [
     ],
   },
   {
+    id: 'agent-patterns',
+    title: { en: 'Agent Design Patterns', zh: 'Agent 设计模式' },
+    year: '2026',
+    status: 'live',
+    featured: true,
+    cover: '/patterns-cover.svg',
+    tagline: {
+      en: 'The agent design patterns, organized along the agent loop — a coordinate system, not a checklist.',
+      zh: '把 Agent 设计模式沿「Agent 回路」排开 —— 是坐标系,不是平铺清单。',
+    },
+    description: {
+      en: 'A study map of how to architect an agent, structured after 黄佳’s “Agent 设计模式之美”. Instead of a flat list, the patterns sit on the seven layers of the agent loop — Perception, Memory, Reasoning, Action, Reflection, Collaboration, Governance — plus Composition, so you choose by where your problem actually sits. Bilingual, with a one-line summary for each of ~32 patterns.',
+      zh: '一张「怎么架构一个 agent」的学习地图,按黄佳《Agent 设计模式之美》的框架整理。不是平铺清单,而是把模式落在 Agent 回路的七个层级上 —— 感知、记忆、推理、行动、反思、协作、治理 —— 外加组合,让你按问题真正所在的坐标来选。双语,约 32 个模式各配一句话概览。',
+    },
+    tags: ['AI Agent', 'Architecture', 'Patterns', 'Study Map'],
+    links: [
+      { label: { en: 'Read the map', zh: '查看模式地图' }, href: '/patterns', kind: 'internal' },
+      { label: { en: 'Source repo', zh: '原始仓库' }, href: 'https://github.com/huangjia2019/agent-design-patterns', kind: 'github' },
+    ],
+  },
+  {
     id: 'plantuml-studio',
     title: { en: 'PlantUML Renderer', zh: 'PlantUML 渲染器' },
     year: '2026',
