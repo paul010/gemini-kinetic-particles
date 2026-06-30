@@ -18,6 +18,7 @@ const Skills = React.lazy(() => import('./skills/Skills'));
 const PlantUML = React.lazy(() => import('./tools/PlantUML'));
 const Smallville = React.lazy(() => import('./town/Smallville'));
 const Patterns = React.lazy(() => import('./patterns/Patterns'));
+const Prompts = React.lazy(() => import('./prompts/Prompts'));
 
 const Loader: React.FC<{ label: string }> = ({ label }) => (
   <div
@@ -31,7 +32,7 @@ const Loader: React.FC<{ label: string }> = ({ label }) => (
   </div>
 );
 
-type Route = 'home' | 'particles' | 'arsenal' | 'md' | 'img' | 's2c' | 'fluid' | 'r3f' | 'bench' | 'fugu' | 'copilot' | 'agents' | 'skills' | 'uml' | 'town' | 'patterns';
+type Route = 'home' | 'particles' | 'arsenal' | 'md' | 'img' | 's2c' | 'fluid' | 'r3f' | 'bench' | 'fugu' | 'copilot' | 'agents' | 'skills' | 'uml' | 'town' | 'patterns' | 'prompts';
 
 const routeFromLocation = (): Route => {
   const { pathname, hash } = window.location;
@@ -51,6 +52,7 @@ const routeFromLocation = (): Route => {
   if (p.endsWith('/uml') || hash === '#/uml') return 'uml';
   if (p.endsWith('/town') || hash === '#/town') return 'town';
   if (p.endsWith('/patterns') || hash === '#/patterns') return 'patterns';
+  if (p.endsWith('/prompts') || hash === '#/prompts') return 'prompts';
   return 'home';
 };
 
@@ -98,6 +100,7 @@ const Router: React.FC = () => {
       uml: 'PlantUML 渲染器 · 大雷',
       town: 'Smallville 小镇 · 生成式智能体 · 大雷',
       patterns: 'Agent 设计模式 · Agent Design Patterns · 大雷',
+      prompts: '提示词库 · Prompt Library · 大雷',
     };
     document.title = titles[route];
   }, [route]);
@@ -226,6 +229,14 @@ const Router: React.FC = () => {
     return (
       <Suspense fallback={<Loader label="LOADING…" />}>
         <Patterns onHome={() => navigate('/')} />
+      </Suspense>
+    );
+  }
+
+  if (route === 'prompts') {
+    return (
+      <Suspense fallback={<Loader label="LOADING PROMPTS…" />}>
+        <Prompts onHome={() => navigate('/')} />
       </Suspense>
     );
   }
