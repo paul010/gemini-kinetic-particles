@@ -992,11 +992,18 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
               <span className="font-mono text-[11px] text-ink/40">{t(COPY.now.updated)}</span>
             </div>
             <h2 className="mt-3 font-display text-3xl font-bold tracking-tight sm:text-4xl">{t(COPY.now.heading)}</h2>
-            <ul className="mt-6 flex flex-col gap-4">
+            {/* Timeline rail — the top item is "live" (pulsing); older ones quiet */}
+            <ul className="mt-8 flex flex-col">
               {COPY.now.items.map((item, i) => (
-                <li key={i} className="flex items-start gap-3 text-base leading-relaxed text-ink/70">
-                  <span className="mt-1 font-mono text-sm text-gold">0{i + 1}</span>
-                  <span>{t(item)}</span>
+                <li key={i} className="relative flex gap-5 pb-7 last:pb-0">
+                  {i < COPY.now.items.length - 1 && (
+                    <span className="absolute left-[6px] top-5 h-full w-px bg-gradient-to-b from-ink/15 to-ink/5" aria-hidden="true" />
+                  )}
+                  <span className="relative mt-1.5 grid h-3.5 w-3.5 shrink-0 place-items-center" aria-hidden="true">
+                    <span className={`h-3.5 w-3.5 rounded-full border ${i === 0 ? 'border-gold/50 bg-gold/15' : 'border-ink/20 bg-ink/5'}`} />
+                    {i === 0 && <span className="pulse-dot absolute h-1.5 w-1.5 rounded-full bg-gold" />}
+                  </span>
+                  <p className="text-base leading-relaxed text-ink/70">{t(item)}</p>
                 </li>
               ))}
             </ul>
