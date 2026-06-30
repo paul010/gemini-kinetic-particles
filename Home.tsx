@@ -451,17 +451,17 @@ const ProjectCard: React.FC<{
           </span>
         )}
       </button>
-      <div className="flex flex-1 flex-col p-5">
+      <div className="flex flex-1 flex-col p-4 sm:p-5">
         <div className="flex items-center justify-between gap-2">
           {statusBadge(p.status, t)}
           <span className="font-mono text-[11px] text-ink/40">{p.year}</span>
         </div>
-        <h3 className="mt-2.5 font-display text-xl font-semibold tracking-tight">{t(p.title)}</h3>
-        <p className="mt-1.5 line-clamp-2 flex-1 text-sm leading-relaxed text-ink/60">{t(p.tagline)}</p>
+        <h3 className="mt-2.5 font-display text-lg font-semibold tracking-tight sm:text-xl">{t(p.title)}</h3>
+        <p className="mt-1.5 line-clamp-2 flex-1 text-[13px] leading-relaxed text-ink/60 sm:text-sm">{t(p.tagline)}</p>
         {p.tags.length > 0 && (
           <div className="mt-3 flex flex-wrap gap-1.5">
             {p.tags.slice(0, 3).map((tag) => (
-              <span key={tag} className="rounded-md border border-ink/10 bg-ink/[0.03] px-2 py-0.5 font-mono text-[10.5px] text-ink/55">{tag}</span>
+              <span key={tag} className="hidden rounded-md border border-ink/10 bg-ink/[0.03] px-2 py-0.5 font-mono text-[10.5px] text-ink/55 sm:inline">{tag}</span>
             ))}
           </div>
         )}
@@ -814,7 +814,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
               <h3 className="font-mono text-xs uppercase tracking-[0.2em] text-gold">{t({ en: 'All projects & tools', zh: '全部项目 & 工具' })}</h3>
               <p className="font-mono text-[11px] text-ink/45">{tiles.length} · {t(COPY.work.toolsSub)}</p>
             </div>
-            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-3">
               {tiles.map((p) => (
                 <ProjectCard key={p.id} project={p} lang={lang} t={t} onInternal={onNavigate} />
               ))}
