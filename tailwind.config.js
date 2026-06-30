@@ -13,6 +13,7 @@ export default {
     './copilot/**/*.{ts,tsx}',
     './agents/**/*.{ts,tsx}',
     './skills/**/*.{ts,tsx}',
+    './town/**/*.{ts,tsx}',
   ],
   theme: {
     extend: {
