@@ -333,6 +333,27 @@ export const PROJECTS: Project[] = [
     ],
   },
   {
+    id: 'smallville',
+    title: { en: 'Smallville — Generative Agents', zh: 'Smallville 小镇 · 生成式智能体' },
+    year: '2026',
+    status: 'live',
+    featured: true,
+    cover: '/town-cover.svg',
+    tagline: {
+      en: 'A tiny town where AI townsfolk live their day — coffee, work, an evening chat.',
+      zh: '一个小镇,AI 居民按日程过日子 —— 喝咖啡、上班、傍晚在广场闲聊。',
+    },
+    description: {
+      en: 'An interactive canvas homage to Stanford’s “Generative Agents: Interactive Simulacra of Human Behavior” (Park et al., 2023): eight townsfolk move between café, library, office, park and home on a simulated day-night clock, with status bubbles and a live activity log. Honest scope — the routines are scripted, not LLM-driven — a lightweight visual tribute that runs entirely in your browser.',
+      zh: '一个 canvas 互动作品,致敬斯坦福「Generative Agents: Interactive Simulacra of Human Behavior」(Park et al., 2023):八个居民在咖啡馆、图书馆、办公室、公园和家之间移动,跟着昼夜时钟,带状态气泡和实时活动日志。诚实说明 —— 日程是脚本化的,不是大模型驱动 —— 一个纯浏览器运行的轻量视觉致敬。',
+    },
+    tags: ['Generative Agents', 'Canvas', 'Simulation', 'React'],
+    links: [
+      { label: { en: 'Enter the town', zh: '进入小镇' }, href: '/town', kind: 'internal' },
+      { label: { en: 'The paper', zh: '论文原文' }, href: 'https://arxiv.org/abs/2304.03442', kind: 'live' },
+    ],
+  },
+  {
     id: 'plantuml-studio',
     title: { en: 'PlantUML Renderer', zh: 'PlantUML 渲染器' },
     year: '2026',
