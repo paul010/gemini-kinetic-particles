@@ -410,6 +410,28 @@ export const PROJECTS: Project[] = [
     ],
   },
   {
+    id: 'cici-index',
+    category: 'ai',
+    title: { en: 'CICI — Underrated Cities Index', zh: 'CICI · 被人口辜负的城市' },
+    year: '2026',
+    status: 'live',
+    featured: true,
+    cover: '/cici-cover.svg',
+    tagline: {
+      en: 'Which Chinese cities are far less famous than their population implies? I built a skill and ran it.',
+      zh: '哪些中国城市远不如其人口规模所暗示的那样出名?我做了个 skill,跑了一遍。',
+    },
+    description: {
+      en: 'A for-fun data project: the CICI (Comparatively-Insignificant City) method takes a city’s standardized household population and subtracts every source of fame — provincial-capital status, 5A scenery, brand HQs, history, cuisine, memes, even disasters (negative fame is still fame). The highest score wins: big by population, yet barely known. I encoded the method as a reusable Skill, ran it over China’s prefecture-level cities, and present the top-15 leaderboard with an itemized fame breakdown for each. Subjective, AI-assisted, disagree kindly. Method popularized by @pretentiouswhat.',
+      zh: '一个好玩的数据项目:CICI(相对无名城市指数)方法,把一座城市标准化后的户籍人口,减去一切名气来源 —— 省会身份、5A 景点、品牌总部、历史、美食、网络梗,甚至灾难(负面声誉也是声誉)。得分最高者胜出:人口很大,却几乎无人知晓。我把方法固化成一个可复用的 Skill,拿它跑了中国的地级市,并把前 15 名做成榜单,每座城市都有名气拆解。主观、AI 辅助,欢迎友好反对。方法由 @pretentiouswhat 提出。',
+    },
+    tags: ['Skill', 'Data', 'China', 'For Fun'],
+    links: [
+      { label: { en: 'See the leaderboard', zh: '查看榜单' }, href: '/cici', kind: 'internal' },
+      { label: { en: 'The original method', zh: '方法原帖' }, href: 'https://x.com/pretentiouswhat/status/2072979695855870285', kind: 'live' },
+    ],
+  },
+  {
     id: 'plantuml-studio',
     category: 'tool',
     title: { en: 'PlantUML Renderer', zh: 'PlantUML 渲染器' },

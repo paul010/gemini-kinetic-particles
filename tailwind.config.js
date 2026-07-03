@@ -16,6 +16,7 @@ export default {
     './town/**/*.{ts,tsx}',
     './patterns/**/*.{ts,tsx}',
     './prompts/**/*.{ts,tsx}',
+    './cici/**/*.{ts,tsx}',
   ],
   theme: {
     extend: {
