@@ -748,7 +748,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
 
       <main id="main-content" className="mx-auto max-w-5xl px-5 sm:px-8">
         {/* Hero */}
-        <section id="home" className="grid min-h-[92vh] items-center gap-12 pt-28 pb-20 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14">
+        <section id="home" className="relative grid min-h-[92vh] items-center gap-12 pt-28 pb-20 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14">
           <div className="flex flex-col">
             <p className="hero-in mb-7 inline-flex w-fit items-center gap-2 rounded-full border border-ink/12 bg-ink/5 px-3.5 py-1.5 font-mono text-xs uppercase tracking-[0.18em] text-ink/65" style={{ animationDelay: '0.05s' }}>
               <span className="pulse-dot h-1.5 w-1.5 rounded-full bg-gold" />
@@ -806,10 +806,38 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
           <div className="hero-in" style={{ animationDelay: '0.5s' }}>
             <HeroFigure t={t} onOpen={() => window.open(SOCIALS.youtube, '_blank', 'noopener')} />
           </div>
+
+          {/* scroll cue — a quiet rhythm line inviting the first scroll */}
+          <div className="hero-in absolute bottom-5 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 sm:flex" style={{ animationDelay: '1.1s' }} aria-hidden="true">
+            <span className="font-mono text-[10px] tracking-[0.3em] text-ink/40">SCROLL</span>
+            <span className="scroll-cue-line" />
+          </div>
         </section>
 
+        {/* brand marquee — full-bleed editorial strip between hero and work */}
+        <div aria-hidden="true" className="reveal relative left-1/2 w-screen -translate-x-1/2 border-y border-ink/10 bg-paper/60 py-3 backdrop-blur-sm">
+          <div className="marquee">
+            {[0, 1].map((k) => (
+              <div key={k} className="marquee-track">
+                {['AI AUTOMATION', '创意编程', 'OPEN SOURCE', 'BUILD IN PUBLIC', '大雷早上好', 'AGENTS & PROMPTS', '一起学习 一起跑步 🏃'].map((w, i) => (
+                  <span
+                    key={i}
+                    className={`mx-7 inline-flex items-center gap-7 whitespace-nowrap font-display text-2xl font-semibold tracking-tight sm:text-3xl ${
+                      i % 2 ? 'text-outline' : 'text-ink/75'
+                    }`}
+                  >
+                    {w}
+                    <span className="text-base text-gold">✦</span>
+                  </span>
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
+
         {/* Work */}
-        <section id="work" className="scroll-mt-24 py-20">
+        <section id="work" className="relative scroll-mt-24 py-20">
+          <span className="section-index" aria-hidden="true">01</span>
           <div className="reveal mb-12 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
             <div>
               <p className="font-mono text-xs uppercase tracking-[0.2em] text-gold">{t(COPY.work.label)}</p>
@@ -853,7 +881,8 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
         </section>
 
         {/* Videos */}
-        <section id="videos" className="scroll-mt-24 py-20">
+        <section id="videos" className="relative scroll-mt-24 py-20">
+          <span className="section-index" aria-hidden="true">02</span>
           <div className="reveal mb-12 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
             <div>
               <p className="font-mono text-xs uppercase tracking-[0.2em] text-gold">{t(COPY.videos.label)}</p>
@@ -939,7 +968,8 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
         </section>
 
         {/* About */}
-        <section id="about" className="scroll-mt-24 py-20">
+        <section id="about" className="relative scroll-mt-24 py-20">
+          <span className="section-index" aria-hidden="true">03</span>
           <div className="grid gap-12 lg:grid-cols-[1fr_1.1fr] lg:gap-16">
             <div className="reveal">
               <p className="font-mono text-xs uppercase tracking-[0.2em] text-gold">{t(COPY.about.label)}</p>
@@ -982,7 +1012,8 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
         </section>
 
         {/* Now */}
-        <section id="now" className="scroll-mt-24 py-20">
+        <section id="now" className="relative scroll-mt-24 py-20">
+          <span className="section-index" aria-hidden="true">04</span>
           <div className="reveal rounded-3xl border border-ink/10 bg-surface/40 p-8 backdrop-blur-sm sm:p-12">
             <div className="flex flex-wrap items-center justify-between gap-3">
               <p className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-gold">
@@ -1011,7 +1042,8 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
         </section>
 
         {/* Connect */}
-        <section id="connect" className="scroll-mt-24 py-20">
+        <section id="connect" className="relative scroll-mt-24 py-20">
+          <span className="section-index" aria-hidden="true">05</span>
           <div className="reveal relative overflow-hidden rounded-3xl border border-ink/10 bg-gradient-to-br from-surface/90 to-surface/40 p-8 backdrop-blur-sm sm:p-14">
             <div className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-accent/10 blur-3xl" />
             <div className="pointer-events-none absolute -bottom-20 -left-10 h-56 w-56 rounded-full bg-accent2/10 blur-3xl" />
