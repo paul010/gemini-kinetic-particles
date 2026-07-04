@@ -410,6 +410,28 @@ export const PROJECTS: Project[] = [
     ],
   },
   {
+    id: 'videogen-workflow',
+    category: 'ai',
+    title: { en: 'AI Video Workflow — 3 Models, 1 Key', zh: 'AI 视频生成流程 · 3 模型 1 Key' },
+    year: '2026',
+    status: 'live',
+    featured: true,
+    cover: '/videogen-cover.svg',
+    tagline: {
+      en: 'How Kiana Liang faked a World Cup: GPT Image 2 → Seedance 2.0, two API calls.',
+      zh: 'Kiana Liang 怎么「伪造」了一场世界杯:GPT Image 2 → Seedance 2.0,两次 API 调用。',
+    },
+    description: {
+      en: 'A bilingual walkthrough of Kiana Liang (@Kiana_Liang0609)’s AI-video workflow — the one behind her “France vs Norway, 2026 World Cup” reel for a match that never happened. The trick is a nine-panel storyboard: GPT Image 2 draws all nine shots on one canvas (so the character can’t drift), then Seedance 2.0 animates it into a 15-second clip — with Nano Banana 2 for 4K keyframes, all through one Atlas Cloud key, and packaged as a Claude Code “drama-director” skill (two messages: the script and “confirm”). ~3–5 min, ~$1.5–2 a clip. Credit and links to the original video, write-up and code are hers.',
+      zh: '对 Kiana Liang(@Kiana_Liang0609)AI 视频流程的双语拆解 —— 就是她那段「法国 vs 挪威,2026 世界杯」、而比赛从未发生的集锦背后的流程。诀窍是九宫格分镜:GPT Image 2 把九个镜头画在一张画布上(人物就不会跑样),Seedance 2.0 再把它动画成 15 秒视频 —— Nano Banana 2 负责 4K 关键帧,全走一个 Atlas Cloud key,并打包成 Claude Code 的「drama-director」skill(只发两条消息:剧本和「确认」)。约 3–5 分钟、每段约 $1.5–2。视频、教程与代码均出自她本人,页面已注明并链回。',
+    },
+    tags: ['AI Video', 'Seedance', 'GPT Image', 'Workflow'],
+    links: [
+      { label: { en: 'See the workflow', zh: '查看流程' }, href: '/videogen', kind: 'internal' },
+      { label: { en: 'Original by Kiana', zh: 'Kiana 原推文' }, href: 'https://x.com/Kiana_Liang0609/status/2072695324242796617', kind: 'live' },
+    ],
+  },
+  {
     id: 'designskill-lab',
     category: 'ai',
     title: { en: 'Design Skill Lab — Field Note', zh: '设计 Skill 实测 · 笔记' },
