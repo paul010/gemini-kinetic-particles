@@ -208,6 +208,167 @@ export const CICI_CITIES: City[] = [
   },
 ];
 
+/**
+ * The method, re-run on JAPAN. Same formula, different country — using each
+ * municipality's registered/census population. Japan's cities are much closer
+ * in size, so fame matters more than raw population. popScore normalized so
+ * Saitama (the most populous here) = 100. Sorted by cici, descending.
+ */
+export const CICI_CITIES_JP: City[] = [
+  {
+    rank: 1, name: { en: 'Saitama', zh: '埼玉市 (さいたま)' }, region: { en: 'Saitama', zh: '埼玉县' },
+    huji: 132, changzhu: 132, popScore: 100, famePenalty: 32, cici: 68,
+    halo: [
+      { factor: 'capital', weight: 16, note: { en: 'Prefectural capital, a designated city — but merged together only in 2001, with a thin distinct identity.', zh: '埼玉县首府、政令指定都市 —— 但 2001 年才合并而成,自身辨识度很薄。' } },
+      { factor: 'meme', weight: 8, note: { en: 'Famous mainly through "Fly Me to the Saitama" — a hit comedy about the prefecture having nothing famous.', zh: '主要因电影《飞翔吧!埼玉》出名 —— 一部拿「埼玉啥也没有」自嘲的爆款喜剧。' } },
+      { factor: 'other', weight: 6, note: { en: 'Urawa Reds football, Omiya bonsai village, the Omiya rail hub.', zh: '浦和红钻足球、大宫盆栽村、大宫铁路枢纽。' } },
+      { factor: 'scenic', weight: 2, note: { en: 'Railway Museum; little else drawing visitors.', zh: '铁道博物馆,其余乏善可陈。' } },
+    ],
+    knownFor: { en: 'Famous, ironically, for a movie about how it has nothing famous.', zh: '讽刺的是,它最出名的是一部讲「它没什么出名的」的电影。' },
+  },
+  {
+    rank: 2, name: { en: 'Sagamihara', zh: '相模原市' }, region: { en: 'Kanagawa', zh: '神奈川县' },
+    huji: 72, changzhu: 72, popScore: 55, famePenalty: 9, cici: 46,
+    halo: [
+      { factor: 'other', weight: 6, note: { en: 'JAXA’s Sagamihara campus — home of the Hayabusa asteroid missions.', zh: 'JAXA 相模原园区 —— 隼鸟号小行星探测任务的大本营。' } },
+      { factor: 'scenic', weight: 3, note: { en: 'Lake Sagami and its lakeside resort.', zh: '相模湖及湖畔度假区。' } },
+    ],
+    knownFor: { en: 'One of Japan’s 20 designated cities — and probably the one nobody can picture.', zh: '日本仅 20 座政令指定都市之一 —— 也大概是最没画面感的那座。' },
+  },
+  {
+    rank: 3, name: { en: 'Kawaguchi', zh: '川口市' }, region: { en: 'Saitama', zh: '埼玉县' },
+    huji: 60, changzhu: 60, popScore: 45, famePenalty: 8, cici: 37,
+    halo: [
+      { factor: 'history', weight: 4, note: { en: 'Old cast-iron foundry town; the classic 1962 film "Foundry Town".', zh: '老铸造之乡,经典电影《有炼炉的街》(1962)。' } },
+      { factor: 'other', weight: 4, note: { en: 'A huge migrant community; the Nishi-Kawaguchi district.', zh: '庞大的外来人口社区、西川口一带。' } },
+    ],
+    knownFor: { en: 'A dense Tokyo-orbit city best known, if at all, for its old foundries.', zh: '一座紧邻东京的高密度城市,若说印象,也就剩老铸造厂。' },
+  },
+  {
+    rank: 4, name: { en: 'Funabashi', zh: '船桥市' }, region: { en: 'Chiba', zh: '千叶县' },
+    huji: 64, changzhu: 64, popScore: 48, famePenalty: 16, cici: 32,
+    halo: [
+      { factor: 'meme', weight: 10, note: { en: 'Funassyi — the wildly viral unofficial pear mascot — is from here.', zh: '船梨精(ふなっしー)—— 红遍全国的非官方梨子吉祥物 —— 就出自这里。' } },
+      { factor: 'scenic', weight: 4, note: { en: 'Andersen Park; birthplace of the LaLaport mall chain.', zh: '安徒生公园、LaLaport 购物中心的发源地。' } },
+      { factor: 'cuisine', weight: 2, note: { en: 'Nashi (Japanese pear) orchards.', zh: '日本梨产地。' } },
+    ],
+    knownFor: { en: 'A commuter city that a screaming pear mascot put on the map.', zh: '一座被尖叫梨子吉祥物带火的通勤城市。' },
+  },
+  {
+    rank: 5, name: { en: 'Hachiōji', zh: '八王子市' }, region: { en: 'Tokyo', zh: '东京都' },
+    huji: 58, changzhu: 58, popScore: 44, famePenalty: 13, cici: 31,
+    halo: [
+      { factor: 'scenic', weight: 6, note: { en: 'Mt. Takao — a Michelin-starred day hike — sits within the city.', zh: '高尾山(米其林三星级徒步地)就在市内。' } },
+      { factor: 'history', weight: 4, note: { en: 'Hachioji Castle ruins; a Koshu-kaido post town; kuruma-ningyo puppetry.', zh: '八王子城遗址、甲州街道宿场、车人形。' } },
+      { factor: 'other', weight: 3, note: { en: 'A student town — many universities relocated here.', zh: '大学城 —— 多所高校迁址于此。' } },
+    ],
+    knownFor: { en: 'Tokyo’s big western suburb — carried mostly by Mt. Takao.', zh: '东京西部的大郊区 —— 主要靠高尾山撑门面。' },
+  },
+  {
+    rank: 6, name: { en: 'Ichikawa', zh: '市川市' }, region: { en: 'Chiba', zh: '千叶县' },
+    huji: 49, changzhu: 49, popScore: 37, famePenalty: 8, cici: 29,
+    halo: [
+      { factor: 'history', weight: 3, note: { en: 'Nakayama Hokekyo-ji temple; a setting in the "Eight Dog Chronicles".', zh: '中山法华经寺、《南总里见八犬传》的舞台之一。' } },
+      { factor: 'other', weight: 3, note: { en: 'A leafy "education city" bedroom suburb.', zh: '绿意盎然的「文教都市」睡城。' } },
+      { factor: 'history', weight: 2, note: { en: 'Writer Nagai Kafu spent his last years here.', zh: '作家永井荷风在此度过晚年。' } },
+    ],
+    knownFor: { en: 'A quiet, bookish Tokyo-edge suburb most people just pass through.', zh: '一座安静、书卷气的东京边缘睡城,多数人只是路过。' },
+  },
+  {
+    rank: 7, name: { en: 'Kashiwa', zh: '柏市' }, region: { en: 'Chiba', zh: '千叶县' },
+    huji: 43, changzhu: 43, popScore: 33, famePenalty: 9, cici: 24,
+    halo: [
+      { factor: 'other', weight: 6, note: { en: 'A youth street-fashion scene ("Kashiwa" style); the Kashiwa-no-ha smart city.', zh: '青年街头潮流(「柏」系)、柏之叶智慧城市。' } },
+      { factor: 'brandHQ', weight: 3, note: { en: 'Kashiwa Reysol, a J-League club.', zh: '柏太阳神(J 联赛球队)。' } },
+    ],
+    knownFor: { en: 'A commuter hub with a surprisingly big youth-fashion reputation — locally.', zh: '一个通勤枢纽,却有着(限于本地的)不小的青年潮流名声。' },
+  },
+  {
+    rank: 8, name: { en: 'Higashiōsaka', zh: '东大阪市' }, region: { en: 'Osaka', zh: '大阪府' },
+    huji: 49, changzhu: 49, popScore: 37, famePenalty: 14, cici: 23,
+    halo: [
+      { factor: 'other', weight: 6, note: { en: 'Japan’s densest cluster of small precision factories — "monozukuri" capital.', zh: '日本中小精密工厂最密集之地 ——「制造之城」。' } },
+      { factor: 'scenic', weight: 5, note: { en: 'Hanazono Rugby Stadium — the home of high-school rugby.', zh: '花园橄榄球场 —— 高中橄榄球的圣地。' } },
+      { factor: 'history', weight: 3, note: { en: 'Ishikiri Shrine.', zh: '石切神社。' } },
+    ],
+    knownFor: { en: 'The workshop of Osaka — thousands of tiny factories, one famous rugby pitch.', zh: '大阪的车间 —— 数千家小工厂,和一座著名的橄榄球场。' },
+  },
+  {
+    rank: 9, name: { en: 'Amagasaki', zh: '尼崎市' }, region: { en: 'Hyogo', zh: '兵库县' },
+    huji: 46, changzhu: 46, popScore: 35, famePenalty: 14, cici: 21,
+    halo: [
+      { factor: 'meme', weight: 8, note: { en: 'A gritty, working-class "rough town" image — a recurring pop-culture shorthand.', zh: '粗粝的工人阶级「硬核小城」形象 —— 流行文化里反复出现的符号。' } },
+      { factor: 'history', weight: 3, note: { en: 'Amagasaki Castle (rebuilt).', zh: '尼崎城(复建)。' } },
+      { factor: 'brandHQ', weight: 3, note: { en: 'A heavy-industry past on the Hanshin belt.', zh: '阪神工业带上的重工业老城。' } },
+    ],
+    knownFor: { en: 'Better known for an attitude than for anything you’d visit.', zh: '它出名的是一种「气质」,而不是什么值得一游的地方。' },
+  },
+  {
+    rank: 10, name: { en: 'Toyonaka', zh: '丰中市' }, region: { en: 'Osaka', zh: '大阪府' },
+    huji: 40, changzhu: 40, popScore: 30, famePenalty: 10, cici: 20,
+    halo: [
+      { factor: 'scenic', weight: 5, note: { en: 'Part of Osaka (Itami) Airport; Hattori Ryokuchi park.', zh: '大阪(伊丹)机场部分位于此、服部绿地公园。' } },
+      { factor: 'other', weight: 3, note: { en: 'Home to Osaka University’s main campus.', zh: '大阪大学主校区所在地。' } },
+      { factor: 'history', weight: 2, note: { en: 'Birthplace of Japan’s high-school baseball tournament.', zh: '日本高中棒球大会的发祥地。' } },
+    ],
+    knownFor: { en: 'A tidy Osaka suburb whose airport and university outshine the city itself.', zh: '一座规整的大阪郊区,机场和大学的名气都盖过了城市本身。' },
+  },
+  {
+    rank: 11, name: { en: 'Kōriyama', zh: '郡山市' }, region: { en: 'Fukushima', zh: '福岛县' },
+    huji: 32, changzhu: 32, popScore: 24, famePenalty: 8, cici: 16,
+    halo: [
+      { factor: 'other', weight: 4, note: { en: 'A commercial hub; a proud choral-music town ("the Vienna of Tohoku").', zh: '商业枢纽、以合唱闻名的城市(「东北的维也纳」)。' } },
+      { factor: 'history', weight: 2, note: { en: 'The Meiji-era Asaka Canal reclamation.', zh: '明治年间的安积疏水开拓。' } },
+      { factor: 'cuisine', weight: 2, note: { en: 'Koriyama-area rice.', zh: '郡山一带的稻米。' } },
+    ],
+    knownFor: { en: 'Fukushima’s commercial engine — busier than it is famous.', zh: '福岛的商业引擎 —— 忙碌程度远超它的名气。' },
+  },
+  {
+    rank: 12, name: { en: 'Kasugai', zh: '春日井市' }, region: { en: 'Aichi', zh: '爱知县' },
+    huji: 31, changzhu: 31, popScore: 23, famePenalty: 9, cici: 14,
+    halo: [
+      { factor: 'cuisine', weight: 4, note: { en: 'Japan’s cactus-cultivation capital — a genuinely odd claim to fame.', zh: '日本仙人掌栽培之都 —— 一个货真价实的冷门名号。' } },
+      { factor: 'other', weight: 3, note: { en: 'A Nagoya bedroom city; paper and spoon industries.', zh: '名古屋的睡城、造纸与勺子产业。' } },
+      { factor: 'history', weight: 2, note: { en: 'Tied to calligrapher-monk lore ("the three eccentrics of Kasugai").', zh: '与书道传说有关(「春日井三奇人」)。' } },
+    ],
+    knownFor: { en: 'A Nagoya suburb whose most distinctive export is… cactuses.', zh: '一座名古屋郊区,最有辨识度的特产是…仙人掌。' },
+  },
+];
+
+/** A "run" of the method over one country — selectable on the page. */
+export interface Dataset {
+  key: string;
+  flag: string;
+  country: LocalizedText;
+  blurb: LocalizedText;      // one line framing this run
+  regLabel: LocalizedText;   // long label for the primary population figure
+  residentLabel: LocalizedText; // long label for the secondary figure
+  regTag: LocalizedText;     // short inline tag on each row
+  showResident: boolean;     // Japan has ~one number; China has two distinct ones
+  cities: City[];
+}
+
+export const CICI_DATASETS: Dataset[] = [
+  {
+    key: 'cn', flag: '🇨🇳', country: { en: 'China', zh: '中国' },
+    blurb: {
+      en: 'Prefecture-level cities, scored on registered household population minus every source of fame.',
+      zh: '地级市,按户籍人口减去一切名气来源打分。',
+    },
+    regLabel: { en: 'household', zh: '户籍' }, residentLabel: { en: 'resident', zh: '常住' },
+    regTag: { en: 'reg.', zh: '户籍' }, showResident: true, cities: CICI_CITIES,
+  },
+  {
+    key: 'jp', flag: '🇯🇵', country: { en: 'Japan', zh: '日本' },
+    blurb: {
+      en: 'Municipalities, scored the same way. Japanese cities cluster in size, so fame — not population — decides it.',
+      zh: '市町村,用同样的方式打分。日本城市体量接近,所以决定名次的是名气,而非人口。',
+    },
+    regLabel: { en: 'registered', zh: '住民登记' }, residentLabel: { en: 'census', zh: '国势调查' },
+    regTag: { en: 'pop.', zh: '人口' }, showResident: false, cities: CICI_CITIES_JP,
+  },
+];
+
 /** How the CICI method was applied — shown as the "method" block on the page. */
 export const CICI_METHOD: { step: string; title: LocalizedText; body: LocalizedText }[] = [
   {
