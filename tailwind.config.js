@@ -17,6 +17,7 @@ export default {
     './patterns/**/*.{ts,tsx}',
     './prompts/**/*.{ts,tsx}',
     './cici/**/*.{ts,tsx}',
+    './designskill/**/*.{ts,tsx}',
   ],
   theme: {
     extend: {
