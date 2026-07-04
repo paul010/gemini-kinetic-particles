@@ -22,6 +22,7 @@ const Prompts = React.lazy(() => import('./prompts/Prompts'));
 const CICI = React.lazy(() => import('./cici/CICI'));
 const DesignSkill = React.lazy(() => import('./designskill/DesignSkill'));
 const VideoGen = React.lazy(() => import('./videogen/VideoGen'));
+const DinoBlaster = React.lazy(() => import('./dino/DinoBlaster'));
 
 const Loader: React.FC<{ label: string }> = ({ label }) => (
   <div
@@ -35,7 +36,7 @@ const Loader: React.FC<{ label: string }> = ({ label }) => (
   </div>
 );
 
-type Route = 'home' | 'particles' | 'arsenal' | 'md' | 'img' | 's2c' | 'fluid' | 'r3f' | 'bench' | 'fugu' | 'copilot' | 'agents' | 'skills' | 'uml' | 'town' | 'patterns' | 'prompts' | 'cici' | 'designskill' | 'videogen';
+type Route = 'home' | 'particles' | 'arsenal' | 'md' | 'img' | 's2c' | 'fluid' | 'r3f' | 'bench' | 'fugu' | 'copilot' | 'agents' | 'skills' | 'uml' | 'town' | 'patterns' | 'prompts' | 'cici' | 'designskill' | 'videogen' | 'dino';
 
 const routeFromLocation = (): Route => {
   const { pathname, hash } = window.location;
@@ -59,6 +60,7 @@ const routeFromLocation = (): Route => {
   if (p.endsWith('/cici') || hash === '#/cici') return 'cici';
   if (p.endsWith('/designskill') || hash === '#/designskill') return 'designskill';
   if (p.endsWith('/videogen') || hash === '#/videogen') return 'videogen';
+  if (p.endsWith('/dino') || hash === '#/dino') return 'dino';
   return 'home';
 };
 
@@ -81,7 +83,7 @@ const Router: React.FC = () => {
 
   // The particle experience is a fixed full-screen canvas; other routes scroll.
   useEffect(() => {
-    document.body.style.overflow = route === 'particles' || route === 'md' || route === 's2c' || route === 'fluid' || route === 'r3f' || route === 'uml' ? 'hidden' : 'auto';
+    document.body.style.overflow = route === 'particles' || route === 'md' || route === 's2c' || route === 'fluid' || route === 'r3f' || route === 'uml' || route === 'dino' ? 'hidden' : 'auto';
     return () => {
       document.body.style.overflow = 'auto';
     };
@@ -110,6 +112,7 @@ const Router: React.FC = () => {
       cici: 'CICI 指数 · 被人口辜负的城市（中国 · 日本）· 大雷',
       designskill: '设计 Skill 实测 · Design Skill Lab · 大雷',
       videogen: 'AI 视频生成流程 · 3 模型 1 Key · 大雷',
+      dino: 'Dino Blaster · 加特林 vs 恐龙 · 大雷',
     };
     document.title = titles[route];
   }, [route]);
@@ -270,6 +273,14 @@ const Router: React.FC = () => {
     return (
       <Suspense fallback={<Loader label="LOADING…" />}>
         <VideoGen onHome={() => navigate('/')} />
+      </Suspense>
+    );
+  }
+
+  if (route === 'dino') {
+    return (
+      <Suspense fallback={<Loader label="LOADING DINOS…" />}>
+        <DinoBlaster onHome={() => navigate('/')} />
       </Suspense>
     );
   }

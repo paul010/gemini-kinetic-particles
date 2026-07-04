@@ -51,6 +51,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://dailycosmos.net/dino</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://dailycosmos.net/patterns</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
