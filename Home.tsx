@@ -122,9 +122,12 @@ const ArrowUpRight = (props: React.SVGProps<SVGSVGElement>) => (
 
 /* ---------- Reveal on scroll ---------- */
 
-const useReveal = () => {
+const useReveal = (dep?: unknown) => {
   useEffect(() => {
-    const els = Array.from(document.querySelectorAll<HTMLElement>('.reveal'));
+    // Only the not-yet-revealed elements — so a re-run (e.g. after filtering
+    // mounts new cards) picks up the newcomers without re-animating the rest.
+    const els = Array.from(document.querySelectorAll<HTMLElement>('.reveal:not(.is-visible)'));
+    if (!els.length) return;
     if (!('IntersectionObserver' in window)) {
       els.forEach((el) => el.classList.add('is-visible'));
       return;
@@ -142,7 +145,7 @@ const useReveal = () => {
     );
     els.forEach((el) => io.observe(el));
     return () => io.disconnect();
-  }, []);
+  }, [dep]);
 };
 
 /* ---------- Scroll progress bar ---------- */
@@ -362,7 +365,7 @@ const FeaturedCard: React.FC<{
 
       <h3 className="font-display text-3xl font-semibold tracking-tight sm:text-4xl">{t(p.title)}</h3>
       <p className="mt-3 text-sm font-medium text-accent/90">{t(p.tagline)}</p>
-      <p className="mt-5 max-w-xl text-sm leading-relaxed text-ink/60">{t(p.description)}</p>
+      <p className="mt-5 line-clamp-4 max-w-xl text-sm leading-relaxed text-ink/60 sm:line-clamp-none">{t(p.description)}</p>
 
       {p.prompt && (
         <details className="group/prompt mt-5 rounded-xl border border-ink/10 bg-ink/[0.03] px-4 py-3">
@@ -451,17 +454,17 @@ const ProjectCard: React.FC<{
           </span>
         )}
       </button>
-      <div className="flex flex-1 flex-col p-5">
+      <div className="flex flex-1 flex-col p-4 sm:p-5">
         <div className="flex items-center justify-between gap-2">
           {statusBadge(p.status, t)}
           <span className="font-mono text-[11px] text-ink/40">{p.year}</span>
         </div>
-        <h3 className="mt-2.5 font-display text-xl font-semibold tracking-tight">{t(p.title)}</h3>
-        <p className="mt-1.5 line-clamp-2 flex-1 text-sm leading-relaxed text-ink/60">{t(p.tagline)}</p>
+        <h3 className="mt-2.5 font-display text-lg font-semibold tracking-tight sm:text-xl">{t(p.title)}</h3>
+        <p className="mt-1.5 line-clamp-2 flex-1 text-[13px] leading-relaxed text-ink/60 sm:text-sm">{t(p.tagline)}</p>
         {p.tags.length > 0 && (
           <div className="mt-3 flex flex-wrap gap-1.5">
             {p.tags.slice(0, 3).map((tag) => (
-              <span key={tag} className="rounded-md border border-ink/10 bg-ink/[0.03] px-2 py-0.5 font-mono text-[10.5px] text-ink/55">{tag}</span>
+              <span key={tag} className="hidden rounded-md border border-ink/10 bg-ink/[0.03] px-2 py-0.5 font-mono text-[10.5px] text-ink/55 sm:inline">{tag}</span>
             ))}
           </div>
         )}
@@ -556,13 +559,14 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState('home');
+  const [workFilter, setWorkFilter] = useState<'all' | 'ai' | 'creative' | 'tool'>('all');
   const s2t = useS2T(lang === 'zhHant');
   const t = (txt: LocalizedText) =>
     lang === 'en' ? txt.en : lang === 'zhHant' ? (s2t ? s2t(txt.zh) : txt.zh) : txt.zh;
   const progressRef = useRef<HTMLDivElement>(null);
   const [videos, setVideos] = useState<VideoItem[]>(VIDEOS);
 
-  useReveal();
+  useReveal(workFilter);
   useScrollProgress(progressRef);
 
   // Scroll-spy: highlight the nav item for the section currently in view.
@@ -635,8 +639,17 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
   // One signature project is the big hero; everything else goes into a compact
   // tile grid so the page stays short and scannable.
   const signature = PROJECTS.find((p) => p.signature);
-  const tiles = PROJECTS.filter((p) => p.id !== signature?.id)
+  const allTiles = PROJECTS.filter((p) => p.id !== signature?.id)
     .sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
+  const tiles = workFilter === 'all' ? allTiles : allTiles.filter((p) => p.category === workFilter);
+
+  // Filter chips for the Work grid — counts come from the unfiltered set.
+  const workFilters: { key: typeof workFilter; label: LocalizedText; count: number }[] = [
+    { key: 'all', label: COPY.work.filterAll, count: allTiles.length },
+    { key: 'ai', label: COPY.work.filterAi, count: allTiles.filter((p) => p.category === 'ai').length },
+    { key: 'creative', label: COPY.work.filterCreative, count: allTiles.filter((p) => p.category === 'creative').length },
+    { key: 'tool', label: COPY.work.filterTool, count: allTiles.filter((p) => p.category === 'tool').length },
+  ];
 
   return (
     <div className="home-root font-sans">
@@ -810,11 +823,28 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
               <FeaturedCard key={signature.id} project={signature} lang={lang} t={t} onInternal={onNavigate} />
             )}
 
-            <div className="reveal flex items-baseline justify-between gap-3 border-t border-ink/10 pt-8">
+            <div className="reveal flex flex-col gap-4 border-t border-ink/10 pt-8 sm:flex-row sm:items-center sm:justify-between">
               <h3 className="font-mono text-xs uppercase tracking-[0.2em] text-gold">{t({ en: 'All projects & tools', zh: '全部项目 & 工具' })}</h3>
-              <p className="font-mono text-[11px] text-ink/45">{tiles.length} · {t(COPY.work.toolsSub)}</p>
+              {/* Category filter — scan by interest instead of one long scroll */}
+              <div className="flex flex-wrap gap-2" role="group" aria-label={t({ en: 'Filter projects', zh: '筛选项目' })}>
+                {workFilters.map((f) => (
+                  <button
+                    key={f.key}
+                    onClick={() => setWorkFilter(f.key)}
+                    aria-pressed={workFilter === f.key}
+                    className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 font-mono text-[11px] transition-colors ${
+                      workFilter === f.key
+                        ? 'border-ink bg-ink text-paper'
+                        : 'border-ink/15 text-ink/60 hover:border-ink/40 hover:text-ink'
+                    }`}
+                  >
+                    {t(f.label)}
+                    <span className={workFilter === f.key ? 'text-paper/55' : 'text-ink/35'}>{f.count}</span>
+                  </button>
+                ))}
+              </div>
             </div>
-            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-3">
               {tiles.map((p) => (
                 <ProjectCard key={p.id} project={p} lang={lang} t={t} onInternal={onNavigate} />
               ))}
@@ -918,16 +948,16 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
               </h2>
               <p className="mt-6 text-base leading-relaxed text-ink/65">{t(COPY.about.body)}</p>
 
-              {/* At-a-glance stats — scannable social proof */}
-              <dl className="mt-8 flex flex-wrap gap-x-8 gap-y-4">
+              {/* At-a-glance stats — a clean divided strip of social proof */}
+              <dl className="mt-8 grid grid-cols-3 gap-px overflow-hidden rounded-2xl border border-ink/10 bg-ink/10">
                 {[
                   { value: CHANNEL.subscribers, label: { en: 'subscribers', zh: 'YouTube 订阅' } as LocalizedText },
                   { value: CHANNEL.videos, label: { en: 'videos', zh: '视频' } as LocalizedText },
                   { value: `${PROJECTS.length}`, label: { en: 'open-source projects', zh: '开源项目' } as LocalizedText },
                 ].map((s, i) => (
-                  <div key={i}>
-                    <dt className="font-display text-3xl font-semibold leading-none tracking-tight">{s.value}</dt>
-                    <dd className="mt-1.5 font-mono text-[11px] uppercase tracking-wider text-ink/45">{t(s.label)}</dd>
+                  <div key={i} className="bg-surface/60 px-4 py-5 backdrop-blur-sm sm:px-6">
+                    <dt className="font-display text-3xl font-semibold leading-none tracking-tight sm:text-4xl">{s.value}</dt>
+                    <dd className="mt-2 font-mono text-[10.5px] uppercase leading-tight tracking-wider text-ink/45">{t(s.label)}</dd>
                   </div>
                 ))}
               </dl>
@@ -962,11 +992,18 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
               <span className="font-mono text-[11px] text-ink/40">{t(COPY.now.updated)}</span>
             </div>
             <h2 className="mt-3 font-display text-3xl font-bold tracking-tight sm:text-4xl">{t(COPY.now.heading)}</h2>
-            <ul className="mt-6 flex flex-col gap-4">
+            {/* Timeline rail — the top item is "live" (pulsing); older ones quiet */}
+            <ul className="mt-8 flex flex-col">
               {COPY.now.items.map((item, i) => (
-                <li key={i} className="flex items-start gap-3 text-base leading-relaxed text-ink/70">
-                  <span className="mt-1 font-mono text-sm text-gold">0{i + 1}</span>
-                  <span>{t(item)}</span>
+                <li key={i} className="relative flex gap-5 pb-7 last:pb-0">
+                  {i < COPY.now.items.length - 1 && (
+                    <span className="absolute left-[6px] top-5 h-full w-px bg-gradient-to-b from-ink/15 to-ink/5" aria-hidden="true" />
+                  )}
+                  <span className="relative mt-1.5 grid h-3.5 w-3.5 shrink-0 place-items-center" aria-hidden="true">
+                    <span className={`h-3.5 w-3.5 rounded-full border ${i === 0 ? 'border-gold/50 bg-gold/15' : 'border-ink/20 bg-ink/5'}`} />
+                    {i === 0 && <span className="pulse-dot absolute h-1.5 w-1.5 rounded-full bg-gold" />}
+                  </span>
+                  <p className="text-base leading-relaxed text-ink/70">{t(item)}</p>
                 </li>
               ))}
             </ul>

@@ -24,6 +24,8 @@ export interface Project {
   links: ProjectLink[];
   featured?: boolean;
   cover?: string;
+  /** Coarse grouping for the Work-section filter chips. */
+  category?: 'ai' | 'creative' | 'tool';
   /** Signature project — gets a highlighted eyebrow and sorts to the top. */
   signature?: boolean;
   /** For prompt→result showcases: the verbatim prompt, shown in a copyable disclosure. */
@@ -141,6 +143,7 @@ export const VIDEOS: VideoItem[] = [
 export const PROJECTS: Project[] = [
   {
     id: 'kinetic-particles',
+    category: 'creative',
     title: { en: 'Kinetic Particles', zh: 'Kinetic Particles' },
     year: '2025',
     status: 'live',
@@ -163,6 +166,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'ai-coding-arsenal',
+    category: 'ai',
     title: { en: 'AI Coding Arsenal', zh: 'AI Coding Arsenal' },
     year: '2026',
     status: 'wip',
@@ -184,6 +188,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'ai-benchmark',
+    category: 'ai',
     title: { en: 'Da Lei AI Benchmark', zh: '大雷 AI 评测台' },
     year: '2026',
     status: 'live',
@@ -206,6 +211,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'fugu-research',
+    category: 'ai',
     title: { en: 'Fugu / TRINITY — Reproduced', zh: 'Fugu / TRINITY 复现验证' },
     year: '2026',
     status: 'live',
@@ -228,6 +234,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'whiteboard-portrait',
+    category: 'creative',
     title: { en: 'AI Whiteboard Self-Portrait', zh: 'AI 白板自画像' },
     year: '2026',
     status: 'live',
@@ -250,6 +257,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'ai-solutions-library',
+    category: 'ai',
     title: { en: 'Free AI Solutions Library', zh: '大雷免费 AI 方案库' },
     year: '2026',
     status: 'live',
@@ -271,6 +279,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'copilot-matrix',
+    category: 'ai',
     title: { en: 'Microsoft Copilot / Agent Matrix', zh: 'Microsoft Copilot / Agent 产品矩阵' },
     year: '2026',
     status: 'live',
@@ -292,6 +301,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'agent-templates',
+    category: 'ai',
     title: { en: 'Agent Templates', zh: 'Agent 模板库' },
     year: '2026',
     status: 'live',
@@ -313,6 +323,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'skill-library',
+    category: 'ai',
     title: { en: 'Skill Library', zh: 'Skill 技能库' },
     year: '2026',
     status: 'live',
@@ -334,6 +345,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'smallville',
+    category: 'creative',
     title: { en: 'Smallville — Generative Agents', zh: 'Smallville 小镇 · 生成式智能体' },
     year: '2026',
     status: 'live',
@@ -355,6 +367,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'agent-patterns',
+    category: 'ai',
     title: { en: 'Agent Design Patterns', zh: 'Agent 设计模式' },
     year: '2026',
     status: 'live',
@@ -376,6 +389,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'prompt-library',
+    category: 'ai',
     title: { en: 'Prompt Library', zh: '提示词弹药库' },
     year: '2026',
     status: 'live',
@@ -396,7 +410,30 @@ export const PROJECTS: Project[] = [
     ],
   },
   {
+    id: 'cici-index',
+    category: 'ai',
+    title: { en: 'CICI — Underrated Cities Index', zh: 'CICI · 被人口辜负的城市' },
+    year: '2026',
+    status: 'live',
+    featured: true,
+    cover: '/cici-cover.svg',
+    tagline: {
+      en: 'Which Chinese cities are far less famous than their population implies? I built a skill and ran it.',
+      zh: '哪些中国城市远不如其人口规模所暗示的那样出名?我做了个 skill,跑了一遍。',
+    },
+    description: {
+      en: 'A for-fun data project: the CICI (Comparatively-Insignificant City) method takes a city’s standardized household population and subtracts every source of fame — provincial-capital status, 5A scenery, brand HQs, history, cuisine, memes, even disasters (negative fame is still fame). The highest score wins: big by population, yet barely known. I encoded the method as a reusable Skill, ran it over China’s prefecture-level cities, and present the top-15 leaderboard with an itemized fame breakdown for each. Subjective, AI-assisted, disagree kindly. Method popularized by @pretentiouswhat.',
+      zh: '一个好玩的数据项目:CICI(相对无名城市指数)方法,把一座城市标准化后的户籍人口,减去一切名气来源 —— 省会身份、5A 景点、品牌总部、历史、美食、网络梗,甚至灾难(负面声誉也是声誉)。得分最高者胜出:人口很大,却几乎无人知晓。我把方法固化成一个可复用的 Skill,拿它跑了中国的地级市,并把前 15 名做成榜单,每座城市都有名气拆解。主观、AI 辅助,欢迎友好反对。方法由 @pretentiouswhat 提出。',
+    },
+    tags: ['Skill', 'Data', 'China', 'For Fun'],
+    links: [
+      { label: { en: 'See the leaderboard', zh: '查看榜单' }, href: '/cici', kind: 'internal' },
+      { label: { en: 'The original method', zh: '方法原帖' }, href: 'https://x.com/pretentiouswhat/status/2072979695855870285', kind: 'live' },
+    ],
+  },
+  {
     id: 'plantuml-studio',
+    category: 'tool',
     title: { en: 'PlantUML Renderer', zh: 'PlantUML 渲染器' },
     year: '2026',
     status: 'live',
@@ -416,6 +453,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'markdown-studio',
+    category: 'tool',
     title: { en: 'Markdown Studio', zh: 'Markdown 工具箱' },
     year: '2026',
     status: 'live',
@@ -435,6 +473,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'image-studio',
+    category: 'tool',
     title: { en: 'Image Studio', zh: '图片工具箱' },
     year: '2026',
     status: 'live',
@@ -453,6 +492,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'screenshot-to-code',
+    category: 'tool',
     title: { en: 'Screenshot → Code', zh: '截图转代码' },
     year: '2026',
     status: 'wip',
@@ -472,6 +512,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'fluid-playground',
+    category: 'creative',
     title: { en: 'Fluid Playground', zh: '流体 Fluid' },
     year: '2026',
     status: 'live',
@@ -491,6 +532,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'three-orb',
+    category: 'creative',
     title: { en: 'React Three Fiber 3D', zh: '3D 起手式' },
     year: '2026',
     status: 'live',
@@ -579,6 +621,10 @@ export const COPY = {
       zh: '来自我创作流程的免费、纯浏览器小工具。',
     },
     signature: { en: 'Signature', zh: '招牌' },
+    filterAll: { en: 'All', zh: '全部' },
+    filterAi: { en: 'AI & Agents', zh: 'AI & 智能体' },
+    filterCreative: { en: 'Creative', zh: '创意互动' },
+    filterTool: { en: 'Tools', zh: '小工具' },
   },
   videos: {
     label: { en: 'From YouTube', zh: '来自 YouTube' },
