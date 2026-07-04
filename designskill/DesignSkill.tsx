@@ -138,6 +138,21 @@ const GUIDE: { need: LocalizedText; pick: LocalizedText }[] = [
   { need: { en: 'Interaction quality', zh: '要交互质感' }, pick: { en: 'emil-design-eng (combine with a visual skill)', zh: 'emil-design-eng(与视觉 Skill 组合)' } },
 ];
 
+/* Live gallery — the 42 generated pages are real HTML on 乔木's site, at
+ * pages/{variant}/{task}.html, so we can show them in an iframe instead of
+ * screenshots. Winner is highlighted per task. */
+const GALLERY_BASE = 'https://designskill.qiaomu.ai/pages';
+const G_TASKS: { id: string; label: LocalizedText; winner: string }[] = [
+  { id: 'landing', label: { en: 'Landing', zh: '落地页' }, winner: 'frontend-design' },
+  { id: 'dashboard', label: { en: 'Dashboard', zh: '仪表盘' }, winner: 'taste-skill' },
+  { id: 'portfolio', label: { en: 'Portfolio', zh: '作品集' }, winner: 'frontend-design' },
+  { id: 'wizard', label: { en: 'Wizard', zh: '交互向导' }, winner: 'emil-design-eng' },
+  { id: 'components', label: { en: 'Components', zh: '组件面板' }, winner: 'web-design-guidelines' },
+  { id: 'error404', label: { en: '404', zh: '404 页' }, winner: 'frontend-design' },
+  { id: 'diversity', label: { en: 'Diversity', zh: '多样性' }, winner: 'frontend-design' },
+];
+const G_VARIANTS = ['baseline', 'frontend-design', 'web-design-guidelines', 'ui-ux-pro-max', 'taste-skill', 'emil-design-eng'];
+
 interface Props { onHome: () => void }
 
 const DesignSkill: React.FC<Props> = ({ onHome }) => {
@@ -145,6 +160,12 @@ const DesignSkill: React.FC<Props> = ({ onHome }) => {
   const s2t = useS2T(lang === 'zhHant');
   const t = (txt: LocalizedText) => (lang === 'en' ? txt.en : lang === 'zhHant' ? (s2t ? s2t(txt.zh) : txt.zh) : txt.zh);
   useEffect(() => { if (typeof window !== 'undefined') window.localStorage.setItem(STORAGE_KEY, lang); }, [lang]);
+
+  // Live gallery selection — default to the landing task, its winning variant.
+  const [gTask, setGTask] = useState('landing');
+  const [gVariant, setGVariant] = useState('frontend-design');
+  const galleryUrl = `${GALLERY_BASE}/${gVariant}/${gTask}.html`;
+  const pickTask = (id: string) => { setGTask(id); setGVariant(G_TASKS.find((x) => x.id === id)!.winner); };
 
   const LANGS: { code: Lang; label: string }[] = [{ code: 'en', label: 'EN' }, { code: 'zh', label: '简' }, { code: 'zhHant', label: '繁' }];
 
@@ -220,6 +241,75 @@ const DesignSkill: React.FC<Props> = ({ onHome }) => {
               })}
             </p>
           </div>
+        </section>
+
+        {/* live gallery — the real generated pages, embedded from 乔木's site */}
+        <section className="mt-12">
+          <div className="flex flex-wrap items-baseline justify-between gap-3">
+            <h2 className="font-display text-2xl font-semibold tracking-tight sm:text-3xl">{t({ en: 'See the actual pages', zh: '看看真实作品' })}</h2>
+            <a className="font-mono text-[13px] text-gold hover:underline" href="https://designskill.qiaomu.ai/" target="_blank" rel="noreferrer">{t({ en: 'all 42 on 乔木’s site ↗', zh: '到乔木站上看全部 42 个 ↗' })}</a>
+          </div>
+          <p className="mt-2 max-w-2xl text-[13px] leading-relaxed text-ink/55">
+            {t({
+              en: 'These are the real, unretouched pages — live from 乔木’s site. Pick a task, then flip between the six variants and judge for yourself.',
+              zh: '这些是真实、未修的页面 —— 直接嵌自乔木的站点。选一个任务,再在六个变体之间切换,自己判断。',
+            })}
+          </p>
+
+          {/* task chips */}
+          <div className="mt-4 flex flex-wrap gap-2">
+            {G_TASKS.map((task) => (
+              <button
+                key={task.id}
+                onClick={() => pickTask(task.id)}
+                aria-pressed={gTask === task.id}
+                className={`rounded-full border px-3 py-1.5 font-mono text-xs transition-colors ${gTask === task.id ? 'border-ink bg-ink text-paper' : 'border-ink/15 text-ink/60 hover:border-ink/40 hover:text-ink'}`}
+              >
+                {t(task.label)}
+              </button>
+            ))}
+          </div>
+
+          {/* variant chips — the winner marked */}
+          <div className="mt-2.5 flex flex-wrap gap-2">
+            {G_VARIANTS.map((v) => {
+              const isWinner = G_TASKS.find((x) => x.id === gTask)!.winner === v;
+              return (
+                <button
+                  key={v}
+                  onClick={() => setGVariant(v)}
+                  aria-pressed={gVariant === v}
+                  className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1 font-mono text-[11px] transition-colors ${gVariant === v ? 'border-gold bg-gold/10 text-gold' : 'border-ink/12 text-ink/55 hover:border-ink/35 hover:text-ink'}`}
+                >
+                  {isWinner && <span className="text-gold" aria-hidden="true">★</span>}
+                  {v}
+                </button>
+              );
+            })}
+          </div>
+
+          {/* the live page */}
+          <div className="mt-4 overflow-hidden rounded-2xl border border-ink/15 bg-white shadow-sm">
+            <div className="flex items-center justify-between gap-3 border-b border-ink/10 bg-surface/60 px-4 py-2">
+              <span className="flex items-center gap-1.5" aria-hidden="true">
+                <span className="h-2.5 w-2.5 rounded-full bg-ink/15" /><span className="h-2.5 w-2.5 rounded-full bg-ink/15" /><span className="h-2.5 w-2.5 rounded-full bg-ink/15" />
+              </span>
+              <span className="truncate font-mono text-[11px] text-ink/45">designskill.qiaomu.ai/pages/{gVariant}/{gTask}.html</span>
+              <a className="shrink-0 font-mono text-[11px] text-gold hover:underline" href={galleryUrl} target="_blank" rel="noreferrer">{t({ en: 'open ↗', zh: '新窗口 ↗' })}</a>
+            </div>
+            <iframe
+              key={galleryUrl}
+              src={galleryUrl}
+              title={`${gVariant} · ${gTask}`}
+              loading="lazy"
+              sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
+              referrerPolicy="no-referrer"
+              className="block h-[440px] w-full bg-white sm:h-[600px]"
+            />
+          </div>
+          <p className="mt-2 font-mono text-[11px] text-ink/40">
+            {t({ en: 'Embedded live from designskill.qiaomu.ai — pages and designs are 乔木’s.', zh: '实时嵌自 designskill.qiaomu.ai —— 页面与设计均为乔木所有。' })}
+          </p>
         </section>
 
         {/* the six variants */}
