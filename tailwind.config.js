@@ -19,6 +19,7 @@ export default {
     './cici/**/*.{ts,tsx}',
     './designskill/**/*.{ts,tsx}',
     './videogen/**/*.{ts,tsx}',
+    './dino/**/*.{ts,tsx}',
   ],
   theme: {
     extend: {

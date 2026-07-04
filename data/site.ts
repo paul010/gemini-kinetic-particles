@@ -410,6 +410,28 @@ export const PROJECTS: Project[] = [
     ],
   },
   {
+    id: 'dino-blaster',
+    category: 'creative',
+    title: { en: 'Dino Blaster', zh: 'Dino Blaster · 加特林 vs 恐龙' },
+    year: '2026',
+    status: 'live',
+    featured: true,
+    cover: '/dino-cover.svg',
+    tagline: {
+      en: 'A Minecraft-flavored FPS built with Fable 5 — gatling gun, grenades, wandering blocky dinosaurs.',
+      zh: '用 Fable 5 开发的 Minecraft 风格 FPS —— 手持加特林扫射游荡的恐龙,还能扔手雷炸它们。',
+    },
+    description: {
+      en: 'An arcade first-person shooter generated with Claude (Fable 5), zero assets: a voxel world built from instanced blocks, box-built T-rexes that wander the map and charge when you get close, a six-barrel gatling that has to spin up before it shreds, and grenades that arc, bounce and blow dinos into voxel confetti. Every sound is synthesized WebAudio; every model is boxes. Pointer-lock WASD+mouse on desktop, virtual joystick + fire/grenade buttons on mobile. Pure three.js in one file.',
+      zh: '用 Claude(Fable 5)生成的街机第一人称射击,零素材:instanced 方块搭出的体素世界、方块拼装的霸王龙(平时游荡,靠近会扑上来)、需要先转起来才喷弹的六管加特林,以及会划抛物线、落地弹跳、把恐龙炸成方块碎屑的手雷。所有音效由 WebAudio 现场合成,所有模型都是方块。桌面端指针锁定 WASD+鼠标,移动端虚拟摇杆 + 开火/手雷按钮。纯 three.js,单文件。',
+    },
+    tags: ['Game', 'three.js', 'FPS', 'Fable 5'],
+    links: [
+      { label: { en: 'Play now', zh: '立即开玩' }, href: '/dino', kind: 'internal' },
+      { label: { en: 'Source', zh: '源码' }, href: 'https://github.com/paul010/gemini-kinetic-particles', kind: 'github' },
+    ],
+  },
+  {
     id: 'videogen-workflow',
     category: 'ai',
     title: { en: 'AI Video Workflow — 3 Models, 1 Key', zh: 'AI 视频生成流程 · 3 模型 1 Key' },
