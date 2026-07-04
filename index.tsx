@@ -103,7 +103,7 @@ const Router: React.FC = () => {
       town: 'Smallville 小镇 · 生成式智能体 · 大雷',
       patterns: 'Agent 设计模式 · Agent Design Patterns · 大雷',
       prompts: '提示词库 · Prompt Library · 大雷',
-      cici: 'CICI 指数 · 被人口辜负的中国城市 · 大雷',
+      cici: 'CICI 指数 · 被人口辜负的城市（中国 · 日本）· 大雷',
     };
     document.title = titles[route];
   }, [route]);
