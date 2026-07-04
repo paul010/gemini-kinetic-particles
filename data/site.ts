@@ -410,6 +410,28 @@ export const PROJECTS: Project[] = [
     ],
   },
   {
+    id: 'designskill-lab',
+    category: 'ai',
+    title: { en: 'Design Skill Lab — Field Note', zh: '设计 Skill 实测 · 笔记' },
+    year: '2026',
+    status: 'live',
+    featured: true,
+    cover: '/designskill-cover.svg',
+    tagline: {
+      en: 'Does adding a design Skill actually help? A bilingual read of 乔木’s 6-way comparison.',
+      zh: '装一个设计 Skill 到底有没有用?对乔木「六方横评」的双语解读。',
+    },
+    description: {
+      en: '乔木 (Qiaomu, @vista8) ran a clean experiment: five frontend-design Claude Skills plus a no-skill control, the same 7 tasks under identical constraints, 42 generated pages read side by side. My bilingual field note distills it: the six variants (baseline, frontend-design, web-design-guidelines, ui-ux-pro-max, taste-skill, emil-design-eng) with strengths/weaknesses, a winner-by-task table, and the headline insight — a Skill’s job is prohibition, not teaching (ban purple gradients & centered layouts, don’t add tricks). All credit to 乔木; the full experiment and 42 live pages are on his site.',
+      zh: '乔木(@vista8)做了个干净的实验:五个前端设计类 Claude Skill 加一个「不装 Skill」的对照组,在完全相同的约束下做同样的 7 道题,42 个生成页面并排看。我做了双语笔记浓缩它:六个变体(baseline、frontend-design、web-design-guidelines、ui-ux-pro-max、taste-skill、emil-design-eng)的优劣、每道题谁赢的表格,以及那句核心结论 —— Skill 的作用是「禁止」而非「教」(禁掉紫色渐变与居中布局,而不是加花招)。功劳都归乔木;完整实验与 42 个真实页面在他的站上。',
+    },
+    tags: ['Claude Skills', 'Design', 'Field Note', 'Benchmark'],
+    links: [
+      { label: { en: 'Read the field note', zh: '查看实测笔记' }, href: '/designskill', kind: 'internal' },
+      { label: { en: 'Original by 乔木', zh: '乔木原版' }, href: 'https://designskill.qiaomu.ai/', kind: 'live' },
+    ],
+  },
+  {
     id: 'cici-index',
     category: 'ai',
     title: { en: 'CICI — Underrated Cities Index', zh: 'CICI · 被人口辜负的城市' },

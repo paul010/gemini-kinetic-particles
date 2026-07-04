@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" role="img" aria-label="Design Skill Lab — a 6-way comparison of frontend design skills">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f6f3ec"/><stop offset="1" stop-color="#ece6da"/></linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.35" r="0.65"><stop offset="0" stop-color="#8a682c" stop-opacity="0.13"/><stop offset="1" stop-color="#8a682c" stop-opacity="0"/></radialGradient>
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="1200" height="750" fill="url(#bg)"/>
+  <ellipse cx="600" cy="320" rx="540" ry="360" fill="url(#glow)"/>
+
+  <text x="80" y="104" font-family="'Cormorant Garamond', Georgia, serif" font-size="56" font-weight="600" fill="#1c1a17">设计 Skill 实测</text>
+  <text x="82" y="150" font-family="'JetBrains Mono', monospace" font-size="19" fill="#8a682c">Design Skill Lab · 6 变体 × 7 任务 × 42 页 · 实测笔记</text>
+
+  <!-- six variant tiles -->
+  <g font-family="'JetBrains Mono', monospace" font-size="15">
+    <!-- row 1 -->
+    <g filter="url(#soft)"><rect x="80" y="200" width="330" height="118" rx="14" fill="#fffdf8" stroke="rgba(28,26,23,0.1)"/></g>
+    <rect x="80" y="200" width="330" height="4" rx="2" fill="#8a8175"/>
+    <text x="104" y="238" fill="#1c1a17" font-weight="700">baseline</text>
+    <text x="104" y="266" fill="rgba(28,26,23,0.5)" font-size="13">无 Skill · 能打但可预测</text>
+    <text x="104" y="292" fill="rgba(28,26,23,0.4)" font-size="12">紫色 · Inter · 居中</text>
+
+    <g filter="url(#soft)"><rect x="435" y="200" width="330" height="118" rx="14" fill="#fffdf8" stroke="rgba(138,104,44,0.4)"/></g>
+    <rect x="435" y="200" width="330" height="4" rx="2" fill="#8a682c"/>
+    <text x="459" y="238" fill="#1c1a17" font-weight="700">frontend-design</text>
+    <g><rect x="640" y="222" width="102" height="24" rx="12" fill="rgba(138,104,44,0.14)"/><text x="691" y="239" text-anchor="middle" fill="#8a682c" font-size="12">★ 视觉第一</text></g>
+    <text x="459" y="266" fill="rgba(28,26,23,0.5)" font-size="13">断层领先 · 墨黑金编辑风</text>
+    <text x="459" y="292" fill="rgba(28,26,23,0.4)" font-size="12">创意 / 多样性最强</text>
+
+    <g filter="url(#soft)"><rect x="790" y="200" width="330" height="118" rx="14" fill="#fffdf8" stroke="rgba(28,26,23,0.1)"/></g>
+    <rect x="790" y="200" width="330" height="4" rx="2" fill="#3a7a7a"/>
+    <text x="814" y="238" fill="#1c1a17" font-weight="700">web-design-guidelines</text>
+    <text x="814" y="266" fill="rgba(28,26,23,0.5)" font-size="13">生产级黄金标准</text>
+    <text x="814" y="292" fill="rgba(28,26,23,0.4)" font-size="12">a11y · aria · 焦点管理</text>
+
+    <!-- row 2 -->
+    <g filter="url(#soft)"><rect x="80" y="336" width="330" height="118" rx="14" fill="#fffdf8" stroke="rgba(28,26,23,0.1)"/></g>
+    <rect x="80" y="336" width="330" height="4" rx="2" fill="#4285f4"/>
+    <text x="104" y="374" fill="#1c1a17" font-weight="700">ui-ux-pro-max</text>
+    <text x="104" y="402" fill="rgba(28,26,23,0.5)" font-size="13">稳定可扩展</text>
+    <text x="104" y="428" fill="rgba(28,26,23,0.4)" font-size="12">161 配色 · 57 字体对</text>
+
+    <g filter="url(#soft)"><rect x="435" y="336" width="330" height="118" rx="14" fill="#fffdf8" stroke="rgba(28,26,23,0.1)"/></g>
+    <rect x="435" y="336" width="330" height="4" rx="2" fill="#7a5cab"/>
+    <text x="459" y="374" fill="#1c1a17" font-weight="700">taste-skill</text>
+    <text x="459" y="402" fill="rgba(28,26,23,0.5)" font-size="13">有纪律的大胆 · 纪律最强</text>
+    <text x="459" y="428" fill="rgba(28,26,23,0.4)" font-size="12">避开模板套路</text>
+
+    <g filter="url(#soft)"><rect x="790" y="336" width="330" height="118" rx="14" fill="#fffdf8" stroke="rgba(28,26,23,0.1)"/></g>
+    <rect x="790" y="336" width="330" height="4" rx="2" fill="#c1614e"/>
+    <text x="814" y="374" fill="#1c1a17" font-weight="700">emil-design-eng</text>
+    <text x="814" y="402" fill="rgba(28,26,23,0.5)" font-size="13">交互专家</text>
+    <text x="814" y="428" fill="rgba(28,26,23,0.4)" font-size="12">动效 · 50–70ms 错峰</text>
+  </g>
+
+  <!-- headline finding -->
+  <g filter="url(#soft)"><rect x="80" y="500" width="1040" height="96" rx="16" fill="#1c1a17"/></g>
+  <text x="112" y="540" font-family="'JetBrains Mono', monospace" font-size="14" fill="#8a682c">一句话结论 · THE ONE TAKEAWAY</text>
+  <text x="112" y="574" font-family="'Cormorant Garamond', Georgia, serif" font-size="30" font-weight="600" fill="#f6f3ec">Skill 的作用是「禁止」,不是「教」。</text>
+
+  <text x="80" y="660" font-family="'JetBrains Mono', monospace" font-size="15" fill="#1c1a17" fill-opacity="0.5">禁令比正面示范更能打破模型的统计惯性 —— 禁掉紫色渐变、居中布局,而不是加花招</text>
+  <text x="80" y="702" font-family="'JetBrains Mono', monospace" font-size="14" fill="#1c1a17" fill-opacity="0.42">实验 / 评分 / 42 个页面均出自乔木 (Qiaomu · @vista8) · designskill.qiaomu.ai</text>
+</svg>
