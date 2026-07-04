@@ -560,6 +560,18 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState('home');
   const [workFilter, setWorkFilter] = useState<'all' | 'ai' | 'creative' | 'tool'>('all');
+  // Theme is resolved pre-paint by the index.html boot script; this just mirrors it.
+  const [theme, setTheme] = useState<'light' | 'dark'>(() =>
+    typeof document !== 'undefined' && document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light'
+  );
+  const toggleTheme = () => {
+    setTheme((prev) => {
+      const next = prev === 'light' ? 'dark' : 'light';
+      document.documentElement.dataset.theme = next;
+      try { window.localStorage.setItem('dalei-theme', next); } catch { /* private mode */ }
+      return next;
+    });
+  };
   const s2t = useS2T(lang === 'zhHant');
   const t = (txt: LocalizedText) =>
     lang === 'en' ? txt.en : lang === 'zhHant' ? (s2t ? s2t(txt.zh) : txt.zh) : txt.zh;
@@ -698,6 +710,13 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
           </div>
 
           <div className="flex items-center gap-2">
+            <button
+              onClick={toggleTheme}
+              aria-label={theme === 'light' ? '切换到深色模式 / Switch to dark mode' : '切换到浅色模式 / Switch to light mode'}
+              className="grid h-8 w-8 place-items-center rounded-full border border-ink/15 bg-ink/5 text-sm text-ink/70 transition-colors hover:border-gold/50 hover:text-ink"
+            >
+              <span aria-hidden="true">{theme === 'light' ? '☾' : '☀'}</span>
+            </button>
             <div className="inline-flex items-center rounded-full border border-ink/15 bg-ink/5 p-0.5 font-mono text-xs" role="group" aria-label="Language">
               {([['en', 'EN'], ['zh', '简'], ['zhHant', '繁']] as [Lang, string][]).map(([code, label]) => (
                 <button
@@ -805,12 +824,6 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
 
           <div className="hero-in" style={{ animationDelay: '0.5s' }}>
             <HeroFigure t={t} onOpen={() => window.open(SOCIALS.youtube, '_blank', 'noopener')} />
-          </div>
-
-          {/* scroll cue — a quiet rhythm line inviting the first scroll */}
-          <div className="hero-in absolute bottom-5 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 sm:flex" style={{ animationDelay: '1.1s' }} aria-hidden="true">
-            <span className="font-mono text-[10px] tracking-[0.3em] text-ink/40">SCROLL</span>
-            <span className="scroll-cue-line" />
           </div>
         </section>
 

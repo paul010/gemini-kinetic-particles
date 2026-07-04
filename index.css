@@ -2,16 +2,35 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Dual-mode tokens (taste-skill v2 dark-mode protocol): the whole palette is
+ * expressed as RGB triplets so Tailwind opacity modifiers (ink/10 etc.) keep
+ * working, and [data-theme="dark"] flips every page at once. Off-black and
+ * off-white on purpose; gold brightens in dark to stay AA-readable. */
 :root {
-  --paper: #f6f3ec;
-  --ink: #1c1a17;
-  --surface: #ece6da;
-  --accent: #1c1a17;
-  --accent-2: #8a8175;
-  --ember: #8a8175;
-  --gold: #8a682c;
-  --line: rgba(28, 26, 23, 0.12);
-  --muted: rgba(28, 26, 23, 0.58);
+  --rgb-paper: 246 243 236;
+  --rgb-ink: 28 26 23;
+  --rgb-surface: 236 230 218;
+  --rgb-gold: 138 104 44;
+  --rgb-accent2: 138 129 117;
+  color-scheme: light;
+
+  --paper: rgb(var(--rgb-paper));
+  --ink: rgb(var(--rgb-ink));
+  --surface: rgb(var(--rgb-surface));
+  --accent: rgb(var(--rgb-ink));
+  --accent-2: rgb(var(--rgb-accent2));
+  --ember: rgb(var(--rgb-accent2));
+  --gold: rgb(var(--rgb-gold));
+  --line: rgb(var(--rgb-ink) / 0.12);
+  --muted: rgb(var(--rgb-ink) / 0.58);
+}
+[data-theme='dark'] {
+  --rgb-paper: 25 23 20;
+  --rgb-ink: 233 227 216;
+  --rgb-surface: 36 33 29;
+  --rgb-gold: 200 162 92;
+  --rgb-accent2: 152 144 132;
+  color-scheme: dark;
 }
 
 * {
@@ -40,7 +59,7 @@ p {
 }
 
 ::selection {
-  background: rgba(28, 26, 23, 0.88);
+  background: rgb(var(--rgb-ink) / 0.88);
   color: var(--paper);
 }
 
@@ -67,11 +86,11 @@ p {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(28, 26, 23, 0.2);
+  background: rgb(var(--rgb-ink) / 0.2);
   border-radius: 999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(28, 26, 23, 0.32);
+  background: rgb(var(--rgb-ink) / 0.32);
 }
 
 /* Layout helpers */
@@ -101,6 +120,12 @@ p {
   filter: saturate(0.38) sepia(0.5) brightness(1.04);
   mix-blend-mode: multiply;
 }
+/* multiply disappears on a dark ground: switch the fluid to additive light */
+[data-theme='dark'] .fluid-bg {
+  mix-blend-mode: screen;
+  opacity: 0.2;
+  filter: saturate(0.45) sepia(0.35) brightness(0.85);
+}
 @media (prefers-reduced-motion: reduce) {
   .fluid-bg { display: none; }
 }
@@ -112,8 +137,8 @@ p {
   z-index: -2;
   pointer-events: none;
   background:
-    radial-gradient(120% 80% at 50% -10%, rgba(28, 26, 23, 0.05), transparent 55%),
-    radial-gradient(140% 95% at 50% 120%, rgba(28, 26, 23, 0.06), transparent 60%);
+    radial-gradient(120% 80% at 50% -10%, rgb(var(--rgb-ink) / 0.05), transparent 55%),
+    radial-gradient(140% 95% at 50% 120%, rgb(var(--rgb-ink) / 0.06), transparent 60%);
 }
 
 /* Drifting aurora — soft warm light that slowly breathes */
@@ -123,9 +148,9 @@ p {
   z-index: -2;
   pointer-events: none;
   background:
-    radial-gradient(35% 35% at 25% 30%, rgba(120, 90, 50, 0.05), transparent 70%),
-    radial-gradient(40% 40% at 78% 22%, rgba(28, 26, 23, 0.035), transparent 70%),
-    radial-gradient(45% 45% at 60% 80%, rgba(120, 90, 50, 0.04), transparent 70%);
+    radial-gradient(35% 35% at 25% 30%, rgb(var(--rgb-gold) / 0.05), transparent 70%),
+    radial-gradient(40% 40% at 78% 22%, rgb(var(--rgb-ink) / 0.035), transparent 70%),
+    radial-gradient(45% 45% at 60% 80%, rgb(var(--rgb-gold) / 0.04), transparent 70%);
   filter: blur(20px);
   animation: aurora-drift 22s ease-in-out infinite alternate;
 }
@@ -295,7 +320,7 @@ p {
   inset: -1px;
   border-radius: inherit;
   padding: 1px;
-  background: linear-gradient(130deg, rgba(28, 26, 23, 0.5), transparent 42%, rgba(28, 26, 23, 0.28));
+  background: linear-gradient(130deg, rgb(var(--rgb-ink) / 0.5), transparent 42%, rgb(var(--rgb-ink) / 0.28));
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
@@ -309,9 +334,9 @@ p {
 
 /* Pulsing availability dot */
 @keyframes pulse-dot {
-  0% { box-shadow: 0 0 0 0 rgba(138, 104, 44, 0.5); }
-  70% { box-shadow: 0 0 0 6px rgba(138, 104, 44, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(138, 104, 44, 0); }
+  0% { box-shadow: 0 0 0 0 rgb(var(--rgb-gold) / 0.5); }
+  70% { box-shadow: 0 0 0 6px rgb(var(--rgb-gold) / 0); }
+  100% { box-shadow: 0 0 0 0 rgb(var(--rgb-gold) / 0); }
 }
 .pulse-dot {
   animation: pulse-dot 2.4s ease-out infinite;
@@ -340,9 +365,13 @@ p {
   position: relative;
   overflow: hidden;
   border-radius: 3px;
-  border: 1px solid rgba(28, 26, 23, 0.18);
+  border: 1px solid rgb(var(--rgb-ink) / 0.18);
   background: var(--surface);
-  box-shadow: 0 40px 70px -38px rgba(28, 26, 23, 0.55);
+  box-shadow: 0 40px 70px -38px rgb(var(--rgb-ink) / 0.55);
+}
+/* shadows stay shadows in dark mode (a light "glow" would read as a mistake) */
+[data-theme='dark'] .plate {
+  box-shadow: 0 40px 70px -38px rgb(0 0 0 / 0.75);
 }
 .plate img {
   display: block;
@@ -371,7 +400,7 @@ p {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: linear-gradient(115deg, transparent 32%, rgba(246, 243, 236, 0.18) 48%, transparent 62%);
+  background: linear-gradient(115deg, transparent 32%, rgb(var(--rgb-paper) / 0.18) 48%, transparent 62%);
   transform: translateX(-110%);
   animation: plate-sweep 7.5s ease-in-out infinite;
 }
@@ -423,7 +452,7 @@ p {
 /* outlined display type — alternating solid/outline words sell the editorial strip */
 .text-outline {
   color: transparent;
-  -webkit-text-stroke: 1px rgba(28, 26, 23, 0.4);
+  -webkit-text-stroke: 1px rgb(var(--rgb-ink) / 0.4);
 }
 
 /* oversized ghost numeral behind each section heading (second-read moment) */
@@ -437,32 +466,9 @@ p {
   font-weight: 700;
   line-height: 0.8;
   color: transparent;
-  -webkit-text-stroke: 1.5px rgba(28, 26, 23, 0.1);
+  -webkit-text-stroke: 1.5px rgb(var(--rgb-ink) / 0.1);
   pointer-events: none;
   user-select: none;
-}
-
-/* hero scroll cue — a thin rhythm line with a gold pulse running down it */
-.scroll-cue-line {
-  position: relative;
-  width: 1px;
-  height: 48px;
-  background: rgba(28, 26, 23, 0.15);
-  overflow: hidden;
-}
-.scroll-cue-line::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 40%;
-  background: #8a682c;
-  animation: scroll-cue 2.4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-}
-@keyframes scroll-cue {
-  0% { transform: translateY(-100%); }
-  65%, 100% { transform: translateY(260%); }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -474,5 +480,4 @@ p {
   .work-row:hover .work-title { transform: none; }
   .marquee-track { animation: none; }
   .marquee-track:last-child { display: none; }
-  .scroll-cue-line::after { animation: none; }
 }

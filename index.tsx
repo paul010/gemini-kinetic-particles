@@ -27,11 +27,11 @@ const Chengdu = React.lazy(() => import('./chengdu/Chengdu'));
 
 const Loader: React.FC<{ label: string }> = ({ label }) => (
   <div
-    className="fixed inset-0 grid place-items-center bg-ink text-white/70"
+    className="fixed inset-0 grid place-items-center bg-ink text-paper/70"
     style={{ fontFamily: '"JetBrains Mono", monospace' }}
   >
     <div className="flex flex-col items-center gap-3">
-      <span className="h-8 w-8 animate-spin rounded-full border-2 border-white/20 border-t-accent" />
+      <span className="h-8 w-8 animate-spin rounded-full border-2 border-paper/20 border-t-gold" />
       <span className="text-xs tracking-widest">{label}</span>
     </div>
   </div>
