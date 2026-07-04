@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" role="img" aria-label="3D prompt workbench — prompts become live Three.js scenes; Cappadocia balloons executed first">
+  <defs>
+    <linearGradient id="dawn" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2b2c48"/><stop offset="0.55" stop-color="#b96f4e"/><stop offset="1" stop-color="#e8956c"/></linearGradient>
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="1200" height="750" fill="url(#dawn)"/>
+  <circle cx="880" cy="470" r="60" fill="#ffd9a0" opacity="0.9"/>
+
+  <text x="80" y="104" font-family="'JetBrains Mono', monospace" font-size="50" font-weight="700" fill="#fdf6ea">3D PROMPT LAB</text>
+  <text x="82" y="148" font-family="'JetBrains Mono', monospace" font-size="19" fill="#ffd9a0">63 条提示词 → 真实 Three.js 场景 · #26 已生成</text>
+
+  <!-- fairy chimneys silhouette -->
+  <g fill="#3a2b22">
+    <path d="M60 750 L60 560 Q60 520 88 520 Q116 520 116 560 L116 750 Z"/>
+    <path d="M52 540 L84 480 L124 540 Z"/>
+    <path d="M180 750 L180 610 Q180 575 204 575 Q228 575 228 610 L228 750 Z"/>
+    <path d="M172 592 L204 545 L236 592 Z"/>
+    <path d="M950 750 L950 590 Q950 550 980 550 Q1010 550 1010 590 L1010 750 Z"/>
+    <path d="M942 568 L980 512 L1018 568 Z"/>
+    <path d="M1080 750 L1080 640 Q1080 610 1102 610 Q1124 610 1124 640 L1124 750 Z"/>
+    <path d="M1072 626 L1102 585 L1132 626 Z"/>
+  </g>
+  <g fill="#241a12">
+    <rect x="78" y="600" width="18" height="26" rx="8"/>
+    <rect x="196" y="640" width="14" height="20" rx="7"/>
+    <rect x="972" y="620" width="16" height="24" rx="8"/>
+  </g>
+  <rect x="0" y="742" width="1200" height="8" fill="#3a2b22"/>
+
+  <!-- balloons -->
+  <g filter="url(#soft)">
+    <!-- big foreground balloon -->
+    <path d="M600 250 q-95 8 -95 118 q0 78 68 116 l10 26 l34 0 l10 -26 q68 -38 68 -116 q0 -110 -95 -118 Z" fill="#d9463e"/>
+    <path d="M567 250 q-30 40 -30 122 q0 80 33 138 l14 0 q-22 -60 -22 -138 q0 -84 20 -122 Z" fill="#ead15b"/>
+    <path d="M633 250 q30 40 30 122 q0 80 -33 138 l-14 0 q22 -60 22 -138 q0 -84 -20 -122 Z" fill="#e8933c"/>
+    <rect x="577" y="540" width="46" height="8" fill="none" stroke="#4a3524" stroke-width="3"/>
+    <rect x="580" y="548" width="40" height="30" rx="5" fill="#7a5a38"/>
+    <path d="M593 522 q7 -16 14 0 q-7 8 -14 0 Z" fill="#ffa93d"/>
+  </g>
+  <g opacity="0.95">
+    <ellipse cx="330" cy="330" rx="44" ry="52" fill="#4f9d69"/><rect x="318" y="392" width="24" height="16" rx="3" fill="#7a5a38"/>
+    <ellipse cx="450" cy="180" rx="30" ry="36" fill="#3f7fb5"/><rect x="442" y="222" width="16" height="11" rx="2" fill="#7a5a38"/>
+    <ellipse cx="770" cy="220" rx="38" ry="46" fill="#8a5cab"/><rect x="759" y="274" width="21" height="14" rx="3" fill="#7a5a38"/>
+    <ellipse cx="880" cy="120" rx="24" ry="29" fill="#d96a9b"/><rect x="874" y="153" width="13" height="9" rx="2" fill="#7a5a38"/>
+    <ellipse cx="180" cy="200" rx="20" ry="24" fill="#e0e3e8"/><rect x="175" y="228" width="11" height="8" rx="2" fill="#7a5a38"/>
+    <ellipse cx="1040" cy="300" rx="30" ry="36" fill="#ead15b"/><rect x="1032" y="342" width="16" height="11" rx="2" fill="#7a5a38"/>
+  </g>
+
+  <!-- prompt card chip -->
+  <g filter="url(#soft)">
+    <rect x="80" y="620" width="560" height="96" rx="14" fill="#fdf6ea" opacity="0.96"/>
+    <text x="104" y="658" font-family="'JetBrains Mono', monospace" font-size="15" fill="#8a682c">#26 · Natural Spectacles · ★ 已生成</text>
+    <text x="104" y="690" font-family="Georgia, serif" font-size="22" font-weight="700" fill="#1c1a17">CAPPADOCIA HOT AIR BALLOONS</text>
+  </g>
+
+  <text x="80" y="590" font-family="'JetBrains Mono', monospace" font-size="14" fill="#fdf6ea" fill-opacity="0.7">prompts by petergpt · executed by 大雷 · 复制提示词,或直接开进场景</text>
+</svg>
