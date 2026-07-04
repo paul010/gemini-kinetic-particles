@@ -410,6 +410,28 @@ export const PROJECTS: Project[] = [
     ],
   },
   {
+    id: 'chengdu-guide',
+    category: 'creative',
+    title: { en: 'Chengdu, from Taikoo Li', zh: '成都指南 · 以太古里为原点' },
+    year: '2026',
+    status: 'live',
+    featured: true,
+    cover: '/chengdu-cover.svg',
+    tagline: {
+      en: 'A July business-trip field guide — interactive prep checklist, the Chengdu flavor cheat sheet, four evenings and one stolen morning.',
+      zh: '七月出差版实用指南 —— 可勾选的行前清单、成都特色速查、四个晚上加偷来的一个上午。',
+    },
+    description: {
+      en: 'A bilingual field guide to Chengdu built around one anchor: Chunxi Road station and Taikoo Li. An interactive prepare-ahead checklist with D-day offsets (the panda base opens booking 14 days out — the one you must not miss), ticks persisted in your browser; a Chengdu-flavor cheat sheet across eat / sip / watch / say (鸳鸯锅 etiquette, gaiwan tea, ear cleaning, face-changing, and how to use 巴适 correctly); and a business-trip itinerary that fits four evenings plus one stolen 7:30am panda morning. Deliberately free of personal itinerary details.',
+      zh: '一份以「春熙路站 + 太古里」为原点的双语成都指南。可交互的行前准备清单,按 D-日倒推(熊猫基地提前 14 天开约 —— 全场最不能错过的一项),勾选状态存在浏览器里;成都特色速查表覆盖吃/喝/看/说(鸳鸯锅的体面、盖碗茶、采耳、变脸,以及「巴适」的正确用法);再加一份适配出差节奏的行程 —— 四个晚上,加偷出来的一个 7:30 熊猫上午。页面刻意不含个人具体行程。',
+    },
+    tags: ['Travel', 'Chengdu', 'Checklist', 'Guide'],
+    links: [
+      { label: { en: 'Open the guide', zh: '打开指南' }, href: '/chengdu', kind: 'internal' },
+      { label: { en: 'Panda Base tickets', zh: '熊猫基地票务' }, href: 'https://www.panda.org.cn/cn/pandavalley/tickets/', kind: 'live' },
+    ],
+  },
+  {
     id: 'dino-blaster',
     category: 'creative',
     title: { en: 'Dino Blaster', zh: 'Dino Blaster · 加特林 vs 恐龙' },

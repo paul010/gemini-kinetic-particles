@@ -56,6 +56,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://dailycosmos.net/chengdu</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://dailycosmos.net/patterns</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
