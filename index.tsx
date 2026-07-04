@@ -23,6 +23,7 @@ const CICI = React.lazy(() => import('./cici/CICI'));
 const DesignSkill = React.lazy(() => import('./designskill/DesignSkill'));
 const VideoGen = React.lazy(() => import('./videogen/VideoGen'));
 const DinoBlaster = React.lazy(() => import('./dino/DinoBlaster'));
+const Chengdu = React.lazy(() => import('./chengdu/Chengdu'));
 
 const Loader: React.FC<{ label: string }> = ({ label }) => (
   <div
@@ -36,7 +37,7 @@ const Loader: React.FC<{ label: string }> = ({ label }) => (
   </div>
 );
 
-type Route = 'home' | 'particles' | 'arsenal' | 'md' | 'img' | 's2c' | 'fluid' | 'r3f' | 'bench' | 'fugu' | 'copilot' | 'agents' | 'skills' | 'uml' | 'town' | 'patterns' | 'prompts' | 'cici' | 'designskill' | 'videogen' | 'dino';
+type Route = 'home' | 'particles' | 'arsenal' | 'md' | 'img' | 's2c' | 'fluid' | 'r3f' | 'bench' | 'fugu' | 'copilot' | 'agents' | 'skills' | 'uml' | 'town' | 'patterns' | 'prompts' | 'cici' | 'designskill' | 'videogen' | 'dino' | 'chengdu';
 
 const routeFromLocation = (): Route => {
   const { pathname, hash } = window.location;
@@ -61,6 +62,7 @@ const routeFromLocation = (): Route => {
   if (p.endsWith('/designskill') || hash === '#/designskill') return 'designskill';
   if (p.endsWith('/videogen') || hash === '#/videogen') return 'videogen';
   if (p.endsWith('/dino') || hash === '#/dino') return 'dino';
+  if (p.endsWith('/chengdu') || hash === '#/chengdu') return 'chengdu';
   return 'home';
 };
 
@@ -113,6 +115,7 @@ const Router: React.FC = () => {
       designskill: '设计 Skill 实测 · Design Skill Lab · 大雷',
       videogen: 'AI 视频生成流程 · 3 模型 1 Key · 大雷',
       dino: 'Dino Blaster · 加特林 vs 恐龙 · 大雷',
+      chengdu: '成都指南 · 以太古里为原点 · 大雷',
     };
     document.title = titles[route];
   }, [route]);
@@ -281,6 +284,14 @@ const Router: React.FC = () => {
     return (
       <Suspense fallback={<Loader label="LOADING DINOS…" />}>
         <DinoBlaster onHome={() => navigate('/')} />
+      </Suspense>
+    );
+  }
+
+  if (route === 'chengdu') {
+    return (
+      <Suspense fallback={<Loader label="LOADING…" />}>
+        <Chengdu onHome={() => navigate('/')} />
       </Suspense>
     );
   }

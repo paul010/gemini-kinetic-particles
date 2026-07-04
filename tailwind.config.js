@@ -20,6 +20,7 @@ export default {
     './designskill/**/*.{ts,tsx}',
     './videogen/**/*.{ts,tsx}',
     './dino/**/*.{ts,tsx}',
+    './chengdu/**/*.{ts,tsx}',
   ],
   theme: {
     extend: {
