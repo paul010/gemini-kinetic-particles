@@ -73,65 +73,73 @@ export const youtubeThumb = (id: string) => `https://i.ytimg.com/vi/${id}/hqdefa
 
 /**
  * The video index is kept in the dalei-youtube repo's README. We fetch it at
- * runtime (via jsDelivr's CORS-enabled CDN) and parse the latest episodes, so
- * the homepage stays current without code changes. Falls back to VIDEOS below.
+ * runtime and parse the latest episodes, so the homepage stays current without
+ * code changes. Falls back to VIDEOS below.
+ *
+ * Source note: we fetch from raw.githubusercontent.com (CORS-enabled, ~5-min
+ * edge cache) rather than jsDelivr. jsDelivr caches branch files for ~12h and
+ * serves the stale copy with a 200, which would silently overwrite the list
+ * with old episodes for hours after a README update.
  */
-export const VIDEOS_README_URL = 'https://cdn.jsdelivr.net/gh/paul010/dalei-youtube@master/README.md';
+export const VIDEOS_README_URL = 'https://raw.githubusercontent.com/paul010/dalei-youtube/master/README.md';
 
-/** Latest episodes — sourced from github.com/paul010/dalei-youtube. */
+/** Latest episodes — sourced from github.com/paul010/dalei-youtube.
+ * This is the fallback/first-paint list; the homepage fetches the live README
+ * at runtime and overrides it. Kept in sync with the newest episodes so the
+ * curated bilingual titles are used even when the live parse succeeds. */
 export const VIDEOS: VideoItem[] = [
   {
-    id: 'Zv4hXUhzwbU',
-    date: '2026-06-11',
-    duration: '7:49',
+    id: 'bzEinn6u7ag',
+    date: '2026-07-05',
+    duration: '7:09',
     title: {
-      en: 'Fable 5 is INSANE! Create a game in one sentence',
-      zh: 'Fable 5 强到离谱！一句话生成游戏，最强 AI 王座易主？',
+      en: "Fable 5's inner monologue leaked — does AI secretly think in 'Claudenese'?",
+      zh: 'Fable 5 内心独白泄露！AI 竟用「克劳德语」秘密思考？',
     },
   },
   {
-    id: 'XjYrACWk-98',
-    date: '2026-06-10',
-    duration: '17:47',
+    id: 'VuYTg4ghlwI',
+    date: '2026-07-05',
+    duration: '8:11',
     title: {
-      en: 'Billion-dollar valuation, yet calling for an AI pause?',
-      zh: '估值千亿却叫停 AI？Anthropic 内部揭秘：RSI 的真相！',
+      en: "The biggest secret of GPT-5.6: why it will 'dance in shackles'",
+      zh: 'GPT-5.6 最大秘密：为何它将「戴着镣铐跳舞」？',
     },
   },
   {
-    id: 'DYoum8FiOzI',
-    date: '2026-06-07',
-    duration: '9:35',
+    id: 'DY585co5C2k',
+    date: '2026-07-04',
+    duration: '8:47',
     title: {
-      en: "AI world quake! Anthropic's new ace halted by an insider leak",
-      zh: 'AI 圈大地震！Anthropic 新王牌因内鬼泄密，紧急叫停',
+      en: "Claude Sonnet 5: Opus-level performance? But there's a huge pricing trap",
+      zh: 'Claude Sonnet 5：性能直逼 Opus？价格竟有大陷阱！',
     },
   },
   {
-    id: 'i0fgwuxG4p0',
-    date: '2026-06-06',
-    duration: '9:57',
+    id: 'GRfMMr9MvoM',
+    date: '2026-06-29',
+    duration: '9:30',
     title: {
-      en: 'AI gods at war! GPT-5.6 next week? Microsoft & Alibaba go all in',
-      zh: 'AI 圈神仙打架！GPT 5.6 下周发布？微软阿里连放大招',
+      en: 'AI world explodes! Fable 5 appears, then vanishes? GPT-5 secrets leaked',
+      zh: 'AI 圈炸锅！Fable 5 现身又消失？GPT-5 秘密泄露',
     },
   },
   {
-    id: 'q4X4cD-Phyk',
-    date: '2026-06-03',
-    duration: '7:26',
+    id: 'YTVzy2fa3eg',
+    date: '2026-06-28',
+    duration: '9:05',
     title: {
-      en: "Microsoft's AI bombshell! New Windows features nobody told you about",
-      zh: '微软 AI 王炸！没人告诉你的 Windows 新功能，开发者狂喜！',
+      en: "99% of people are fooled! The truth about Sakana Fugu — it isn't even a model",
+      zh: '99% 的人都被骗了！深度揭秘 Sakana Fugu，它根本不是一个模型！',
     },
   },
   {
-    id: 'kxQpKt17qnM',
-    date: '2026-06-03',
-    duration: '11:27',
+    id: 'od-h3z3IBvI',
+    date: '2026-06-23',
+    duration: '10:24',
     title: {
-      en: 'MiniMax M3 shocks! Performance surpasses GPT-5.5',
-      zh: 'MiniMax M3 震撼发布！性能反超 GPT-5.5，最强开源 AI 来了？',
+      en: 'AI model war! GPT-5, Sonnet 5 secrets exposed',
+      zh: 'AI 大模型巨头混战！GPT-5、Sonnet 5 秘密曝光',
     },
   },
 ];
