@@ -86,6 +86,21 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://dailycosmos.net/harbin</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://dailycosmos.net/forbiddencity</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://dailycosmos.net/brooksfalls</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://dailycosmos.net/patterns</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
