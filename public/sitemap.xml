@@ -71,6 +71,21 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://dailycosmos.net/zhangjiajie</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://dailycosmos.net/niagara</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://dailycosmos.net/fireflies</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://dailycosmos.net/patterns</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>

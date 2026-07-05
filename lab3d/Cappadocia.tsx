@@ -141,6 +141,7 @@ const Cappadocia: React.FC<Props> = ({ onBack }) => {
       }
       winMesh.count = wi;
     }
+    bodyMesh.frustumCulled = false; capMesh.frustumCulled = false; winMesh.frustumCulled = false;
     scene.add(bodyMesh, capMesh, winMesh);
 
     /* ---------- balloons: lathe envelopes (plain + striped), wicker baskets,
@@ -182,6 +183,7 @@ const Cappadocia: React.FC<Props> = ({ onBack }) => {
     baskets.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
     skirts.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
     flames.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
+    for (const im of [envPlain, envStriped, baskets, skirts, flames]) im.frustumCulled = false;
     scene.add(envPlain, envStriped, baskets, skirts, flames);
 
     interface Balloon {

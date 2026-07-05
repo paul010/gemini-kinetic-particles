@@ -37,6 +37,9 @@ export interface LabPrompt {
  * prompts get executed; each links a prompt number to its live page. */
 const EXECUTED: { n: number; route: string; resultLabel: LocalizedText }[] = [
   { n: 26, route: '/cappadocia', resultLabel: { en: 'Balloons at dawn — live', zh: '黎明热气球 · 已上线' } },
+  { n: 30, route: '/zhangjiajie', resultLabel: { en: 'Glide the mist — live', zh: '雾中滑翔 · 已上线' } },
+  { n: 53, route: '/niagara', resultLabel: { en: 'Ride into the falls — live', zh: '登船入瀑 · 已上线' } },
+  { n: 56, route: '/fireflies', resultLabel: { en: 'Watch the synchrony — live', zh: '同步之光 · 已上线' } },
 ];
 
 export const LAB_PROMPTS: LabPrompt[] = prompts.map((p, i) => {
