@@ -29,6 +29,9 @@ const Cappadocia = React.lazy(() => import('./lab3d/Cappadocia'));
 const Zhangjiajie = React.lazy(() => import('./lab3d/Zhangjiajie'));
 const Niagara = React.lazy(() => import('./lab3d/Niagara'));
 const Fireflies = React.lazy(() => import('./lab3d/Fireflies'));
+const Harbin = React.lazy(() => import('./lab3d/Harbin'));
+const ForbiddenCity = React.lazy(() => import('./lab3d/ForbiddenCity'));
+const BrooksFalls = React.lazy(() => import('./lab3d/BrooksFalls'));
 
 const Loader: React.FC<{ label: string }> = ({ label }) => (
   <div
@@ -42,7 +45,7 @@ const Loader: React.FC<{ label: string }> = ({ label }) => (
   </div>
 );
 
-type Route = 'home' | 'particles' | 'arsenal' | 'md' | 'img' | 's2c' | 'fluid' | 'r3f' | 'bench' | 'fugu' | 'copilot' | 'agents' | 'skills' | 'uml' | 'town' | 'patterns' | 'prompts' | 'cici' | 'designskill' | 'videogen' | 'dino' | 'chengdu' | 'lab3d' | 'cappadocia' | 'zhangjiajie' | 'niagara' | 'fireflies';
+type Route = 'home' | 'particles' | 'arsenal' | 'md' | 'img' | 's2c' | 'fluid' | 'r3f' | 'bench' | 'fugu' | 'copilot' | 'agents' | 'skills' | 'uml' | 'town' | 'patterns' | 'prompts' | 'cici' | 'designskill' | 'videogen' | 'dino' | 'chengdu' | 'lab3d' | 'cappadocia' | 'zhangjiajie' | 'niagara' | 'fireflies' | 'harbin' | 'forbiddencity' | 'brooksfalls';
 
 const routeFromLocation = (): Route => {
   const { pathname, hash } = window.location;
@@ -73,6 +76,9 @@ const routeFromLocation = (): Route => {
   if (p.endsWith('/zhangjiajie') || hash === '#/zhangjiajie') return 'zhangjiajie';
   if (p.endsWith('/niagara') || hash === '#/niagara') return 'niagara';
   if (p.endsWith('/fireflies') || hash === '#/fireflies') return 'fireflies';
+  if (p.endsWith('/harbin') || hash === '#/harbin') return 'harbin';
+  if (p.endsWith('/forbiddencity') || hash === '#/forbiddencity') return 'forbiddencity';
+  if (p.endsWith('/brooksfalls') || hash === '#/brooksfalls') return 'brooksfalls';
   return 'home';
 };
 
@@ -95,7 +101,7 @@ const Router: React.FC = () => {
 
   // The particle experience is a fixed full-screen canvas; other routes scroll.
   useEffect(() => {
-    const fullScreen = ['particles', 'md', 's2c', 'fluid', 'r3f', 'uml', 'dino', 'cappadocia', 'zhangjiajie', 'niagara', 'fireflies'];
+    const fullScreen = ['particles', 'md', 's2c', 'fluid', 'r3f', 'uml', 'dino', 'cappadocia', 'zhangjiajie', 'niagara', 'fireflies', 'harbin', 'forbiddencity', 'brooksfalls'];
     document.body.style.overflow = fullScreen.includes(route) ? 'hidden' : 'auto';
     return () => {
       document.body.style.overflow = 'auto';
@@ -132,6 +138,9 @@ const Router: React.FC = () => {
       zhangjiajie: '张家界雾中滑翔 · #30 已生成 · 大雷',
       niagara: '尼亚加拉活瀑布 · #53 已生成 · 大雷',
       fireflies: '萤火虫同步之光 · #56 已生成 · 大雷',
+      harbin: '哈尔滨冰雪大世界 · #8 已生成 · 大雷',
+      forbiddencity: '紫禁城初雪 · #9 已生成 · 大雷',
+      brooksfalls: '布鲁克斯瀑布鲑鱼洄游 · #59 已生成 · 大雷',
     };
     document.title = titles[route];
   }, [route]);
@@ -348,6 +357,30 @@ const Router: React.FC = () => {
     return (
       <Suspense fallback={<Loader label="WAKING THE FIREFLIES…" />}>
         <Fireflies onBack={() => navigate('/lab3d')} />
+      </Suspense>
+    );
+  }
+
+  if (route === 'harbin') {
+    return (
+      <Suspense fallback={<Loader label="CARVING THE ICE CITY…" />}>
+        <Harbin onBack={() => navigate('/lab3d')} />
+      </Suspense>
+    );
+  }
+
+  if (route === 'forbiddencity') {
+    return (
+      <Suspense fallback={<Loader label="SNOW ON THE PALACE…" />}>
+        <ForbiddenCity onBack={() => navigate('/lab3d')} />
+      </Suspense>
+    );
+  }
+
+  if (route === 'brooksfalls') {
+    return (
+      <Suspense fallback={<Loader label="THE RUN BEGINS…" />}>
+        <BrooksFalls onBack={() => navigate('/lab3d')} />
       </Suspense>
     );
   }

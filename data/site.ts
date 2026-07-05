@@ -418,8 +418,8 @@ export const PROJECTS: Project[] = [
     featured: true,
     cover: '/lab3d-cover.svg',
     tagline: {
-      en: '63 Three.js scene prompts from petergpt — browse, copy, and watch them become live pages. Four executed: balloons, misty pillars, the falls, fireflies.',
-      zh: '63 条来自 petergpt 的 Three.js 场景提示词 —— 浏览、复制、看它们变成真实页面。已生成 4 个:热气球、雾中石林、大瀑布、萤火虫。',
+      en: '63 Three.js scene prompts from petergpt — browse, copy, and watch them become live pages. Seven executed: balloons, misty pillars, the falls, fireflies, the ice city, the palace, the salmon run.',
+      zh: '63 条来自 petergpt 的 Three.js 场景提示词 —— 浏览、复制、看它们变成真实页面。已生成 7 个:热气球、雾中石林、大瀑布、萤火虫、冰城、紫禁城、鲑鱼洄游。',
     },
     description: {
       en: 'A workbench that turns a prompt collection into living results. All 63 prompts from petergpt/3d-prompt-collection are vendored verbatim with credit — searchable by section (big worlds, playable scenes, natural spectacles…), each copyable in one click. The twist: prompts I actually execute become full-screen Three.js pages launched right from their card. Prompt #26 is live — 90 instanced hot-air balloons drifting over fairy chimneys at dawn, with a time-of-day slider, wind controls, and a ride-along basket camera. More prompts get executed on request; the workbench is the results index.',

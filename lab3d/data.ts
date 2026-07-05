@@ -40,6 +40,9 @@ const EXECUTED: { n: number; route: string; resultLabel: LocalizedText }[] = [
   { n: 30, route: '/zhangjiajie', resultLabel: { en: 'Glide the mist — live', zh: '雾中滑翔 · 已上线' } },
   { n: 53, route: '/niagara', resultLabel: { en: 'Ride into the falls — live', zh: '登船入瀑 · 已上线' } },
   { n: 56, route: '/fireflies', resultLabel: { en: 'Watch the synchrony — live', zh: '同步之光 · 已上线' } },
+  { n: 8, route: '/harbin', resultLabel: { en: 'Enter the ice city — live', zh: '走进冰城 · 已上线' } },
+  { n: 9, route: '/forbiddencity', resultLabel: { en: 'First snow — live', zh: '紫禁初雪 · 已上线' } },
+  { n: 59, route: '/brooksfalls', resultLabel: { en: 'The salmon run — live', zh: '鲑鱼洄游 · 已上线' } },
 ];
 
 export const LAB_PROMPTS: LabPrompt[] = prompts.map((p, i) => {
