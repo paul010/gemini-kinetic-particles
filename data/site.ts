@@ -300,6 +300,28 @@ export const PROJECTS: Project[] = [
     ],
   },
   {
+    id: 'copilot-camp-cowork',
+    category: 'ai',
+    title: { en: 'Copilot Camp — Cowork Course', zh: 'Copilot Camp — Cowork 学习课' },
+    year: '2026',
+    status: 'live',
+    featured: true,
+    cover: '/copilotcamp-cover.svg',
+    tagline: {
+      en: 'Microsoft’s Copilot Cowork lab, rebuilt as a Khan-Academy-style course — units, progress, and a quiz per lesson.',
+      zh: '把微软的 Copilot Cowork 实验重建成可汗学院式课程 —— 单元、进度、每节随堂检测。',
+    },
+    description: {
+      en: 'A bilingual learning rebuild of Microsoft Copilot Camp’s lab "CWRK0 · Copilot Cowork setup and extensibility". Not a flat article — a real course: four units (understand Cowork → prepare your tenant → run your first delegated tasks → extend it with Skills & Plugins), a progress sidebar with persisted completion, copyable demo prompts, every official screenshot vendored into this repo, and a knowledge check after every lesson. Content & screenshots © Microsoft, used for study.',
+      zh: '把微软 Copilot Camp 的实验「CWRK0 · Copilot Cowork setup and extensibility」做成双语学习课程。不是平铺文章 —— 是一门真正的课：四个单元（理解 Cowork → 准备租户 → 跑通第一批委托任务 → 用 Skill 与 Plugin 扩展），带进度侧栏与本地保存的完成状态、可一键复制的示例提示词、把官方所有截图收录进本仓库直接调用，且每节课后都有随堂检测。内容与截图版权归 Microsoft，仅供学习。',
+    },
+    tags: ['Microsoft Copilot', 'Cowork', 'Course', 'Learning'],
+    links: [
+      { label: { en: 'Start the course', zh: '开始学习' }, href: '/copilotcamp', kind: 'internal' },
+      { label: { en: 'Original lab', zh: '实验原文' }, href: 'https://microsoft.github.io/copilot-camp/pages/copilot-cowork/00-cowork-setup/', kind: 'live' },
+    ],
+  },
+  {
     id: 'agent-templates',
     category: 'ai',
     title: { en: 'Agent Templates', zh: 'Agent 模板库' },

@@ -11,6 +11,7 @@ export default {
     './bench/**/*.{ts,tsx}',
     './fugu/**/*.{ts,tsx}',
     './copilot/**/*.{ts,tsx}',
+    './copilotcamp/**/*.{ts,tsx}',
     './agents/**/*.{ts,tsx}',
     './skills/**/*.{ts,tsx}',
     './town/**/*.{ts,tsx}',
