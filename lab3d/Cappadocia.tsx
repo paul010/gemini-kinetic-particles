@@ -339,6 +339,16 @@ const Cappadocia: React.FC<Props> = ({ onBack }) => {
       cancelAnimationFrame(raf);
       window.removeEventListener('resize', onResize);
       controls.dispose();
+      // free GPU resources on route teardown — repeated SPA visits must not
+      // accumulate geometries/materials/textures (Codex review, PR #62)
+      scene.traverse((obj) => {
+        const mesh = obj as THREE.Mesh;
+        if (mesh.geometry) mesh.geometry.dispose();
+        const mat = mesh.material as THREE.Material | THREE.Material[] | undefined;
+        if (Array.isArray(mat)) mat.forEach((m) => m.dispose());
+        else if (mat) mat.dispose();
+      });
+      stripeTex.dispose();
       renderer.dispose();
       mount.removeChild(renderer.domElement);
     };
