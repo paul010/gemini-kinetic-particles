@@ -425,8 +425,11 @@ const ProjectCard: React.FC<{
   lang: Lang;
   t: (txt: LocalizedText) => string;
   onInternal: (href: string) => void;
-}> = ({ project: p, lang, t, onInternal }) => {
+  /** 'lg' renders the editors-pick variant: wider cover, bigger type. */
+  size?: 'md' | 'lg';
+}> = ({ project: p, lang, t, onInternal, size = 'md' }) => {
   const [imgError, setImgError] = useState(false);
+  const lg = size === 'lg';
   const launchLink = p.links.find((l) => l.kind === 'internal');
   const externalLink = p.links.find((l) => l.kind !== 'internal');
   const primary = launchLink ?? externalLink;
@@ -436,7 +439,7 @@ const ProjectCard: React.FC<{
   };
   return (
     <article className="project-card reveal group flex flex-col overflow-hidden rounded-2xl border border-ink/10 bg-surface/50 backdrop-blur-sm transition-all hover:-translate-y-1 hover:border-gold/40">
-      <button onClick={onCover} className="relative block aspect-[16/10] w-full overflow-hidden" aria-label={t(p.title)}>
+      <button onClick={onCover} className={`relative block w-full overflow-hidden ${lg ? 'aspect-[16/9]' : 'aspect-[16/10]'}`} aria-label={t(p.title)}>
         {p.cover && !imgError ? (
           <img src={p.cover} alt={t(p.title)} loading="lazy" onError={() => setImgError(true)}
             className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.05]" />
@@ -454,16 +457,16 @@ const ProjectCard: React.FC<{
           </span>
         )}
       </button>
-      <div className="flex flex-1 flex-col p-4 sm:p-5">
+      <div className={`flex flex-1 flex-col ${lg ? 'p-5 sm:p-7' : 'p-4 sm:p-5'}`}>
         <div className="flex items-center justify-between gap-2">
           {statusBadge(p.status, t)}
           <span className="font-mono text-[11px] text-ink/40">{p.year}</span>
         </div>
-        <h3 className="mt-2.5 font-display text-lg font-semibold tracking-tight sm:text-xl">{t(p.title)}</h3>
-        <p className="mt-1.5 line-clamp-2 flex-1 text-[13px] leading-relaxed text-ink/60 sm:text-sm">{t(p.tagline)}</p>
+        <h3 className={`mt-2.5 font-display font-semibold tracking-tight ${lg ? 'text-xl sm:text-2xl' : 'text-lg sm:text-xl'}`}>{t(p.title)}</h3>
+        <p className={`mt-1.5 flex-1 leading-relaxed text-ink/60 ${lg ? 'line-clamp-3 text-sm sm:text-[15px]' : 'line-clamp-2 text-[13px] sm:text-sm'}`}>{t(p.tagline)}</p>
         {p.tags.length > 0 && (
           <div className="mt-3 flex flex-wrap gap-1.5">
-            {p.tags.slice(0, 3).map((tag) => (
+            {p.tags.slice(0, lg ? 4 : 3).map((tag) => (
               <span key={tag} className="hidden rounded-md border border-ink/10 bg-ink/[0.03] px-2 py-0.5 font-mono text-[10.5px] text-ink/55 sm:inline">{tag}</span>
             ))}
           </div>
@@ -805,7 +808,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
               </Magnetic>
             </div>
 
-            <div className="hero-in mt-12 flex flex-wrap items-center gap-5 text-ink/55" style={{ animationDelay: '0.7s' }}>
+            <div className="hero-in mt-12 flex flex-wrap items-center gap-5 border-t border-ink/10 pt-6 text-ink/55" style={{ animationDelay: '0.7s' }}>
               <a href={SOCIALS.github} target="_blank" rel="noreferrer" className="transition-colors hover:text-ink" aria-label="GitHub">
                 <GitHubIcon className="h-5 w-5" />
               </a>
@@ -819,6 +822,10 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
                 <MailIcon className="h-5 w-5" />
               </a>
               <span className="font-mono text-xs tracking-wide text-ink/35">@dalei2025 · @paul010318</span>
+              <span className="inline-flex items-center gap-2 rounded-full border border-gold/40 bg-gold/10 px-3 py-1 font-mono text-[11px] uppercase tracking-wider text-gold sm:ml-auto">
+                <span className="pulse-dot h-1.5 w-1.5 rounded-full bg-gold" />
+                {t(COPY.hero.availability)}
+              </span>
             </div>
           </div>
 
@@ -885,8 +892,17 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
                 ))}
               </div>
             </div>
+            {/* Editors' picks — the first two of the (filtered) list get a wider,
+                larger card so the wall of tiles reads as headline → picks → index. */}
+            {tiles.length > 0 && (
+              <div className="grid gap-3 sm:grid-cols-2 sm:gap-5">
+                {tiles.slice(0, 2).map((p) => (
+                  <ProjectCard key={p.id} project={p} lang={lang} t={t} onInternal={onNavigate} size="lg" />
+                ))}
+              </div>
+            )}
             <div className="grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-3">
-              {tiles.map((p) => (
+              {tiles.slice(2).map((p) => (
                 <ProjectCard key={p.id} project={p} lang={lang} t={t} onInternal={onNavigate} />
               ))}
             </div>
@@ -913,8 +929,49 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
             </a>
           </div>
 
+          {/* Latest episode — a full-width split feature, magazine-style; the
+              rest stay in the compact grid below. */}
+          {videos[0] && (
+            <a
+              href={youtubeWatch(videos[0].id)}
+              target="_blank"
+              rel="noreferrer"
+              className="video-card reveal group mb-6 flex flex-col overflow-hidden rounded-2xl border border-ink/10 bg-surface/50 backdrop-blur-sm transition-all hover:-translate-y-1 hover:border-gold/40 lg:flex-row"
+            >
+              <div className="relative aspect-video overflow-hidden bg-surface lg:aspect-auto lg:w-[58%]">
+                <img
+                  src={youtubeThumb(videos[0].id)}
+                  alt={t(videos[0].title)}
+                  loading="lazy"
+                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+                />
+                <span className="absolute bottom-3 right-3 rounded bg-black/75 px-2 py-0.5 font-mono text-xs text-white">
+                  {videos[0].duration}
+                </span>
+                <span className="absolute inset-0 grid place-items-center">
+                  <span className="grid h-14 w-14 scale-90 place-items-center rounded-full bg-paper/90 text-ink opacity-0 shadow-lg transition-all duration-300 group-hover:scale-100 group-hover:opacity-100">
+                    <PlayIcon className="ml-0.5 h-6 w-6" />
+                  </span>
+                </span>
+              </div>
+              <div className="flex flex-1 flex-col justify-center p-6 sm:p-8 lg:p-9">
+                <p className="flex items-center gap-2.5 font-mono text-[11px] uppercase tracking-[0.18em] text-ink/45">
+                  <span className="rounded-full bg-gold px-2 py-0.5 font-semibold text-paper">{t(COPY.videos.new)}</span>
+                  {videos[0].date}
+                </p>
+                <h3 className="mt-3.5 font-display text-2xl font-semibold leading-snug tracking-tight text-ink/90 transition-colors group-hover:text-ink sm:text-3xl">
+                  {t(videos[0].title)}
+                </h3>
+                <span className="link-underline mt-6 inline-flex w-fit items-center gap-1.5 text-sm font-semibold text-accent">
+                  {t({ en: 'Watch on YouTube', zh: '在 YouTube 观看' })}
+                  <ArrowUpRight className="h-3.5 w-3.5" />
+                </span>
+              </div>
+            </a>
+          )}
+
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {videos.map((v, i) => (
+            {videos.slice(1).map((v, i) => (
               <a
                 key={v.id}
                 href={youtubeWatch(v.id)}
@@ -933,11 +990,6 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
                   <span className="absolute bottom-2 right-2 rounded bg-black/75 px-1.5 py-0.5 font-mono text-[11px] text-white">
                     {v.duration}
                   </span>
-                  {i === 0 && (
-                    <span className="absolute left-2 top-2 rounded-full bg-gold px-2 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-wider text-paper shadow">
-                      {t(COPY.videos.new)}
-                    </span>
-                  )}
                   <span className="absolute inset-0 grid place-items-center">
                     <span className="grid h-12 w-12 scale-90 place-items-center rounded-full bg-paper/90 text-ink opacity-0 shadow-lg transition-all duration-300 group-hover:scale-100 group-hover:opacity-100">
                       <PlayIcon className="ml-0.5 h-5 w-5" />
@@ -1099,16 +1151,55 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
         </section>
       </main>
 
-      {/* Footer */}
+      {/* Footer — a small editorial colophon: brand, numbered site index, socials. */}
       <footer className="border-t border-ink/10">
-        <div className="mx-auto flex max-w-5xl flex-col items-center justify-between gap-4 px-5 py-8 sm:flex-row sm:px-8">
-          <div className="flex items-center gap-2.5 font-display text-sm font-semibold">
-            <span className="grid h-6 w-6 place-items-center rounded border border-ink/15 bg-ink/5 font-mono text-[10px] text-gold">大</span>
-            Da Lei · 大雷
+        <div className="mx-auto max-w-5xl px-5 py-12 sm:px-8">
+          <div className="flex flex-col gap-10 sm:flex-row sm:items-start sm:justify-between">
+            <div className="max-w-xs">
+              <div className="flex items-center gap-2.5 font-display text-base font-semibold">
+                <span className="grid h-7 w-7 place-items-center rounded-md border border-ink/15 bg-ink/5 font-mono text-xs text-gold">大</span>
+                Da Lei · 大雷
+              </div>
+              <p className="mt-3 text-sm leading-relaxed text-ink/50">
+                {t({
+                  en: 'AI automation, creative coding, and the occasional run — everything here is open source.',
+                  zh: 'AI 自动化、创意编程，偶尔跑步 —— 这里的一切都是开源的。',
+                })}
+              </p>
+            </div>
+
+            <nav className="grid grid-cols-2 gap-x-10 gap-y-2.5" aria-label={t({ en: 'Site index', zh: '站点索引' })}>
+              {navItems.map((item, i) => (
+                <button
+                  key={item.id}
+                  onClick={() => goTo(item.id)}
+                  className="flex items-center gap-2 text-left text-sm text-ink/60 transition-colors hover:text-ink"
+                >
+                  <span className="font-mono text-[11px] text-gold/60">0{i + 1}</span>
+                  {t(item.label)}
+                </button>
+              ))}
+            </nav>
+
+            <div className="flex items-center gap-4 text-ink/50">
+              <a href={SOCIALS.github} target="_blank" rel="noreferrer" className="transition-colors hover:text-ink" aria-label="GitHub">
+                <GitHubIcon className="h-5 w-5" />
+              </a>
+              <a href={SOCIALS.youtube} target="_blank" rel="noreferrer" className="transition-colors hover:text-ink" aria-label="YouTube">
+                <YouTubeIcon className="h-5 w-5" />
+              </a>
+              <a href={SOCIALS.twitter} target="_blank" rel="noreferrer" className="transition-colors hover:text-ink" aria-label="X">
+                <XIcon className="h-[18px] w-[18px]" />
+              </a>
+              <a href="#" onClick={(e) => { e.preventDefault(); openEmail(); }} className="transition-colors hover:text-ink" aria-label="Email">
+                <MailIcon className="h-5 w-5" />
+              </a>
+            </div>
           </div>
-          <div className="flex items-center gap-4">
+
+          <div className="mt-10 flex flex-col items-center justify-between gap-3 border-t border-ink/10 pt-5 sm:flex-row">
             <p className="font-mono text-xs text-ink/40">
-              © {new Date().getFullYear()} · {t(COPY.footer.tagline)}
+              © {new Date().getFullYear()} Da Lei · {t(COPY.footer.tagline)}
             </p>
             <button
               onClick={() => goTo('home')}
