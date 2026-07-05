@@ -701,8 +701,9 @@ const CopilotCamp: React.FC<Props> = ({ onHome }) => {
             <p className="mt-1.5 text-[15px] font-medium leading-relaxed text-ink/80">{tr(lesson.takeaway)}</p>
           </div>
 
-          {/* knowledge check */}
-          {lesson.quiz && <KnowledgeCheck quiz={lesson.quiz} tr={tr} labels={labels} />}
+          {/* knowledge check — keyed by lesson id so React remounts it per lesson
+              and its selection/feedback state never bleeds across lessons. */}
+          {lesson.quiz && <KnowledgeCheck key={lesson.id} quiz={lesson.quiz} tr={tr} labels={labels} />}
 
           {/* nav footer */}
           <div className="mt-10 flex items-center justify-between gap-3 border-t border-ink/10 pt-6">
