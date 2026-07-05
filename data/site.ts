@@ -811,15 +811,15 @@ export const COPY = {
   now: {
     label: { en: 'Now', zh: '近况' },
     heading: { en: "What I'm up to right now", zh: '我最近在忙什么' },
-    updated: { en: 'Updated Jun 2026', zh: '更新于 2026 年 6 月' },
+    updated: { en: 'Updated Jul 2026', zh: '更新于 2026 年 7 月' },
     items: [
       {
-        en: 'Reproducing one AI-coding project a day and shipping it live here — Markdown Studio, Screenshot→Code and a 3D starter are already up.',
-        zh: '每天复现一个 AI Coding 项目并上线到这个站 —— Markdown 工具箱、截图转代码、3D 起手式已上线。',
+        en: 'Turned Microsoft’s Copilot Camp lab into a Khan-Academy-style bilingual course — units, progress tracking, and a quiz after every lesson (/copilotcamp).',
+        zh: '把微软 Copilot Camp 实验做成了可汗学院式的双语学习课 —— 单元、进度追踪、每节随堂检测（/copilotcamp）。',
       },
       {
-        en: 'Growing AI Coding Arsenal — an idea radar + skill armory that turns "saw a cool repo" into "shipped a demo".',
-        zh: '持续打磨 AI Coding Arsenal —— 把「看到一个好项目」变成「跑出一个 Demo」的灵感库 + 装备库。',
+        en: 'Executing the 3D Prompt Workbench one scene at a time — 7 live Three.js pages so far, from Cappadocia balloons to the Brooks Falls salmon run.',
+        zh: '3D 提示词工作台逐条执行中 —— 已上线 7 个全屏 Three.js 场景，从卡帕多奇亚热气球到布鲁克斯瀑布鲑鱼洄游。',
       },
       {
         en: 'Shipping hands-on AI-automation videos on YouTube as 大雷, and keeping up the running streak. 🏃',
