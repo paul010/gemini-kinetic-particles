@@ -21,6 +21,7 @@ export default {
     './videogen/**/*.{ts,tsx}',
     './dino/**/*.{ts,tsx}',
     './chengdu/**/*.{ts,tsx}',
+    './lab3d/**/*.{ts,tsx}',
   ],
   theme: {
     extend: {

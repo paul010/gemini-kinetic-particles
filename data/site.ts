@@ -410,6 +410,29 @@ export const PROJECTS: Project[] = [
     ],
   },
   {
+    id: 'lab3d',
+    category: 'creative',
+    title: { en: '3D Prompt Workbench', zh: '3D 提示词工作台' },
+    year: '2026',
+    status: 'live',
+    featured: true,
+    cover: '/lab3d-cover.svg',
+    tagline: {
+      en: '63 Three.js scene prompts from petergpt — browse, copy, and watch them become live pages. First up: Cappadocia at dawn.',
+      zh: '63 条来自 petergpt 的 Three.js 场景提示词 —— 浏览、复制、看它们变成真实页面。第一发:黎明的卡帕多奇亚。',
+    },
+    description: {
+      en: 'A workbench that turns a prompt collection into living results. All 63 prompts from petergpt/3d-prompt-collection are vendored verbatim with credit — searchable by section (big worlds, playable scenes, natural spectacles…), each copyable in one click. The twist: prompts I actually execute become full-screen Three.js pages launched right from their card. Prompt #26 is live — 90 instanced hot-air balloons drifting over fairy chimneys at dawn, with a time-of-day slider, wind controls, and a ride-along basket camera. More prompts get executed on request; the workbench is the results index.',
+      zh: '一个把提示词合集变成活结果的工作台。petergpt/3d-prompt-collection 的 63 条提示词原样收录并注明出处 —— 按分类(宏大世界、可玩场景、自然奇观…)可搜可筛,每条一键复制。特别之处:被我真正执行的提示词会变成全屏 Three.js 页面,直接从卡片上打开。#26 已生成 —— 90 只 instanced 热气球在黎明的精灵烟囱上空漂移,带时间滑杆、风向风速控制和乘篮视角。想执行哪条报编号;工作台就是结果索引。',
+    },
+    tags: ['Three.js', 'Prompts', 'Workbench', '3D'],
+    links: [
+      { label: { en: 'Open the workbench', zh: '打开工作台' }, href: '/lab3d', kind: 'internal' },
+      { label: { en: 'Fly Cappadocia', zh: '直飞卡帕多奇亚' }, href: '/cappadocia', kind: 'internal' },
+      { label: { en: 'Prompts by petergpt', zh: '提示词来源' }, href: 'https://github.com/petergpt/3d-prompt-collection', kind: 'github' },
+    ],
+  },
+  {
     id: 'chengdu-guide',
     category: 'creative',
     title: { en: 'Chengdu, from Taikoo Li', zh: '成都指南 · 以太古里为原点' },

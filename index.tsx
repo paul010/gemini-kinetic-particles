@@ -24,6 +24,8 @@ const DesignSkill = React.lazy(() => import('./designskill/DesignSkill'));
 const VideoGen = React.lazy(() => import('./videogen/VideoGen'));
 const DinoBlaster = React.lazy(() => import('./dino/DinoBlaster'));
 const Chengdu = React.lazy(() => import('./chengdu/Chengdu'));
+const Lab3D = React.lazy(() => import('./lab3d/Lab3D'));
+const Cappadocia = React.lazy(() => import('./lab3d/Cappadocia'));
 
 const Loader: React.FC<{ label: string }> = ({ label }) => (
   <div
@@ -37,7 +39,7 @@ const Loader: React.FC<{ label: string }> = ({ label }) => (
   </div>
 );
 
-type Route = 'home' | 'particles' | 'arsenal' | 'md' | 'img' | 's2c' | 'fluid' | 'r3f' | 'bench' | 'fugu' | 'copilot' | 'agents' | 'skills' | 'uml' | 'town' | 'patterns' | 'prompts' | 'cici' | 'designskill' | 'videogen' | 'dino' | 'chengdu';
+type Route = 'home' | 'particles' | 'arsenal' | 'md' | 'img' | 's2c' | 'fluid' | 'r3f' | 'bench' | 'fugu' | 'copilot' | 'agents' | 'skills' | 'uml' | 'town' | 'patterns' | 'prompts' | 'cici' | 'designskill' | 'videogen' | 'dino' | 'chengdu' | 'lab3d' | 'cappadocia';
 
 const routeFromLocation = (): Route => {
   const { pathname, hash } = window.location;
@@ -63,6 +65,8 @@ const routeFromLocation = (): Route => {
   if (p.endsWith('/videogen') || hash === '#/videogen') return 'videogen';
   if (p.endsWith('/dino') || hash === '#/dino') return 'dino';
   if (p.endsWith('/chengdu') || hash === '#/chengdu') return 'chengdu';
+  if (p.endsWith('/lab3d') || hash === '#/lab3d') return 'lab3d';
+  if (p.endsWith('/cappadocia') || hash === '#/cappadocia') return 'cappadocia';
   return 'home';
 };
 
@@ -85,7 +89,7 @@ const Router: React.FC = () => {
 
   // The particle experience is a fixed full-screen canvas; other routes scroll.
   useEffect(() => {
-    document.body.style.overflow = route === 'particles' || route === 'md' || route === 's2c' || route === 'fluid' || route === 'r3f' || route === 'uml' || route === 'dino' ? 'hidden' : 'auto';
+    document.body.style.overflow = route === 'particles' || route === 'md' || route === 's2c' || route === 'fluid' || route === 'r3f' || route === 'uml' || route === 'dino' || route === 'cappadocia' ? 'hidden' : 'auto';
     return () => {
       document.body.style.overflow = 'auto';
     };
@@ -116,6 +120,8 @@ const Router: React.FC = () => {
       videogen: 'AI 视频生成流程 · 3 模型 1 Key · 大雷',
       dino: 'Dino Blaster · 加特林 vs 恐龙 · 大雷',
       chengdu: '成都指南 · 以太古里为原点 · 大雷',
+      lab3d: '3D 提示词工作台 · 3D Prompt Lab · 大雷',
+      cappadocia: '卡帕多奇亚热气球 · #26 已生成 · 大雷',
     };
     document.title = titles[route];
   }, [route]);
@@ -292,6 +298,22 @@ const Router: React.FC = () => {
     return (
       <Suspense fallback={<Loader label="LOADING…" />}>
         <Chengdu onHome={() => navigate('/')} />
+      </Suspense>
+    );
+  }
+
+  if (route === 'lab3d') {
+    return (
+      <Suspense fallback={<Loader label="LOADING 3D LAB…" />}>
+        <Lab3D onHome={() => navigate('/')} onNavigate={navigate} />
+      </Suspense>
+    );
+  }
+
+  if (route === 'cappadocia') {
+    return (
+      <Suspense fallback={<Loader label="INFLATING BALLOONS…" />}>
+        <Cappadocia onBack={() => navigate('/lab3d')} />
       </Suspense>
     );
   }
