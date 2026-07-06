@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" role="img" aria-label="PromptForge — decompose rough text into framework prompts">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f6f3ec"/><stop offset="1" stop-color="#ece6da"/>
+    </linearGradient>
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="7" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1200" height="750" fill="url(#bg)"/>
+
+  <text x="80" y="96" font-family="'JetBrains Mono', monospace" font-size="19" fill="#8a682c">RULE-BASED · NO LLM · 浏览器本地运行</text>
+  <text x="78" y="162" font-family="'Cormorant Garamond', Georgia, serif" font-size="58" font-weight="600" fill="#1c1a17">提示词锻造台 PromptForge</text>
+
+  <!-- left: messy input -->
+  <g filter="url(#soft)"><rect x="80" y="220" width="330" height="360" rx="16" fill="#fffdf8" stroke="rgba(28,26,23,0.1)"/></g>
+  <text x="104" y="258" font-family="'JetBrains Mono', monospace" font-size="13" fill="#8a682c">① 大白话 ROUGH ASK</text>
+  <g fill="rgba(28,26,23,0.35)">
+    <rect x="104" y="282" width="270" height="10" rx="5"/>
+    <rect x="104" y="304" width="282" height="10" rx="5"/>
+    <rect x="104" y="326" width="240" height="10" rx="5"/>
+    <rect x="104" y="348" width="264" height="10" rx="5"/>
+    <rect x="104" y="370" width="180" height="10" rx="5"/>
+  </g>
+  <text x="104" y="430" font-family="'JetBrains Mono', monospace" font-size="14" fill="rgba(28,26,23,0.5)">「帮我写一份汇报邮件，</text>
+  <text x="104" y="454" font-family="'JetBrains Mono', monospace" font-size="14" fill="rgba(28,26,23,0.5)">要正式、不超过 300 字…」</text>
+
+  <!-- middle: forge -->
+  <g font-family="'JetBrains Mono', monospace" text-anchor="middle">
+    <circle cx="600" cy="400" r="64" fill="#8a682c"/>
+    <text x="600" y="392" font-size="30" fill="#fff">⚒</text>
+    <text x="600" y="424" font-size="14" font-weight="700" fill="#fff">拆解</text>
+    <text x="600" y="500" font-size="13" fill="rgba(28,26,23,0.55)">正则启发式 · 规则引擎</text>
+    <text x="470" y="405" font-size="30" fill="rgba(28,26,23,0.3)">→</text>
+    <text x="730" y="405" font-size="30" fill="rgba(28,26,23,0.3)">→</text>
+  </g>
+  <!-- framework chips -->
+  <g font-family="'JetBrains Mono', monospace" font-size="13" text-anchor="middle">
+    <rect x="480" y="250" width="90" height="30" rx="15" fill="rgba(92,138,58,0.14)"/><text x="525" y="270" fill="#5c8a3a">CO-STAR</text>
+    <rect x="580" y="250" width="84" height="30" rx="15" fill="rgba(194,112,60,0.14)"/><text x="622" y="270" fill="#c2703c">CRISPE</text>
+    <rect x="674" y="250" width="70" height="30" rx="15" fill="rgba(122,92,171,0.14)"/><text x="709" y="270" fill="#7a5cab">BROKE</text>
+    <rect x="520" y="290" width="60" height="30" rx="15" fill="rgba(28,26,23,0.07)"/><text x="550" y="310" fill="rgba(28,26,23,0.6)">ICIO</text>
+    <rect x="590" y="290" width="54" height="30" rx="15" fill="rgba(28,26,23,0.07)"/><text x="617" y="310" fill="rgba(28,26,23,0.6)">RTF</text>
+  </g>
+
+  <!-- right: structured prompt -->
+  <g filter="url(#soft)"><rect x="790" y="220" width="330" height="360" rx="16" fill="#26231f"/></g>
+  <text x="814" y="258" font-family="'JetBrains Mono', monospace" font-size="13" fill="#c9a35c">② 完整提示词 PROMPT</text>
+  <g font-family="'JetBrains Mono', monospace" font-size="14">
+    <text x="814" y="292" fill="#8fb573">&lt;role&gt;…&lt;/role&gt;</text>
+    <text x="814" y="322" fill="#8fb573">&lt;goal&gt;…&lt;/goal&gt;</text>
+    <text x="814" y="352" fill="#8fb573">&lt;context&gt;…&lt;/context&gt;</text>
+    <text x="814" y="382" fill="#8fb573">&lt;response_format&gt;…&lt;/…&gt;</text>
+    <text x="814" y="424" fill="#c9a35c">&lt;verification&gt;</text>
+    <text x="830" y="452" fill="rgba(233,227,216,0.75)">- 先推理后结论</text>
+    <text x="830" y="478" fill="rgba(233,227,216,0.75)">- 不确定就明说</text>
+    <text x="830" y="504" fill="rgba(233,227,216,0.75)">- 结论给依据</text>
+    <text x="814" y="534" fill="#c9a35c">&lt;/verification&gt;</text>
+  </g>
+
+  <text x="80" y="682" font-family="'JetBrains Mono', monospace" font-size="17" fill="#1c1a17" fill-opacity="0.55">会写 prompt → 验证 AI 输出 → 挑战 AI 结论 —— 把职场 AI 闭环练成肌肉记忆</text>
+</svg>

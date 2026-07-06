@@ -308,6 +308,28 @@ export const PROJECTS: Project[] = [
     ],
   },
   {
+    id: 'promptforge',
+    category: 'ai',
+    title: { en: 'PromptForge', zh: '提示词锻造台' },
+    year: '2026',
+    status: 'live',
+    featured: true,
+    cover: '/promptforge-cover.svg',
+    tagline: {
+      en: 'Paste a rough ask → a rule engine decomposes it into CO-STAR / CRISPE / BROKE slots → a complete prompt, with verification clauses. No LLM call.',
+      zh: '贴一段大白话 → 规则引擎按 CO-STAR / CRISPE / BROKE 框架拆槽位 → 组装完整提示词，可注入验证条款。不调大模型。',
+    },
+    description: {
+      en: 'A teaching tool for the workplace loop: write the prompt, verify the output, challenge the conclusion. Fully client-side and rule-based (transparent regex heuristics — no LLM): it detects role, audience, format, tone, constraints and examples from your rough description, slots them into six popular frameworks (a 2026 best-practice composite, CO-STAR, CRISPE, ICIO, BROKE, RTF), lets you refine each slot, and assembles the prompt in XML-tag or Markdown structure. One click adds verification clauses — reason first, admit uncertainty, evidence per claim, self-critique, clarify before assuming. Ends with a six-habit 2026 best-practice cheat sheet.',
+      zh: '为职场闭环而做的教学工具：会写 prompt、验证 AI 输出、挑战 AI 结论。纯前端规则引擎（透明的正则启发式 —— 不调大模型）：从你的大白话里识别角色、受众、格式、语气、约束与示例，装进六个流行框架（2026 最佳实践合成版、CO-STAR、CRISPE、ICIO、BROKE、RTF）的槽位，逐项修订后按 XML 标签或 Markdown 结构组装成完整提示词。一键注入验证条款 —— 先推理、不确定就明说、结论给依据、自我挑战、先澄清再动手。文末附 2026 最佳实践六习惯速查。',
+    },
+    tags: ['Prompt Engineering', 'Frameworks', 'Rule Engine', 'Teaching'],
+    links: [
+      { label: { en: 'Open the forge', zh: '打开锻造台' }, href: '/promptforge', kind: 'internal' },
+      { label: { en: 'Prompt library', zh: '提示词库' }, href: '/prompts', kind: 'internal' },
+    ],
+  },
+  {
     id: 'copilot-camp-cowork',
     category: 'ai',
     title: { en: 'Copilot Camp — Cowork Course', zh: 'Copilot Camp — Cowork 学习课' },
