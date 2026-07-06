@@ -455,6 +455,26 @@ p {
   -webkit-text-stroke: 1px rgb(var(--rgb-ink) / 0.4);
 }
 
+/* hero scroll cue — a hairline with a gold drop that keeps sliding down */
+.scroll-cue-line {
+  position: relative;
+  width: 1px;
+  height: 44px;
+  overflow: hidden;
+  background: linear-gradient(to bottom, rgb(var(--rgb-ink) / 0.3), transparent);
+}
+.scroll-cue-line::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: -40%;
+  width: 100%;
+  height: 40%;
+  background: rgb(var(--rgb-gold));
+  animation: cue-drop 2.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+@keyframes cue-drop { to { top: 110%; } }
+
 /* oversized ghost numeral behind each section heading (second-read moment) */
 .section-index {
   position: absolute;
@@ -475,6 +495,7 @@ p {
   html { scroll-behavior: auto; }
   .reveal { opacity: 1; transform: none; transition: none; }
   .float-slow, .pulse-dot, .type-cursor, .hero-figure, .ken-burns, .menu-in { animation: none; }
+  .scroll-cue-line::after { animation: none; display: none; }
   .plate::after { animation: none; display: none; }
   .type-cursor { opacity: 0; }
   .work-row:hover .work-title { transform: none; }

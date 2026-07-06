@@ -1,6 +1,9 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { Suspense, useEffect, useRef, useState } from 'react';
 import { FluidBackground } from './components/FluidBackground';
-import SearchPalette from './components/SearchPalette';
+
+// The ⌘K palette ships as its own chunk, fetched on first open — it never
+// blocks the homepage's first paint.
+const SearchPalette = React.lazy(() => import('./components/SearchPalette'));
 import {
   COPY,
   PROJECTS,
@@ -706,15 +709,19 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
         {t({ en: 'Skip to content', zh: '跳到主要内容' })}
       </a>
       <div ref={progressRef} className="scroll-progress" />
-      <SearchPalette
-        open={searchOpen}
-        onClose={() => setSearchOpen(false)}
-        t={t}
-        videos={videos}
-        onNavigate={onNavigate}
-        goToSection={goTo}
-        toggleTheme={toggleTheme}
-      />
+      {searchOpen && (
+        <Suspense fallback={null}>
+          <SearchPalette
+            open={searchOpen}
+            onClose={() => setSearchOpen(false)}
+            t={t}
+            videos={videos}
+            onNavigate={onNavigate}
+            goToSection={goTo}
+            toggleTheme={toggleTheme}
+          />
+        </Suspense>
+      )}
       <FluidBackground />
       <div className="bg-aurora" />
       <div className="bg-vignette" />
@@ -726,7 +733,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
           scrolled ? 'border-b border-ink/10 bg-paper/80 backdrop-blur-xl' : 'border-b border-transparent'
         }`}
       >
-        <nav className="mx-auto flex max-w-5xl items-center justify-between px-5 py-4 sm:px-8">
+        <nav className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4 sm:px-8">
           <button
             onClick={() => goTo('home')}
             className="group flex items-center gap-2.5 font-display text-base font-semibold tracking-tight"
@@ -781,6 +788,15 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
                 </button>
               ))}
             </div>
+            <a
+              href={SOCIALS.youtube}
+              target="_blank"
+              rel="noreferrer"
+              className="btn-sheen hidden h-8 items-center gap-1.5 rounded-full bg-gold px-3.5 text-xs font-semibold text-paper transition-transform hover:scale-[1.03] xl:inline-flex"
+            >
+              <YouTubeIcon className="h-3.5 w-3.5" />
+              {t({ en: 'Subscribe', zh: '订阅' })}
+            </a>
             <button
               onClick={() => setMenuOpen((v) => !v)}
               className="grid h-9 w-9 place-items-center rounded-full border border-ink/15 bg-ink/5 text-ink/80 md:hidden"
@@ -878,6 +894,17 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
 
           <div className="hero-in" style={{ animationDelay: '0.5s' }}>
             <HeroFigure t={t} onOpen={() => window.open(SOCIALS.youtube, '_blank', 'noopener')} />
+          </div>
+
+          {/* scroll cue — fades away once the reader starts moving */}
+          <div
+            aria-hidden="true"
+            className={`pointer-events-none absolute bottom-5 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2.5 transition-opacity duration-500 sm:flex ${
+              scrolled ? 'opacity-0' : 'opacity-100'
+            }`}
+          >
+            <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-ink/40">scroll</span>
+            <span className="scroll-cue-line" />
           </div>
         </section>
 
