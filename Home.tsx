@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { FluidBackground } from './components/FluidBackground';
+import SearchPalette from './components/SearchPalette';
 import {
   COPY,
   PROJECTS,
@@ -117,6 +118,13 @@ const ArrowIcon = (props: React.SVGProps<SVGSVGElement>) => (
 const ArrowUpRight = (props: React.SVGProps<SVGSVGElement>) => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" {...props}>
     <path d="M7 17 17 7M8 7h9v9" />
+  </svg>
+);
+
+const SearchIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" {...props}>
+    <circle cx="11" cy="11" r="7" />
+    <path d="m20 20-3.5-3.5" />
   </svg>
 );
 
@@ -562,6 +570,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState('home');
+  const [searchOpen, setSearchOpen] = useState(false);
   const [workFilter, setWorkFilter] = useState<'all' | 'ai' | 'creative' | 'tool'>('all');
   // Theme is resolved pre-paint by the index.html boot script; this just mirrors it.
   const [theme, setTheme] = useState<'light' | 'dark'>(() =>
@@ -637,6 +646,27 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  // Global search hotkeys: ⌘K / Ctrl+K anywhere, or `/` outside form fields.
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        setSearchOpen((v) => !v);
+        return;
+      }
+      if (e.key === '/' && !e.metaKey && !e.ctrlKey && !e.altKey) {
+        const el = e.target as HTMLElement | null;
+        const typing = el && (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.isContentEditable);
+        if (!typing) {
+          e.preventDefault();
+          setSearchOpen(true);
+        }
+      }
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, []);
+
   const navItems = [
     { id: 'home', label: COPY.nav.home },
     { id: 'work', label: COPY.nav.work },
@@ -676,6 +706,15 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
         {t({ en: 'Skip to content', zh: '跳到主要内容' })}
       </a>
       <div ref={progressRef} className="scroll-progress" />
+      <SearchPalette
+        open={searchOpen}
+        onClose={() => setSearchOpen(false)}
+        t={t}
+        videos={videos}
+        onNavigate={onNavigate}
+        goToSection={goTo}
+        toggleTheme={toggleTheme}
+      />
       <FluidBackground />
       <div className="bg-aurora" />
       <div className="bg-vignette" />
@@ -713,6 +752,14 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
           </div>
 
           <div className="flex items-center gap-2">
+            <button
+              onClick={() => setSearchOpen(true)}
+              aria-label={t({ en: 'Search (Ctrl+K)', zh: '搜索（Ctrl+K）' })}
+              className="group flex h-8 items-center gap-2 rounded-full border border-ink/15 bg-ink/5 px-2.5 text-ink/60 transition-colors hover:border-gold/50 hover:text-ink"
+            >
+              <SearchIcon className="h-[15px] w-[15px]" />
+              <kbd className="hidden rounded border border-ink/15 bg-paper/60 px-1 font-mono text-[10px] text-ink/45 transition-colors group-hover:text-gold lg:inline">⌘K</kbd>
+            </button>
             <button
               onClick={toggleTheme}
               aria-label={theme === 'light' ? '切换到深色模式 / Switch to dark mode' : '切换到浅色模式 / Switch to light mode'}
