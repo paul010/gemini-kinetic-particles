@@ -351,10 +351,104 @@ const assemble = (
   return parts.join('\n\n');
 };
 
-/* ============================ demo sample ================================= */
+/* ============================ example library ============================= */
+/* Original, bilingual "rough ask" cases across common workplace scenarios —
+ * built for live teaching: one click loads + decomposes so the audience sees
+ * plain language turn into a structured prompt. These are deliberately NOT a
+ * paste of any paid prompt library (that would republish licensed content and,
+ * being finished prompts, wouldn't demo the *decomposition* step anyway). */
 
-const SAMPLE_ZH = '下周要给管理层汇报我们 AI 客服项目的进展。背景是目前项目上线了 3 个月，解决率从 42% 提升到了 67%，但转人工率还是偏高。帮我写一份汇报邮件，要正式、简洁，用要点列表呈现关键数据，不超过 300 字，最后必须包含下一步计划。';
-const SAMPLE_EN = "Act as a senior product manager. I need to prepare a report for executives about our AI support bot. Currently resolution rate improved from 42% to 67% in 3 months, but escalation is still high. Write a formal, concise email, bullet points for key data, no more than 300 words, and it must include next steps.";
+interface Example { id: string; group: string; title: T; text: T }
+
+const EX_GROUPS: { key: string; label: T }[] = [
+  { key: 'office', label: { en: 'Office & comms', zh: '办公沟通' } },
+  { key: 'marketing', label: { en: 'Marketing', zh: '营销内容' } },
+  { key: 'hr', label: { en: 'Hiring', zh: '招聘人事' } },
+  { key: 'devres', label: { en: 'Dev & research', zh: '开发研究' } },
+];
+
+const EXAMPLES: Example[] = [
+  {
+    id: 'exec-report', group: 'office',
+    title: { en: 'Exec progress report', zh: '管理层汇报邮件' },
+    text: {
+      en: 'Act as a senior product manager. I need to report to executives about our AI support bot. Resolution rate improved from 42% to 67% in 3 months, but escalation is still high. Write a formal, concise email, bullet points for the key data, no more than 300 words, and it must end with next steps.',
+      zh: '下周要给管理层汇报我们 AI 客服项目的进展。背景是目前项目上线了 3 个月，解决率从 42% 提升到了 67%，但转人工率还是偏高。帮我写一份汇报邮件，要正式、简洁，用要点列表呈现关键数据，不超过 300 字，最后必须包含下一步计划。',
+    },
+  },
+  {
+    id: 'complaint', group: 'office',
+    title: { en: 'Calm an angry customer', zh: '客诉安抚回复' },
+    text: {
+      en: "A long-time customer is furious about a one-week shipping delay last month — aggressive tone, threatening a refund. Write a reply as a customer success manager: sincere and empathetic, apologize first then offer a concrete compensation plan, professional but not groveling. Don't promise anything we can't deliver.",
+      zh: '有个老客户因为我们上个月发货延迟了一周很不满意，邮件里语气很冲，还威胁要退款。帮我以客户成功经理的身份写一封安抚回复，要真诚、有同理心，先道歉再给出具体补偿方案，语气专业但不卑微，别承诺我们做不到的事。',
+    },
+  },
+  {
+    id: 'meeting-notes', group: 'office',
+    title: { en: 'Summarize a messy meeting', zh: '会议纪要提炼' },
+    text: {
+      en: "Here's the messy transcript of our 2-hour product review. Summarize it into meeting notes with three sections: Decisions, Action items (with owner), and Open questions. Put the action items in a table and keep it to one page. For example, the decisions should state that the v2 launch is set for March.",
+      zh: '这是我们今天两小时产品评审会的录音转文字，很乱。帮我提炼成一份会议纪要，要分「决议事项」「待办（带负责人）」「未决问题」三块，用表格呈现待办，控制在一页内。例如决议里要写清楚 v2 上线时间定在了 3 月。',
+    },
+  },
+  {
+    id: 'xhs-post', group: 'marketing',
+    title: { en: 'Xiaohongshu post ×3', zh: '小红书文案（3 版）' },
+    text: {
+      en: 'Write a Xiaohongshu (RED) post promoting our new portable juicer blender, for working women aged 25-35. Casual and aspirational, with emoji and hashtags. Highlight three selling points: 3-minute blend, easy to clean, good-looking. Give me 3 different style variants to compare.',
+      zh: '帮我写一篇小红书文案，推广我们新出的便携榨汁杯，面向 25-35 岁上班族女性。要口语化、有种草感，带 emoji 和话题标签，突出「3 分钟出杯、好清洗、颜值高」三个卖点，给我 3 个不同风格的版本对比。',
+    },
+  },
+  {
+    id: 'landing-copy', group: 'marketing',
+    title: { en: 'Landing-page hero copy', zh: '落地页首屏文案' },
+    text: {
+      en: 'We built a SaaS that auto-generates weekly reports for small teams. Write the hero copy for the landing page, aimed at founders of 10-50 person startups. Persuasive and concise: one headline, one subheadline, three core value points. Keep the headline under 10 words.',
+      zh: '我们做了一个帮小团队自动生成周报的 SaaS 工具，帮我写落地页的首屏文案。受众是 10-50 人创业公司的负责人。要有说服力、简洁，包含一句主标题、一句副标题和三个核心价值点，主标题不超过 15 个字。',
+    },
+  },
+  {
+    id: 'cold-email', group: 'marketing',
+    title: { en: 'Cold outreach email', zh: '冷启动开发信' },
+    text: {
+      en: "Write a cold email to a prospect's marketing director introducing our AI ad-optimization service. Short, not mass-blast, curiosity-driving. Don't open with a self-intro — open with their pain point. End with a low-friction CTA (a 15-minute call). Avoid hypey marketing words.",
+      zh: '帮我写一封开发信，发给潜在客户的市场总监，介绍我们的 AI 广告投放优化服务。要简短、不像群发、能勾起兴趣，第一句不要自我介绍而是戳痛点，结尾给一个低门槛的 CTA（约 15 分钟通话）。别用夸张的营销词。',
+    },
+  },
+  {
+    id: 'jd', group: 'hr',
+    title: { en: 'Job description', zh: '招聘 JD' },
+    text: {
+      en: "Write a job description for a Senior Frontend Engineer. We're a Series-B AI education company. Include four parts: responsibilities, requirements, nice-to-haves, and what we offer. Professional yet appealing. The stack is React + TypeScript, and it must mention we support remote work.",
+      zh: '帮我写一份高级前端工程师的招聘 JD，我们是一家做 AI 教育产品的 B 轮公司。要包含岗位职责、任职要求、加分项、我们能提供什么四部分，语气专业又有吸引力，技术栈是 React + TypeScript，必须提到我们支持远程。',
+    },
+  },
+  {
+    id: 'interview', group: 'hr',
+    title: { en: 'Interview question set', zh: '面试题设计' },
+    text: {
+      en: 'I am interviewing a senior data analyst next week. As the interviewer, design a question set covering three dimensions: business sense, hands-on SQL, and communication. Give 2-3 questions per dimension, and for each explain what it probes and what a strong answer looks like.',
+      zh: '我下周要面试一个资深数据分析师，帮我设计一套面试题，作为面试官我想考察他的业务理解、SQL 实战和沟通能力三个维度。每个维度给 2-3 道题，并说明每道题想考察什么、什么样的回答算好。',
+    },
+  },
+  {
+    id: 'code-review', group: 'devres',
+    title: { en: 'Code review', zh: '代码审查' },
+    text: {
+      en: "Review this Python function that handles user file uploads. As a senior engineer, focus on security holes, edge cases, and readability. Rank the issues by severity, and for each give a concrete fix with example code. Flag anything you are unsure about — don't guess.",
+      zh: '帮我审查这段 Python 代码（一个处理用户上传文件的函数）。作为资深工程师，重点看安全漏洞、边界情况和可读性，按严重程度排序问题，每个问题给出具体的修改建议和示例代码。不确定的地方要标出来，别瞎猜。',
+    },
+  },
+  {
+    id: 'competitor', group: 'devres',
+    title: { en: 'Competitive analysis', zh: '竞品对比分析' },
+    text: {
+      en: 'Do a competitive analysis comparing us with two other AI resume-builder products. As a product analyst, cover pricing, core features, target users, and differentiation, in a table. End with two opportunity gaps we could target. Back every conclusion with evidence.',
+      zh: '帮我做一份竞品分析，对比我们和另外两家做 AI 简历工具的产品。作为产品分析师，从定价、核心功能、目标用户、差异化四个角度分析，用表格呈现，最后给出我们可以切入的 2 个机会点。每个结论都要有依据。',
+    },
+  },
+];
 
 /* ============================ page ======================================== */
 
@@ -385,6 +479,7 @@ const PromptForge: React.FC<Props> = ({ onHome }) => {
   const [useXml, setUseXml] = useState(true);
   const [analyzed, setAnalyzed] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [showExamples, setShowExamples] = useState(false);
 
   const fw = FRAMEWORKS.find((f) => f.id === fwId)!;
   const isZh = lang !== 'en';
@@ -394,6 +489,17 @@ const PromptForge: React.FC<Props> = ({ onHome }) => {
     setSlots(r.slots);
     setDetected(r.detected);
     setAnalyzed(true);
+  };
+
+  // Load an example case: fill the box, decompose, collapse the library.
+  const loadExample = (ex: Example) => {
+    const s = t(ex.text);
+    setInput(s);
+    const r = analyze(s);
+    setSlots(r.slots);
+    setDetected(r.detected);
+    setAnalyzed(true);
+    setShowExamples(false);
   };
 
   const output = useMemo(
@@ -458,12 +564,40 @@ const PromptForge: React.FC<Props> = ({ onHome }) => {
           <div className="flex flex-wrap items-center justify-between gap-3">
             <h2 className="font-mono text-[11px] uppercase tracking-[0.2em] text-gold">{t({ en: 'Step 1 · Paste your rough ask', zh: '第 1 步 · 贴入你的大白话需求' })}</h2>
             <button
-              onClick={() => { const s = lang === 'en' ? SAMPLE_EN : SAMPLE_ZH; setInput(s); const r = analyze(s); setSlots(r.slots); setDetected(r.detected); setAnalyzed(true); }}
-              className="rounded-full border border-ink/15 px-3 py-1 font-mono text-[11px] text-ink/60 transition-colors hover:border-gold/50 hover:text-gold"
+              onClick={() => setShowExamples((v) => !v)}
+              className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1 font-mono text-[11px] transition-colors ${showExamples ? 'border-gold/50 text-gold' : 'border-ink/15 text-ink/60 hover:border-gold/50 hover:text-gold'}`}
             >
-              {t({ en: 'Try a sample', zh: '试试示例' })}
+              {t({ en: 'Example library', zh: '案例库' })} <span className={`transition-transform ${showExamples ? 'rotate-180' : ''}`}>▾</span>
             </button>
           </div>
+
+          {/* example library — one click loads + decomposes; great for live demos */}
+          {showExamples && (
+            <div className="menu-in mt-4 rounded-2xl border border-ink/10 bg-paper/60 p-4">
+              <p className="text-[12px] leading-relaxed text-ink/50">
+                {t({ en: 'Pick a real-world scenario — it loads into the box and decomposes instantly. Built for teaching the write → verify → challenge loop.', zh: '选一个真实场景 —— 自动填入并立即拆解，方便讲课当场演示「写 → 验证 → 挑战」闭环。' })}
+              </p>
+              <div className="mt-3 space-y-3">
+                {EX_GROUPS.map((g) => (
+                  <div key={g.key}>
+                    <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-gold/80">{t(g.label)}</p>
+                    <div className="mt-1.5 flex flex-wrap gap-1.5">
+                      {EXAMPLES.filter((e) => e.group === g.key).map((e) => (
+                        <button
+                          key={e.id}
+                          onClick={() => loadExample(e)}
+                          title={t(e.text)}
+                          className="rounded-full border border-ink/12 bg-surface/50 px-3 py-1.5 text-[12.5px] text-ink/70 transition-colors hover:border-gold/50 hover:text-gold"
+                        >
+                          {t(e.title)}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
           <textarea
             value={input}
             onChange={(e) => setInput(e.target.value)}
