@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" role="img" aria-label="Copilot Camp — Cowork course, Khan-Academy-style learning">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f6f3ec"/><stop offset="1" stop-color="#ece6da"/>
+    </linearGradient>
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="7" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1200" height="750" fill="url(#bg)"/>
+
+  <text x="80" y="98" font-family="'JetBrains Mono', monospace" font-size="19" fill="#8a682c">MICROSOFT COPILOT CAMP · CWRK0</text>
+  <text x="78" y="164" font-family="'Cormorant Garamond', Georgia, serif" font-size="60" font-weight="600" fill="#1c1a17">Copilot Cowork</text>
+  <text x="80" y="212" font-family="'Cormorant Garamond', Georgia, serif" font-size="34" font-weight="500" fill="#1c1a17" fill-opacity="0.6">setup &amp; extensibility · 学习课程</text>
+
+  <!-- progress bar motif -->
+  <g>
+    <rect x="80" y="252" width="740" height="10" rx="5" fill="rgba(28,26,23,0.1)"/>
+    <rect x="80" y="252" width="420" height="10" rx="5" fill="#8a682c"/>
+    <text x="836" y="262" font-family="'JetBrains Mono', monospace" font-size="17" fill="#8a682c">57%</text>
+  </g>
+
+  <!-- four unit cards -->
+  <g font-family="'JetBrains Mono', monospace">
+    <!-- U1 -->
+    <g filter="url(#soft)"><rect x="80" y="312" width="256" height="300" rx="16" fill="#fffdf8" stroke="rgba(28,26,23,0.1)"/></g>
+    <circle cx="118" cy="352" r="17" fill="#5c8a3a"/><text x="118" y="358" text-anchor="middle" font-size="18" font-weight="700" fill="#fff">1</text>
+    <text x="150" y="358" font-family="Georgia, serif" font-size="19" font-weight="700" fill="#1c1a17">理解 Cowork</text>
+    <text x="104" y="404" font-size="13" fill="rgba(28,26,23,0.55)">Understand Cowork</text>
+    <circle cx="112" cy="446" r="7" fill="#5c8a3a"/><text x="128" y="451" font-size="13" fill="rgba(28,26,23,0.7)">What it is</text>
+    <circle cx="112" cy="480" r="7" fill="#5c8a3a"/><text x="128" y="485" font-size="13" fill="rgba(28,26,23,0.7)">What it can do</text>
+    <text x="104" y="576" font-size="12" fill="rgba(28,26,23,0.4)">2 lessons · quiz</text>
+
+    <!-- U2 -->
+    <g filter="url(#soft)"><rect x="356" y="312" width="256" height="300" rx="16" fill="#fffdf8" stroke="rgba(28,26,23,0.1)"/></g>
+    <circle cx="394" cy="352" r="17" fill="#c2703c"/><text x="394" y="358" text-anchor="middle" font-size="18" font-weight="700" fill="#fff">2</text>
+    <text x="426" y="358" font-family="Georgia, serif" font-size="19" font-weight="700" fill="#1c1a17">准备租户</text>
+    <text x="380" y="404" font-size="13" fill="rgba(28,26,23,0.55)">Prepare tenant</text>
+    <circle cx="388" cy="446" r="7" fill="#c2703c"/><text x="404" y="451" font-size="13" fill="rgba(28,26,23,0.7)">Prerequisites</text>
+    <circle cx="388" cy="480" r="7" fill="#c2703c"/><text x="404" y="485" font-size="13" fill="rgba(28,26,23,0.7)">Credits &amp; billing</text>
+    <circle cx="388" cy="514" r="7" fill="rgba(28,26,23,0.18)"/><text x="404" y="519" font-size="13" fill="rgba(28,26,23,0.7)">Pilot users</text>
+    <text x="380" y="576" font-size="12" fill="rgba(28,26,23,0.4)">3 lessons · quiz</text>
+
+    <!-- U3 -->
+    <g filter="url(#soft)"><rect x="632" y="312" width="256" height="300" rx="16" fill="#fffdf8" stroke="rgba(28,26,23,0.1)"/></g>
+    <circle cx="670" cy="352" r="17" fill="#7a5cab"/><text x="670" y="358" text-anchor="middle" font-size="18" font-weight="700" fill="#fff">3</text>
+    <text x="702" y="358" font-family="Georgia, serif" font-size="19" font-weight="700" fill="#1c1a17">开始使用</text>
+    <text x="656" y="404" font-size="13" fill="rgba(28,26,23,0.55)">Start using</text>
+    <circle cx="664" cy="446" r="7" fill="rgba(28,26,23,0.18)"/><text x="680" y="451" font-size="13" fill="rgba(28,26,23,0.7)">Open Cowork</text>
+    <circle cx="664" cy="480" r="7" fill="rgba(28,26,23,0.18)"/><text x="680" y="485" font-size="13" fill="rgba(28,26,23,0.7)">Execution model</text>
+    <circle cx="664" cy="514" r="7" fill="rgba(28,26,23,0.18)"/><text x="680" y="519" font-size="13" fill="rgba(28,26,23,0.7)">Approvals</text>
+    <text x="656" y="576" font-size="12" fill="rgba(28,26,23,0.4)">3 lessons · quiz</text>
+
+    <!-- U4 -->
+    <g filter="url(#soft)"><rect x="908" y="312" width="212" height="300" rx="16" fill="#fffdf8" stroke="rgba(28,26,23,0.1)"/></g>
+    <circle cx="946" cy="352" r="17" fill="#2b6a8f"/><text x="946" y="358" text-anchor="middle" font-size="18" font-weight="700" fill="#fff">4</text>
+    <text x="978" y="358" font-family="Georgia, serif" font-size="19" font-weight="700" fill="#1c1a17">扩展</text>
+    <text x="932" y="404" font-size="13" fill="rgba(28,26,23,0.55)">Extend</text>
+    <circle cx="940" cy="446" r="7" fill="rgba(28,26,23,0.18)"/><text x="956" y="451" font-size="13" fill="rgba(28,26,23,0.7)">Skills vs Plugins</text>
+    <circle cx="940" cy="480" r="7" fill="rgba(28,26,23,0.18)"/><text x="956" y="485" font-size="13" fill="rgba(28,26,23,0.7)">Built-ins</text>
+    <text x="932" y="576" font-size="12" fill="rgba(28,26,23,0.4)">2 lessons · quiz</text>
+  </g>
+
+  <text x="80" y="682" font-family="'JetBrains Mono', monospace" font-size="17" fill="#1c1a17" fill-opacity="0.55">10 节课 · 双语 · 可复制提示词 · 随堂检测 · 进度保存 —— 学习模式重建微软官方实验</text>
+</svg>

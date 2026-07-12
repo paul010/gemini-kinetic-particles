@@ -8,6 +8,22 @@ export default {
     './services/**/*.{ts,tsx}',
     './arsenal/**/*.{ts,tsx}',
     './tools/**/*.{ts,tsx}',
+    './bench/**/*.{ts,tsx}',
+    './fugu/**/*.{ts,tsx}',
+    './copilot/**/*.{ts,tsx}',
+    './copilotcamp/**/*.{ts,tsx}',
+    './promptforge/**/*.{ts,tsx}',
+    './agents/**/*.{ts,tsx}',
+    './skills/**/*.{ts,tsx}',
+    './town/**/*.{ts,tsx}',
+    './patterns/**/*.{ts,tsx}',
+    './prompts/**/*.{ts,tsx}',
+    './cici/**/*.{ts,tsx}',
+    './designskill/**/*.{ts,tsx}',
+    './videogen/**/*.{ts,tsx}',
+    './dino/**/*.{ts,tsx}',
+    './chengdu/**/*.{ts,tsx}',
+    './lab3d/**/*.{ts,tsx}',
   ],
   theme: {
     extend: {
@@ -19,13 +35,16 @@ export default {
       },
       colors: {
         // Warm editorial palette — ink on cream paper (huashu-inspired).
-        paper: '#f6f3ec',
-        ink: '#1c1a17',
-        surface: '#ece6da',
-        accent: '#1c1a17',
-        accent2: '#8a8175',
-        ember: '#8a8175',
-        gold: '#8a682c',
+        // Values live as RGB-triplet CSS variables in index.css so that
+        // [data-theme="dark"] flips every page while opacity modifiers
+        // (e.g. ink/10, paper/85) keep working.
+        paper: 'rgb(var(--rgb-paper) / <alpha-value>)',
+        ink: 'rgb(var(--rgb-ink) / <alpha-value>)',
+        surface: 'rgb(var(--rgb-surface) / <alpha-value>)',
+        accent: 'rgb(var(--rgb-ink) / <alpha-value>)',
+        accent2: 'rgb(var(--rgb-accent2) / <alpha-value>)',
+        ember: 'rgb(var(--rgb-accent2) / <alpha-value>)',
+        gold: 'rgb(var(--rgb-gold) / <alpha-value>)',
       },
     },
   },

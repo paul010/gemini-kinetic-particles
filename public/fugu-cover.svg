@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" role="img" aria-label="Fugu / TRINITY orchestration diagram">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f6f3ec"/>
+      <stop offset="1" stop-color="#ece6da"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#8a682c" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#8a682c" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="750" fill="url(#bg)"/>
+  <ellipse cx="300" cy="375" rx="360" ry="360" fill="url(#glow)"/>
+
+  <!-- edges: router -> 7 workers -->
+  <g stroke="#1c1a17" stroke-opacity="0.16" fill="none" stroke-width="2">
+    <path d="M360 375 C 560 130, 720 130, 880 120"/>
+    <path d="M360 375 C 560 210, 720 215, 880 235"/>
+    <path d="M360 375 C 560 300, 720 320, 880 350"/>
+    <path d="M360 375 C 560 375, 720 460, 880 465"/>
+    <path d="M360 375 C 560 470, 720 540, 880 580"/>
+    <path d="M360 375 C 560 560, 720 630, 880 670"/>
+    <path d="M360 375 C 560 640, 720 120, 880 120"/>
+  </g>
+  <!-- the chosen edge (argmax) highlighted -->
+  <path d="M360 375 C 560 300, 720 320, 880 350" fill="none" stroke="#8a682c" stroke-width="4"/>
+
+  <!-- router node -->
+  <g filter="url(#soft)">
+    <circle cx="300" cy="375" r="78" fill="#1c1a17"/>
+  </g>
+  <text x="300" y="364" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="22" font-weight="700" fill="#f6f3ec">TRINITY</text>
+  <text x="300" y="392" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="13" fill="#c9a868">router · 0.6B</text>
+  <text x="300" y="412" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11" fill="#f6f3ec" fill-opacity="0.6">~19.5k params</text>
+
+  <!-- 7 worker nodes -->
+  <g font-family="'JetBrains Mono', monospace" font-size="13" font-weight="700">
+    <g><circle cx="940" cy="120" r="34" fill="#d97757"/><text x="940" y="126" text-anchor="middle" fill="#fff">C</text></g>
+    <g><circle cx="940" cy="235" r="34" fill="#10a37f"/><text x="940" y="241" text-anchor="middle" fill="#fff">O</text></g>
+    <g><circle cx="940" cy="350" r="40" fill="#4285f4"/><text x="940" y="356" text-anchor="middle" fill="#fff">G</text></g>
+    <g><circle cx="940" cy="465" r="34" fill="#1c1a17"/><text x="940" y="471" text-anchor="middle" fill="#fff">X</text></g>
+    <g><circle cx="940" cy="580" r="34" fill="#4d6bfe"/><text x="940" y="586" text-anchor="middle" fill="#fff">D</text></g>
+    <g><circle cx="940" cy="670" r="30" fill="#615ced"/><text x="940" y="676" text-anchor="middle" fill="#fff">Q</text></g>
+  </g>
+  <!-- ring on the selected worker -->
+  <circle cx="940" cy="350" r="50" fill="none" stroke="#8a682c" stroke-width="3" stroke-dasharray="4 6"/>
+
+  <!-- captions -->
+  <text x="80" y="100" font-family="'Cormorant Garamond', Georgia, serif" font-size="58" font-weight="600" fill="#1c1a17">Fugu / TRINITY</text>
+  <text x="82" y="150" font-family="'JetBrains Mono', monospace" font-size="20" fill="#8a682c">learned model orchestration — reproduced</text>
+  <text x="82" y="690" font-family="'JetBrains Mono', monospace" font-size="17" fill="#1c1a17" fill-opacity="0.55">sep-CMA-ES · +79% over best single worker · 8 seeds · CPU</text>
+</svg>

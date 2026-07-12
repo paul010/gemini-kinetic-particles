@@ -1,5 +1,9 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { Suspense, useEffect, useRef, useState } from 'react';
 import { FluidBackground } from './components/FluidBackground';
+
+// The ⌘K palette ships as its own chunk, fetched on first open — it never
+// blocks the homepage's first paint.
+const SearchPalette = React.lazy(() => import('./components/SearchPalette'));
 import {
   COPY,
   PROJECTS,
@@ -83,6 +87,12 @@ const XIcon = (props: React.SVGProps<SVGSVGElement>) => (
   </svg>
 );
 
+const NotionIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
+    <path d="M4.6 3.4 14.8 2.6c1.3-.1 1.6 0 2.4.6l2.7 1.9c.5.4.7.5.7 1v13c0 .9-.3 1.4-1.5 1.5l-11.8.7c-.8 0-1.2-.1-1.6-.6l-2-2.6c-.4-.6-.6-1-.6-1.6V4.8c0-.7.3-1.3 1.1-1.4Zm.5 1.5c-.2.2-.1.4.2.6l1.9 1.4c.4.3.5.3 1 .3l11-.7c.2 0 .4-.1.2-.4L19 4.9c-.3-.2-.5-.3-1-.3l-11.7.7c-.3 0-.4.1-.2.6Zm9.4 3.6-7.7.5c-.3 0-.4.2-.4.5v9.2c0 .3.2.4.5.4l1.3-.1v-7l.4.5 4 5.7 1.7-.1V9.2l-1.6.1.1 5.1-3.9-5.5 1.6-.1V8.5Z" />
+  </svg>
+);
+
 const MailIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" {...props}>
     <rect x="3" y="5" width="18" height="14" rx="2" />
@@ -114,11 +124,21 @@ const ArrowUpRight = (props: React.SVGProps<SVGSVGElement>) => (
   </svg>
 );
 
+const SearchIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" {...props}>
+    <circle cx="11" cy="11" r="7" />
+    <path d="m20 20-3.5-3.5" />
+  </svg>
+);
+
 /* ---------- Reveal on scroll ---------- */
 
-const useReveal = () => {
+const useReveal = (dep?: unknown) => {
   useEffect(() => {
-    const els = Array.from(document.querySelectorAll<HTMLElement>('.reveal'));
+    // Only the not-yet-revealed elements — so a re-run (e.g. after filtering
+    // mounts new cards) picks up the newcomers without re-animating the rest.
+    const els = Array.from(document.querySelectorAll<HTMLElement>('.reveal:not(.is-visible)'));
+    if (!els.length) return;
     if (!('IntersectionObserver' in window)) {
       els.forEach((el) => el.classList.add('is-visible'));
       return;
@@ -136,7 +156,7 @@ const useReveal = () => {
     );
     els.forEach((el) => io.observe(el));
     return () => io.disconnect();
-  }, []);
+  }, [dep]);
 };
 
 /* ---------- Scroll progress bar ---------- */
@@ -285,9 +305,23 @@ const FeaturedCard: React.FC<{
   onInternal: (href: string) => void;
 }> = ({ project: p, lang, t, onInternal }) => {
   const tilt = useTilt(5);
+  const [copied, setCopied] = useState(false);
+  const [imgError, setImgError] = useState(false);
   const launchLink = p.links.find((l) => l.kind === 'internal');
-  const launchHref = launchLink?.href ?? '/particles';
-  const launchLabel = launchLink ? t(launchLink.label) : t(COPY.hero.ctaLaunch);
+  const externalLink = p.links.find((l) => l.kind !== 'internal');
+  const launchLabel = launchLink ? t(launchLink.label) : externalLink ? t(externalLink.label) : t(COPY.hero.ctaLaunch);
+  // Cover click: open the internal route if any, else the external link, else no-op.
+  const onCover = () => {
+    if (launchLink) onInternal(launchLink.href);
+    else if (externalLink) window.open(externalLink.href, '_blank', 'noopener');
+  };
+  const copyPrompt = () => {
+    if (!p.prompt) return;
+    navigator.clipboard?.writeText(p.prompt).then(() => {
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 1600);
+    }).catch(() => {});
+  };
   return (
   <article
     ref={tilt.ref}
@@ -297,16 +331,28 @@ const FeaturedCard: React.FC<{
   >
     {p.cover && (
       <button
-        onClick={() => onInternal(launchHref)}
+        onClick={onCover}
         className="group relative block overflow-hidden lg:w-[55%]"
-        aria-label={p.title}
+        aria-label={t(p.title)}
       >
-        <img
-          src={p.cover}
-          alt={p.title}
-          loading="lazy"
-          className="h-64 w-full object-cover transition-transform duration-700 group-hover:scale-[1.04] sm:h-80 lg:h-full"
-        />
+        {imgError ? (
+          // Cover not available yet (e.g. asset still being uploaded) — show a
+          // tasteful placeholder instead of a broken image.
+          <div className="grid h-64 w-full place-items-center bg-gradient-to-br from-surface to-paper sm:h-80 lg:h-full">
+            <div className="flex flex-col items-center gap-2 text-ink/35">
+              <span className="font-display text-5xl">❝</span>
+              <span className="font-mono text-[11px] uppercase tracking-wider">{t(p.title)}</span>
+            </div>
+          </div>
+        ) : (
+          <img
+            src={p.cover}
+            alt={t(p.title)}
+            loading="lazy"
+            onError={() => setImgError(true)}
+            className="h-64 w-full object-cover transition-transform duration-700 group-hover:scale-[1.04] sm:h-80 lg:h-full"
+          />
+        )}
         <span className="pointer-events-none absolute inset-0 bg-gradient-to-t from-surface/85 via-transparent to-transparent lg:bg-gradient-to-r" />
         <span className="absolute bottom-4 left-4 inline-flex items-center gap-2 rounded-full border border-paper/25 bg-black/45 px-3.5 py-1.5 text-xs font-semibold text-paper/90 backdrop-blur-md transition-colors group-hover:border-paper/60 group-hover:text-paper">
           {launchLabel}
@@ -317,13 +363,38 @@ const FeaturedCard: React.FC<{
 
     <div className="flex flex-1 flex-col justify-center p-7 sm:p-9 lg:p-10">
       <div className="mb-5 flex items-center justify-between gap-3">
-        {statusBadge(p.status, t)}
+        <div className="flex items-center gap-2">
+          {p.signature && (
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-gold/40 bg-gold/10 px-2.5 py-0.5 font-mono text-[11px] uppercase tracking-wider text-gold">
+              <span className="pulse-dot h-1.5 w-1.5 rounded-full bg-gold" /> {t(COPY.work.signature)}
+            </span>
+          )}
+          {statusBadge(p.status, t)}
+        </div>
         <span className="font-mono text-xs text-ink/40">{p.year}</span>
       </div>
 
-      <h3 className="font-display text-3xl font-semibold tracking-tight sm:text-4xl">{p.title}</h3>
+      <h3 className="font-display text-3xl font-semibold tracking-tight sm:text-4xl">{t(p.title)}</h3>
       <p className="mt-3 text-sm font-medium text-accent/90">{t(p.tagline)}</p>
-      <p className="mt-5 max-w-xl text-sm leading-relaxed text-ink/60">{t(p.description)}</p>
+      <p className="mt-5 line-clamp-4 max-w-xl text-sm leading-relaxed text-ink/60 sm:line-clamp-none">{t(p.description)}</p>
+
+      {p.prompt && (
+        <details className="group/prompt mt-5 rounded-xl border border-ink/10 bg-ink/[0.03] px-4 py-3">
+          <summary className="flex cursor-pointer list-none items-center justify-between gap-3 font-mono text-[11px] uppercase tracking-wider text-ink/55 [&::-webkit-details-marker]:hidden">
+            <span className="inline-flex items-center gap-2">
+              <span className="text-gold">❝</span> {t({ en: 'The prompt', zh: '提示词' })}
+            </span>
+            <span className="transition-transform group-open/prompt:rotate-180">▾</span>
+          </summary>
+          <p className="mt-3 whitespace-pre-wrap font-mono text-[12.5px] leading-relaxed text-ink/65">{p.prompt}</p>
+          <button
+            onClick={copyPrompt}
+            className="mt-3 inline-flex items-center gap-1.5 rounded-full border border-ink/15 bg-paper px-3 py-1 font-mono text-[11px] text-ink/70 transition-colors hover:border-gold/40 hover:text-gold"
+          >
+            {copied ? t({ en: 'Copied ✓', zh: '已复制 ✓' }) : t({ en: 'Copy', zh: '复制' })}
+          </button>
+        </details>
+      )}
 
       <div className="mt-6 flex flex-wrap gap-2">
         {p.tags.map((tag) => (
@@ -358,59 +429,77 @@ const FeaturedCard: React.FC<{
   );
 };
 
-/* ---------- Non-featured project (card in the grid) ---------- */
+/* ---------- Compact project tile (grid card with cover thumbnail) ---------- */
 
 const ProjectCard: React.FC<{
   project: Project;
-  index: number;
   lang: Lang;
   t: (txt: LocalizedText) => string;
   onInternal: (href: string) => void;
-}> = ({ project: p, index, lang, t, onInternal }) => (
-  <article className="reveal group flex flex-col rounded-2xl border border-ink/10 bg-surface/50 p-6 backdrop-blur-sm transition-all hover:-translate-y-1 hover:border-gold/40 sm:p-7">
-    <div className="mb-4 flex items-center justify-between gap-3">
-      <span className="font-mono text-xs text-gold">0{index}</span>
-      <span className="font-mono text-xs text-ink/40">{p.year}</span>
-    </div>
-
-    <div className="flex flex-wrap items-center gap-3">
-      <h3 className="font-display text-2xl font-semibold tracking-tight">{p.title}</h3>
-      {statusBadge(p.status, t)}
-    </div>
-    <p className="mt-2 flex-1 text-sm leading-relaxed text-ink/60">{t(p.tagline)}</p>
-
-    {p.tags.length > 0 && (
-      <div className="mt-4 flex flex-wrap gap-2">
-        {p.tags.map((tag) => (
-          <span key={tag} className="rounded-md border border-ink/10 bg-ink/[0.03] px-2.5 py-1 font-mono text-[11px] text-ink/55">
-            {tag}
+  /** 'lg' renders the editors-pick variant: wider cover, bigger type. */
+  size?: 'md' | 'lg';
+}> = ({ project: p, lang, t, onInternal, size = 'md' }) => {
+  const [imgError, setImgError] = useState(false);
+  const lg = size === 'lg';
+  const launchLink = p.links.find((l) => l.kind === 'internal');
+  const externalLink = p.links.find((l) => l.kind !== 'internal');
+  const primary = launchLink ?? externalLink;
+  const onCover = () => {
+    if (launchLink) onInternal(launchLink.href);
+    else if (externalLink) window.open(externalLink.href, '_blank', 'noopener');
+  };
+  return (
+    <article className="project-card reveal group flex flex-col overflow-hidden rounded-2xl border border-ink/10 bg-surface/50 backdrop-blur-sm transition-all hover:-translate-y-1 hover:border-gold/40">
+      <button onClick={onCover} className={`relative block w-full overflow-hidden ${lg ? 'aspect-[16/9]' : 'aspect-[16/10]'}`} aria-label={t(p.title)}>
+        {p.cover && !imgError ? (
+          <img src={p.cover} alt={t(p.title)} loading="lazy" onError={() => setImgError(true)}
+            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.05]" />
+        ) : (
+          // Cover-less tiles (in-browser tools) get a consistent on-palette
+          // header: a large, faded category word so the grid stays even.
+          <div className="grid h-full w-full place-items-center bg-gradient-to-br from-surface to-paper">
+            <span className="px-4 text-center font-mono text-xl font-semibold uppercase tracking-[0.18em] text-ink/[0.13] sm:text-2xl">{p.tags[0] ?? 'TOOL'}</span>
+          </div>
+        )}
+        <span className="pointer-events-none absolute inset-0 bg-gradient-to-t from-surface/35 to-transparent" />
+        {p.signature && (
+          <span className="absolute left-3 top-3 inline-flex items-center gap-1 rounded-full border border-gold/40 bg-paper/85 px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider text-gold backdrop-blur-sm">
+            <span className="pulse-dot h-1 w-1 rounded-full bg-gold" /> {t(COPY.work.signature)}
           </span>
-        ))}
+        )}
+      </button>
+      <div className={`flex flex-1 flex-col ${lg ? 'p-5 sm:p-7' : 'p-4 sm:p-5'}`}>
+        <div className="flex items-center justify-between gap-2">
+          {statusBadge(p.status, t)}
+          <span className="font-mono text-[11px] text-ink/40">{p.year}</span>
+        </div>
+        <h3 className={`mt-2.5 font-display font-semibold tracking-tight ${lg ? 'text-xl sm:text-2xl' : 'text-lg sm:text-xl'}`}>{t(p.title)}</h3>
+        <p className={`mt-1.5 flex-1 leading-relaxed text-ink/60 ${lg ? 'line-clamp-3 text-sm sm:text-[15px]' : 'line-clamp-2 text-[13px] sm:text-sm'}`}>{t(p.tagline)}</p>
+        {p.tags.length > 0 && (
+          <div className="mt-3 flex flex-wrap gap-1.5">
+            {p.tags.slice(0, lg ? 4 : 3).map((tag) => (
+              <span key={tag} className="hidden rounded-md border border-ink/10 bg-ink/[0.03] px-2 py-0.5 font-mono text-[10.5px] text-ink/55 sm:inline">{tag}</span>
+            ))}
+          </div>
+        )}
+        {primary && (
+          <div className="mt-4 pt-1">
+            <a
+              href={primary.href}
+              onClick={(e) => { if (primary.kind === 'internal') { e.preventDefault(); onInternal(primary.href); } }}
+              target={primary.kind === 'internal' ? undefined : '_blank'}
+              rel={primary.kind === 'internal' ? undefined : 'noreferrer'}
+              className={`link-underline inline-flex items-center gap-1.5 text-sm font-semibold ${projectLinkColor(primary.kind)}`}
+            >
+              {t(primary.label)}
+              <ArrowUpRight className="h-3.5 w-3.5" />
+            </a>
+          </div>
+        )}
       </div>
-    )}
-
-    <div className="mt-5 flex flex-wrap gap-x-5 gap-y-2 pt-1">
-      {p.links.map((l) => (
-        <a
-          key={l.href + l.kind}
-          href={l.href}
-          onClick={(e) => {
-            if (l.kind === 'internal') {
-              e.preventDefault();
-              onInternal(l.href);
-            }
-          }}
-          target={l.kind === 'internal' ? undefined : '_blank'}
-          rel={l.kind === 'internal' ? undefined : 'noreferrer'}
-          className={`link-underline inline-flex items-center gap-1.5 text-sm font-semibold ${projectLinkColor(l.kind)}`}
-        >
-          {t(l.label)}
-          <ArrowUpRight className="h-3.5 w-3.5" />
-        </a>
-      ))}
-    </div>
-  </article>
-);
+    </article>
+  );
+};
 
 /* ---------- Hero portrait (editorial avatar plate) ---------- */
 
@@ -484,13 +573,27 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState('home');
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [workFilter, setWorkFilter] = useState<'all' | 'ai' | 'creative' | 'tool'>('all');
+  // Theme is resolved pre-paint by the index.html boot script; this just mirrors it.
+  const [theme, setTheme] = useState<'light' | 'dark'>(() =>
+    typeof document !== 'undefined' && document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light'
+  );
+  const toggleTheme = () => {
+    setTheme((prev) => {
+      const next = prev === 'light' ? 'dark' : 'light';
+      document.documentElement.dataset.theme = next;
+      try { window.localStorage.setItem('dalei-theme', next); } catch { /* private mode */ }
+      return next;
+    });
+  };
   const s2t = useS2T(lang === 'zhHant');
   const t = (txt: LocalizedText) =>
     lang === 'en' ? txt.en : lang === 'zhHant' ? (s2t ? s2t(txt.zh) : txt.zh) : txt.zh;
   const progressRef = useRef<HTMLDivElement>(null);
   const [videos, setVideos] = useState<VideoItem[]>(VIDEOS);
 
-  useReveal();
+  useReveal(workFilter);
   useScrollProgress(progressRef);
 
   // Scroll-spy: highlight the nav item for the section currently in view.
@@ -546,6 +649,27 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  // Global search hotkeys: ⌘K / Ctrl+K anywhere, or `/` outside form fields.
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        setSearchOpen((v) => !v);
+        return;
+      }
+      if (e.key === '/' && !e.metaKey && !e.ctrlKey && !e.altKey) {
+        const el = e.target as HTMLElement | null;
+        const typing = el && (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.isContentEditable);
+        if (!typing) {
+          e.preventDefault();
+          setSearchOpen(true);
+        }
+      }
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, []);
+
   const navItems = [
     { id: 'home', label: COPY.nav.home },
     { id: 'work', label: COPY.nav.work },
@@ -560,12 +684,44 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
-  const featured = PROJECTS.filter((p) => p.featured);
-  const rest = PROJECTS.filter((p) => !p.featured);
+  // One signature project is the big hero; everything else goes into a compact
+  // tile grid so the page stays short and scannable.
+  const signature = PROJECTS.find((p) => p.signature);
+  const allTiles = PROJECTS.filter((p) => p.id !== signature?.id)
+    .sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
+  const tiles = workFilter === 'all' ? allTiles : allTiles.filter((p) => p.category === workFilter);
+
+  // Filter chips for the Work grid — counts come from the unfiltered set.
+  const workFilters: { key: typeof workFilter; label: LocalizedText; count: number }[] = [
+    { key: 'all', label: COPY.work.filterAll, count: allTiles.length },
+    { key: 'ai', label: COPY.work.filterAi, count: allTiles.filter((p) => p.category === 'ai').length },
+    { key: 'creative', label: COPY.work.filterCreative, count: allTiles.filter((p) => p.category === 'creative').length },
+    { key: 'tool', label: COPY.work.filterTool, count: allTiles.filter((p) => p.category === 'tool').length },
+  ];
 
   return (
     <div className="home-root font-sans">
+      {/* Skip link — keyboard/screen-reader users jump straight to content (a11y) */}
+      <a
+        href="#main-content"
+        className="sr-only z-[80] rounded-full border border-ink/15 bg-paper px-4 py-2 font-mono text-xs text-ink shadow-lg focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
+      >
+        {t({ en: 'Skip to content', zh: '跳到主要内容' })}
+      </a>
       <div ref={progressRef} className="scroll-progress" />
+      {searchOpen && (
+        <Suspense fallback={null}>
+          <SearchPalette
+            open={searchOpen}
+            onClose={() => setSearchOpen(false)}
+            t={t}
+            videos={videos}
+            onNavigate={onNavigate}
+            goToSection={goTo}
+            toggleTheme={toggleTheme}
+          />
+        </Suspense>
+      )}
       <FluidBackground />
       <div className="bg-aurora" />
       <div className="bg-vignette" />
@@ -577,7 +733,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
           scrolled ? 'border-b border-ink/10 bg-paper/80 backdrop-blur-xl' : 'border-b border-transparent'
         }`}
       >
-        <nav className="mx-auto flex max-w-5xl items-center justify-between px-5 py-4 sm:px-8">
+        <nav className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4 sm:px-8">
           <button
             onClick={() => goTo('home')}
             className="group flex items-center gap-2.5 font-display text-base font-semibold tracking-tight"
@@ -603,6 +759,21 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
           </div>
 
           <div className="flex items-center gap-2">
+            <button
+              onClick={() => setSearchOpen(true)}
+              aria-label={t({ en: 'Search (Ctrl+K)', zh: '搜索（Ctrl+K）' })}
+              className="group flex h-8 items-center gap-2 rounded-full border border-ink/15 bg-ink/5 px-2.5 text-ink/60 transition-colors hover:border-gold/50 hover:text-ink"
+            >
+              <SearchIcon className="h-[15px] w-[15px]" />
+              <kbd className="hidden rounded border border-ink/15 bg-paper/60 px-1 font-mono text-[10px] text-ink/45 transition-colors group-hover:text-gold lg:inline">⌘K</kbd>
+            </button>
+            <button
+              onClick={toggleTheme}
+              aria-label={theme === 'light' ? '切换到深色模式 / Switch to dark mode' : '切换到浅色模式 / Switch to light mode'}
+              className="grid h-8 w-8 place-items-center rounded-full border border-ink/15 bg-ink/5 text-sm text-ink/70 transition-colors hover:border-gold/50 hover:text-ink"
+            >
+              <span aria-hidden="true">{theme === 'light' ? '☾' : '☀'}</span>
+            </button>
             <div className="inline-flex items-center rounded-full border border-ink/15 bg-ink/5 p-0.5 font-mono text-xs" role="group" aria-label="Language">
               {([['en', 'EN'], ['zh', '简'], ['zhHant', '繁']] as [Lang, string][]).map(([code, label]) => (
                 <button
@@ -617,10 +788,21 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
                 </button>
               ))}
             </div>
+            <a
+              href={SOCIALS.youtube}
+              target="_blank"
+              rel="noreferrer"
+              className="btn-sheen hidden h-8 items-center gap-1.5 rounded-full bg-gold px-3.5 text-xs font-semibold text-paper transition-transform hover:scale-[1.03] xl:inline-flex"
+            >
+              <YouTubeIcon className="h-3.5 w-3.5" />
+              {t({ en: 'Subscribe', zh: '订阅' })}
+            </a>
             <button
               onClick={() => setMenuOpen((v) => !v)}
               className="grid h-9 w-9 place-items-center rounded-full border border-ink/15 bg-ink/5 text-ink/80 md:hidden"
               aria-label="Menu"
+              aria-expanded={menuOpen}
+              aria-controls="mobile-nav"
             >
               <span className="text-lg leading-none">{menuOpen ? '×' : '≡'}</span>
             </button>
@@ -628,14 +810,20 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
         </nav>
 
         {menuOpen && (
-          <div className="border-t border-ink/10 bg-paper/95 px-5 py-4 backdrop-blur-xl md:hidden">
+          <div
+            id="mobile-nav"
+            className="menu-in border-t border-ink/10 bg-paper px-5 pb-5 pt-2 shadow-[0_26px_44px_-26px_rgba(28,26,23,0.55)] md:hidden"
+          >
             {navItems.map((item, i) => (
               <button
                 key={item.id}
                 onClick={() => goTo(item.id)}
-                className="flex w-full items-center gap-3 py-2.5 text-left text-ink/80"
+                aria-current={active === item.id ? 'page' : undefined}
+                className={`flex w-full items-center gap-3 border-b border-ink/5 py-3 text-left transition-colors last:border-b-0 ${
+                  active === item.id ? 'text-ink' : 'text-ink/70 hover:text-ink'
+                }`}
               >
-                <span className="font-mono text-xs text-gold">0{i + 1}</span>
+                <span className={`font-mono text-xs ${active === item.id ? 'text-gold' : 'text-gold/55'}`}>0{i + 1}</span>
                 {t(item.label)}
               </button>
             ))}
@@ -643,9 +831,9 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
         )}
       </header>
 
-      <main className="mx-auto max-w-5xl px-5 sm:px-8">
+      <main id="main-content" className="mx-auto max-w-5xl px-5 sm:px-8">
         {/* Hero */}
-        <section id="home" className="grid min-h-[92vh] items-center gap-12 pt-28 pb-20 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14">
+        <section id="home" className="relative grid min-h-[92vh] items-center gap-12 pt-28 pb-20 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14">
           <div className="flex flex-col">
             <p className="hero-in mb-7 inline-flex w-fit items-center gap-2 rounded-full border border-ink/12 bg-ink/5 px-3.5 py-1.5 font-mono text-xs uppercase tracking-[0.18em] text-ink/65" style={{ animationDelay: '0.05s' }}>
               <span className="pulse-dot h-1.5 w-1.5 rounded-full bg-gold" />
@@ -683,7 +871,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
               </Magnetic>
             </div>
 
-            <div className="hero-in mt-12 flex flex-wrap items-center gap-5 text-ink/55" style={{ animationDelay: '0.7s' }}>
+            <div className="hero-in mt-12 flex flex-wrap items-center gap-5 border-t border-ink/10 pt-6 text-ink/55" style={{ animationDelay: '0.7s' }}>
               <a href={SOCIALS.github} target="_blank" rel="noreferrer" className="transition-colors hover:text-ink" aria-label="GitHub">
                 <GitHubIcon className="h-5 w-5" />
               </a>
@@ -697,16 +885,53 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
                 <MailIcon className="h-5 w-5" />
               </a>
               <span className="font-mono text-xs tracking-wide text-ink/35">@dalei2025 · @paul010318</span>
+              <span className="inline-flex items-center gap-2 rounded-full border border-gold/40 bg-gold/10 px-3 py-1 font-mono text-[11px] uppercase tracking-wider text-gold sm:ml-auto">
+                <span className="pulse-dot h-1.5 w-1.5 rounded-full bg-gold" />
+                {t(COPY.hero.availability)}
+              </span>
             </div>
           </div>
 
           <div className="hero-in" style={{ animationDelay: '0.5s' }}>
             <HeroFigure t={t} onOpen={() => window.open(SOCIALS.youtube, '_blank', 'noopener')} />
           </div>
+
+          {/* scroll cue — fades away once the reader starts moving */}
+          <div
+            aria-hidden="true"
+            className={`pointer-events-none absolute bottom-5 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2.5 transition-opacity duration-500 sm:flex ${
+              scrolled ? 'opacity-0' : 'opacity-100'
+            }`}
+          >
+            <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-ink/40">scroll</span>
+            <span className="scroll-cue-line" />
+          </div>
         </section>
 
+        {/* brand marquee — full-bleed editorial strip between hero and work */}
+        <div aria-hidden="true" className="reveal relative left-1/2 w-screen -translate-x-1/2 border-y border-ink/10 bg-paper/60 py-3 backdrop-blur-sm">
+          <div className="marquee">
+            {[0, 1].map((k) => (
+              <div key={k} className="marquee-track">
+                {['AI AUTOMATION', '创意编程', 'OPEN SOURCE', 'BUILD IN PUBLIC', '大雷早上好', 'AGENTS & PROMPTS', '一起学习 一起跑步 🏃'].map((w, i) => (
+                  <span
+                    key={i}
+                    className={`mx-7 inline-flex items-center gap-7 whitespace-nowrap font-display text-2xl font-semibold tracking-tight sm:text-3xl ${
+                      i % 2 ? 'text-outline' : 'text-ink/75'
+                    }`}
+                  >
+                    {w}
+                    <span className="text-base text-gold">✦</span>
+                  </span>
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
+
         {/* Work */}
-        <section id="work" className="scroll-mt-24 py-20">
+        <section id="work" className="relative scroll-mt-24 py-20">
+          <span className="section-index" aria-hidden="true">01</span>
           <div className="reveal mb-12 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
             <div>
               <p className="font-mono text-xs uppercase tracking-[0.2em] text-gold">{t(COPY.work.label)}</p>
@@ -715,29 +940,52 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
             <p className="max-w-sm text-sm text-ink/55 sm:text-right">{t(COPY.work.sub)}</p>
           </div>
 
-          <div className="flex flex-col gap-6">
-            {featured.map((p) => (
-              <FeaturedCard key={p.id} project={p} lang={lang} t={t} onInternal={onNavigate} />
-            ))}
-
-            {rest.length > 0 && (
-              <div className="reveal mt-6 flex items-baseline justify-between gap-3 border-t border-ink/10 pt-8">
-                <h3 className="font-mono text-xs uppercase tracking-[0.2em] text-gold">{t(COPY.work.tools)}</h3>
-                <p className="font-mono text-[11px] text-ink/45">{t(COPY.work.toolsSub)}</p>
-              </div>
+          <div className="flex flex-col gap-8">
+            {signature && (
+              <FeaturedCard key={signature.id} project={signature} lang={lang} t={t} onInternal={onNavigate} />
             )}
-            {rest.length > 0 && (
-              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-2">
-                {rest.map((p, i) => (
-                  <ProjectCard key={p.id} project={p} index={featured.length + i + 1} lang={lang} t={t} onInternal={onNavigate} />
+
+            <div className="reveal flex flex-col gap-4 border-t border-ink/10 pt-8 sm:flex-row sm:items-center sm:justify-between">
+              <h3 className="font-mono text-xs uppercase tracking-[0.2em] text-gold">{t({ en: 'All projects & tools', zh: '全部项目 & 工具' })}</h3>
+              {/* Category filter — scan by interest instead of one long scroll */}
+              <div className="flex flex-wrap gap-2" role="group" aria-label={t({ en: 'Filter projects', zh: '筛选项目' })}>
+                {workFilters.map((f) => (
+                  <button
+                    key={f.key}
+                    onClick={() => setWorkFilter(f.key)}
+                    aria-pressed={workFilter === f.key}
+                    className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 font-mono text-[11px] transition-colors ${
+                      workFilter === f.key
+                        ? 'border-ink bg-ink text-paper'
+                        : 'border-ink/15 text-ink/60 hover:border-ink/40 hover:text-ink'
+                    }`}
+                  >
+                    {t(f.label)}
+                    <span className={workFilter === f.key ? 'text-paper/55' : 'text-ink/35'}>{f.count}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+            {/* Editors' picks — the first two of the (filtered) list get a wider,
+                larger card so the wall of tiles reads as headline → picks → index. */}
+            {tiles.length > 0 && (
+              <div className="grid gap-3 sm:grid-cols-2 sm:gap-5">
+                {tiles.slice(0, 2).map((p) => (
+                  <ProjectCard key={p.id} project={p} lang={lang} t={t} onInternal={onNavigate} size="lg" />
                 ))}
               </div>
             )}
+            <div className="grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-3">
+              {tiles.slice(2).map((p) => (
+                <ProjectCard key={p.id} project={p} lang={lang} t={t} onInternal={onNavigate} />
+              ))}
+            </div>
           </div>
         </section>
 
         {/* Videos */}
-        <section id="videos" className="scroll-mt-24 py-20">
+        <section id="videos" className="relative scroll-mt-24 py-20">
+          <span className="section-index" aria-hidden="true">02</span>
           <div className="reveal mb-12 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
             <div>
               <p className="font-mono text-xs uppercase tracking-[0.2em] text-gold">{t(COPY.videos.label)}</p>
@@ -755,8 +1003,49 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
             </a>
           </div>
 
+          {/* Latest episode — a full-width split feature, magazine-style; the
+              rest stay in the compact grid below. */}
+          {videos[0] && (
+            <a
+              href={youtubeWatch(videos[0].id)}
+              target="_blank"
+              rel="noreferrer"
+              className="video-card reveal group mb-6 flex flex-col overflow-hidden rounded-2xl border border-ink/10 bg-surface/50 backdrop-blur-sm transition-all hover:-translate-y-1 hover:border-gold/40 lg:flex-row"
+            >
+              <div className="relative aspect-video overflow-hidden bg-surface lg:aspect-auto lg:w-[58%]">
+                <img
+                  src={youtubeThumb(videos[0].id)}
+                  alt={t(videos[0].title)}
+                  loading="lazy"
+                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+                />
+                <span className="absolute bottom-3 right-3 rounded bg-black/75 px-2 py-0.5 font-mono text-xs text-white">
+                  {videos[0].duration}
+                </span>
+                <span className="absolute inset-0 grid place-items-center">
+                  <span className="grid h-14 w-14 scale-90 place-items-center rounded-full bg-paper/90 text-ink opacity-0 shadow-lg transition-all duration-300 group-hover:scale-100 group-hover:opacity-100">
+                    <PlayIcon className="ml-0.5 h-6 w-6" />
+                  </span>
+                </span>
+              </div>
+              <div className="flex flex-1 flex-col justify-center p-6 sm:p-8 lg:p-9">
+                <p className="flex items-center gap-2.5 font-mono text-[11px] uppercase tracking-[0.18em] text-ink/45">
+                  <span className="rounded-full bg-gold px-2 py-0.5 font-semibold text-paper">{t(COPY.videos.new)}</span>
+                  {videos[0].date}
+                </p>
+                <h3 className="mt-3.5 font-display text-2xl font-semibold leading-snug tracking-tight text-ink/90 transition-colors group-hover:text-ink sm:text-3xl">
+                  {t(videos[0].title)}
+                </h3>
+                <span className="link-underline mt-6 inline-flex w-fit items-center gap-1.5 text-sm font-semibold text-accent">
+                  {t({ en: 'Watch on YouTube', zh: '在 YouTube 观看' })}
+                  <ArrowUpRight className="h-3.5 w-3.5" />
+                </span>
+              </div>
+            </a>
+          )}
+
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {videos.map((v, i) => (
+            {videos.slice(1).map((v, i) => (
               <a
                 key={v.id}
                 href={youtubeWatch(v.id)}
@@ -775,11 +1064,6 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
                   <span className="absolute bottom-2 right-2 rounded bg-black/75 px-1.5 py-0.5 font-mono text-[11px] text-white">
                     {v.duration}
                   </span>
-                  {i === 0 && (
-                    <span className="absolute left-2 top-2 rounded-full bg-gold px-2 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-wider text-paper shadow">
-                      最新 New
-                    </span>
-                  )}
                   <span className="absolute inset-0 grid place-items-center">
                     <span className="grid h-12 w-12 scale-90 place-items-center rounded-full bg-paper/90 text-ink opacity-0 shadow-lg transition-all duration-300 group-hover:scale-100 group-hover:opacity-100">
                       <PlayIcon className="ml-0.5 h-5 w-5" />
@@ -823,7 +1107,8 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
         </section>
 
         {/* About */}
-        <section id="about" className="scroll-mt-24 py-20">
+        <section id="about" className="relative scroll-mt-24 py-20">
+          <span className="section-index" aria-hidden="true">03</span>
           <div className="grid gap-12 lg:grid-cols-[1fr_1.1fr] lg:gap-16">
             <div className="reveal">
               <p className="font-mono text-xs uppercase tracking-[0.2em] text-gold">{t(COPY.about.label)}</p>
@@ -831,6 +1116,20 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
                 {t(COPY.about.heading)}
               </h2>
               <p className="mt-6 text-base leading-relaxed text-ink/65">{t(COPY.about.body)}</p>
+
+              {/* At-a-glance stats — a clean divided strip of social proof */}
+              <dl className="mt-8 grid grid-cols-3 gap-px overflow-hidden rounded-2xl border border-ink/10 bg-ink/10">
+                {[
+                  { value: CHANNEL.subscribers, label: { en: 'subscribers', zh: 'YouTube 订阅' } as LocalizedText },
+                  { value: CHANNEL.videos, label: { en: 'videos', zh: '视频' } as LocalizedText },
+                  { value: `${PROJECTS.length}`, label: { en: 'open-source projects', zh: '开源项目' } as LocalizedText },
+                ].map((s, i) => (
+                  <div key={i} className="bg-surface/60 px-4 py-5 backdrop-blur-sm sm:px-6">
+                    <dt className="font-display text-3xl font-semibold leading-none tracking-tight sm:text-4xl">{s.value}</dt>
+                    <dd className="mt-2 font-mono text-[10.5px] uppercase leading-tight tracking-wider text-ink/45">{t(s.label)}</dd>
+                  </div>
+                ))}
+              </dl>
             </div>
 
             <div className="grid gap-4 self-center">
@@ -852,7 +1151,8 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
         </section>
 
         {/* Now */}
-        <section id="now" className="scroll-mt-24 py-20">
+        <section id="now" className="relative scroll-mt-24 py-20">
+          <span className="section-index" aria-hidden="true">04</span>
           <div className="reveal rounded-3xl border border-ink/10 bg-surface/40 p-8 backdrop-blur-sm sm:p-12">
             <div className="flex flex-wrap items-center justify-between gap-3">
               <p className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-gold">
@@ -862,11 +1162,18 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
               <span className="font-mono text-[11px] text-ink/40">{t(COPY.now.updated)}</span>
             </div>
             <h2 className="mt-3 font-display text-3xl font-bold tracking-tight sm:text-4xl">{t(COPY.now.heading)}</h2>
-            <ul className="mt-6 flex flex-col gap-4">
+            {/* Timeline rail — the top item is "live" (pulsing); older ones quiet */}
+            <ul className="mt-8 flex flex-col">
               {COPY.now.items.map((item, i) => (
-                <li key={i} className="flex items-start gap-3 text-base leading-relaxed text-ink/70">
-                  <span className="mt-1 font-mono text-sm text-gold">0{i + 1}</span>
-                  <span>{t(item)}</span>
+                <li key={i} className="relative flex gap-5 pb-7 last:pb-0">
+                  {i < COPY.now.items.length - 1 && (
+                    <span className="absolute left-[6px] top-5 h-full w-px bg-gradient-to-b from-ink/15 to-ink/5" aria-hidden="true" />
+                  )}
+                  <span className="relative mt-1.5 grid h-3.5 w-3.5 shrink-0 place-items-center" aria-hidden="true">
+                    <span className={`h-3.5 w-3.5 rounded-full border ${i === 0 ? 'border-gold/50 bg-gold/15' : 'border-ink/20 bg-ink/5'}`} />
+                    {i === 0 && <span className="pulse-dot absolute h-1.5 w-1.5 rounded-full bg-gold" />}
+                  </span>
+                  <p className="text-base leading-relaxed text-ink/70">{t(item)}</p>
                 </li>
               ))}
             </ul>
@@ -874,7 +1181,8 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
         </section>
 
         {/* Connect */}
-        <section id="connect" className="scroll-mt-24 py-20">
+        <section id="connect" className="relative scroll-mt-24 py-20">
+          <span className="section-index" aria-hidden="true">05</span>
           <div className="reveal relative overflow-hidden rounded-3xl border border-ink/10 bg-gradient-to-br from-surface/90 to-surface/40 p-8 backdrop-blur-sm sm:p-14">
             <div className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-accent/10 blur-3xl" />
             <div className="pointer-events-none absolute -bottom-20 -left-10 h-56 w-56 rounded-full bg-accent2/10 blur-3xl" />
@@ -890,6 +1198,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
                 { icon: <GitHubIcon className="h-5 w-5" />, label: 'GitHub', handle: 'paul010', href: SOCIALS.github, external: true, mail: false },
                 { icon: <YouTubeIcon className="h-5 w-5" />, label: 'YouTube', handle: '@dalei2025', href: SOCIALS.youtube, external: true, mail: false },
                 { icon: <XIcon className="h-[18px] w-[18px]" />, label: 'X / Twitter', handle: '@paul010318', href: SOCIALS.twitter, external: true, mail: false },
+                { icon: <NotionIcon className="h-5 w-5" />, label: 'Notion', handle: 'AI Agent Club', href: SOCIALS.notion, external: true, mail: false },
                 { icon: <MailIcon className="h-5 w-5" />, label: 'Email', handle: getEmail(), href: '#', external: false, mail: true },
               ].map((s, i) => (
                 <a
@@ -916,16 +1225,55 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
         </section>
       </main>
 
-      {/* Footer */}
+      {/* Footer — a small editorial colophon: brand, numbered site index, socials. */}
       <footer className="border-t border-ink/10">
-        <div className="mx-auto flex max-w-5xl flex-col items-center justify-between gap-4 px-5 py-8 sm:flex-row sm:px-8">
-          <div className="flex items-center gap-2.5 font-display text-sm font-semibold">
-            <span className="grid h-6 w-6 place-items-center rounded border border-ink/15 bg-ink/5 font-mono text-[10px] text-gold">大</span>
-            Da Lei · 大雷
+        <div className="mx-auto max-w-5xl px-5 py-12 sm:px-8">
+          <div className="flex flex-col gap-10 sm:flex-row sm:items-start sm:justify-between">
+            <div className="max-w-xs">
+              <div className="flex items-center gap-2.5 font-display text-base font-semibold">
+                <span className="grid h-7 w-7 place-items-center rounded-md border border-ink/15 bg-ink/5 font-mono text-xs text-gold">大</span>
+                Da Lei · 大雷
+              </div>
+              <p className="mt-3 text-sm leading-relaxed text-ink/50">
+                {t({
+                  en: 'AI automation, creative coding, and the occasional run — everything here is open source.',
+                  zh: 'AI 自动化、创意编程，偶尔跑步 —— 这里的一切都是开源的。',
+                })}
+              </p>
+            </div>
+
+            <nav className="grid grid-cols-2 gap-x-10 gap-y-2.5" aria-label={t({ en: 'Site index', zh: '站点索引' })}>
+              {navItems.map((item, i) => (
+                <button
+                  key={item.id}
+                  onClick={() => goTo(item.id)}
+                  className="flex items-center gap-2 text-left text-sm text-ink/60 transition-colors hover:text-ink"
+                >
+                  <span className="font-mono text-[11px] text-gold/60">0{i + 1}</span>
+                  {t(item.label)}
+                </button>
+              ))}
+            </nav>
+
+            <div className="flex items-center gap-4 text-ink/50">
+              <a href={SOCIALS.github} target="_blank" rel="noreferrer" className="transition-colors hover:text-ink" aria-label="GitHub">
+                <GitHubIcon className="h-5 w-5" />
+              </a>
+              <a href={SOCIALS.youtube} target="_blank" rel="noreferrer" className="transition-colors hover:text-ink" aria-label="YouTube">
+                <YouTubeIcon className="h-5 w-5" />
+              </a>
+              <a href={SOCIALS.twitter} target="_blank" rel="noreferrer" className="transition-colors hover:text-ink" aria-label="X">
+                <XIcon className="h-[18px] w-[18px]" />
+              </a>
+              <a href="#" onClick={(e) => { e.preventDefault(); openEmail(); }} className="transition-colors hover:text-ink" aria-label="Email">
+                <MailIcon className="h-5 w-5" />
+              </a>
+            </div>
           </div>
-          <div className="flex items-center gap-4">
+
+          <div className="mt-10 flex flex-col items-center justify-between gap-3 border-t border-ink/10 pt-5 sm:flex-row">
             <p className="font-mono text-xs text-ink/40">
-              © {new Date().getFullYear()} · {t(COPY.footer.tagline)}
+              © {new Date().getFullYear()} Da Lei · {t(COPY.footer.tagline)}
             </p>
             <button
               onClick={() => goTo('home')}

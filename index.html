@@ -9,7 +9,20 @@
     <meta name="author" content="Da Lei (大雷)" />
     <meta name="robots" content="index, follow" />
     <meta name="application-name" content="大雷 Da Lei" />
-    <meta name="theme-color" content="#f6f3ec" />
+    <meta name="theme-color" content="#f6f3ec" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#191714" media="(prefers-color-scheme: dark)" />
+    <!-- Resolve the theme before first paint: stored choice wins, else system -->
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem('dalei-theme');
+          if (t !== 'dark' && t !== 'light') {
+            t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+          }
+          document.documentElement.dataset.theme = t;
+        } catch (e) { document.documentElement.dataset.theme = 'light'; }
+      })();
+    </script>
     <link rel="canonical" href="https://dailycosmos.net/" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="/favicon-192.png" sizes="192x192" type="image/png" />
@@ -78,7 +91,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Noto+Serif+SC:wght@500;600;700&display=swap" rel="stylesheet" />
 
     <style>
-      body { margin: 0; background-color: #f6f3ec; color: #1c1a17; }
+      /* pre-stylesheet boot colors so neither mode flashes the other */
+      :root { --boot-bg: #f6f3ec; --boot-fg: #1c1a17; }
+      [data-theme='dark'] { --boot-bg: #191714; --boot-fg: #e9e3d8; }
+      body { margin: 0; background-color: var(--boot-bg); color: var(--boot-fg); }
       canvas { display: block; }
     </style>
   <script type="importmap">

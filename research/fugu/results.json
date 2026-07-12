@@ -1,0 +1,119 @@
+{
+  "control_flow": {
+    "checks": [
+      {
+        "name": "verifier ACCEPT terminates the loop",
+        "pass": true
+      },
+      {
+        "name": "terminates before max_turns (early stop on ACCEPT)",
+        "pass": true
+      },
+      {
+        "name": "cold verifier at turn 0 is re-routed to Worker",
+        "pass": true
+      },
+      {
+        "name": "raw step_trinity: cold verifier -> verifier_no_response",
+        "pass": true
+      },
+      {
+        "name": "thinker recorded and a Worker turn follows",
+        "pass": true
+      },
+      {
+        "name": "solver <think> folded into router observation",
+        "pass": true
+      }
+    ],
+    "passed": 6,
+    "total": 6
+  },
+  "mechanism": {
+    "n_workers": 7,
+    "n_task_categories": 5,
+    "hidden_dim": 64,
+    "n_train": 600,
+    "n_test": 600,
+    "seed": 7,
+    "random_routing": 0.434,
+    "best_single_worker": 0.4888,
+    "best_single_worker_id": 3,
+    "learned_router": 0.8738,
+    "oracle_upper_bound": 0.8738,
+    "lift_over_best_single_pct": 78.8,
+    "pct_of_oracle": 100.0,
+    "generations_to_95pct": 1,
+    "convergence_curve": [
+      0.7106,
+      0.8475,
+      0.8437,
+      0.8492,
+      0.8643,
+      0.8671,
+      0.8691,
+      0.8696,
+      0.8698,
+      0.8699,
+      0.8698,
+      0.8699,
+      0.87,
+      0.87,
+      0.87,
+      0.87,
+      0.87,
+      0.87,
+      0.87,
+      0.87,
+      0.87,
+      0.87,
+      0.87,
+      0.87,
+      0.87,
+      0.87,
+      0.87,
+      0.87,
+      0.87,
+      0.87,
+      0.87,
+      0.87,
+      0.87,
+      0.87,
+      0.87,
+      0.87,
+      0.87,
+      0.87,
+      0.87,
+      0.87,
+      0.87,
+      0.87,
+      0.87,
+      0.87,
+      0.87,
+      0.87,
+      0.87,
+      0.87,
+      0.87,
+      0.87,
+      0.87,
+      0.87,
+      0.87,
+      0.87,
+      0.87,
+      0.87,
+      0.87,
+      0.87,
+      0.87,
+      0.87
+    ]
+  },
+  "mechanism_multiseed": {
+    "seeds": 8,
+    "lift_mean": 79.0,
+    "lift_min": 55.8,
+    "lift_max": 92.2,
+    "pct_oracle_mean": 99.9,
+    "gens_to_95_mean": 2,
+    "gens_to_95_max": 4
+  }
+}

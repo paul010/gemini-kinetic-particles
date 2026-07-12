@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" role="img" aria-label="CICI — a leaderboard of cities less famous than their population implies">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f6f3ec"/><stop offset="1" stop-color="#ece6da"/></linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.35" r="0.65"><stop offset="0" stop-color="#8a682c" stop-opacity="0.14"/><stop offset="1" stop-color="#8a682c" stop-opacity="0"/></radialGradient>
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="1200" height="750" fill="url(#bg)"/>
+  <ellipse cx="600" cy="320" rx="540" ry="360" fill="url(#glow)"/>
+
+  <text x="80" y="104" font-family="'Cormorant Garamond', Georgia, serif" font-size="58" font-weight="600" fill="#1c1a17">CICI 指数</text>
+  <text x="82" y="150" font-family="'JetBrains Mono', monospace" font-size="19" fill="#8a682c">Comparatively-Insignificant City Index · 被人口辜负的城市</text>
+
+  <!-- formula -->
+  <g font-family="'JetBrains Mono', monospace" font-size="18">
+    <g><rect x="80" y="188" width="140" height="42" rx="10" fill="rgba(28,26,23,0.05)" stroke="rgba(28,26,23,0.12)"/><text x="150" y="215" text-anchor="middle" fill="rgba(28,26,23,0.7)">户籍人口</text></g>
+    <text x="238" y="216" fill="#8a682c" font-size="24">−</text>
+    <g><rect x="264" y="188" width="120" height="42" rx="10" fill="rgba(28,26,23,0.05)" stroke="rgba(28,26,23,0.12)"/><text x="324" y="215" text-anchor="middle" fill="rgba(28,26,23,0.7)">一切名气</text></g>
+    <text x="402" y="216" fill="#8a682c" font-size="24">=</text>
+    <g><rect x="428" y="188" width="96" height="42" rx="10" fill="rgba(138,104,44,0.16)" stroke="rgba(138,104,44,0.5)"/><text x="476" y="215" text-anchor="middle" fill="#8a682c" font-weight="700">CICI</text></g>
+  </g>
+
+  <!-- leaderboard bars -->
+  <g font-family="'JetBrains Mono', monospace">
+    <!-- row template: rank | name | bar(gold cici + grey fame) -->
+    <!-- 1 Zhoukou -->
+    <text x="80" y="312" font-family="Georgia, serif" font-size="30" font-weight="700" fill="#8a682c">1</text>
+    <text x="118" y="312" font-family="Georgia, serif" font-size="24" font-weight="700" fill="#1c1a17">周口</text>
+    <text x="188" y="312" font-size="14" fill="rgba(28,26,23,0.4)">河南</text>
+    <rect x="300" y="296" width="752" height="20" rx="10" fill="rgba(28,26,23,0.06)"/>
+    <rect x="300" y="296" width="707" height="20" rx="10" fill="rgba(28,26,23,0.18)"/>
+    <rect x="300" y="296" width="617" height="20" rx="10" fill="#8a682c"/>
+    <text x="1066" y="312" font-size="18" font-weight="700" fill="#8a682c">82</text>
+
+    <!-- 2 Fuyang -->
+    <text x="80" y="364" font-family="Georgia, serif" font-size="26" font-weight="700" fill="#1c1a17">2</text>
+    <text x="118" y="364" font-family="Georgia, serif" font-size="24" font-weight="700" fill="#1c1a17">阜阳</text>
+    <text x="188" y="364" font-size="14" fill="rgba(28,26,23,0.4)">安徽</text>
+    <rect x="300" y="348" width="752" height="20" rx="10" fill="rgba(28,26,23,0.06)"/>
+    <rect x="300" y="348" width="684" height="20" rx="10" fill="rgba(28,26,23,0.18)"/>
+    <rect x="300" y="348" width="602" height="20" rx="10" fill="#8a682c"/>
+    <text x="1066" y="364" font-size="18" font-weight="700" fill="#8a682c">80</text>
+
+    <!-- 3 Nanyang -->
+    <text x="80" y="416" font-family="Georgia, serif" font-size="26" font-weight="700" fill="#1c1a17">3</text>
+    <text x="118" y="416" font-family="Georgia, serif" font-size="24" font-weight="700" fill="#1c1a17">南阳</text>
+    <text x="188" y="416" font-size="14" fill="rgba(28,26,23,0.4)">河南</text>
+    <rect x="300" y="400" width="752" height="20" rx="10" fill="rgba(28,26,23,0.06)"/>
+    <rect x="300" y="400" width="752" height="20" rx="10" fill="rgba(28,26,23,0.18)"/>
+    <rect x="300" y="400" width="542" height="20" rx="10" fill="#8a682c"/>
+    <text x="1066" y="416" font-size="18" font-weight="700" fill="#8a682c">72</text>
+
+    <!-- 4 Linyi -->
+    <text x="80" y="468" font-family="Georgia, serif" font-size="26" font-weight="700" fill="rgba(28,26,23,0.55)">4</text>
+    <text x="118" y="468" font-family="Georgia, serif" font-size="24" font-weight="700" fill="#1c1a17">临沂</text>
+    <text x="188" y="468" font-size="14" fill="rgba(28,26,23,0.4)">山东</text>
+    <rect x="300" y="452" width="752" height="20" rx="10" fill="rgba(28,26,23,0.06)"/>
+    <rect x="300" y="452" width="744" height="20" rx="10" fill="rgba(28,26,23,0.18)"/>
+    <rect x="300" y="452" width="519" height="20" rx="10" fill="#8a682c"/>
+    <text x="1066" y="468" font-size="18" font-weight="700" fill="#8a682c">69</text>
+
+    <!-- 5 Bijie -->
+    <text x="80" y="520" font-family="Georgia, serif" font-size="26" font-weight="700" fill="rgba(28,26,23,0.55)">5</text>
+    <text x="118" y="520" font-family="Georgia, serif" font-size="24" font-weight="700" fill="#1c1a17">毕节</text>
+    <text x="188" y="520" font-size="14" fill="rgba(28,26,23,0.4)">贵州</text>
+    <rect x="300" y="504" width="752" height="20" rx="10" fill="rgba(28,26,23,0.06)"/>
+    <rect x="300" y="504" width="602" height="20" rx="10" fill="rgba(28,26,23,0.18)"/>
+    <rect x="300" y="504" width="511" height="20" rx="10" fill="#8a682c"/>
+    <text x="1066" y="520" font-size="18" font-weight="700" fill="#8a682c">68</text>
+  </g>
+
+  <!-- legend -->
+  <g font-family="'JetBrains Mono', monospace" font-size="14" fill="rgba(28,26,23,0.5)">
+    <rect x="80" y="576" width="26" height="12" rx="4" fill="#8a682c"/><text x="114" y="587">CICI 得分</text>
+    <rect x="220" y="576" width="26" height="12" rx="4" fill="rgba(28,26,23,0.18)"/><text x="254" y="587">被减去的名气</text>
+  </g>
+
+  <text x="80" y="672" font-family="'JetBrains Mono', monospace" font-size="15" fill="#1c1a17" fill-opacity="0.5">人口很大,却几乎无人知晓 — 用一个 skill 跑出来的榜单</text>
+  <text x="80" y="702" font-family="'JetBrains Mono', monospace" font-size="14" fill="#1c1a17" fill-opacity="0.4">主观 · AI 辅助 · 纯为好玩 · 方法由 @pretentiouswhat 提出</text>
+</svg>
