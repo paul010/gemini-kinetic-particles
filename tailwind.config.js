@@ -13,6 +13,7 @@ export default {
     './copilot/**/*.{ts,tsx}',
     './copilotcamp/**/*.{ts,tsx}',
     './promptforge/**/*.{ts,tsx}',
+    './notebooklm/**/*.{ts,tsx}',
     './agents/**/*.{ts,tsx}',
     './skills/**/*.{ts,tsx}',
     './town/**/*.{ts,tsx}',
