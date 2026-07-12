@@ -327,6 +327,28 @@ export const PROJECTS: Project[] = [
     ],
   },
   {
+    id: 'notebooklm-slides',
+    category: 'ai',
+    title: { en: 'NotebookLM Slide YAML', zh: 'NotebookLM 线画幻灯片' },
+    year: '2026',
+    status: 'live',
+    featured: true,
+    cover: '/notebooklm-cover.svg',
+    tagline: {
+      en: 'Feed NotebookLM a short YAML style spec and it renders any topic as a consistent hand-drawn / line-art slide deck. Pick a look, copy, paste.',
+      zh: '给 NotebookLM 一段简短的 YAML 风格规格，它就把任意主题生成成风格统一的手绘线画幻灯片。选风格、复制、粘贴。',
+    },
+    description: {
+      en: 'A bilingual showcase of the “YAML style spec → hand-drawn slides in NotebookLM” technique (credited to しらき@パワポ図解). Four looks — minimal line art, crayon doodle, warm line, flat infographic — each with an original, copyable YAML template you tune (deck language, slide count, palette) and a live style thumbnail. Includes a three-step how-to and the rules that keep a deck visually consistent (one message per slide, one accent color, uniform line weight, generous white space). The YAML is an original template and the thumbnails are original renderings — the source post is credited and linked.',
+      zh: '对「YAML 风格规格 → NotebookLM 手绘幻灯片」技法的双语展示（署名 しらき@パワポ図解）。四种风格 —— 简约线画、蜡笔涂鸦、暖橙线画、扁平信息图 —— 每种都配一段可一键复制的原创 YAML 模板（可调幻灯片语言、页数、配色）和实时风格缩略图。附三步上手指引，以及让整套视觉统一的规则（每页一件事、单一点缀色、统一线条粗细、大量留白）。YAML 为原创模板、缩略图为原创绘制，已注明并链回原推来源。',
+    },
+    tags: ['NotebookLM', 'Slides', 'YAML', 'Design'],
+    links: [
+      { label: { en: 'Open the showcase', zh: '打开展示页' }, href: '/notebooklm', kind: 'internal' },
+      { label: { en: 'Original by しらき', zh: 'しらき 原推' }, href: 'https://x.com/kumiko_shiraki/status/2076230080750137560', kind: 'live' },
+    ],
+  },
+  {
     id: 'promptforge',
     category: 'ai',
     title: { en: 'PromptForge', zh: '提示词锻造台' },

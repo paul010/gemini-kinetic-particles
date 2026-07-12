@@ -16,6 +16,7 @@ const Fugu = React.lazy(() => import('./fugu/Fugu'));
 const Copilot = React.lazy(() => import('./copilot/Copilot'));
 const CopilotCamp = React.lazy(() => import('./copilotcamp/CopilotCamp'));
 const PromptForge = React.lazy(() => import('./promptforge/PromptForge'));
+const NotebookLM = React.lazy(() => import('./notebooklm/NotebookLM'));
 const Agents = React.lazy(() => import('./agents/Agents'));
 const Skills = React.lazy(() => import('./skills/Skills'));
 const PlantUML = React.lazy(() => import('./tools/PlantUML'));
@@ -48,7 +49,7 @@ const Loader: React.FC<{ label: string }> = ({ label }) => (
   </div>
 );
 
-type Route = 'home' | 'particles' | 'arsenal' | 'md' | 'img' | 's2c' | 'fluid' | 'r3f' | 'ttt-hour-of-code' | 'bench' | 'fugu' | 'copilot' | 'copilotcamp' | 'promptforge' | 'agents' | 'skills' | 'uml' | 'town' | 'patterns' | 'prompts' | 'cici' | 'designskill' | 'videogen' | 'dino' | 'chengdu' | 'lab3d' | 'cappadocia' | 'zhangjiajie' | 'niagara' | 'fireflies' | 'harbin' | 'forbiddencity' | 'brooksfalls';
+type Route = 'home' | 'particles' | 'arsenal' | 'md' | 'img' | 's2c' | 'fluid' | 'r3f' | 'ttt-hour-of-code' | 'bench' | 'fugu' | 'copilot' | 'copilotcamp' | 'promptforge' | 'notebooklm' | 'agents' | 'skills' | 'uml' | 'town' | 'patterns' | 'prompts' | 'cici' | 'designskill' | 'videogen' | 'dino' | 'chengdu' | 'lab3d' | 'cappadocia' | 'zhangjiajie' | 'niagara' | 'fireflies' | 'harbin' | 'forbiddencity' | 'brooksfalls';
 
 const routeFromLocation = (): Route => {
   const { pathname, hash } = window.location;
@@ -65,6 +66,7 @@ const routeFromLocation = (): Route => {
   if (p.endsWith('/fugu') || hash === '#/fugu') return 'fugu';
   if (p.endsWith('/copilotcamp') || hash === '#/copilotcamp') return 'copilotcamp';
   if (p.endsWith('/promptforge') || hash === '#/promptforge') return 'promptforge';
+  if (p.endsWith('/notebooklm') || hash === '#/notebooklm') return 'notebooklm';
   if (p.endsWith('/copilot') || hash === '#/copilot') return 'copilot';
   if (p.endsWith('/agents') || hash === '#/agents') return 'agents';
   if (p.endsWith('/skills') || hash === '#/skills') return 'skills';
@@ -131,6 +133,7 @@ const Router: React.FC = () => {
       copilot: 'Microsoft Copilot / Agent 产品矩阵 · 大雷',
       copilotcamp: 'Copilot Camp · Cowork 设置与扩展学习课 · 大雷',
       promptforge: '提示词锻造台 · PromptForge · 大雷',
+      notebooklm: 'NotebookLM 线画幻灯片提示词 · 大雷',
       agents: 'Agent 模板库 · Agent Templates · 大雷',
       skills: 'Skill 技能库 · Skill Library · 大雷',
       uml: 'PlantUML 渲染器 · 大雷',
@@ -262,6 +265,14 @@ const Router: React.FC = () => {
     return (
       <Suspense fallback={<Loader label="FORGING…" />}>
         <PromptForge onHome={() => navigate('/')} />
+      </Suspense>
+    );
+  }
+
+  if (route === 'notebooklm') {
+    return (
+      <Suspense fallback={<Loader label="LOADING…" />}>
+        <NotebookLM onHome={() => navigate('/')} />
       </Suspense>
     );
   }
