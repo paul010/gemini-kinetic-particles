@@ -178,6 +178,24 @@ export const PROJECTS: Project[] = [
     ],
   },
   {
+    id: 'ttt-hour-of-code',
+    title: 'TTT × 代码一小时',
+    year: '2026',
+    status: 'live',
+    tagline: {
+      en: 'From training notes to a classroom that 60 children can actually join.',
+      zh: '从 TTT 学习笔记，到 60 个孩子真正参与的代码课堂。',
+    },
+    description: {
+      en: 'A presentation-ready workshop page about redesigning an Hour of Code class: learning goals, classroom rhythm, participation design, AI time compression, and the reusable dalei-hour-of-code skill.',
+      zh: '一页可直接用于分享的 Workshop：课程目标怎么改、60 分钟怎么拆、60 人怎么参与、AI 如何买回准备时间，以及如何封装成可复用的 dalei-hour-of-code Skill。',
+    },
+    tags: ['TTT', 'Hour of Code', 'Workshop', 'AI Workflow'],
+    links: [
+      { label: { en: 'Open workshop', zh: '打开 Workshop' }, href: '/ttt-hour-of-code', kind: 'internal' },
+    ],
+  },
+  {
     id: 'markdown-studio',
     title: 'Markdown 工具箱',
     year: '2026',
