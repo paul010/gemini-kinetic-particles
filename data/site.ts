@@ -327,6 +327,28 @@ export const PROJECTS: Project[] = [
     ],
   },
   {
+    id: 'aihtml-workshop',
+    category: 'ai',
+    title: { en: 'AI → Visible HTML Tools', zh: 'AI 做看得见的 HTML 小工具' },
+    year: '2026',
+    status: 'live',
+    featured: true,
+    cover: '/aihtml-cover.svg',
+    tagline: {
+      en: 'A workshop column: scenario + copyable prompt + a live self-contained demo (ECharts / SheetJS / CSS / Three.js). Hit 🎲 to spotlight a random effect.',
+      zh: 'Workshop 专栏：业务场景 + 可复制提示词 + 实时自包含效果（ECharts / SheetJS / CSS / Three.js）。点 🎲 随机弹一个上台演示。',
+    },
+    description: {
+      en: 'For a business audience, one clickable result beats an hour on how models work. This column collects prompt recipes that make AI produce something you can SEE — a sales dashboard (ECharts), a web spreadsheet cleaner (SheetJS), glassmorphism / flowing-gradient / flip-card CSS effects, a particle network and warp-speed starfield (Canvas), a spinning 3D cube (Three.js), plus mini tools (pomodoro, palette generator). Each card carries the business scenario, a copyable Chinese prompt, and a live demo that runs fully sandboxed in your browser — no external calls. A 🎲 “random demo” button spotlights one on stage, built for the 2026-07-28 workshop. Prompt-library format inspired by 归藏的提示词库; scenarios, prompts and demos are original.',
+      zh: '面向业务团队，一个能点的结果胜过讲一小时模型原理。本专栏收录「让 AI 做出看得见的东西」的提示词配方 —— 销售仪表盘（ECharts）、网页版表格清洗（SheetJS）、玻璃拟态/流动渐变/翻转卡片等 CSS 特效、粒子连线与穿越星空（Canvas）、旋转 3D 立方体（Three.js），外加番茄钟、配色生成器等小工具。每张卡都有业务场景、可复制的中文提示词，以及一个在浏览器沙箱里实时运行的效果（无外部调用）。顶部「🎲 随机演示」按钮可随机抽一个上台，为 2026-07-28 workshop 而做。提示词库形式参考归藏的提示词库，场景/提示词/效果均为原创。',
+    },
+    tags: ['Workshop', 'AI Coding', 'ECharts', 'Three.js'],
+    links: [
+      { label: { en: 'Open the column', zh: '打开专栏' }, href: '/aihtml', kind: 'internal' },
+      { label: { en: 'Guizang prompts', zh: '归藏提示词库' }, href: 'https://github.com/op7418/guizang-s-prompt', kind: 'github' },
+    ],
+  },
+  {
     id: 'notebooklm-slides',
     category: 'ai',
     title: { en: 'NotebookLM Slide YAML', zh: 'NotebookLM 线画幻灯片' },
