@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" role="img" aria-label="AI-generated visible HTML tools — workshop">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f6f3ec"/><stop offset="1" stop-color="#ece6da"/>
+    </linearGradient>
+    <linearGradient id="grad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ee7752"/><stop offset=".5" stop-color="#23a6d5"/><stop offset="1" stop-color="#23d5ab"/>
+    </linearGradient>
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="7" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1200" height="750" fill="url(#bg)"/>
+
+  <text x="80" y="96" font-family="'JetBrains Mono', monospace" font-size="19" fill="#8a682c">WORKSHOP · 07·28 · 用 AI 做「看得见」的东西</text>
+  <text x="78" y="162" font-family="'Cormorant Garamond', Georgia, serif" font-size="54" font-weight="600" fill="#1c1a17">AI 做看得见的 HTML 小工具</text>
+
+  <!-- four mini demo tiles -->
+  <g font-family="'JetBrains Mono', monospace">
+    <!-- ECharts bars -->
+    <g filter="url(#soft)"><rect x="80" y="216" width="250" height="200" rx="14" fill="#fffdf8" stroke="rgba(28,26,23,0.1)"/></g>
+    <g fill="#2f6fb0">
+      <rect x="112" y="330" width="26" height="56"/><rect x="150" y="300" width="26" height="86"/>
+      <rect x="188" y="316" width="26" height="70"/><rect x="226" y="278" width="26" height="108"/>
+      <rect x="264" y="296" width="26" height="90"/>
+    </g>
+    <text x="104" y="252" font-size="13" fill="#2f6fb0">ECharts 仪表盘</text>
+
+    <!-- SheetJS table -->
+    <g filter="url(#soft)"><rect x="352" y="216" width="250" height="200" rx="14" fill="#fffdf8" stroke="rgba(28,26,23,0.1)"/></g>
+    <text x="376" y="252" font-size="13" fill="#5c8a3a">SheetJS 表格</text>
+    <g stroke="rgba(28,26,23,0.15)"><line x1="376" y1="278" x2="578" y2="278"/><line x1="376" y1="308" x2="578" y2="308"/><line x1="376" y1="338" x2="578" y2="338"/><line x1="376" y1="368" x2="578" y2="368"/><line x1="444" y1="266" x2="444" y2="392"/><line x1="512" y1="266" x2="512" y2="392"/></g>
+    <rect x="376" y="266" width="202" height="24" fill="rgba(92,138,58,0.15)"/>
+
+    <!-- CSS gradient -->
+    <g filter="url(#soft)"><rect x="624" y="216" width="250" height="200" rx="14" fill="url(#grad)"/></g>
+    <text x="648" y="252" font-size="13" fill="#fff">CSS 特效</text>
+    <text x="648" y="330" font-family="Georgia, serif" font-size="26" fill="#fff">Aa ✦</text>
+
+    <!-- Three.js cube -->
+    <g filter="url(#soft)"><rect x="896" y="216" width="224" height="200" rx="14" fill="#0b1020"/></g>
+    <text x="920" y="252" font-size="13" fill="#5ad1ff">Three.js 3D</text>
+    <g stroke="#5ad1ff" stroke-width="1.6" fill="none">
+      <path d="M978 300 l60 -22 60 22 -60 22 z"/>
+      <path d="M978 300 l0 60 60 22 0 -60"/>
+      <path d="M1098 300 l0 60 -60 22"/>
+    </g>
+  </g>
+
+  <!-- dice pill -->
+  <g filter="url(#soft)"><rect x="80" y="470" width="360" height="70" rx="35" fill="#1c1a17"/></g>
+  <text x="118" y="514" font-size="30">🎲</text>
+  <text x="168" y="513" font-family="'JetBrains Mono', monospace" font-size="22" fill="#f6f3ec">随机演示 · Random demo</text>
+
+  <text x="80" y="600" font-family="'JetBrains Mono', monospace" font-size="18" fill="#1c1a17" fill-opacity="0.6">每张卡 = 业务场景 + 可复制提示词 + 实时自包含效果</text>
+  <text x="80" y="632" font-family="'JetBrains Mono', monospace" font-size="16" fill="#1c1a17" fill-opacity="0.45">给业务团队「看得见」的普及 · 提示词库形式参考 归藏的提示词库</text>
+
+  <text x="80" y="694" font-family="'JetBrains Mono', monospace" font-size="15" fill="#8a682c">全程浏览器本地运行 · 沙箱隔离 · 双语 · 一键复制提示词</text>
+</svg>
