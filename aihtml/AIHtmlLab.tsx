@@ -36,7 +36,7 @@ const useS2T = (active: boolean) => {
 
 /* ============================ recipes =================================== */
 
-type Cat = 'chart' | 'sheet' | 'effect' | '3d' | 'tool';
+type Cat = 'chart' | 'sheet' | 'drag' | 'effect' | '3d' | 'tool';
 
 interface Recipe {
   id: string;
@@ -51,10 +51,11 @@ interface Recipe {
 
 const CATS: { key: Cat | 'all'; label: T }[] = [
   { key: 'all', label: { en: 'All', zh: '全部' } },
-  { key: 'chart', label: { en: 'Charts · ECharts', zh: '图表 · ECharts' } },
+  { key: 'chart', label: { en: 'Charts · ECharts/Chart.js', zh: '图表 · ECharts/Chart.js' } },
   { key: 'sheet', label: { en: 'Sheets · SheetJS', zh: '表格 · SheetJS' } },
+  { key: 'drag', label: { en: 'Drag & drop', zh: '交互拖拽' } },
   { key: 'effect', label: { en: 'CSS / Canvas FX', zh: 'CSS / 特效' } },
-  { key: '3d', label: { en: '3D · WebGL', zh: '3D · WebGL' } },
+  { key: '3d', label: { en: '3D · Three.js', zh: '3D · Three.js' } },
   { key: 'tool', label: { en: 'Mini tools', zh: '小工具' } },
 ];
 
@@ -129,6 +130,77 @@ const RECIPES: Recipe[] = [
     prompt: '用单个 HTML 文件做一个「配色生成器」：整屏五个色块，按空格键换一组随机配色，点击色块复制其十六进制色值。适合设计 / 前端快速取色，双击打开即用。',
     demo: `<!doctype html><meta charset=utf-8><style>html,body{margin:0;height:100%;font-family:system-ui}#w{display:flex;height:100%}.c{flex:1;display:flex;align-items:flex-end;justify-content:center;color:#fff;cursor:pointer;padding-bottom:24px;font-size:13px;text-shadow:0 1px 4px rgba(0,0,0,.4)}button{position:fixed;top:12px;left:50%;transform:translateX(-50%);padding:8px 16px;border:0;border-radius:999px;background:#1c1a17;color:#fff;cursor:pointer;z-index:2}</style><button onclick=gen()>换一组 →</button><div id=w></div><script>function rc(){var s=Math.floor(Math.random()*16777215).toString(16);while(s.length<6)s='0'+s;return'#'+s}function gen(){var w=document.getElementById('w');w.innerHTML='';for(var i=0;i<5;i++){var c=rc(),dv=document.createElement('div');dv.className='c';dv.style.background=c;dv.textContent=c;dv.onclick=function(){try{navigator.clipboard.writeText(this.textContent)}catch(e){}};w.appendChild(dv)}}onkeydown=function(e){if(e.code=='Space'){e.preventDefault();gen()}};gen();</script>`,
   },
+
+  /* ---- flywheel ① 数据会说话 (SheetJS + Chart.js) ---- */
+  {
+    id: 'excel-chart', cat: 'chart', badge: 'Chart.js', approx: true,
+    title: { en: 'Excel → interactive chart', zh: 'Excel 转交互图表' },
+    scene: { en: 'Data speaks: SheetJS parses, Chart.js renders — a static report becomes a live chart in seconds.', zh: '数据会说话：SheetJS 负责解析、Chart.js 负责渲染 —— 静态报表秒变动态交互图。' },
+    prompt: '用单个 HTML + SheetJS + Chart.js 做一个「Excel 转图表」工具：拖入一个 Excel/CSV，自动读取第一列做 X 轴、第二列做数值，渲染成一张交互折线图（可切换柱状）。纯前端、双击 .html 即用，数据不上传服务器。',
+    demo: `<!doctype html><meta charset=utf-8><style>html,body{margin:0;height:100%;background:#fbfaf6;font-family:system-ui}canvas{display:block}</style><canvas id=c></canvas><script>var cv=document.getElementById('c'),x=cv.getContext('2d'),W=cv.width=innerWidth,H=cv.height=innerHeight,d=[20,45,38,60,72,55,88],t=0,pad=28;function loop(){x.clearRect(0,0,W,H);t=Math.min(1,t+0.02);var n=d.length,pw=(W-pad*2)/(n-1);x.strokeStyle='#e2ddd0';for(var g=0;g<=4;g++){var gy=pad+(H-pad*2)*g/4;x.beginPath();x.moveTo(pad,gy);x.lineTo(W-pad,gy);x.stroke()}x.beginPath();x.lineWidth=2.5;x.strokeStyle='#2f6fb0';for(var i=0;i<n;i++){var px=pad+i*pw,py=H-pad-(d[i]/100)*(H-pad*2)*t;if(i)x.lineTo(px,py);else x.moveTo(px,py)}x.stroke();for(var i=0;i<n;i++){var px=pad+i*pw,py=H-pad-(d[i]/100)*(H-pad*2)*t;x.fillStyle='#2f6fb0';x.beginPath();x.arc(px,py,3.5,0,7);x.fill()}if(t<1)requestAnimationFrame(loop)}loop();</script>`,
+  },
+  {
+    id: 'gauge', cat: 'chart', badge: 'Chart.js',
+    title: { en: 'KPI progress ring', zh: 'KPI 环形进度' },
+    scene: { en: 'A completion rate that animates in beats a bare "73%".', zh: 'OKR / 目标完成率，一个会动的环形图比一句「73%」更有说服力。' },
+    prompt: '用单个 HTML + Chart.js（或纯 SVG）做一个 KPI 环形进度仪表：中间显示百分比，环随数值动画填充，蓝色系。给我改一个变量就能换数值的单文件代码。',
+    demo: `<!doctype html><meta charset=utf-8><style>html,body{margin:0;height:100%;display:grid;place-items:center;background:#fbfaf6;font-family:system-ui}text{font:700 34px system-ui;fill:#2f6fb0}circle{fill:none;stroke-width:18}</style><svg width=200 height=200 viewBox="0 0 200 200"><circle cx=100 cy=100 r=80 stroke="#e2ddd0"/><circle id=p cx=100 cy=100 r=80 stroke="#2f6fb0" stroke-linecap=round transform="rotate(-90 100 100)"/><text x=100 y=112 text-anchor=middle>73%</text></svg><script>var p=document.getElementById('p'),L=2*Math.PI*80;p.style.strokeDasharray=L;p.style.strokeDashoffset=L;requestAnimationFrame(function(){p.style.transition='stroke-dashoffset 1.2s ease';p.style.strokeDashoffset=L*(1-0.73)});</script>`,
+  },
+
+  /* ---- flywheel ② 交互直觉化 (原生拖拽) ---- */
+  {
+    id: 'kanban', cat: 'drag', badge: '原生拖拽',
+    title: { en: 'Drag-and-drop Kanban', zh: '拖拽看板' },
+    scene: { en: 'Interaction back to intuition — a working Kanban in a few dozen lines, zero libraries.', zh: '交互回归直觉 —— 零依赖的原生拖拽，几十行就能做一个能拖的看板。' },
+    prompt: '用单个 HTML + 原生 HTML5 拖拽（draggable + dragstart/drop，不用任何库）做一个三列看板：待办 / 进行中 / 完成，卡片可在列间拖动。风格简洁、圆角卡片，双击 .html 即用。',
+    demo: `<!doctype html><meta charset=utf-8><style>html,body{margin:0;height:100%;background:#fbfaf6;font-family:system-ui;padding:12px;box-sizing:border-box}.b{display:flex;gap:10px;height:100%}.col{flex:1;background:#efe9dd;border-radius:10px;padding:8px}.col h4{margin:4px 6px;font-size:13px;color:#8a682c}.card{background:#fff;border:1px solid #e2ddd0;border-radius:8px;padding:8px;margin:6px 0;font-size:13px;cursor:grab}.card.drag{opacity:.4}.col.over{outline:2px dashed #2b8a8a}</style><div class=b id=b></div><script>var data={'待办':['整理需求','联系客户'],'进行中':['做原型'],'完成':['立项']},b=document.getElementById('b'),dragEl=null;function render(){b.innerHTML='';for(var k in data){var col=document.createElement('div');col.className='col';col.innerHTML='<h4>'+k+'</h4>';data[k].forEach(function(txt){var c=document.createElement('div');c.className='card';c.draggable=true;c.textContent=txt;c.ondragstart=function(){dragEl=this;this.classList.add('drag')};c.ondragend=function(){this.classList.remove('drag')};col.appendChild(c)});col.ondragover=function(e){e.preventDefault();this.classList.add('over')};col.ondragleave=function(){this.classList.remove('over')};col.ondrop=function(e){e.preventDefault();this.classList.remove('over');if(dragEl)this.appendChild(dragEl)};b.appendChild(col)}}render();</script>`,
+  },
+  {
+    id: 'sortlist', cat: 'drag', badge: '原生拖拽',
+    title: { en: 'Drag to reorder', zh: '拖拽排序清单' },
+    scene: { en: 'Prioritize / reorder steps — dragging beats up-down arrows.', zh: '排优先级、调流程步骤 —— 拖着排比点上下箭头快得多。' },
+    prompt: '用单个 HTML + 原生拖拽做一个可拖拽排序的清单：条目上下拖动即可重新排序，拖动时半透明。纯前端、带注释，双击 .html 即用。',
+    demo: `<!doctype html><meta charset=utf-8><style>html,body{margin:0;height:100%;background:#fbfaf6;font-family:system-ui;display:grid;place-items:center}ul{list-style:none;padding:0;width:240px}li{background:#fff;border:1px solid #e2ddd0;border-radius:8px;padding:10px 12px;margin:6px 0;cursor:grab;font-size:14px}li.drag{opacity:.4}</style><ul id=l></ul><script>var items=['① 需求','② 设计','③ 开发','④ 测试','⑤ 上线'],l=document.getElementById('l'),dr=null;items.forEach(function(txt){var li=document.createElement('li');li.textContent=txt;li.draggable=true;li.ondragstart=function(){dr=this;this.classList.add('drag')};li.ondragend=function(){this.classList.remove('drag')};li.ondragover=function(e){e.preventDefault();var rc=this.getBoundingClientRect();if(e.clientY<rc.top+rc.height/2)l.insertBefore(dr,this);else l.insertBefore(dr,this.nextSibling)};l.appendChild(li)});</script>`,
+  },
+  {
+    id: 'dropzone', cat: 'drag', badge: '原生拖拽',
+    title: { en: 'Drag-drop upload zone', zh: '拖拽上传区' },
+    scene: { en: 'The first step of any batch-file tool — a draggable dashed box lifts the whole experience.', zh: '批量处理文件的第一步，一个能拖的虚线框，体验立刻上一个台阶。' },
+    prompt: '用单个 HTML + 原生拖拽做一个文件拖拽上传区：把文件拖进虚线框，列出文件名（用 FileReader，可扩展成读取内容），拖入时高亮。纯前端不上传，双击 .html 即用。',
+    demo: `<!doctype html><meta charset=utf-8><style>html,body{margin:0;height:100%;display:grid;place-items:center;background:#fbfaf6;font-family:system-ui}.z{width:70%;max-width:340px;padding:34px;border:2px dashed #c9a35c;border-radius:14px;text-align:center;color:#8a682c;background:#fffdf8;transition:.2s}.z.over{background:#eef4fb;border-color:#2b8a8a;color:#2b8a8a}ul{text-align:left;font-size:13px;color:#26231f;margin-top:12px}</style><div class=z id=z>把文件拖到这里 ⬇<ul id=o></ul></div><script>var z=document.getElementById('z'),o=document.getElementById('o');z.ondragover=function(e){e.preventDefault();z.classList.add('over')};z.ondragleave=function(){z.classList.remove('over')};z.ondrop=function(e){e.preventDefault();z.classList.remove('over');o.innerHTML='';var f=e.dataTransfer.files;for(var i=0;i<f.length;i++){var li=document.createElement('li');li.textContent='✓ '+f[i].name;o.appendChild(li)}};</script>`,
+  },
+
+  /* ---- flywheel ③ 空间新叙事 (Three.js) ---- */
+  {
+    id: 'globe', cat: '3d', badge: 'Three.js', approx: true,
+    title: { en: 'Spinning particle globe', zh: '旋转粒子地球' },
+    scene: { en: 'A new spatial narrative — the opening shot of a data big-screen, a 3D globe built in code.', zh: '空间新叙事 —— 数字沙盘 / 大屏的开场，用代码搭一个会转的 3D 球。' },
+    prompt: '用单个 HTML + Three.js 做一个自转的「粒子地球」：几百个点均匀分布在球面上缓慢旋转，深空背景、青色点，鼠标可拖动旋转。双击 .html 即看。',
+    demo: `<!doctype html><meta charset=utf-8><style>html,body{margin:0;height:100%;background:#070a16;overflow:hidden}canvas{display:block}</style><canvas id=c></canvas><script>var cv=document.getElementById('c'),x=cv.getContext('2d'),W=cv.width=innerWidth,H=cv.height=innerHeight,pts=[],N=420,R=Math.min(W,H)*0.32,a=0;for(var i=0;i<N;i++){var th=Math.acos(2*Math.random()-1),ph=2*Math.PI*Math.random();pts.push([Math.sin(th)*Math.cos(ph),Math.sin(th)*Math.sin(ph),Math.cos(th)])}function loop(){x.clearRect(0,0,W,H);a+=0.006;for(var i=0;i<N;i++){var p=pts[i],X=p[0]*Math.cos(a)-p[2]*Math.sin(a),Z=p[0]*Math.sin(a)+p[2]*Math.cos(a),Y=p[1],f=(Z+1.6)/2.6;x.fillStyle='rgba(90,209,255,'+(0.25+0.75*(Z+1)/2)+')';x.beginPath();x.arc(W/2+X*R,H/2+Y*R,f*1.7,0,7);x.fill()}requestAnimationFrame(loop)}loop();</script>`,
+  },
+
+  /* ---- workshop crowd-pleasers ---- */
+  {
+    id: 'typewriter', cat: 'effect', badge: 'JS',
+    title: { en: 'Typewriter headline', zh: '打字机标题' },
+    scene: { en: 'An opening / big-screen title — typed out grabs attention more than static text.', zh: '开场 / 大屏标题，逐字打出比直接显示更抓注意力。' },
+    prompt: '用单个 HTML + JS 做一个打字机文字效果：一句话逐字打出、光标闪烁，打完停顿再换下一句循环。深色背景、等宽字体，适合做开场标题，双击 .html 即用。',
+    demo: `<!doctype html><meta charset=utf-8><style>html,body{margin:0;height:100%;display:grid;place-items:center;background:#1c1a17;color:#f6f3ec;font-family:'JetBrains Mono',monospace}.t{font-size:24px}.cur{color:#c9a35c}</style><div class=t><span id=o></span><span class=cur>▌</span></div><script>var txt=['用 AI 做看得见的东西 ✦','一句提示词，一个小工具','双击打开，即刻演示'],li=0,ci=0,o=document.getElementById('o');function tick(){var s=txt[li];if(ci<=s.length){o.textContent=s.slice(0,ci++);setTimeout(tick,90)}else{ci=0;li=(li+1)%txt.length;setTimeout(tick,1200)}}tick();</script>`,
+  },
+  {
+    id: 'countdown', cat: 'tool', badge: 'JS',
+    title: { en: 'Event countdown', zh: '活动倒计时' },
+    scene: { en: 'A launch / kickoff ambiance widget — put it on the big screen for a sense of occasion.', zh: '发布会 / 开营前的氛围组件，挂在大屏上就很有仪式感。' },
+    prompt: '用单个 HTML 做一个活动倒计时：大字号显示距某个日期还有几天几时几分几秒，深色墨金配色。日期可在代码里改，双击即用。',
+    demo: `<!doctype html><meta charset=utf-8><style>html,body{margin:0;height:100%;display:grid;place-items:center;background:#1c1a17;color:#f6f3ec;font-family:system-ui}.w{text-align:center}.u{display:inline-block;margin:0 8px}.u b{font-size:40px;color:#c9a35c;font-variant-numeric:tabular-nums}.u span{display:block;font-size:12px;opacity:.6}</style><div class=w><div style="margin-bottom:12px;opacity:.7">距 Workshop 还有</div><div id=d></div></div><script>var target=new Date('2026-07-28T09:00:00').getTime();function upd(){var t=Math.max(0,target-Date.now()),dd=Math.floor(t/864e5),h=Math.floor(t/36e5)%24,m=Math.floor(t/6e4)%60,s=Math.floor(t/1e3)%60;document.getElementById('d').innerHTML='<div class=u><b>'+dd+'</b><span>天</span></div><div class=u><b>'+h+'</b><span>时</span></div><div class=u><b>'+m+'</b><span>分</span></div><div class=u><b>'+s+'</b><span>秒</span></div>'}upd();setInterval(upd,1000);</script>`,
+  },
+  {
+    id: 'wheel', cat: 'tool', badge: 'Canvas',
+    title: { en: 'Lucky-draw wheel', zh: '抽奖转盘' },
+    scene: { en: 'Annual party / livestream draws — a web wheel is easier to edit and cast than a mini-app.', zh: '年会 / 直播 / 团建抽奖，一个网页转盘比小程序更好改、更好投屏。' },
+    prompt: '用单个 HTML + Canvas 做一个抽奖转盘：几个奖项扇形，点「转」按钮转盘加速再减速停下。纯前端、可改奖项文字，双击 .html 即用。',
+    demo: `<!doctype html><meta charset=utf-8><style>html,body{margin:0;height:100%;display:grid;place-items:center;background:#fbfaf6;font-family:system-ui}button{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);padding:8px 22px;border:0;border-radius:999px;background:#1c1a17;color:#fff;cursor:pointer}</style><canvas id=c width=250 height=250></canvas><button onclick=spin()>转！</button><script>var cv=document.getElementById('c'),x=cv.getContext('2d'),items=['一等奖','谢谢','二等奖','再来一次','三等奖','鼓励奖'],cols=['#2f6fb0','#e2ddd0','#c2703c','#e2ddd0','#5c8a3a','#e2ddd0'],ang=0,va=0,sp=0;function draw(){x.clearRect(0,0,250,250);var n=items.length,st=2*Math.PI/n;for(var i=0;i<n;i++){x.beginPath();x.moveTo(125,125);x.arc(125,125,115,ang+i*st,ang+(i+1)*st);x.fillStyle=cols[i];x.fill();x.save();x.translate(125,125);x.rotate(ang+i*st+st/2);x.fillStyle=cols[i]=='#e2ddd0'?'#26231f':'#fff';x.font='12px system-ui';x.textAlign='right';x.fillText(items[i],105,4);x.restore()}x.beginPath();x.moveTo(125,2);x.lineTo(117,18);x.lineTo(133,18);x.fillStyle='#1c1a17';x.fill()}function spin(){if(sp)return;sp=1;va=0.3+Math.random()*0.2}function loop(){if(sp){ang+=va;va*=0.985;if(va<0.002)sp=0}draw();requestAnimationFrame(loop)}loop();</script>`,
+  },
 ];
 
 /* ============================ demo frame =============================== */
@@ -185,7 +257,7 @@ const AIHtmlLab: React.FC<Props> = ({ onHome }) => {
   const LANGS: { code: Lang; label: string }[] = [{ code: 'en', label: 'EN' }, { code: 'zh', label: '简' }, { code: 'zhHant', label: '繁' }];
 
   const badgeColor: Record<Cat, string> = {
-    chart: '#2f6fb0', sheet: '#5c8a3a', effect: '#c2703c', '3d': '#7a5cab', tool: '#8a682c',
+    chart: '#2f6fb0', sheet: '#5c8a3a', drag: '#2b8a8a', effect: '#c2703c', '3d': '#7a5cab', tool: '#8a682c',
   };
 
   const PromptBlock: React.FC<{ r: Recipe }> = ({ r }) => (
@@ -223,8 +295,8 @@ const AIHtmlLab: React.FC<Props> = ({ onHome }) => {
         </h1>
         <p className="mt-4 max-w-3xl text-base leading-relaxed text-ink/65">
           {t({
-            en: 'For a business audience, one thing they can see and click beats an hour on how models work. Each recipe below is a scenario + a copyable prompt + a live, self-contained demo (ECharts, SheetJS, CSS/Canvas FX, Three.js). Hit the dice to spotlight a random one on stage.',
-            zh: '面向业务团队，一个能看能点的东西，胜过讲一小时模型原理。下面每张卡 = 业务场景 + 可复制提示词 + 实时自包含效果（ECharts、SheetJS、CSS/Canvas 特效、Three.js）。演示时点骰子，随机弹一个上台。',
+            en: 'For a business audience, one thing they can see and click beats an hour on how models work. Three flywheels: data that speaks (SheetJS + Chart.js), intuitive interaction (native drag & drop), and spatial storytelling (Three.js). Each recipe is a scenario + a copyable prompt + a live, self-contained demo. Hit the dice to spotlight a random one on stage.',
+            zh: '面向业务团队，一个能看能点的东西，胜过讲一小时模型原理。三个「超级飞轮」：让数据说话（SheetJS + Chart.js）、交互直觉化（原生拖拽）、空间新叙事（Three.js）。每张卡 = 业务场景 + 可复制提示词 + 实时自包含效果。演示时点骰子，随机弹一个上台。',
           })}
         </p>
 
