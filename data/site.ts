@@ -327,6 +327,70 @@ export const PROJECTS: Project[] = [
     ],
   },
   {
+    id: 'ai-video-lab',
+    category: 'ai',
+    title: { en: 'AI Video Generation Lab', zh: 'AI 视频生成实验室' },
+    year: '2026',
+    status: 'live',
+    featured: true,
+    cover: '/videolab-cover.svg',
+    tagline: {
+      en: 'Type a theme → a 6-shot script → keyframes → a cinematic short. My live experiment in end-to-end AI filmmaking.',
+      zh: '输入一个主题 → 6 镜脚本 → 关键帧 → 一部电影感短片。我做的端到端 AI 影片生成现场试验。',
+    },
+    description: {
+      en: 'A hands-on lab that turns a theme into a cinematic short. An LLM breaks it into 6 shots (framing, action, timing); storyboards become photoreal keyframes; then image-to-video synthesizes and composites the segments with transitions and audio. Aspect ratios from 16:9 to 2.39:1, tunable duration and visual style (Kodak 2383, neon noir, Ghibli). Wires together Jimeng 3.0 / Doubao Seedream (image), Seedance 2.0 (video) and Claude Opus 4.7 / GPT-5 / DeepSeek (script) — built to show how far end-to-end AI filmmaking has come, and the cost gap vs a traditional shoot.',
+      zh: '一个把主题变成电影感短片的动手实验。LLM 把主题拆成 6 个镜头（构图、动作、时长），分镜生成照片级关键帧，再由图生视频合成片段并加转场与配乐。画幅从 16:9 到 2.39:1，时长与视觉风格（Kodak 2383、霓虹黑色电影、吉卜力）可调。串起即梦 3.0 / 豆包 Seedream（图像）、Seedance 2.0（视频）与 Claude Opus 4.7 / GPT-5 / DeepSeek（脚本）—— 用来直观展示端到端 AI 影片生成到了什么程度，以及和传统拍摄的成本差。',
+    },
+    tags: ['AI Video', 'Seedance', 'Filmmaking', 'LLM'],
+    links: [
+      { label: { en: 'Open the lab', zh: '打开实验室' }, href: 'https://movepreviewlt.vercel.app/', kind: 'live' },
+      { label: { en: 'Watch on YouTube', zh: 'YouTube 频道' }, href: SOCIALS.youtube, kind: 'youtube' },
+    ],
+  },
+  {
+    id: 'perler-beads',
+    category: 'creative',
+    title: { en: 'Perler Beads Workshop · 3D', zh: '拼豆工坊 · 3D' },
+    year: '2026',
+    status: 'live',
+    featured: true,
+    cover: '/perler-cover.svg',
+    tagline: {
+      en: 'A free 3D perler-beads web game — place beads, iron, and snap a photo with your pixel art. AI designers can compose it for you.',
+      zh: '免费的 3D 拼豆网页游戏 —— 一颗颗拼、烫、和作品合影。还能让 AI 设计师替你构图配色。',
+    },
+    description: {
+      en: 'Arrange colorful beads on a virtual pegboard (square 14–40, circle, heart) with brush / bucket / line / eraser and a color picker, in a rotatable, zoomable 3D scene — then iron, export and photograph the result. Start from templates (Mario, Space Invaders, Pac-Man…), turn an image into a bead pattern, or free-create; an “AI 设计” mode has four AI designers compose and color it for you (bring your own key — Claude / OpenAI / DeepSeek / Kimi / 通义 / OpenRouter / local). One-click share to X / LinkedIn.',
+      zh: '在可旋转缩放的 3D 场景里，用画笔 / 油漆桶 / 直线 / 橡皮和取色器，在方形（14–40）、圆形、爱心拼盘上一颗颗摆珠，拼完可烫、导出、和作品合影。可以照模板拼（马里奥、太空入侵者、吃豆人…）、把图片转成像素图，或自由创作；「AI 设计」模式有四位 AI 设计师替你构图配色（自带 Key：Claude / OpenAI / DeepSeek / Kimi / 通义 / OpenRouter / 本地）。一键分享到 X / LinkedIn。',
+    },
+    tags: ['3D', 'Game', 'Pixel Art', 'AI'],
+    links: [
+      { label: { en: 'Play now', zh: '立即开玩' }, href: 'https://videoscriptharness.vercel.app/', kind: 'live' },
+    ],
+  },
+  {
+    id: 'hp-prompt-library',
+    category: 'ai',
+    title: { en: 'HP FY26 · AI Prompt Library', zh: 'HP FY26 数字学院 · AI 提示词库' },
+    year: '2026',
+    status: 'live',
+    featured: true,
+    cover: '/hpprompt-cover.svg',
+    tagline: {
+      en: 'A prompt library for HP’s FY26 Digital Academy — “safe, practical, purposeful”, built around the Microsoft Copilot ecosystem.',
+      zh: 'HP FY26 数字学院的 AI 提示词库 ——「安全、实用、有目的」，围绕 Microsoft Copilot 工具生态。',
+    },
+    description: {
+      en: 'A prompt library I built for HP’s FY26 Digital Academy: organized, ready-to-use prompts under a “safe, practical, purposeful” principle, centered on the Microsoft Copilot ecosystem, to help employees pick up frontier productivity tools. A real internal-enablement asset — prompts by scenario, mapped to Copilot workflows across Word / Excel / Teams and beyond.',
+      zh: '我为 HP FY26 数字学院做的 AI 提示词库：以「安全、实用、有目的」为理念，围绕 Microsoft Copilot 工具生态整理的即用型提示词，帮助员工掌握前沿生产力工具。一个真实落地的内部赋能资产 —— 提示词按场景组织，对应到 Word / Excel / Teams 等 Copilot 工作流。',
+    },
+    tags: ['Prompts', 'Microsoft Copilot', 'Enablement', 'HP'],
+    links: [
+      { label: { en: 'Open the library', zh: '打开提示词库' }, href: 'https://hp-prompt-tool.vercel.app/', kind: 'live' },
+    ],
+  },
+  {
     id: 'aihtml-workshop',
     category: 'ai',
     title: { en: 'AI → Visible HTML Tools', zh: 'AI 做看得见的 HTML 小工具' },
