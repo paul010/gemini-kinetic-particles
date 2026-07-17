@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" role="img" aria-label="HP FY26 AI Prompt Library">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f6f3ec"/><stop offset="1" stop-color="#e7eef4"/>
+    </linearGradient>
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1200" height="750" fill="url(#bg)"/>
+
+  <!-- HP-style ring mark -->
+  <g transform="translate(120 120)">
+    <circle cx="0" cy="0" r="46" fill="none" stroke="#0096d6" stroke-width="6"/>
+    <text x="0" y="12" text-anchor="middle" font-family="Arial, sans-serif" font-size="34" font-weight="700" font-style="italic" fill="#0096d6">hp</text>
+  </g>
+  <text x="196" y="112" font-family="'JetBrains Mono', monospace" font-size="18" fill="#0096d6">FY26 数字学院 · AI 提示词库</text>
+  <text x="196" y="150" font-family="'JetBrains Mono', monospace" font-size="15" fill="rgba(28,26,23,0.5)">安全 · 实用 · 有目的</text>
+
+  <text x="80" y="250" font-family="'Cormorant Garamond', Georgia, serif" font-size="52" font-weight="600" fill="#1c1a17">围绕 Microsoft Copilot 的提示词赋能</text>
+
+  <!-- prompt cards -->
+  <g font-family="'JetBrains Mono', monospace" font-size="15">
+    <g filter="url(#soft)"><rect x="80" y="320" width="320" height="150" rx="14" fill="#fff" stroke="rgba(28,26,23,0.08)"/></g>
+    <rect x="80" y="320" width="320" height="6" rx="3" fill="#0096d6"/>
+    <text x="104" y="362" fill="#0096d6">Copilot in Word</text>
+    <rect x="104" y="384" width="260" height="10" rx="5" fill="rgba(28,26,23,0.14)"/>
+    <rect x="104" y="406" width="230" height="10" rx="5" fill="rgba(28,26,23,0.14)"/>
+    <rect x="104" y="428" width="180" height="10" rx="5" fill="rgba(28,26,23,0.14)"/>
+
+    <g filter="url(#soft)"><rect x="440" y="320" width="320" height="150" rx="14" fill="#fff" stroke="rgba(28,26,23,0.08)"/></g>
+    <rect x="440" y="320" width="320" height="6" rx="3" fill="#5c8a3a"/>
+    <text x="464" y="362" fill="#5c8a3a">Copilot in Excel</text>
+    <rect x="464" y="384" width="260" height="10" rx="5" fill="rgba(28,26,23,0.14)"/>
+    <rect x="464" y="406" width="240" height="10" rx="5" fill="rgba(28,26,23,0.14)"/>
+    <rect x="464" y="428" width="200" height="10" rx="5" fill="rgba(28,26,23,0.14)"/>
+
+    <g filter="url(#soft)"><rect x="800" y="320" width="320" height="150" rx="14" fill="#fff" stroke="rgba(28,26,23,0.08)"/></g>
+    <rect x="800" y="320" width="320" height="6" rx="3" fill="#c2703c"/>
+    <text x="824" y="362" fill="#c2703c">Copilot in Teams</text>
+    <rect x="824" y="384" width="260" height="10" rx="5" fill="rgba(28,26,23,0.14)"/>
+    <rect x="824" y="406" width="220" height="10" rx="5" fill="rgba(28,26,23,0.14)"/>
+    <rect x="824" y="428" width="190" height="10" rx="5" fill="rgba(28,26,23,0.14)"/>
+  </g>
+
+  <text x="80" y="560" font-family="'JetBrains Mono', monospace" font-size="17" fill="rgba(28,26,23,0.6)">按场景组织的即用型提示词 · 对应 Copilot 工作流 · 助力员工掌握前沿生产力工具</text>
+  <text x="80" y="694" font-family="'JetBrains Mono', monospace" font-size="15" fill="#0096d6">大雷为 HP FY26 数字学院构建的内部赋能资产</text>
+</svg>
