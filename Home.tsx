@@ -1106,47 +1106,47 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
           </div>
         </section>
 
-        {/* About */}
-        <section id="about" className="relative scroll-mt-24 py-20">
+        {/* About — a confident, statement-led block with generous white space */}
+        <section id="about" className="relative scroll-mt-24 py-24 sm:py-28">
           <span className="section-index" aria-hidden="true">03</span>
-          <div className="grid gap-12 lg:grid-cols-[1fr_1.1fr] lg:gap-16">
-            <div className="reveal">
-              <p className="font-mono text-xs uppercase tracking-[0.2em] text-gold">{t(COPY.about.label)}</p>
-              <h2 className="mt-3 font-display text-3xl font-bold leading-tight tracking-tight sm:text-4xl">
-                {t(COPY.about.heading)}
-              </h2>
-              <p className="mt-6 text-base leading-relaxed text-ink/65">{t(COPY.about.body)}</p>
 
-              {/* At-a-glance stats — a clean divided strip of social proof */}
-              <dl className="mt-8 grid grid-cols-3 gap-px overflow-hidden rounded-2xl border border-ink/10 bg-ink/10">
-                {[
-                  { value: CHANNEL.subscribers, label: { en: 'subscribers', zh: 'YouTube 订阅' } as LocalizedText },
-                  { value: CHANNEL.videos, label: { en: 'videos', zh: '视频' } as LocalizedText },
-                  { value: `${PROJECTS.length}`, label: { en: 'open-source projects', zh: '开源项目' } as LocalizedText },
-                ].map((s, i) => (
-                  <div key={i} className="bg-surface/60 px-4 py-5 backdrop-blur-sm sm:px-6">
-                    <dt className="font-display text-3xl font-semibold leading-none tracking-tight sm:text-4xl">{s.value}</dt>
-                    <dd className="mt-2 font-mono text-[10.5px] uppercase leading-tight tracking-wider text-ink/45">{t(s.label)}</dd>
-                  </div>
-                ))}
-              </dl>
-            </div>
+          {/* oversized two-line statement */}
+          <div className="reveal max-w-4xl">
+            <p className="font-mono text-xs uppercase tracking-[0.2em] text-gold">{t(COPY.about.label)}</p>
+            <h2 className="mt-5 font-display text-[2.6rem] font-semibold leading-[1.06] tracking-[-0.01em] sm:text-6xl lg:text-[4.2rem]">
+              <span className="block">{t(COPY.about.statementA)}</span>
+              <span className="block italic text-gradient">{t(COPY.about.statementB)}</span>
+            </h2>
+            <p className="mt-8 max-w-2xl text-lg leading-relaxed text-ink/65">{t(COPY.about.body)}</p>
+          </div>
 
-            <div className="grid gap-4 self-center">
-              {COPY.about.pillars.map((pillar, i) => (
-                <div
-                  key={i}
-                  className="reveal flex items-start gap-4 rounded-xl border border-ink/10 bg-surface/50 p-5 backdrop-blur-sm transition-all hover:-translate-y-0.5 hover:border-accent/30"
-                  style={{ transitionDelay: `${i * 90}ms` }}
-                >
-                  <span className="mt-0.5 font-mono text-sm text-gold">0{i + 1}</span>
-                  <div>
-                    <h3 className="font-display text-lg font-semibold">{t(pillar.title)}</h3>
-                    <p className="mt-1 text-sm leading-relaxed text-ink/55">{t(pillar.text)}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
+          {/* full-width stats strip */}
+          <dl className="reveal mt-14 grid grid-cols-3 gap-px overflow-hidden rounded-2xl border border-ink/10 bg-ink/10">
+            {[
+              { value: CHANNEL.subscribers, label: { en: 'YouTube subscribers', zh: 'YouTube 订阅' } as LocalizedText },
+              { value: CHANNEL.videos, label: { en: 'videos shipped', zh: '视频' } as LocalizedText },
+              { value: `${PROJECTS.length}`, label: { en: 'open-source projects', zh: '开源项目' } as LocalizedText },
+            ].map((s, i) => (
+              <div key={i} className="bg-surface/60 px-5 py-6 backdrop-blur-sm sm:px-8 sm:py-7">
+                <dt className="font-display text-4xl font-semibold leading-none tracking-tight sm:text-5xl">{s.value}</dt>
+                <dd className="mt-2.5 font-mono text-[10.5px] uppercase leading-tight tracking-wider text-ink/45">{t(s.label)}</dd>
+              </div>
+            ))}
+          </dl>
+
+          {/* three pillars — a clean, even row */}
+          <div className="mt-6 grid gap-4 sm:grid-cols-3">
+            {COPY.about.pillars.map((pillar, i) => (
+              <div
+                key={i}
+                className="reveal group flex flex-col rounded-2xl border border-ink/10 bg-surface/50 p-6 backdrop-blur-sm transition-all hover:-translate-y-1 hover:border-accent/30"
+                style={{ transitionDelay: `${i * 90}ms` }}
+              >
+                <span className="font-mono text-xs text-gold">0{i + 1}</span>
+                <h3 className="mt-3 font-display text-xl font-semibold tracking-tight">{t(pillar.title)}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-ink/55">{t(pillar.text)}</p>
+              </div>
+            ))}
           </div>
         </section>
 
