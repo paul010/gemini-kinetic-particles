@@ -938,6 +938,9 @@ export const COPY = {
   about: {
     label: { en: 'About', zh: '关于' },
     heading: { en: 'An AI tinkerer who builds — and shares — in the open.', zh: '一个在公开构建、也公开分享的 AI 实践者。' },
+    // A confident two-line statement (line B carries the accent).
+    statementA: { en: 'I build with AI in the open —', zh: '我在公开处用 AI 构建 ——' },
+    statementB: { en: 'and share what actually works.', zh: '并且分享真正管用的东西。' },
     body: {
       en: "By day I dig into AI automation and AI-assisted coding — the practical workflows and tools that save real, everyday time — and break them down on YouTube as 大雷 (4K+ subscribers, 400+ videos). By night I make playful, open-source web experiments that blend 3D graphics, real-time interaction, and AI, like Kinetic Particles. I also run, a lot. Everything I build is open source — take it apart, learn from it, make your own.",
       zh: '白天我钻研 AI 自动化与 AI 辅助编程 —— 那些能实打实省时间的工作流与工具 —— 并以「大雷」的身份在 YouTube 拆解它们（4000+ 订阅、400+ 视频）。晚上我做好玩的开源网页实验，融合 3D 图形、实时交互与 AI，比如 Kinetic Particles。我也很爱跑步。我做的一切都是开源的 —— 拆开它、从中学习、做出你自己的版本。',
