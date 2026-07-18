@@ -8,8 +8,7 @@ import React, { useEffect, useMemo, useState } from 'react';
  * external CDN so it works anywhere). A 🎲 button spotlights a random recipe
  * for live demoing.
  *
- * Prompt-library format inspired by 归藏的提示词库 (op7418/guizang-s-prompt);
- * the scenarios, prompts and demos here are original, built for this workshop.
+ * All scenarios, prompts and demos here are original, built for this workshop.
  * ------------------------------------------------------------------------- */
 
 type Lang = 'en' | 'zh' | 'zhHant';
@@ -402,9 +401,7 @@ const AIHtmlLab: React.FC<Props> = ({ onHome }) => {
         </section>
 
         <p className="mt-8 text-xs leading-relaxed text-ink/45">
-          {t({ en: 'Curated by 大雷 for the 2026-07-28 workshop. Prompt-library format inspired by ', zh: '大雷为 2026-07-28 workshop 整理。提示词库形式参考 ' })}
-          <a href="https://github.com/op7418/guizang-s-prompt" target="_blank" rel="noopener noreferrer" className="text-gold underline underline-offset-2 hover:opacity-80">归藏的提示词库 (op7418/guizang-s-prompt) ↗</a>
-          {t({ en: '; the scenarios, prompts and demos here are original. Demos run fully in your browser (sandboxed, no external calls).', zh: '；此处场景、提示词与效果均为原创。所有效果全程在你浏览器本地运行（沙箱隔离、无外部调用）。' })}
+          {t({ en: 'Curated by 大雷 for the 2026-07-28 workshop. Every scenario, prompt and demo here is original. Demos run fully in your browser (sandboxed, no external calls).', zh: '大雷为 2026-07-28 workshop 整理。此处场景、提示词与效果均为原创。所有效果全程在你浏览器本地运行（沙箱隔离、无外部调用）。' })}
         </p>
       </main>
     </div>
