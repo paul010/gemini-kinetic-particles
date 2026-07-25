@@ -391,6 +391,28 @@ export const PROJECTS: Project[] = [
     ],
   },
   {
+    id: 'farmer-river',
+    category: 'creative',
+    title: { en: 'Farmer Crosses the River (3D)', zh: '农夫过河 3D' },
+    year: '2026',
+    status: 'live',
+    featured: true,
+    cover: '/farmer-cover.svg',
+    tagline: {
+      en: 'A 3D river-crossing logic game — an extended wolf-goat-cabbage puzzle with chained rules. Ferry apple/chicken/sheep/snake/tiger across; a built-in BFS solver powers Hint & Auto-solve. Optimal is 9 crossings.',
+      zh: '3D 过河逻辑小游戏 —— 狼羊菜的加强版，带连锁规则。把苹果/鸡/羊/蛇/老虎渡到对岸；内置 BFS 求解器提供「提示」与「自动演示最优解」。最优 9 次渡河。',
+    },
+    description: {
+      en: 'A playable Three.js game built from primitives (no external models). The boat carries the farmer plus one item; whenever the farmer is away from a bank the chained rules bite — tiger eats sheep unless a chicken is there, snake eats chicken unless a tiger is there, sheep eats apple unless a snake is there. Click an animal on the farmer’s bank to load it, then row across; get all five over to win. Orbit the low-poly scene (animated water, banks, boat, hand-modeled farmer/apple/chicken/sheep/snake/tiger), track crossings vs. the optimal 9, and lean on a real BFS solver for a next-move Hint or a full Auto-solve walkthrough. Bilingual, in the site’s warm-paper look. Inspired by a 农夫过河 animation seen in a course.',
+      zh: '一个用 Three.js 基础几何体手搭的可玩游戏（不依赖外部模型）。船每次带农夫 + 1 个；农夫一离开某岸，连锁规则就生效 —— 老虎吃羊（除非有鸡）、蛇吃鸡（除非有老虎）、羊吃苹果（除非有蛇）。点农夫所在岸的动物上船，再渡河；把五个都送到对岸即胜。可自由旋转这个低多边形场景（动态水面、河岸、小船，以及手工建模的农夫/苹果/鸡/羊/蛇/老虎），对照最优 9 次渡河记录步数，还能用内置的 BFS 求解器给「下一步提示」或「自动演示完整最优解」。双语，沿用站点「暖纸墨」风格。灵感来自课程里看到的一个农夫过河动画。',
+    },
+    tags: ['Three.js', '3D Game', 'Puzzle', 'BFS'],
+    links: [
+      { label: { en: 'Play the game', zh: '开始玩' }, href: '/farmer', kind: 'internal' },
+      { label: { en: '3D prompt lab', zh: '3D 提示词工作台' }, href: '/lab3d', kind: 'internal' },
+    ],
+  },
+  {
     id: 'text2image-studio',
     category: 'ai',
     title: { en: 'Text-to-Image Prompt Studio', zh: '文生图提示词工坊' },
