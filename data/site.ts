@@ -391,6 +391,28 @@ export const PROJECTS: Project[] = [
     ],
   },
   {
+    id: 'text2image-studio',
+    category: 'ai',
+    title: { en: 'Text-to-Image Prompt Studio', zh: '文生图提示词工坊' },
+    year: '2026',
+    status: 'live',
+    featured: true,
+    cover: '/text2image-cover.svg',
+    tagline: {
+      en: 'A workshop column for making good images with words: the 7-block prompt anatomy, an interactive builder, ready-to-use scenario templates, and how to lock a style for platform-level batches.',
+      zh: 'Workshop 专栏 · 用文字做好图：提示词七模块结构 + 交互搭建器 + 即用场景模板 + 平台级批量的「风格锁」。',
+    },
+    description: {
+      en: 'A hands-on teaching column for text-to-image prompting. It breaks a prompt into seven ordered blocks (subject, scene, style, composition/camera, light, quality, params) with a color-coded example; an interactive builder assembles a complete Chinese + English prompt live as you type a subject and tap chips; six ready-to-use scenario templates cover e-commerce hero shots, professional headshots, slide covers, event key visuals, icon sets and concept scenes — each with highlighted {slots} to fill and a practical tip. A platform-level section teaches how to lock a look for a whole batch (style prefix, negative prompt, reference image + seed, naming) with a reusable copyable "style-lock" template, plus a click-to-copy modifier cheat-sheet (style / light / camera / quality / mood). Prompts are model-agnostic — Midjourney, 即梦, 豆包, Nano Banana, DALL·E. All copy and templates are original.',
+      zh: '面向教学的文生图提示词专栏。把一条提示词拆成有序的七个模块（主体 / 场景 / 风格 / 构图镜头 / 光线 / 画质 / 参数）并给出彩色标注的范例；交互搭建器让你输入主体、点选标签，实时拼出完整的中英双语提示词；六个即用场景模板覆盖电商主图、职业头像、PPT 封面、活动主视觉、图标组、概念场景 —— 每个都带高亮 {占位槽} 和实操贴士。平台级章节讲怎么把风格锁给整批内容（风格前缀、负向提示词、参考图 + 种子、命名），配一段可复制的「风格锁」模板，外加点按即复制的修饰词速查库（风格 / 光线 / 镜头 / 画质 / 氛围）。提示词与模型无关 —— Midjourney、即梦、豆包、Nano Banana、DALL·E 通用。文案与模板均为原创。',
+    },
+    tags: ['Workshop', 'Text-to-Image', 'Prompt', 'Teaching'],
+    links: [
+      { label: { en: 'Open the studio', zh: '打开工坊' }, href: '/text2image', kind: 'internal' },
+      { label: { en: 'HTML tools column', zh: 'HTML 小工具专栏' }, href: '/aihtml', kind: 'internal' },
+    ],
+  },
+  {
     id: 'aihtml-workshop',
     category: 'ai',
     title: { en: 'AI → Visible HTML Tools', zh: 'AI 做看得见的 HTML 小工具' },
