@@ -20,6 +20,7 @@ const NotebookLM = React.lazy(() => import('./notebooklm/NotebookLM'));
 const AIHtmlLab = React.lazy(() => import('./aihtml/AIHtmlLab'));
 const Text2Image = React.lazy(() => import('./text2image/Text2Image'));
 const FarmerRiver = React.lazy(() => import('./farmer/FarmerRiver'));
+const QuyouBus = React.lazy(() => import('./quyoubus/QuyouBus'));
 const Agents = React.lazy(() => import('./agents/Agents'));
 const Skills = React.lazy(() => import('./skills/Skills'));
 const PlantUML = React.lazy(() => import('./tools/PlantUML'));
@@ -52,7 +53,7 @@ const Loader: React.FC<{ label: string }> = ({ label }) => (
   </div>
 );
 
-type Route = 'home' | 'particles' | 'arsenal' | 'md' | 'img' | 's2c' | 'fluid' | 'r3f' | 'ttt-hour-of-code' | 'bench' | 'fugu' | 'copilot' | 'copilotcamp' | 'promptforge' | 'notebooklm' | 'aihtml' | 'text2image' | 'farmer' | 'agents' | 'skills' | 'uml' | 'town' | 'patterns' | 'prompts' | 'cici' | 'designskill' | 'videogen' | 'dino' | 'chengdu' | 'lab3d' | 'cappadocia' | 'zhangjiajie' | 'niagara' | 'fireflies' | 'harbin' | 'forbiddencity' | 'brooksfalls';
+type Route = 'home' | 'particles' | 'arsenal' | 'md' | 'img' | 's2c' | 'fluid' | 'r3f' | 'ttt-hour-of-code' | 'bench' | 'fugu' | 'copilot' | 'copilotcamp' | 'promptforge' | 'notebooklm' | 'aihtml' | 'text2image' | 'farmer' | 'quyoubus' | 'agents' | 'skills' | 'uml' | 'town' | 'patterns' | 'prompts' | 'cici' | 'designskill' | 'videogen' | 'dino' | 'chengdu' | 'lab3d' | 'cappadocia' | 'zhangjiajie' | 'niagara' | 'fireflies' | 'harbin' | 'forbiddencity' | 'brooksfalls';
 
 const routeFromLocation = (): Route => {
   const { pathname, hash } = window.location;
@@ -73,6 +74,7 @@ const routeFromLocation = (): Route => {
   if (p.endsWith('/aihtml') || hash === '#/aihtml') return 'aihtml';
   if (p.endsWith('/text2image') || hash === '#/text2image') return 'text2image';
   if (p.endsWith('/farmer') || hash === '#/farmer') return 'farmer';
+  if (p.endsWith('/quyoubus') || hash === '#/quyoubus') return 'quyoubus';
   if (p.endsWith('/copilot') || hash === '#/copilot') return 'copilot';
   if (p.endsWith('/agents') || hash === '#/agents') return 'agents';
   if (p.endsWith('/skills') || hash === '#/skills') return 'skills';
@@ -115,7 +117,7 @@ const Router: React.FC = () => {
 
   // The particle experience is a fixed full-screen canvas; other routes scroll.
   useEffect(() => {
-    const fullScreen = ['particles', 'md', 's2c', 'fluid', 'r3f', 'uml', 'dino', 'farmer', 'cappadocia', 'zhangjiajie', 'niagara', 'fireflies', 'harbin', 'forbiddencity', 'brooksfalls'];
+    const fullScreen = ['particles', 'md', 's2c', 'fluid', 'r3f', 'uml', 'dino', 'farmer', 'quyoubus', 'cappadocia', 'zhangjiajie', 'niagara', 'fireflies', 'harbin', 'forbiddencity', 'brooksfalls'];
     document.body.style.overflow = fullScreen.includes(route) ? 'hidden' : 'auto';
     return () => {
       document.body.style.overflow = 'auto';
@@ -143,6 +145,7 @@ const Router: React.FC = () => {
       aihtml: 'AI 做看得见的 HTML 小工具 · Workshop · 大雷',
       text2image: '文生图提示词工坊 · Text-to-Image · Workshop · 大雷',
       farmer: '农夫过河 3D · Farmer Crosses the River · 大雷',
+      quyoubus: '趣游巴士 · AI 夜游 · Quyou Bus 3D · 大雷',
       agents: 'Agent 模板库 · Agent Templates · 大雷',
       skills: 'Skill 技能库 · Skill Library · 大雷',
       uml: 'PlantUML 渲染器 · 大雷',
@@ -306,6 +309,14 @@ const Router: React.FC = () => {
     return (
       <Suspense fallback={<Loader label="LAUNCHING THE BOAT…" />}>
         <FarmerRiver onHome={() => navigate('/')} />
+      </Suspense>
+    );
+  }
+
+  if (route === 'quyoubus') {
+    return (
+      <Suspense fallback={<Loader label="BOARDING THE BUS…" />}>
+        <QuyouBus onHome={() => navigate('/')} />
       </Suspense>
     );
   }

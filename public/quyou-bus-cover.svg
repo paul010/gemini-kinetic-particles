@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" role="img" aria-label="Quyou Bus · AI Night Tour">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#120f26"/><stop offset="0.55" stop-color="#1d1636"/><stop offset="1" stop-color="#301a3e"/>
+    </linearGradient>
+    <clipPath id="bodyClip"><rect x="120" y="386" width="880" height="212" rx="30"/></clipPath>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="750" fill="url(#sky)"/>
+
+  <!-- moon -->
+  <circle cx="1030" cy="120" r="46" fill="#f4e8b8" opacity="0.9"/>
+  <circle cx="1012" cy="110" r="46" fill="#1d1636" opacity="0.7"/>
+
+  <!-- night skyline + billboards -->
+  <g opacity="0.9">
+    <rect x="40" y="250" width="120" height="300" fill="#181031"/>
+    <rect x="180" y="300" width="90" height="250" fill="#1c1338"/>
+    <rect x="60" y="270" width="80" height="52" rx="4" fill="#e63946" opacity="0.85"/>
+    <text x="72" y="305" font-family="Arial, sans-serif" font-size="26" font-weight="800" fill="#fff" opacity="0.85">KTV</text>
+    <rect x="900" y="230" width="120" height="320" fill="#1c1338"/>
+    <rect x="1040" y="290" width="120" height="260" fill="#181031"/>
+    <rect x="915" y="255" width="92" height="120" rx="4" fill="#0e1230"/>
+    <rect x="928" y="285" width="66" height="34" rx="4" fill="#d33a4a"/><!-- red car ad -->
+    <ellipse cx="945" cy="320" rx="8" ry="5" fill="#111"/><ellipse cx="980" cy="320" rx="8" ry="5" fill="#111"/>
+  </g>
+  <!-- 339 tower -->
+  <rect x="560" y="120" width="14" height="270" fill="#241a48"/>
+  <circle cx="567" cy="180" r="24" fill="none" stroke="#21c7b8" stroke-width="4" filter="url(#glow)"/>
+  <line x1="567" y1="90" x2="567" y2="120" stroke="#241a48" stroke-width="5"/>
+
+  <!-- string lights across the top -->
+  <path d="M60 150 Q300 210 600 165 T1140 155" fill="none" stroke="#4a3a2a" stroke-width="2"/>
+  <g fill="#ffd77a" filter="url(#glow)">
+    <circle cx="150" cy="182" r="6"/><circle cx="280" cy="196" r="6"/><circle cx="420" cy="188" r="6"/><circle cx="560" cy="176" r="6"/><circle cx="700" cy="176" r="6"/><circle cx="840" cy="170" r="6"/><circle cx="980" cy="162" r="6"/><circle cx="1110" cy="158" r="6"/>
+  </g>
+
+  <!-- LED destination sign -->
+  <rect x="70" y="60" width="470" height="60" rx="9" fill="#0b0a1c" stroke="#39d353" stroke-width="2"/>
+  <text x="90" y="103" font-family="'JetBrains Mono', monospace" font-size="30" font-weight="700" fill="#39d353" filter="url(#glow)" letter-spacing="3">趣游巴士 · AI 夜游</text>
+
+  <!-- ===== the graffiti bus ===== -->
+  <!-- black body base -->
+  <rect x="120" y="386" width="880" height="212" rx="30" fill="#14110f"/>
+  <!-- graffiti splatters clipped to body -->
+  <g clip-path="url(#bodyClip)">
+    <path d="M120 386 h150 l-18 60 30 40 -40 30 22 56 h-176 Z" fill="#e63946"/>
+    <path d="M250 386 h120 l24 70 -30 50 34 92 h-150 Z" fill="#ff7a1a"/>
+    <path d="M360 470 q60 -30 120 -6 q40 40 -6 90 q-70 26 -128 -8 q-24 -46 14 -76 Z" fill="#ffd23f"/>
+    <path d="M470 386 h150 l-10 80 26 60 -30 72 h-150 l20 -100 Z" fill="#7a3fd6"/>
+    <path d="M600 420 q70 -20 118 20 q26 60 -30 96 q-80 20 -120 -26 q-14 -56 32 -90 Z" fill="#21c7b8"/>
+    <path d="M720 386 h150 l30 60 -40 60 40 92 h-190 l30 -120 Z" fill="#e83f9e"/>
+    <path d="M850 386 h150 v212 h-120 l16 -90 -40 -66 Z" fill="#ff7a1a"/>
+    <!-- barcode stripes at the tail -->
+    <g fill="#0b0a10"><rect x="908" y="404" width="6" height="120"/><rect x="920" y="404" width="4" height="120"/><rect x="930" y="404" width="8" height="120"/><rect x="944" y="404" width="4" height="120"/><rect x="954" y="404" width="6" height="120"/><rect x="966" y="404" width="10" height="120"/><rect x="982" y="404" width="4" height="120"/></g>
+    <!-- Saturn line icon -->
+    <g stroke="#39d353" stroke-width="3" fill="none" opacity="0.9"><circle cx="205" cy="530" r="20"/><ellipse cx="205" cy="530" rx="34" ry="12" transform="rotate(-18 205 530)"/></g>
+    <!-- spray drips -->
+    <g fill="#ffd23f"><rect x="415" y="548" width="7" height="46" rx="3"/><circle cx="418" cy="596" r="6"/></g>
+    <g fill="#21c7b8"><rect x="660" y="540" width="6" height="40" rx="3"/><circle cx="663" cy="582" r="5"/></g>
+    <!-- guitarist silhouette (simplified) -->
+    <g transform="translate(300 470)" opacity="0.92">
+      <circle cx="0" cy="-8" r="16" fill="#12101c"/>
+      <path d="M-14 6 L16 6 L24 70 L-22 70 Z" fill="#3a2a5a"/>
+      <rect x="14" y="18" width="70" height="14" rx="7" fill="#e63946" transform="rotate(24 14 18)"/>
+      <ellipse cx="70" cy="52" rx="22" ry="15" fill="#1a1420" stroke="#ffd23f" stroke-width="2"/>
+    </g>
+  </g>
+  <!-- yellow trim line -->
+  <rect x="120" y="566" width="880" height="10" fill="#ffcf33"/>
+  <g fill="#14110f"><path d="M150 566 l10 10 h-20 Z"/><path d="M250 566 l10 10 h-20 Z"/><path d="M350 566 l10 10 h-20 Z"/><path d="M700 566 l10 10 h-20 Z"/><path d="M800 566 l10 10 h-20 Z"/></g>
+
+  <!-- windows with warm interior glow + tinsel + green-afro host -->
+  <g>
+    <rect x="360" y="410" width="118" height="86" rx="10" fill="#0c1a24" stroke="#1a1512" stroke-width="4"/>
+    <rect x="360" y="410" width="118" height="86" rx="10" fill="#2a6a72" opacity="0.5"/>
+    <rect x="620" y="410" width="118" height="86" rx="10" fill="#0c1a24" stroke="#1a1512" stroke-width="4"/>
+    <rect x="620" y="410" width="118" height="86" rx="10" fill="#2a6a72" opacity="0.5"/>
+    <!-- warm bulbs in windows -->
+    <g fill="#ffd77a" filter="url(#glow)"><circle cx="386" cy="426" r="4"/><circle cx="430" cy="422" r="4"/><circle cx="470" cy="428" r="4"/><circle cx="646" cy="424" r="4"/><circle cx="700" cy="428" r="4"/></g>
+    <!-- host: green afro + sunglasses + red jacket -->
+    <g transform="translate(419 470)">
+      <circle cx="0" cy="-14" r="26" fill="#39d353"/>
+      <circle cx="0" cy="-4" r="15" fill="#f0c9a0"/>
+      <rect x="-13" y="-8" width="26" height="9" rx="4.5" fill="#12101c"/>
+      <path d="M-20 8 H20 L26 40 H-26 Z" fill="#d9342b"/>
+    </g>
+  </g>
+
+  <!-- wheels -->
+  <circle cx="290" cy="606" r="40" fill="#0c0b14" stroke="#ffcf33" stroke-width="4"/>
+  <circle cx="830" cy="606" r="40" fill="#0c0b14" stroke="#ffcf33" stroke-width="4"/>
+  <circle cx="290" cy="606" r="14" fill="#39d353"/>
+  <circle cx="830" cy="606" r="14" fill="#39d353"/>
+
+  <!-- graffiti title on/over the body -->
+  <g transform="rotate(-4 560 470)" filter="url(#glow)">
+    <text x="558" y="486" font-family="'Arial Black', Arial, sans-serif" font-size="86" font-weight="900" fill="#e83f9e" text-anchor="middle" stroke="#0b0a10" stroke-width="10" paint-order="stroke" transform="translate(4 5)">趣游巴士</text>
+    <text x="558" y="486" font-family="'Arial Black', Arial, sans-serif" font-size="86" font-weight="900" fill="#fff2c8" text-anchor="middle" stroke="#0b0a10" stroke-width="9" paint-order="stroke">趣游巴士</text>
+  </g>
+  <text x="560" y="530" font-family="'Arial Black', Arial, sans-serif" font-size="26" font-weight="900" fill="#21c7b8" text-anchor="middle" stroke="#0b0a10" stroke-width="5" paint-order="stroke" transform="rotate(-4 560 522)">LEYOU BUS ⚡</text>
+
+  <text x="72" y="706" font-family="'JetBrains Mono', monospace" font-size="16" fill="#ffcf33">春熙路 → 339 电视塔 · three.js 第一人称车厢 · AI 主理人「阿绿」实时报站/方言游戏/开放麦 · 纯前端跑完全程</text>
+</svg>
