@@ -112,6 +112,7 @@ const QuyouBus: React.FC<Props> = ({ onHome }) => {
   const bankIdx = useRef({ dialect: 0, song: 0 });
 
   const phaseRef = useRef(phase); phaseRef.current = phase;
+  const sIdxRef = useRef(sIdx); sIdxRef.current = sIdx;
   const station = STATIONS[sIdx];
 
   const startGame = () => {
@@ -138,122 +139,152 @@ const QuyouBus: React.FC<Props> = ({ onHome }) => {
   };
   const restart = () => { setSIdx(0); setScore(0); setQ(null); setPicked(null); setMic(''); setMicDone(null); bankIdx.current = { dialect: 0, song: 0 }; setPhase('boarding'); };
 
-  /* ---------------- three.js cabin ---------------- */
+  /* ---------------- three.js cabin (vivid party-bus remake) ---------------- */
   const mountRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const mount = mountRef.current; if (!mount) return;
     const renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.15;
     const W = mount.clientWidth, H = mount.clientHeight || 500;
     renderer.setSize(W, H); mount.appendChild(renderer.domElement);
 
+    // per-station lighting theme (green / magenta / teal / gold)
+    const THEMES = [0x39d353, 0xe83f9e, 0x21c7b8, 0xffcf33].map((c) => new THREE.Color(c));
+
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x0b0a1c);
-    scene.fog = new THREE.Fog(0x0b0a1c, 22, 60);
-    const camera = new THREE.PerspectiveCamera(70, W / H, 0.1, 200);
-    camera.position.set(0, 2.4, 7.5); camera.lookAt(0, 1.8, -8);
+    scene.background = new THREE.Color(0x0e0c22);
+    scene.fog = new THREE.Fog(0x0e0c22, 26, 68);
+    const camera = new THREE.PerspectiveCamera(72, W / H, 0.1, 220);
+    camera.position.set(0, 2.5, 7.6); camera.lookAt(0, 1.9, -8);
 
-    scene.add(new THREE.HemisphereLight(0x6a7bff, 0x201038, 0.7));
-    const warm = new THREE.PointLight(0xffcf88, 1.2, 30); warm.position.set(0, 4, 0); scene.add(warm);
-    const teal = new THREE.PointLight(0x21c7b8, 0.8, 24); teal.position.set(0, 3, -6); scene.add(teal);
+    scene.add(new THREE.HemisphereLight(0x9fb0ff, 0x2a1840, 1.15));
+    const warm = new THREE.PointLight(0xffcf88, 1.8, 34); warm.position.set(0, 4.4, 0); scene.add(warm);
+    const warm2 = new THREE.PointLight(0xffb060, 1.2, 26); warm2.position.set(0, 4, -8); scene.add(warm2);
+    // three orbiting disco lights
+    const disco1 = new THREE.PointLight(0x39d353, 1.1, 20); scene.add(disco1);
+    const disco2 = new THREE.PointLight(0xe83f9e, 1.1, 20); scene.add(disco2);
+    const disco3 = new THREE.PointLight(0x21c7b8, 1.1, 20); scene.add(disco3);
 
-    const mat = (c: number, o: Partial<THREE.MeshStandardMaterialParameters> = {}) => new THREE.MeshStandardMaterial({ color: c, roughness: 0.7, ...o });
+    const mat = (c: number, o: Partial<THREE.MeshStandardMaterialParameters> = {}) => new THREE.MeshStandardMaterial({ color: c, roughness: 0.6, ...o });
 
-    // cabin shell: floor, ceiling, side walls with window gaps
-    const floor = new THREE.Mesh(new THREE.BoxGeometry(4.4, 0.2, 40), mat(0x1a1730)); floor.position.set(0, 0.4, -8); scene.add(floor);
-    const ceil = new THREE.Mesh(new THREE.BoxGeometry(4.4, 0.2, 40), mat(0x141228)); ceil.position.set(0, 5.2, -8); scene.add(ceil);
-    [-2.2, 2.2].forEach((x) => { const wall = new THREE.Mesh(new THREE.BoxGeometry(0.2, 1.6, 40), mat(0x201a3a)); wall.position.set(x, 1.4, -8); scene.add(wall); const top = new THREE.Mesh(new THREE.BoxGeometry(0.2, 1.0, 40), mat(0x201a3a)); top.position.set(x, 4.6, -8); scene.add(top); });
+    // cabin shell
+    const floor = new THREE.Mesh(new THREE.BoxGeometry(4.6, 0.2, 44), mat(0x241f3e, { metalness: 0.3, roughness: 0.4 })); floor.position.set(0, 0.4, -9); scene.add(floor);
+    const ceil = new THREE.Mesh(new THREE.BoxGeometry(4.6, 0.2, 44), mat(0x1b1836)); ceil.position.set(0, 5.3, -9); scene.add(ceil);
+    // glowing aisle strips
+    [-0.55, 0.55].forEach((x, i) => { const strip = new THREE.Mesh(new THREE.BoxGeometry(0.12, 0.04, 44), new THREE.MeshStandardMaterial({ color: i ? 0x21c7b8 : 0xe83f9e, emissive: i ? 0x21c7b8 : 0xe83f9e, emissiveIntensity: 1.3 })); strip.position.set(x, 0.52, -9); scene.add(strip); });
+    [-2.3, 2.3].forEach((x) => { const wall = new THREE.Mesh(new THREE.BoxGeometry(0.2, 1.7, 44), mat(0x2a2350)); wall.position.set(x, 1.4, -9); scene.add(wall); const top = new THREE.Mesh(new THREE.BoxGeometry(0.2, 1.1, 44), mat(0x2a2350)); top.position.set(x, 4.6, -9); scene.add(top); });
 
-    // seats (yellow & teal) along the aisle
-    const seatCols = [{ x: -1.4, c: 0xffcf33 }, { x: 1.4, c: 0x21c7b8 }];
-    for (let r = 0; r < 8; r++) {
+    // seats (glowing yellow & teal)
+    const seatCols = [{ x: -1.45, c: 0xffcf33 }, { x: 1.45, c: 0x2fd0c0 }];
+    for (let r = 0; r < 9; r++) {
       const z = -1 - r * 2.4;
       seatCols.forEach((col) => {
-        const seat = new THREE.Mesh(new THREE.BoxGeometry(1.1, 0.35, 0.9), mat(col.c)); seat.position.set(col.x, 1.05, z); scene.add(seat);
-        const back = new THREE.Mesh(new THREE.BoxGeometry(1.1, 1.0, 0.22), mat(col.c)); back.position.set(col.x, 1.55, z - 0.35); scene.add(back);
+        const seat = new THREE.Mesh(new THREE.BoxGeometry(1.15, 0.36, 0.95), mat(col.c, { emissive: col.c, emissiveIntensity: 0.28 })); seat.position.set(col.x, 1.08, z); scene.add(seat);
+        const back = new THREE.Mesh(new THREE.BoxGeometry(1.15, 1.05, 0.24), mat(col.c, { emissive: col.c, emissiveIntensity: 0.28 })); back.position.set(col.x, 1.6, z - 0.36); scene.add(back);
       });
     }
 
-    // poles + swinging grab handles
+    // poles + swinging grab handles (glowing)
     const handles: { grp: THREE.Group; ph: number }[] = [];
-    for (let r = 0; r < 7; r++) {
+    for (let r = 0; r < 8; r++) {
       const z = -1.4 - r * 2.6;
-      [-0.7, 0.7].forEach((x) => {
-        const pole = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.05, 3.4, 8), mat(0xe83f9e, { emissive: 0x3a0a24, roughness: 0.4 })); pole.position.set(x, 3.0, z); scene.add(pole);
-        const grp = new THREE.Group(); grp.position.set(x, 3.4, z);
-        const strap = new THREE.Mesh(new THREE.CylinderGeometry(0.03, 0.03, 0.5, 6), mat(0xffcf33)); strap.position.y = -0.25; grp.add(strap);
-        const ring = new THREE.Mesh(new THREE.TorusGeometry(0.16, 0.04, 8, 16), mat(0xffcf33)); ring.position.y = -0.5; grp.add(ring);
+      [-0.72, 0.72].forEach((x) => {
+        const pole = new THREE.Mesh(new THREE.CylinderGeometry(0.055, 0.055, 3.5, 10), mat(0xe83f9e, { emissive: 0xe83f9e, emissiveIntensity: 0.7, roughness: 0.3 })); pole.position.set(x, 3.05, z); scene.add(pole);
+        const grp = new THREE.Group(); grp.position.set(x, 3.5, z);
+        const strap = new THREE.Mesh(new THREE.CylinderGeometry(0.03, 0.03, 0.5, 6), mat(0xffcf33, { emissive: 0xffcf33, emissiveIntensity: 0.5 })); strap.position.y = -0.25; grp.add(strap);
+        const ring = new THREE.Mesh(new THREE.TorusGeometry(0.17, 0.045, 8, 18), mat(0xffcf33, { emissive: 0xffcf33, emissiveIntensity: 0.6 })); ring.position.y = -0.52; grp.add(ring);
         scene.add(grp); handles.push({ grp, ph: r + x });
       });
     }
 
-    // ceiling string-light bulbs + tinsel
+    // ceiling string-light bulbs (bright warm)
     const bulbs: THREE.Mesh[] = [];
-    for (let r = 0; r < 16; r++) { const z = -r * 2.2; const b = new THREE.Mesh(new THREE.SphereGeometry(0.09, 8, 8), new THREE.MeshBasicMaterial({ color: 0xffd77a })); b.position.set((r % 2 ? -0.8 : 0.8), 4.7, z); scene.add(b); bulbs.push(b); }
+    for (let r = 0; r < 24; r++) { const z = 2 - r * 2.0; const b = new THREE.Mesh(new THREE.SphereGeometry(0.11, 10, 10), new THREE.MeshBasicMaterial({ color: 0xffe0a0 })); b.position.set((r % 2 ? -0.85 : 0.85), 4.8, z); scene.add(b); bulbs.push(b); }
+    // festive tinsel curtain
     const tinsel = new THREE.Group();
-    for (let i = 0; i < 60; i++) { const s = new THREE.Mesh(new THREE.BoxGeometry(0.02, 0.5, 0.02), new THREE.MeshBasicMaterial({ color: [0x21c7b8, 0xe83f9e, 0xffcf33][i % 3] })); s.position.set((Math.random() - 0.5) * 4, 5.0, -Math.random() * 34); tinsel.add(s); }
+    for (let i = 0; i < 90; i++) { const s = new THREE.Mesh(new THREE.BoxGeometry(0.025, 0.55, 0.025), new THREE.MeshStandardMaterial({ color: [0x21c7b8, 0xe83f9e, 0xffcf33, 0x7ab8ff][i % 4], emissive: [0x21c7b8, 0xe83f9e, 0xffcf33, 0x7ab8ff][i % 4], emissiveIntensity: 0.6, metalness: 0.8, roughness: 0.3 })); s.position.set((Math.random() - 0.5) * 4.2, 5.05, 2 - Math.random() * 40); tinsel.add(s); }
     scene.add(tinsel);
-    // disco ball
-    const disco = new THREE.Mesh(new THREE.SphereGeometry(0.4, 12, 12), new THREE.MeshStandardMaterial({ color: 0xcfd8ff, metalness: 1, roughness: 0.2, emissive: 0x223, flatShading: true })); disco.position.set(0, 4.6, -3); scene.add(disco);
+    // disco ball with its own light
+    const disco = new THREE.Mesh(new THREE.IcosahedronGeometry(0.42, 1), new THREE.MeshStandardMaterial({ color: 0xdfe6ff, metalness: 1, roughness: 0.15, emissive: 0x334, emissiveIntensity: 0.4, flatShading: true })); disco.position.set(0, 4.5, -3); scene.add(disco);
+    const discoLight = new THREE.PointLight(0xffffff, 0.6, 14); discoLight.position.set(0, 4.2, -3); scene.add(discoLight);
 
-    // host「阿绿」at the front
-    const host = new THREE.Group(); host.position.set(0, 0.5, -9.5);
-    const legs = new THREE.Mesh(new THREE.CylinderGeometry(0.28, 0.3, 1.2, 10), mat(0x22314a)); legs.position.y = 0.6; host.add(legs);
-    const jacket = new THREE.Mesh(new THREE.CylinderGeometry(0.42, 0.36, 1.0, 12), mat(0xd9342b, { emissive: 0x300 })); jacket.position.y = 1.6; host.add(jacket);
-    const head = new THREE.Mesh(new THREE.SphereGeometry(0.32, 16, 16), mat(0xf0c9a0)); head.position.y = 2.35; host.add(head);
-    const afro = new THREE.Mesh(new THREE.SphereGeometry(0.44, 16, 16), new THREE.MeshStandardMaterial({ color: 0x39d353, roughness: 1, emissive: 0x0a2a12 })); afro.position.y = 2.5; afro.scale.set(1, 0.9, 1); host.add(afro);
-    const shades = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.14, 0.06), mat(0x0a0a12)); shades.position.set(0, 2.36, 0.3); host.add(shades);
-    const boom = new THREE.Mesh(new THREE.BoxGeometry(0.9, 0.4, 0.24), mat(0xdedede, { emissive: 0x111 })); boom.position.set(0, 1.5, 0.42); host.add(boom);
+    // host「阿绿」— brought closer, spotlit
+    const host = new THREE.Group(); host.position.set(0, 0.5, -8.2); host.scale.setScalar(1.15);
+    const legs = new THREE.Mesh(new THREE.CylinderGeometry(0.28, 0.3, 1.2, 12), mat(0x2a3a58)); legs.position.y = 0.6; host.add(legs);
+    const jacket = new THREE.Mesh(new THREE.CylinderGeometry(0.44, 0.38, 1.05, 14), mat(0xe23b30, { emissive: 0x3a0805, emissiveIntensity: 0.5 })); jacket.position.y = 1.62; host.add(jacket);
+    const head = new THREE.Mesh(new THREE.SphereGeometry(0.32, 18, 18), mat(0xf0c9a0)); head.position.y = 2.38; host.add(head);
+    const afro = new THREE.Mesh(new THREE.SphereGeometry(0.46, 18, 18), new THREE.MeshStandardMaterial({ color: 0x39d353, roughness: 1, emissive: 0x1e7a2e, emissiveIntensity: 0.7 })); afro.position.y = 2.54; afro.scale.set(1, 0.92, 1); host.add(afro);
+    const shades = new THREE.Mesh(new THREE.BoxGeometry(0.52, 0.15, 0.06), mat(0x0a0a12, { metalness: 0.6 })); shades.position.set(0, 2.4, 0.3); host.add(shades);
+    const boom = new THREE.Mesh(new THREE.BoxGeometry(0.95, 0.42, 0.26), mat(0xe8e8e8, { emissive: 0x222, emissiveIntensity: 0.3 })); boom.position.set(0, 1.5, 0.46); host.add(boom);
     scene.add(host);
+    // spotlight cone on host
+    const cone = new THREE.Mesh(new THREE.ConeGeometry(1.1, 3.2, 24, 1, true), new THREE.MeshBasicMaterial({ color: 0x39d353, transparent: true, opacity: 0.08, side: THREE.DoubleSide, depthWrite: false })); cone.position.set(0, 3.4, -8.2); scene.add(cone);
+    const hostSpot = new THREE.SpotLight(0xffffff, 2.2, 12, Math.PI / 7, 0.5); hostSpot.position.set(0, 5, -7.2); hostSpot.target = host; scene.add(hostSpot); scene.add(hostSpot.target);
 
-    // outside night city — recycled buildings both sides
+    // outside night city — brighter recycled buildings + neon billboards
     const winTexes: THREE.CanvasTexture[] = [];
-    for (let k = 0; k < 5; k++) {
+    for (let k = 0; k < 6; k++) {
       const cv = document.createElement('canvas'); cv.width = 64; cv.height = 128; const cx = cv.getContext('2d')!;
-      cx.fillStyle = '#0d0b1e'; cx.fillRect(0, 0, 64, 128);
-      const pal = ['#ffd77a', '#21c7b8', '#e83f9e', '#ff7a1a', '#7ab8ff'];
-      for (let y = 6; y < 128; y += 12) for (let x = 6; x < 64; x += 12) { if (Math.random() < 0.55) { cx.fillStyle = pal[(k + x + y) % pal.length]; cx.globalAlpha = 0.5 + Math.random() * 0.5; cx.fillRect(x, y, 7, 7); } }
+      cx.fillStyle = '#100d24'; cx.fillRect(0, 0, 64, 128);
+      const pal = ['#ffe0a0', '#2fd0c0', '#ff6ec7', '#ff9a3c', '#8ec8ff', '#c78bff'];
+      for (let y = 5; y < 128; y += 10) for (let x = 5; x < 64; x += 10) { if (Math.random() < 0.62) { cx.fillStyle = pal[(k + x + y) % pal.length]; cx.globalAlpha = 0.6 + Math.random() * 0.4; cx.fillRect(x, y, 6, 6); } }
       cx.globalAlpha = 1; const tx = new THREE.CanvasTexture(cv); winTexes.push(tx);
     }
     const buildings: THREE.Mesh[] = [];
-    const SPAN = 60;
-    for (let i = 0; i < 26; i++) {
-      const side = i % 2 ? 1 : -1; const h = 6 + Math.random() * 16; const w = 3 + Math.random() * 3;
-      const b = new THREE.Mesh(new THREE.BoxGeometry(w, h, 3.5), new THREE.MeshStandardMaterial({ map: winTexes[i % winTexes.length], emissive: 0x111133, emissiveIntensity: 0.4, color: 0x2a2350 }));
-      b.position.set(side * (5.5 + Math.random() * 6), h / 2 - 0.5, -Math.random() * SPAN);
+    const billboards: THREE.Mesh[] = [];
+    const SPAN = 72;
+    for (let i = 0; i < 38; i++) {
+      const side = i % 2 ? 1 : -1; const h = 7 + Math.random() * 20; const w = 3 + Math.random() * 3.5;
+      const b = new THREE.Mesh(new THREE.BoxGeometry(w, h, 3.6), new THREE.MeshStandardMaterial({ map: winTexes[i % winTexes.length], emissive: 0x2a2a55, emissiveIntensity: 0.85, color: 0x342b62 }));
+      b.position.set(side * (5.5 + Math.random() * 7), h / 2 - 0.5, -Math.random() * SPAN);
       scene.add(b); buildings.push(b);
+      if (i % 4 === 0) { const bb = new THREE.Mesh(new THREE.PlaneGeometry(3, 2), new THREE.MeshBasicMaterial({ color: [0xff6ec7, 0x2fd0c0, 0xffcf33, 0xff9a3c][i % 4] })); bb.position.set(side * 4.6, 2 + Math.random() * 8, b.position.z); bb.rotation.y = side > 0 ? -Math.PI / 2 : Math.PI / 2; scene.add(bb); billboards.push(bb); }
     }
-    // 339 tower far ahead
-    const tower = new THREE.Mesh(new THREE.CylinderGeometry(0.6, 1.2, 30, 12), mat(0x2a2350, { emissive: 0x102, emissiveIntensity: 0.5 })); tower.position.set(6, 14, -55); scene.add(tower);
-    const towerRing = new THREE.Mesh(new THREE.TorusGeometry(1.4, 0.15, 8, 24), new THREE.MeshBasicMaterial({ color: 0x21c7b8 })); towerRing.position.set(6, 22, -55); towerRing.rotation.x = Math.PI / 2; scene.add(towerRing);
+    // 339 tower ahead
+    const tower = new THREE.Mesh(new THREE.CylinderGeometry(0.6, 1.3, 34, 14), mat(0x342b62, { emissive: 0x223, emissiveIntensity: 0.7 })); tower.position.set(6, 16, -60); scene.add(tower);
+    const towerRing = new THREE.Mesh(new THREE.TorusGeometry(1.5, 0.16, 10, 28), new THREE.MeshBasicMaterial({ color: 0x2fd0c0 })); towerRing.position.set(6, 25, -60); towerRing.rotation.x = Math.PI / 2; scene.add(towerRing);
+    const moon = new THREE.Mesh(new THREE.CircleGeometry(2.4, 32), new THREE.MeshBasicMaterial({ color: 0xf4e8c0, fog: false })); moon.position.set(-16, 20, -64); scene.add(moon);
 
-    // pointer-drag to look around (limited yaw/pitch)
+    // pointer-drag to look around
     let yaw = 0, pitch = 0, drag = false, px = 0, py = 0;
     const dom = renderer.domElement;
     const down = (e: PointerEvent) => { drag = true; px = e.clientX; py = e.clientY; };
-    const move = (e: PointerEvent) => { if (!drag) return; yaw = THREE.MathUtils.clamp(yaw - (e.clientX - px) * 0.004, -0.7, 0.7); pitch = THREE.MathUtils.clamp(pitch - (e.clientY - py) * 0.003, -0.25, 0.35); px = e.clientX; py = e.clientY; };
+    const move = (e: PointerEvent) => { if (!drag) return; yaw = THREE.MathUtils.clamp(yaw - (e.clientX - px) * 0.004, -0.75, 0.75); pitch = THREE.MathUtils.clamp(pitch - (e.clientY - py) * 0.003, -0.28, 0.4); px = e.clientX; py = e.clientY; };
     const up = () => { drag = false; };
     dom.addEventListener('pointerdown', down); window.addEventListener('pointermove', move); window.addEventListener('pointerup', up);
 
+    const themeCol = new THREE.Color(0x39d353);
     const clock = new THREE.Clock(); let raf = 0; let speed = 0;
     const loop = () => {
       raf = requestAnimationFrame(loop);
       const el = clock.getElapsedTime();
       const riding = phaseRef.current === 'riding' || phaseRef.current === 'boarding';
-      speed += ((riding ? 0.42 : 0) - speed) * 0.03;
-      buildings.forEach((b) => { b.position.z += speed; if (b.position.z > 10) b.position.z -= SPAN; });
+      speed += ((riding ? 0.5 : 0) - speed) * 0.03;
+      buildings.forEach((b) => { b.position.z += speed; if (b.position.z > 12) b.position.z -= SPAN; });
+      billboards.forEach((b) => { b.position.z += speed; if (b.position.z > 12) b.position.z -= SPAN; });
+      // per-station theme tint on fog/background + accent
+      themeCol.lerp(THEMES[sIdxRef.current] || THEMES[0], 0.02);
+      (scene.background as THREE.Color).setRGB(0.055 + themeCol.r * 0.06, 0.048 + themeCol.g * 0.06, 0.13 + themeCol.b * 0.05);
+      scene.fog!.color.copy(scene.background as THREE.Color);
+      (cone.material as THREE.MeshBasicMaterial).color.copy(themeCol);
+      hostSpot.color.copy(themeCol).lerp(new THREE.Color(0xffffff), 0.5);
+      // orbiting disco lights
+      disco1.position.set(Math.cos(el * 1.2) * 2, 3.6, -3 + Math.sin(el * 1.2) * 2);
+      disco2.position.set(Math.cos(el * 1.2 + 2.1) * 2, 3.6, -3 + Math.sin(el * 1.2 + 2.1) * 2);
+      disco3.position.set(Math.cos(el * 1.2 + 4.2) * 2, 3.6, -3 + Math.sin(el * 1.2 + 4.2) * 2);
       // bus bumps
-      camera.position.y = 2.4 + Math.sin(el * 8) * 0.03 * (0.4 + speed);
-      const bump = Math.sin(el * 6) * 0.01 * (0.4 + speed);
-      camera.rotation.set(pitch + bump, yaw, Math.sin(el * 5) * 0.006 * (0.3 + speed));
-      // living details
-      handles.forEach((h) => { h.grp.rotation.z = Math.sin(el * 2 + h.ph) * 0.18 * (0.4 + speed); });
-      disco.rotation.y = el * 0.8;
+      camera.position.y = 2.5 + Math.sin(el * 8) * 0.035 * (0.4 + speed);
+      const bump = Math.sin(el * 6) * 0.012 * (0.4 + speed);
+      camera.rotation.set(pitch + bump, yaw, Math.sin(el * 5) * 0.007 * (0.3 + speed));
+      handles.forEach((h) => { h.grp.rotation.z = Math.sin(el * 2 + h.ph) * 0.2 * (0.4 + speed); });
+      disco.rotation.y = el * 1.0; disco.rotation.x = el * 0.3;
+      discoLight.color.setHSL((el * 0.2) % 1, 0.8, 0.6);
       const talking = phaseRef.current === 'narrate' || phaseRef.current === 'result' || phaseRef.current === 'boarding';
-      host.position.y = 0.5 + (talking ? Math.abs(Math.sin(el * 6)) * 0.08 : 0);
-      afro.rotation.y = Math.sin(el * 2) * 0.1;
-      towerRing.scale.setScalar(1 + Math.sin(el * 2) * 0.05);
-      bulbs.forEach((b, i) => ((b.material as THREE.MeshBasicMaterial).opacity = 1, (b.material as THREE.MeshBasicMaterial).color.setHSL(0.12, 0.9, 0.6 + Math.sin(el * 3 + i) * 0.15)));
+      host.position.y = 0.5 + (talking ? Math.abs(Math.sin(el * 6)) * 0.1 : Math.sin(el * 2) * 0.02);
+      host.rotation.y = Math.sin(el * 1.1) * 0.12;
+      towerRing.scale.setScalar(1 + Math.sin(el * 2) * 0.06);
+      bulbs.forEach((b, i) => (b.material as THREE.MeshBasicMaterial).color.setHSL(0.11, 0.9, 0.62 + Math.sin(el * 3 + i) * 0.12));
       renderer.render(scene, camera);
     };
     loop();
