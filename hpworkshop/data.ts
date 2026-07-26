@@ -307,7 +307,40 @@ export const SCENARIOS: Scenario[] = [
     promptLabel: { en: 'Prompt · paste with the brief', zh: '提示词 · 连同 brief 一起粘' },
     prompt: `# Prompt｜30 秒分镜
 
-你是一名企业短视频导演。根据 brief 输出分镜表，字段为时间、画面、景别、动作、屏幕文字、声音；再为每个镜头生成英文视觉 Prompt、素材清单和转场建议。风格真实办公、明亮、克制、现代。禁止科幻 UI、机器人、代码雨和密集字幕。`,
+你是一名企业短视频导演兼 AI 视频流程工程师。根据下面的 brief 产出一套可以直接投喂「文生图 → 图生视频」流程的分镜。
+
+请先用不超过 8 行复述：主题、五个阶段、结尾句、你打算怎么分镜；并列出你会自查的 5 条验收点。我确认后再输出完整分镜表。
+
+## 硬性结构
+- 固定 6 个镜头，每镜 5 秒，合计 30 秒。输出后必须自己核对：6 × 5 = 30，与 brief 的五个阶段一一对应（有一个阶段占两镜，请说明是哪一个、为什么）。
+- 第 4 镜必须是「测试失败」那一拍，第 5 镜必须是「只改一处后重跑」。不允许跳过失败直接成功。
+- 第 6 镜为静止镜头收尾，画面停留在通过的测试列表上，屏幕文字为结尾句原文，一字不改。
+
+## 分镜表字段
+时间 | 景别 | 画面 | 动作（这 5 秒里什么在变） | 屏幕文字 | 声音
+
+「动作」不能写静态描述。如果一个镜头的动作可以用一张静止照片表达，就重写它。
+
+## 每镜的英文视觉 Prompt
+另给一列 English prompt，每条严格按这个顺序拼接，逗号分隔：
+1. 景别（如 wide shot / medium over-the-shoulder / extreme close-up）
+2. 主体（画面里最重要的那一个东西）
+3. 动作（镜头运动 + 画面内变化，如 slow push in / rows appearing one by one）
+4. 光线与氛围
+5. **风格后缀** —— 全片 6 条 English prompt 结尾必须逐字重复同一句风格后缀。请先单独给出这句后缀，再在每条 prompt 末尾原样附上。
+
+风格后缀请围绕：真实现代办公、明亮克制、自然窗光、35mm、浅景深。
+
+## 禁止
+科幻 UI、机器人、代码雨、未来城市、虚构 Logo、密集字幕、画面内生成中文文字（中文由后期加）。
+
+## 输出顺序
+1. 需求复述与 5 条自查点（等我确认）
+2. 风格后缀（单独一行，可直接复制）
+3. 分镜表（Markdown 表格，6 行）
+4. 每镜 English prompt（可直接复制，逐条带风格后缀）
+5. 素材清单与转场建议
+6. 自查结果：逐条回答 SB-01 到 SB-05 是否通过；不通过的，直接说明哪一镜要重写。`,
     data: [
       { kind: 'md', label: { en: 'Brief · timeline', zh: 'Brief · 时间线' },
         note: { en: 'Theme: one sentence of natural language can become a tool — but it must be tested.', zh: '主题：一句自然语言 Prompt 可以变成小工具，但必须经过测试。' },
@@ -332,6 +365,8 @@ export const SCENARIOS: Scenario[] = [
     notes: [
       { en: 'SB-03 is the point of the whole day. If the storyboard skips the failure beat, the video becomes an ad — and the room learns the wrong lesson.', zh: 'SB-03 是全天的题眼。分镜要是跳过「失败」那一拍，片子就变成广告 —— 学员学到的就是反的。' },
       { en: 'Note the field list is what makes it executable: 时间/画面/景别/动作/屏幕文字/声音. A storyboard without shot size and audio is just a summary.', zh: '注意字段清单才让它可执行：时间/画面/景别/动作/屏幕文字/声音。没有景别和声音的分镜，只是内容摘要。' },
+      { en: 'The style suffix is the part people skip and then wonder why the six keyframes look like six different films. Each frame is generated independently — that repeated sentence is the only rope tying them into one world.', zh: '风格后缀是最容易被省掉的一段 —— 省掉后就会纳闷「为什么六张关键帧像六部片」。每张关键帧是各生成各的，那句重复的后缀，是把它们捆成同一个世界的唯一一根绳子。' },
+      { en: 'The prompt bans a static “action” column on purpose: if a shot’s action can be shown by one still photo, it is not a shot yet. That single rule is what separates a storyboard from a slide deck.', zh: '提示词特意禁止「动作」写成静态描述：如果一镜的动作能用一张静止照片表达，它就还不是一个镜头。这一条，正是分镜和 PPT 的分界线。' },
     ],
     pitfall: { en: 'Ask for it without the brief first — you get a generic tech ad. Then add the brief. Same model, five seconds apart, completely different usefulness.', zh: '先不给 brief 让它写一版 —— 你会拿到一条泛泛的科技广告。再把 brief 加上。同一个模型、隔五秒，有用程度天差地别。' },
   },
