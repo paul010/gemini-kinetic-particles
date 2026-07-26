@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" role="img" aria-label="AI Workshop Presenter Panel">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#04101f"/><stop offset="0.6" stop-color="#07182c"/><stop offset="1" stop-color="#0a1f38"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.2" cy="0" r="0.9">
+      <stop offset="0" stop-color="#2fa8ff" stop-opacity="0.22"/><stop offset="1" stop-color="#2fa8ff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="750" fill="url(#bg)"/>
+  <rect width="1200" height="750" fill="url(#glow)"/>
+
+  <!-- top bar -->
+  <rect x="0" y="0" width="1200" height="74" fill="#04101f" opacity="0.9"/>
+  <line x1="0" y1="74" x2="1200" y2="74" stroke="#ffffff" stroke-opacity="0.12"/>
+  <text x="40" y="36" font-family="'Cormorant Garamond', Georgia, serif" font-size="26" font-weight="700" fill="#ffffff">AI 实战工作坊：从工具到智能体</text>
+  <text x="40" y="58" font-family="'JetBrains Mono', monospace" font-size="12" fill="rgba(255,255,255,0.4)">2026·07·28 · 演示讲解面板 · 9 个案例</text>
+  <!-- agenda chips -->
+  <g font-family="'JetBrains Mono', monospace">
+    <g><rect x="470" y="16" width="118" height="42" rx="8" fill="none" stroke="rgba(255,255,255,0.12)"/><text x="482" y="34" font-size="11" fill="rgba(255,255,255,0.45)">09:30–09:50</text><text x="482" y="50" font-size="13" fill="rgba(255,255,255,0.62)">开场</text></g>
+    <g><rect x="598" y="16" width="150" height="42" rx="8" fill="#2fa8ff22" stroke="#2fa8ff88"/><text x="610" y="34" font-size="11" fill="#2fa8ff">09:50–12:00</text><text x="610" y="50" font-size="13" font-weight="700" fill="#fff">Part 1 · HTML 小工具</text></g>
+    <g><rect x="758" y="16" width="100" height="42" rx="8" fill="none" stroke="rgba(255,255,255,0.12)"/><text x="770" y="34" font-size="11" fill="rgba(255,255,255,0.45)">12:00–13:30</text><text x="770" y="50" font-size="13" fill="rgba(255,255,255,0.62)">午餐</text></g>
+    <g><rect x="868" y="16" width="128" height="42" rx="8" fill="none" stroke="rgba(255,255,255,0.12)"/><text x="880" y="34" font-size="11" fill="rgba(255,255,255,0.45)">13:30–15:10</text><text x="880" y="50" font-size="13" fill="rgba(255,255,255,0.62)">Part 2 · AI 图片</text></g>
+    <g><rect x="1006" y="16" width="152" height="42" rx="8" fill="none" stroke="rgba(255,255,255,0.12)"/><text x="1018" y="34" font-size="11" fill="rgba(255,255,255,0.45)">15:10–17:00</text><text x="1018" y="50" font-size="13" fill="rgba(255,255,255,0.62)">Part 3 · Agent + 总结</text></g>
+  </g>
+
+  <!-- left rail -->
+  <rect x="0" y="74" width="250" height="676" fill="#000000" opacity="0.25"/>
+  <line x1="250" y1="74" x2="250" y2="750" stroke="#ffffff" stroke-opacity="0.1"/>
+  <g font-family="'JetBrains Mono', monospace" font-size="12">
+    <rect x="26" y="106" width="9" height="9" rx="2" fill="#2fa8ff"/><text x="46" y="115" fill="#2fa8ff">PART 1 · HTML 小工具</text>
+    <rect x="0" y="128" width="250" height="36" fill="#2fa8ff1f"/><rect x="0" y="128" width="3" height="36" fill="#2fa8ff"/>
+    <rect x="24" y="137" width="20" height="20" rx="5" fill="#2fa8ff"/><text x="30" y="151" font-size="11" font-weight="700" fill="#04101f">1</text>
+    <text x="56" y="151" font-size="13" font-weight="700" fill="#fff" font-family="system-ui">智能排班表生成器</text>
+    <text x="56" y="188" font-size="13" fill="rgba(255,255,255,0.55)" font-family="system-ui">差旅费用分摊器</text>
+    <text x="56" y="222" font-size="13" fill="rgba(255,255,255,0.55)" font-family="system-ui">客户反馈分类</text>
+    <rect x="26" y="254" width="9" height="9" rx="2" fill="#22c6b6"/><text x="46" y="263" fill="#22c6b6">PART 2 · AI 图片</text>
+    <text x="56" y="296" font-size="13" fill="rgba(255,255,255,0.55)" font-family="system-ui">AI 使用前四步安全检查图</text>
+    <text x="56" y="330" font-size="13" fill="rgba(255,255,255,0.55)" font-family="system-ui">AI 实操开放麦海报</text>
+    <text x="56" y="364" font-size="13" fill="rgba(255,255,255,0.55)" font-family="system-ui">30 秒产品演示分镜</text>
+    <rect x="26" y="396" width="9" height="9" rx="2" fill="#ff8a3c"/><text x="46" y="405" fill="#ff8a3c">PART 3 · AI AGENT</text>
+    <text x="56" y="438" font-size="13" fill="rgba(255,255,255,0.55)" font-family="system-ui">IT 服务台助手</text>
+    <text x="56" y="472" font-size="13" fill="rgba(255,255,255,0.55)" font-family="system-ui">HR 休假政策助手</text>
+    <text x="56" y="506" font-size="13" fill="rgba(255,255,255,0.55)" font-family="system-ui">设施报修分类助手</text>
+    <text x="26" y="580" font-size="11" fill="rgba(255,255,255,0.3)">← → 翻页 · 1-9 跳转</text>
+    <text x="26" y="600" font-size="11" fill="rgba(255,255,255,0.3)">F 全屏 · T 计时 · H 收侧栏</text>
+  </g>
+
+  <!-- main -->
+  <g font-family="'JetBrains Mono', monospace" font-size="12">
+    <rect x="300" y="108" width="116" height="26" rx="6" fill="#2fa8ff22"/><text x="312" y="126" font-weight="700" fill="#2fa8ff">PART 1 · 01/09</text>
+    <rect x="426" y="108" width="150" height="26" rx="6" fill="none" stroke="rgba(255,255,255,0.15)"/><text x="438" y="126" fill="rgba(255,255,255,0.6)">Copilot Web（对话）</text>
+    <rect x="586" y="108" width="84" height="26" rx="6" fill="none" stroke="rgba(255,255,255,0.15)"/><text x="598" y="126" fill="rgba(255,255,255,0.6)">≈55 分钟</text>
+  </g>
+  <text x="300" y="184" font-family="system-ui, sans-serif" font-size="42" font-weight="700" fill="#ffffff">智能排班表生成器</text>
+  <text x="300" y="216" font-family="system-ui, sans-serif" font-size="17" fill="rgba(255,255,255,0.65)">旗舰案例：一段大白话需求，变成带真实约束规则的单文件排班工具。</text>
+
+  <!-- four steps -->
+  <g font-family="'JetBrains Mono', monospace" font-size="12">
+    <rect x="300" y="242" width="128" height="32" rx="8" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.1)"/><text x="316" y="263" fill="rgba(255,255,255,0.6)"><tspan fill="#2fa8ff" font-weight="700">1</tspan> Copy · 复制</text>
+    <rect x="438" y="242" width="136" height="32" rx="8" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.1)"/><text x="454" y="263" fill="rgba(255,255,255,0.6)"><tspan fill="#2fa8ff" font-weight="700">2</tspan> Create · 生成</text>
+    <rect x="584" y="242" width="132" height="32" rx="8" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.1)"/><text x="600" y="263" fill="rgba(255,255,255,0.6)"><tspan fill="#2fa8ff" font-weight="700">3</tspan> Check · 验收</text>
+    <rect x="726" y="242" width="146" height="32" rx="8" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.1)"/><text x="742" y="263" fill="rgba(255,255,255,0.6)"><tspan fill="#2fa8ff" font-weight="700">4</tspan> Correct · 修正</text>
+  </g>
+
+  <!-- tabs -->
+  <g font-family="system-ui, sans-serif" font-size="14">
+    <rect x="300" y="300" width="104" height="38" rx="8" fill="#2fa8ff1f"/><text x="318" y="325" font-weight="600" fill="#fff">📋 提示词</text>
+    <rect x="300" y="336" width="104" height="2" fill="#2fa8ff"/>
+    <text x="424" y="325" fill="rgba(255,255,255,0.5)">🗂️ 数据 / 知识</text>
+    <text x="566" y="325" fill="rgba(255,255,255,0.5)">✅ 验收测试</text>
+    <text x="686" y="325" fill="rgba(255,255,255,0.5)">🎤 讲解要点</text>
+  </g>
+
+  <!-- prompt card -->
+  <rect x="300" y="358" width="852" height="330" rx="16" fill="rgba(47,168,255,0.06)" stroke="#2fa8ff55"/>
+  <rect x="300" y="358" width="852" height="52" rx="16" fill="#2fa8ff12"/>
+  <text x="324" y="390" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="600" fill="#2fa8ff">提示词 · 粘进 Copilot Web</text>
+  <rect x="960" y="370" width="168" height="34" rx="8" fill="#2fa8ff22" stroke="#2fa8ff88"/>
+  <text x="982" y="392" font-family="system-ui, sans-serif" font-size="14" font-weight="700" fill="#2fa8ff">⧉ 复制提示词</text>
+  <g font-family="'JetBrains Mono', monospace" font-size="13" fill="rgba(255,255,255,0.82)">
+    <text x="326" y="442"># Prompt｜智能排班表生成器</text>
+    <text x="326" y="474">你是一名业务分析师、排班主管和前端工程师。</text>
+    <text x="326" y="502">请先用不超过 10 行复述需求，列出排班规则与 8 条测试用例。</text>
+    <text x="326" y="540" fill="rgba(255,255,255,0.5)">## 排班规则</text>
+    <text x="326" y="568">1. 每个班次至少安排 2 人。</text>
+    <text x="326" y="594">5. 同一员工不得连续工作超过 5 天。</text>
+    <text x="326" y="620">6. 晚班后第二天不得安排早班。</text>
+    <text x="326" y="646" fill="#ff8a3c">8. 无法全部满足时，必须列出冲突原因，不得偷偷排违规班。</text>
+  </g>
+
+  <text x="300" y="722" font-family="'JetBrains Mono', monospace" font-size="14" fill="rgba(255,255,255,0.4)">投屏讲解台 · 提示词一键复制 · 验收测试成表 · 全键盘驱动 · 离线可用</text>
+</svg>

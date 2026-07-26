@@ -391,6 +391,28 @@ export const PROJECTS: Project[] = [
     ],
   },
   {
+    id: 'hp-workshop-panel',
+    category: 'ai',
+    title: { en: 'Workshop Presenter Panel · 9 Copilot scenarios', zh: 'AI 工作坊演示讲解面板 · 9 个 Copilot 案例' },
+    year: '2026',
+    status: 'live',
+    featured: true,
+    cover: '/hpworkshop-cover.svg',
+    tagline: {
+      en: 'A projector-first console for teaching a full-day AI workshop: the day’s agenda, nine Copilot scenarios, every prompt one click from the clipboard, acceptance tests, and the teaching notes — all offline.',
+      zh: '为全天 AI 工作坊而做的投屏讲解台：全天环节 + 9 个 Copilot 案例，提示词一键复制、验收测试成表、讲师要点随讲随翻 —— 全程离线可用。',
+    },
+    description: {
+      en: 'Built to be projected while teaching, not read afterwards. The top bar carries the full-day agenda (opening → HTML mini-tools → lunch → AI imagery → agents + wrap-up) with a per-block countdown so the day stays on schedule; the rail holds nine scenarios grouped by part, each colour-coded. Every scenario opens on its prompt with one oversized Copy button — the instructor pastes straight into Copilot Web, Microsoft Designer or Copilot Studio without leaving the page — and carries three more tabs: the sample data / knowledge file (also copyable), the acceptance-test table (agent boundary tests at 90+ are flagged red), and teaching notes ending in a “failure to stage on purpose”. Driven entirely from the keyboard: ← → to move, 1-9 to jump, F fullscreen, T timer, H to hide the rail. Everything is inlined, so it works with no network in a training room. The nine scenarios follow the Microsoft Copilot starter-kit structure — a shift scheduler with real constraint rules, an expense splitter, a feedback classifier, a safety infographic, an event poster, a 30-second storyboard, and IT / HR / facilities agents. All sample data is classroom fiction; no real employee, customer or ticket data.',
+      zh: '为「边讲边投屏」而做，不是为课后阅读而做。顶栏是全天环节（开场 → HTML 小工具 → 午餐 → AI 图片 → Agent + 总结）并带每环节倒计时，帮你把节奏卡住；侧栏是按 Part 分组、各自配色的 9 个案例。每个案例默认停在提示词页，配一个超大「复制提示词」按钮 —— 讲师不用离开页面就能直接粘进 Copilot Web / Microsoft Designer / Copilot Studio；另外三个页签分别是示例数据与知识文件（同样可复制）、验收测试表（Agent 的 90 分以上边界测试标红）、以及以「故意演一次的失败」收尾的讲解要点。全键盘驱动：← → 翻页、1-9 跳转、F 全屏、T 计时、H 收侧栏。所有内容内联，培训教室断网也能用。9 个案例沿用 Microsoft Copilot Starter Kit 的结构 —— 带真实约束规则的智能排班表、差旅费用分摊器、客户反馈分类、安全检查信息图、活动海报、30 秒分镜，以及 IT / HR / 设施三个 Agent。示例数据均为课堂虚构材料，不含任何真实员工、客户或工单数据。',
+    },
+    tags: ['Workshop', 'Copilot', 'Teaching', 'Presenter Tool'],
+    links: [
+      { label: { en: 'Open the panel', zh: '打开演示面板' }, href: '/hpworkshop', kind: 'internal' },
+      { label: { en: 'HTML tools column', zh: 'HTML 小工具专栏' }, href: '/aihtml', kind: 'internal' },
+    ],
+  },
+  {
     id: 'quyou-bus',
     category: 'creative',
     title: { en: 'Quyou Bus · AI Night Tour', zh: '趣游巴士 · AI 夜游' },
