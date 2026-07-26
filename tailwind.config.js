@@ -17,6 +17,7 @@ export default {
     './aihtml/**/*.{ts,tsx}',
     './text2image/**/*.{ts,tsx}',
     './farmer/**/*.{ts,tsx}',
+    './quyoubus/**/*.{ts,tsx}',
     './agents/**/*.{ts,tsx}',
     './skills/**/*.{ts,tsx}',
     './town/**/*.{ts,tsx}',

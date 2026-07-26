@@ -391,6 +391,29 @@ export const PROJECTS: Project[] = [
     ],
   },
   {
+    id: 'quyou-bus',
+    category: 'creative',
+    title: { en: 'Quyou Bus · AI Night Tour', zh: '趣游巴士 · AI 夜游' },
+    year: '2026',
+    status: 'live',
+    featured: true,
+    signature: true,
+    cover: '/quyou-bus-cover.svg',
+    tagline: {
+      en: 'A 3D browser remake of Chengdu’s real immersive party-bus night tour — a first-person three.js cabin, an AI host「Green」, station games, and a tear-off ticket. Runs fully offline, right here on the site.',
+      zh: '把成都那辆沉浸式派对夜游巴士，在浏览器里 3D 复刻成站内一站：第一人称 three.js 车厢、AI 主理人「阿绿」、到站小游戏、下车出联票。纯前端，无需后端跑完全程。',
+    },
+    description: {
+      en: 'Chengdu’s Quyou Bus wraps a graffiti city bus into a moving playground: a costumed host narrates the city while the bus rolls Chunxi Road → Taikoo Li → Hejiang Pavilion → 339 Tower, mixing culture talk with dialect games and open mic. This is that experience decomposed into a playable skeleton and rebuilt as an internal sub-project. A first-person three.js cabin (seats, graffiti poles with swinging grab-handles, tinsel ceiling, string lights, disco ball, a hand-modeled host「Green」) drives past a procedurally generated night city — recycled buildings whose window grids are drawn on CanvasTexture, each lit differently, with low-frequency bus bumps so the still scene feels alive. A state-machine UI dressed as the bus itself (LED destination sign up top, a station-progress handrail below, a tear-off ticket at the end) runs the loop: the host announces each stop, narrates its culture, then throws a game — Sichuan-dialect guessing, old-song trivia (singer/era/where-featured, never lyrics), or an open mic that hypes and scores your input. All narration, questions and blessings ship as built-in offline banks so the ride always completes; an optional AI proxy could swap them for live generation. All 3D, copy and question banks are original — no affiliation with, or assets from, the real operator.',
+      zh: '成都的趣游巴士把一辆涂鸦公交变成移动游乐场：主理人一路从春熙路开到 339 电视塔，边讲城市文化边穿插方言游戏和开放麦。本项目把这套体验拆成玩法骨架，重建成站内的一个专项目。第一人称 three.js 车厢（座椅、涂鸦立柱与摆动拉环、串灯、迪斯科球、手工建模的主理人「阿绿」）驶过程序化生成的夜城 —— 循环推进的楼体、用 CanvasTexture 逐栋生成且各不相同的亮窗，加上低频颠簸，让静止场景「活着」。界面本身长成一辆车（顶栏 LED 报站屏、底栏站点进度扶手带、结算是一张可撕联票），由状态机驱动整个流程：主理人报站、解说城市文化、再抛出游戏 —— 方言猜猜猜、老歌考古（只考歌手/年代/影视出处，不涉及歌词）、或即兴开放麦（捧场并按创意打分）。解说、题目、寄语全部内置离线备稿，页面永远跑得完；可选接入 AI 代理换成实时生成。3D、文案与题库均为原创，与「趣游巴士」运营方无任何关联、未使用其任何素材。',
+    },
+    tags: ['Three.js', 'AI', '3D', 'Immersive', 'Chengdu'],
+    links: [
+      { label: { en: 'Board the bus', zh: '上车体验' }, href: '/quyoubus', kind: 'internal' },
+      { label: { en: 'Farmer 3D game', zh: '农夫过河 3D' }, href: '/farmer', kind: 'internal' },
+    ],
+  },
+  {
     id: 'farmer-river',
     category: 'creative',
     title: { en: 'Farmer Crosses the River (3D)', zh: '农夫过河 3D' },
