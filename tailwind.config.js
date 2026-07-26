@@ -18,6 +18,7 @@ export default {
     './text2image/**/*.{ts,tsx}',
     './farmer/**/*.{ts,tsx}',
     './quyoubus/**/*.{ts,tsx}',
+    './hpworkshop/**/*.{ts,tsx}',
     './agents/**/*.{ts,tsx}',
     './skills/**/*.{ts,tsx}',
     './town/**/*.{ts,tsx}',

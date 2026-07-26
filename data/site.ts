@@ -391,6 +391,28 @@ export const PROJECTS: Project[] = [
     ],
   },
   {
+    id: 'hp-workshop-panel',
+    category: 'ai',
+    title: { en: 'Workshop Presenter Panel · 9 Copilot scenarios', zh: 'AI 工作坊演示讲解面板 · 9 个 Copilot 案例' },
+    year: '2026',
+    status: 'live',
+    featured: true,
+    cover: '/hpworkshop-cover.svg',
+    tagline: {
+      en: 'A projector-first console for teaching a full-day AI workshop: the day’s agenda, nine Copilot scenarios, every prompt one click from the clipboard, acceptance tests, and the teaching notes — all offline.',
+      zh: '为全天 AI 工作坊而做的投屏讲解台：全天环节 + 9 个 Copilot 案例，提示词一键复制、验收测试成表、讲师要点随讲随翻 —— 全程离线可用。',
+    },
+    description: {
+      en: 'Built to be projected while teaching, not read afterwards. The top bar carries the full-day agenda (opening → HTML mini-tools → lunch → AI imagery → agents + wrap-up) with a per-block countdown so the day stays on schedule; the rail holds nine scenarios grouped by part, each colour-coded. Every scenario opens on its prompt with one oversized Copy button — the instructor pastes straight into Copilot Web, Microsoft Designer or Copilot Studio without leaving the page — and carries three more tabs: the sample data / knowledge file (also copyable), the acceptance-test table (agent boundary tests at 90+ are flagged red), and teaching notes ending in a “failure to stage on purpose”. Driven entirely from the keyboard: ← → to move, 1-9 to jump, F fullscreen, T timer, H to hide the rail. Everything is inlined, so it works with no network in a training room. The nine scenarios follow the Microsoft Copilot starter-kit structure — a shift scheduler with real constraint rules, an expense splitter, a feedback classifier, a safety infographic, an event poster, a 30-second storyboard, and IT / HR / facilities agents. All sample data is classroom fiction; no real employee, customer or ticket data.',
+      zh: '为「边讲边投屏」而做，不是为课后阅读而做。顶栏是全天环节（开场 → HTML 小工具 → 午餐 → AI 图片 → Agent + 总结）并带每环节倒计时，帮你把节奏卡住；侧栏是按 Part 分组、各自配色的 9 个案例。每个案例默认停在提示词页，配一个超大「复制提示词」按钮 —— 讲师不用离开页面就能直接粘进 Copilot Web / Microsoft Designer / Copilot Studio；另外三个页签分别是示例数据与知识文件（同样可复制）、验收测试表（Agent 的 90 分以上边界测试标红）、以及以「故意演一次的失败」收尾的讲解要点。全键盘驱动：← → 翻页、1-9 跳转、F 全屏、T 计时、H 收侧栏。所有内容内联，培训教室断网也能用。9 个案例沿用 Microsoft Copilot Starter Kit 的结构 —— 带真实约束规则的智能排班表、差旅费用分摊器、客户反馈分类、安全检查信息图、活动海报、30 秒分镜，以及 IT / HR / 设施三个 Agent。示例数据均为课堂虚构材料，不含任何真实员工、客户或工单数据。',
+    },
+    tags: ['Workshop', 'Copilot', 'Teaching', 'Presenter Tool'],
+    links: [
+      { label: { en: 'Open the panel', zh: '打开演示面板' }, href: '/hpworkshop', kind: 'internal' },
+      { label: { en: 'HTML tools column', zh: 'HTML 小工具专栏' }, href: '/aihtml', kind: 'internal' },
+    ],
+  },
+  {
     id: 'quyou-bus',
     category: 'creative',
     title: { en: 'Quyou Bus · AI Night Tour', zh: '趣游巴士 · AI 夜游' },
@@ -400,14 +422,14 @@ export const PROJECTS: Project[] = [
     signature: true,
     cover: '/quyou-bus-cover.svg',
     tagline: {
-      en: 'A 3D browser remake of Chengdu’s real immersive party-bus night tour — a first-person three.js cabin, an AI host「Green」, station games, and a tear-off ticket. Runs fully offline, right here on the site.',
-      zh: '把成都那辆沉浸式派对夜游巴士，在浏览器里 3D 复刻成站内一站：第一人称 three.js 车厢、AI 主理人「阿绿」、到站小游戏、下车出联票。纯前端，无需后端跑完全程。',
+      en: 'A 3D browser remake of Chengdu’s real immersive party-bus night tour — a first-person three.js cabin that dances to a live-synthesised funk groove, an AI host「Green」, station games including beat-matching, and a tear-off ticket. Fully offline, right here on the site.',
+      zh: '把成都那辆沉浸式派对夜游巴士，在浏览器里 3D 复刻成站内一站：实时合成 funk 律动带着整个车厢跟拍起舞、AI 主理人「阿绿」、到站小游戏（含节奏拍点）、下车出联票。纯前端，无需后端跑完全程。',
     },
     description: {
-      en: 'Chengdu’s Quyou Bus wraps a graffiti city bus into a moving playground: a costumed host narrates the city while the bus rolls Chunxi Road → Taikoo Li → Hejiang Pavilion → 339 Tower, mixing culture talk with dialect games and open mic. This is that experience decomposed into a playable skeleton and rebuilt as an internal sub-project. A first-person three.js cabin (seats, graffiti poles with swinging grab-handles, tinsel ceiling, string lights, disco ball, a hand-modeled host「Green」) drives past a procedurally generated night city — recycled buildings whose window grids are drawn on CanvasTexture, each lit differently, with low-frequency bus bumps so the still scene feels alive. A state-machine UI dressed as the bus itself (LED destination sign up top, a station-progress handrail below, a tear-off ticket at the end) runs the loop: the host announces each stop, narrates its culture, then throws a game — Sichuan-dialect guessing, old-song trivia (singer/era/where-featured, never lyrics), or an open mic that hypes and scores your input. All narration, questions and blessings ship as built-in offline banks so the ride always completes; an optional AI proxy could swap them for live generation. All 3D, copy and question banks are original — no affiliation with, or assets from, the real operator.',
-      zh: '成都的趣游巴士把一辆涂鸦公交变成移动游乐场：主理人一路从春熙路开到 339 电视塔，边讲城市文化边穿插方言游戏和开放麦。本项目把这套体验拆成玩法骨架，重建成站内的一个专项目。第一人称 three.js 车厢（座椅、涂鸦立柱与摆动拉环、串灯、迪斯科球、手工建模的主理人「阿绿」）驶过程序化生成的夜城 —— 循环推进的楼体、用 CanvasTexture 逐栋生成且各不相同的亮窗，加上低频颠簸，让静止场景「活着」。界面本身长成一辆车（顶栏 LED 报站屏、底栏站点进度扶手带、结算是一张可撕联票），由状态机驱动整个流程：主理人报站、解说城市文化、再抛出游戏 —— 方言猜猜猜、老歌考古（只考歌手/年代/影视出处，不涉及歌词）、或即兴开放麦（捧场并按创意打分）。解说、题目、寄语全部内置离线备稿，页面永远跑得完；可选接入 AI 代理换成实时生成。3D、文案与题库均为原创，与「趣游巴士」运营方无任何关联、未使用其任何素材。',
+      en: 'Chengdu’s Quyou Bus wraps a graffiti city bus into a moving playground: a costumed host narrates the city while the bus rolls Chunxi Road → Taikoo Li → Hejiang Pavilion → 339 Tower, mixing culture talk with dialect games and open mic. This is that experience decomposed into a playable skeleton and rebuilt as an internal sub-project. The whole cabin runs on a live-synthesised funk/disco groove — kick, snare, hat, filtered bass and chord stabs sequenced in Web Audio with zero audio files, a different tempo and key at every station — and everything on board dances to it: the disco lights punch on the kick, seats and poles pulse, the passengers bob, the camera bounces, confetti bursts on a win. A first-person three.js cabin (seats, graffiti poles with swinging grab-handles, tinsel ceiling, string lights, disco ball, a hand-modeled host「Green」) drives past a procedurally generated night city — recycled buildings whose window grids are drawn on CanvasTexture, each lit differently, with low-frequency bus bumps so the still scene feels alive. A state-machine UI dressed as the bus itself (LED destination sign up top, a station-progress handrail below, a tear-off ticket at the end) runs the loop: the host announces each stop, narrates its culture, then throws a game — Sichuan-dialect guessing, old-song trivia (singer/era/where-featured, never lyrics), a beat-matching rhythm game scored against the live groove (perfect / good / off-beat), or an open mic that hypes and scores your input. All narration, questions and blessings ship as built-in offline banks so the ride always completes; an optional AI proxy could swap them for live generation. All 3D, copy and question banks are original — no affiliation with, or assets from, the real operator.',
+      zh: '成都的趣游巴士把一辆涂鸦公交变成移动游乐场：主理人一路从春熙路开到 339 电视塔，边讲城市文化边穿插方言游戏和开放麦。本项目把这套体验拆成玩法骨架，重建成站内的一个专项目。整个车厢跑在一段实时合成的 funk/disco 律动上 —— 底鼓、军鼓、踩镲、滤波贝斯与和弦切分全部由 Web Audio 现场排序生成、零音频文件，每一站换速度与调性 —— 车上的一切都跟着拍子跳：迪斯科灯随底鼓打点、座椅立柱随拍脉动、乘客点头晃动、镜头随鼓点起伏、答对时彩带炸开。第一人称 three.js 车厢（座椅、涂鸦立柱与摆动拉环、串灯、迪斯科球、手工建模的主理人「阿绿」）驶过程序化生成的夜城 —— 循环推进的楼体、用 CanvasTexture 逐栋生成且各不相同的亮窗，加上低频颠簸，让静止场景「活着」。界面本身长成一辆车（顶栏 LED 报站屏、底栏站点进度扶手带、结算是一张可撕联票），由状态机驱动整个流程：主理人报站、解说城市文化、再抛出游戏 —— 方言猜猜猜、老歌考古（只考歌手/年代/影视出处，不涉及歌词）、跟着现场律动打拍子的节奏小游戏（完美/不错/跑拍判定）、或即兴开放麦（捧场并按创意打分）。解说、题目、寄语全部内置离线备稿，页面永远跑得完；可选接入 AI 代理换成实时生成。3D、文案与题库均为原创，与「趣游巴士」运营方无任何关联、未使用其任何素材。',
     },
-    tags: ['Three.js', 'AI', '3D', 'Immersive', 'Chengdu'],
+    tags: ['Three.js', 'Web Audio', '3D', 'Rhythm Game', 'Chengdu'],
     links: [
       { label: { en: 'Board the bus', zh: '上车体验' }, href: '/quyoubus', kind: 'internal' },
       { label: { en: 'Farmer 3D game', zh: '农夫过河 3D' }, href: '/farmer', kind: 'internal' },
