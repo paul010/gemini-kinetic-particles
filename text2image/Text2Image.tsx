@@ -92,7 +92,14 @@ const QUALITY = { zh: '高细节，锐利对焦，8K', en: 'high detail, sharp f
 
 /* ===================== teaching scenario templates ======================= */
 
-interface Scene { id: string; icon: string; grad: [string, string]; title: T; use: T; templateZh: string; templateEn: string; tip: T }
+interface Scene {
+  id: string; icon: string; grad: [string, string]; title: T; use: T;
+  templateZh: string; templateEn: string; tip: T;
+  /** Multi-line prompt — gets a full-width card and a scrollable, structured block. */
+  long?: boolean;
+  /** Set when the prompt is someone else's work, so the credit travels with it. */
+  source?: { label: T; url: string };
+}
 const SCENES: Scene[] = [
   {
     id: 'ecom', icon: '🛍️', grad: ['#c2703c', '#e8a93c'],
@@ -103,12 +110,135 @@ const SCENES: Scene[] = [
     tip: { en: 'Fix the surface + lighting words across a whole catalog so every product matches.', zh: '把「台面 + 布光」词整套产品固定下来，全目录风格才统一。' },
   },
   {
-    id: 'headshot', icon: '👤', grad: ['#2f6fb0', '#5ad1ff'],
-    title: { en: 'Professional headshot', zh: '职业头像 / 形象照' },
-    use: { en: 'LinkedIn / team-page portrait, consistent across a team.', zh: '领英 / 团队页头像，全队风格一致。' },
-    templateZh: '一位{角色，如 30 岁亚洲男性产品经理}的职业形象照，{着装，如深色西装}，自信微笑，纯灰背景，影棚柔光，85mm 镜头浅景深，中景偏上半身，高细节 --ar 3:2',
-    templateEn: 'a professional headshot of {person, e.g. 30-year-old Asian male product manager}, {outfit, e.g. dark suit}, confident smile, plain grey background, soft studio light, 85mm shallow depth of field, upper-body medium shot, high detail --ar 3:2',
-    tip: { en: 'Lock background + lens + light; only change the person description per teammate.', zh: '锁定背景 + 镜头 + 光线，每个同事只改「人物描述」这一处。' },
+    id: 'archive', icon: '🗺️', grad: ['#8a7a5c', '#cbbb98'], long: true,
+    title: { en: 'Landscape archive model', zh: '地景档案模型' },
+    use: {
+      en: 'Turn a landmark, a city or an invented world into an archive-grade physical model shot: map baseboard + a 3D mass growing out of it + a professional annotation system. Demoed on the Great Wall, Everest, the Bund and Guangzhou’s Pearl River.',
+      zh: '把地标、城市或虚构世界做成一块「能拿在手里」的档案级模型图：地图底板 + 从图里长出来的立体主体 + 一整套专业说明系统。原作跑过中国长城、珠穆朗玛峰、上海外滩、广州珠江。',
+    },
+    templateZh: `请根据【主题】创作一张高完成度、高质感、适合系列化发布的「地景档案模型 / Landscape Archive Model」视觉图。
+
+这不是普通地图，也不是普通风景插画或城市效果图，而是一张结合"二维地图图纸 + 三维立体区域模型 + 专业说明系统 + 博物馆展陈感"的高端档案式视觉图。画面需要像一件被真实制作出来的地理研究模型、城市规划沙盘、建筑提案模型或世界观设定展品，具有专业、克制、精密、可触摸的高级质感。
+
+【基础设定】
+主题：{主题，例如火山口湖 / 广州 / 重庆山城 / 海岛城市 / 古城遗址 / 末日废墟 / 幻想大陆 / 游戏主城}
+主题类型：{自然地貌 / 城市空间 / 混合景观}
+核心主体：{核心主体，例如火山口、峡谷、山脉、湖泊、CBD、老城区、地标群、岛屿城市、遗址群、主城区域}
+内容重点：{内容重点，例如地形高差 / 城市地标 / 路网结构 / 水系关系 / 自然与城市关系 / 设定集展示}
+风格方向：{风格方向，例如地理测绘风、纸雕模型风、建筑提案风、博物馆档案风、城市规划风、游戏设定集风}
+主色调：{主色调，例如米白、浅灰、羊皮纸白、沙色、雪白}
+辅助色：{辅助色，例如土褐、岩灰、冷灰、淡蓝、苔绿}
+点缀色：{点缀色，例如黑色细线、红色路线、蓝色水文线、黄色编号标记}
+画幅比例：{画幅比例，例如 16:9 横版 / 3:4 竖版 / 4:5 竖版 / 1:1 方图}
+
+【画面结构】
+画面主体是一块放置在干净桌面或白色布面上的矩形地图模型板。底板具有真实厚度，边缘可见剖面结构，像一块精致的地图切片或模型底座。地图表面覆盖清晰但克制的信息层，包括等高线、道路网络、水文线、分区边界、地理纹理、坐标感、轻微标注和图纸边框。
+
+在地图中央或偏中心区域，从二维地图中立体"生长"出一个三维主体模型，成为整张图的视觉核心。
+
+如果【主题类型】为自然地貌：
+主体可由山体、峡谷、火山口、湖泊、盆地、岛屿、冰川、断层、海岸线等构成，强调地形高差、层叠等高线结构、岩壁纹理和自然地貌起伏。
+
+如果【主题类型】为城市空间：
+主体可由核心城区、CBD、老城街区、地标建筑群、滨水区、路网节点、桥梁、水系、公园绿地等构成，强调建筑体块、城市识别度、空间层次与规划结构。
+
+如果【主题类型】为混合景观：
+需同时整合自然地形与人工建成环境，例如山城、海岛城市、古城遗址、末日废墟、幻想主城、科幻基地等，让自然地貌与城市结构共同构成核心视觉。
+
+【细节要求】
+- 模型表面保留地图图纸感与专业信息感
+- 地形区域应有等高线、坡面层次、凹陷与起伏关系
+- 建筑区域应有体块感、街区关系和清晰层次
+- 水域使用低饱和淡蓝色表现
+- 绿地、森林、公园、山体可用苔绿色或低饱和绿色表现
+- 路网、路径、交通轴线或探索线路可用细线表现，但不要喧宾夺主
+- 若有地标建筑或重点结构，应具备明确识别度
+- 若有幻想、科幻或游戏设定元素，应保留档案模型和图纸展示感，而不是做成纯场景插画
+
+【说明系统】
+地图板边缘需要设计完整而克制的说明模块，包括：
+- 外框线和内框线
+- 比例尺
+- 图例区
+- 标题区
+- 档案编号
+- 索引标记
+- 注释标签
+- 简洁的符号说明
+文字不必全部可读，但整体必须呈现真实、清晰、精密、有秩序的档案式排版结构。
+
+【构图与镜头】
+采用斜俯视等轴测或沙盘式构图，镜头从上方约 30 到 45 度观察整块模型板，让观众同时看到地图平面、立体主体高度、边缘厚度和说明区。视觉重心集中在中央主体模型，阅读路径为：先看核心主体，再看周边地形 / 路网 / 水系 / 街区信息，最后看图例、比例尺和说明区。
+
+【材质与光影】
+整体需要具有真实模型摄影质感：
+- 纸张纹理
+- 地图印刷质感
+- 纸雕或沙盘模型感
+- 建筑模型或地形切片质感
+- 柔和自然光
+- 细腻真实阴影
+- 干净背景
+- 低饱和、高级、克制
+避免卡通化、廉价游戏 UI 感、过度杂乱、过度炫技，重点突出"地图底板 + 立体主体 + 专业说明系统"的统一视觉。
+
+最终效果应像一张可以用于地理科普、城市研究、建筑提案、文旅视觉专题、世界观设定集或高端系列封面的地景档案模型图。`,
+    templateEn: `Create a high-completion, high-craft visual titled "Landscape Archive Model" for {topic}, suitable for publishing as a series.
+
+This is not an ordinary map, nor a landscape illustration or an architectural render. It is a premium archive-style visual combining "a 2D map drawing + a 3D regional model + a professional annotation system + museum-display feel". It must look like a real, physically built geographic research model, urban-planning sandbox, architectural proposal model or worldbuilding exhibit — professional, restrained, precise, touchable.
+
+[BASE SETTINGS]
+Topic: {topic, e.g. a crater lake / Guangzhou / a mountain city / an island city / an ancient ruin / a post-apocalyptic ruin / a fantasy continent / a game capital}
+Topic type: {natural terrain / urban space / mixed landscape}
+Core subject: {core subject, e.g. crater, canyon, mountain range, lake, CBD, old town, landmark cluster, island city, ruin complex, downtown district}
+Content focus: {focus, e.g. elevation change / urban landmarks / road network / hydrology / nature-vs-city relationship / worldbuilding display}
+Style direction: {style, e.g. cartographic survey, paper-cut model, architectural proposal, museum archive, urban planning, game art bible}
+Primary palette: {primary, e.g. off-white, light grey, parchment white, sand, snow white}
+Secondary palette: {secondary, e.g. earth brown, rock grey, cool grey, pale blue, moss green}
+Accent colors: {accents, e.g. thin black lines, red routes, blue hydrology lines, yellow index markers}
+Aspect ratio: {aspect, e.g. 16:9 landscape / 3:4 portrait / 4:5 portrait / 1:1 square}
+
+[COMPOSITION OF THE SCENE]
+The subject is a rectangular map-model board resting on a clean desktop or white cloth. The board has real thickness with a visible cross-section along the edge, like a precise slice of terrain on a model base. Its surface carries a clear but restrained information layer: contour lines, road network, hydrology, zone boundaries, geographic texture, a sense of coordinates, light annotations and a drawing frame.
+
+At or near the centre, a three-dimensional model "grows" out of the flat map and becomes the visual core of the image.
+
+If the topic type is natural terrain: build the subject from mountains, canyons, craters, lakes, basins, islands, glaciers, faults or coastlines — emphasise elevation change, stacked contour structure, rock-face texture and natural relief.
+
+If the topic type is urban space: build it from the core district, CBD, old-town blocks, landmark clusters, waterfront, road nodes, bridges, water systems and parks — emphasise building masses, city recognisability, spatial layering and planning structure.
+
+If the topic type is mixed landscape: integrate natural terrain and built environment together — mountain cities, island cities, ancient ruins, post-apocalyptic ruins, fantasy capitals, sci-fi bases — so both form the core visual.
+
+[DETAIL REQUIREMENTS]
+- Keep the drawing-sheet feel and professional information density on the model surface
+- Terrain areas need contour lines, slope layering, depressions and relief
+- Built areas need mass, block relationships and clear layering
+- Render water in low-saturation pale blue
+- Render green space, forest, parks and vegetated slopes in moss or low-saturation green
+- Draw roads, paths, transit axes or exploration routes as thin lines that never overpower the subject
+- Landmark buildings or key structures must be clearly recognisable
+- Fantasy, sci-fi or game elements must keep the archive-model and drawing-display feel, not become a pure scene illustration
+
+[ANNOTATION SYSTEM]
+Design a complete but restrained annotation set around the board edge: outer and inner frame lines, scale bar, legend block, title block, archive number, index markers, annotation labels and a concise symbol key.
+Not every character needs to be legible, but the whole must read as a real, clear, precise and orderly archival layout.
+
+[FRAMING AND CAMERA]
+Use an oblique top-down isometric / sandbox composition, camera roughly 30 to 45 degrees above the board, so the viewer sees the map plane, the height of the 3D subject, the edge thickness and the annotation zone at once. Visual weight sits on the central model; the reading path is core subject → surrounding terrain / roads / water / blocks → legend, scale bar and notes.
+
+[MATERIAL AND LIGHT]
+The whole image needs real model-photography quality: paper texture, map-print feel, paper-cut or sandbox model quality, architectural-model or terrain-slice materials, soft natural light, fine realistic shadows, clean background, low saturation, premium and restrained.
+Avoid cartoon looks, cheap game-UI feel, clutter and showing off. Keep the unified visual of "map baseboard + 3D subject + professional annotation system".
+
+The final result should look like a landscape archive model usable for geography outreach, urban research, an architectural proposal, a tourism visual feature, a worldbuilding art bible or a premium series cover.`,
+    tip: {
+      en: 'The magic is not "draw it realistically" — it is the three-part kit: map baseboard, a 3D mass growing out of it, and the restrained ring of annotations (scale bar / legend / archive number). Drop any one and it collapses into an ordinary illustration.',
+      zh: '出彩的地方不是「画得像」，而是三件套齐全：地图底板、从图里长出来的立体主体、边缘那圈克制的说明系统（比例尺 / 图例 / 档案号）。少一件就退化成普通插画。',
+    },
+    source: {
+      label: { en: 'Prompt by Larus Canus (@MrLarus)', zh: '提示词作者：Larus Canus（@MrLarus）' },
+      url: 'https://x.com/MrLarus/status/2046627021674168640',
+    },
   },
   {
     id: 'slide', icon: '🖥️', grad: ['#5c8a3a', '#a3c76d'],
@@ -235,6 +365,16 @@ const Text2Image: React.FC<Props> = ({ onHome }) => {
     part.startsWith('{') && part.endsWith('}')
       ? <span key={i} className="rounded bg-gold/15 px-1 font-medium text-gold">{part}</span>
       : <span key={i}>{part}</span>);
+
+  /* Multi-line prompts: keep the line breaks, and let a line that is nothing but
+     a 【section】 / [SECTION] header read as a header instead of body copy. */
+  const isHeaderLine = (l: string) => /^(【[^】]+】|\[[A-Z][A-Z\s/-]*\])$/.test(l.trim());
+  const renderLongTemplate = (tpl: string) => tpl.split('\n').map((line, i) =>
+    line.trim() === ''
+      ? <span key={i} className="block h-2" />
+      : isHeaderLine(line)
+        ? <span key={i} className="mt-2 block font-semibold text-ink/85">{line}</span>
+        : <span key={i} className="block">{renderTemplate(line)}</span>);
 
   const CopyBtn: React.FC<{ k: string; text: string; className?: string }> = ({ k, text, className }) => (
     <button onClick={() => copy(k, text)} className={`rounded-md border border-ink/15 bg-paper px-2 py-0.5 font-mono text-[10.5px] text-ink/60 transition-colors hover:border-gold/50 hover:text-gold ${className || ''}`}>
@@ -363,7 +503,7 @@ const Text2Image: React.FC<Props> = ({ onHome }) => {
 
           <div className="mt-5 grid gap-5 md:grid-cols-2">
             {SCENES.map((sc) => (
-              <article key={sc.id} className="flex flex-col overflow-hidden rounded-2xl border border-ink/10 bg-surface/40">
+              <article key={sc.id} className={`flex flex-col overflow-hidden rounded-2xl border border-ink/10 bg-surface/40 ${sc.long ? 'md:col-span-2' : ''}`}>
                 <div className="flex items-center gap-3 px-5 py-4" style={{ background: `linear-gradient(120deg, ${sc.grad[0]}22, ${sc.grad[1]}22)` }}>
                   <span className="grid h-10 w-10 place-items-center rounded-xl text-xl" style={{ background: `linear-gradient(135deg, ${sc.grad[0]}, ${sc.grad[1]})` }}>{sc.icon}</span>
                   <div>
@@ -377,9 +517,20 @@ const Text2Image: React.FC<Props> = ({ onHome }) => {
                       <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-gold">{t({ en: 'Template', zh: '模板' })}</span>
                       <CopyBtn k={`sc-${sc.id}`} text={lang === 'en' ? sc.templateEn : sc.templateZh} />
                     </div>
-                    <p className="px-3 py-2.5 text-[12.5px] leading-relaxed text-ink/75">{renderTemplate(lang === 'en' ? sc.templateEn : (lang === 'zhHant' && s2t ? s2t(sc.templateZh) : sc.templateZh))}</p>
+                    <p className={`px-3 py-2.5 text-[12.5px] leading-relaxed text-ink/75 ${sc.long ? 'max-h-80 overflow-y-auto' : ''}`}>
+                      {(() => {
+                        const tpl = lang === 'en' ? sc.templateEn : (lang === 'zhHant' && s2t ? s2t(sc.templateZh) : sc.templateZh);
+                        return sc.long ? renderLongTemplate(tpl) : renderTemplate(tpl);
+                      })()}
+                    </p>
                   </div>
                   <p className="mt-2.5 flex gap-1.5 text-[12px] leading-relaxed text-ink/55"><span className="text-gold">✦</span>{t(sc.tip)}</p>
+                  {sc.source && (
+                    <p className="mt-1.5 text-[11px] text-ink/40">
+                      {t(sc.source.label)} ·{' '}
+                      <a href={sc.source.url} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-gold">{t({ en: 'original post', zh: '原帖' })}</a>
+                    </p>
+                  )}
                 </div>
               </article>
             ))}
