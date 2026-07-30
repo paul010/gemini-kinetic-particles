@@ -516,6 +516,98 @@ const HeroFigure: React.FC<{
   );
 };
 
+/* ---------- About spatial portrait ---------- */
+
+const AboutScene: React.FC<{
+  t: (txt: LocalizedText) => string;
+}> = ({ t }) => {
+  const stageRef = useRef<HTMLDivElement>(null);
+  const [focus, setFocus] = useState<'all' | 'build' | 'share' | 'move'>('all');
+  const modes = COPY.about.sceneModes;
+  const activeMode = modes.find((mode) => mode.id === focus) ?? modes[0];
+
+  const onPointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (e.pointerType === 'touch' || prefersReduced()) return;
+    const stage = stageRef.current;
+    if (!stage) return;
+    const rect = stage.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    stage.style.setProperty('--about-rx', `${-y * 8}deg`);
+    stage.style.setProperty('--about-ry', `${x * 10}deg`);
+    stage.style.setProperty('--about-light-x', `${(x + 0.5) * 100}%`);
+    stage.style.setProperty('--about-light-y', `${(y + 0.5) * 100}%`);
+  };
+
+  const reset = () => {
+    const stage = stageRef.current;
+    if (!stage) return;
+    stage.style.removeProperty('--about-rx');
+    stage.style.removeProperty('--about-ry');
+    stage.style.removeProperty('--about-light-x');
+    stage.style.removeProperty('--about-light-y');
+  };
+
+  return (
+    <div
+      ref={stageRef}
+      className="about-stage reveal"
+      data-focus={focus}
+      onPointerMove={onPointerMove}
+      onPointerLeave={reset}
+      role="group"
+      aria-label={t({
+        en: 'A clay diorama of Da Lei building with AI, sharing videos, and running',
+        zh: '大雷使用 AI 构建、分享视频和跑步的粘土微缩场景',
+      })}
+    >
+      <div className="about-stage__scene">
+        <figure className="about-stage__diorama">
+          <div className="about-stage__image">
+            <img
+              src="/about-clay-1200.webp"
+              srcSet="/about-clay-640.webp 640w, /about-clay-1200.webp 1200w"
+              sizes="(min-width: 1024px) 390px, (min-width: 768px) 70vw, 88vw"
+              alt={t({
+                en: 'Handmade clay studio scene with Da Lei at a laptop, AI particles, a camera, a microphone, and running shoes',
+                zh: '大雷坐在电脑前的手工粘土工作室，周围有 AI 粒子、摄像机、麦克风和跑鞋',
+              })}
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+        </figure>
+      </div>
+
+      <div className="about-story">
+        <div
+          className="about-story__controls"
+          role="group"
+          aria-label={t({ en: 'Explore Da Lei’s creative practice', zh: '探索大雷的创作方式' })}
+        >
+          {modes.map((mode) => (
+            <button
+              key={mode.id}
+              type="button"
+              aria-pressed={focus === mode.id}
+              onClick={() => setFocus(mode.id as typeof focus)}
+              className="about-story__button"
+            >
+              {t(mode.label)}
+            </button>
+          ))}
+        </div>
+        <div className="about-story__panel" aria-live="polite">
+          <h3 className="font-display text-xl font-semibold tracking-tight">
+            {t(activeMode.heading)}
+          </h3>
+          <p className="mt-2 text-sm leading-relaxed text-ink/65">{t(activeMode.text)}</p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 /* ---------- Main ---------- */
 
 const Home: React.FC<HomeProps> = ({ onNavigate }) => {
@@ -1053,46 +1145,41 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
           </div>
         </section>
 
-        {/* About - a confident, statement-led block with generous white space */}
+        {/* About - editorial copy paired with a lightweight CSS 3D portrait. */}
         <section id="about" className="relative scroll-mt-24 py-24 sm:py-28">
-          {/* oversized two-line statement */}
-          <div className="reveal max-w-4xl">
-            <p className="font-mono text-xs uppercase tracking-[0.2em] text-gold">{t(COPY.about.label)}</p>
-            <h2 className="mt-5 font-display text-[2.6rem] font-semibold leading-[1.06] tracking-[-0.01em] sm:text-6xl lg:text-[4.2rem]">
-              <span className="block">{t(COPY.about.statementA)}</span>
-              <span className="block italic text-gradient">{t(COPY.about.statementB)}</span>
-            </h2>
-            <p className="mt-8 max-w-2xl text-lg leading-relaxed text-ink/65">{t(COPY.about.body)}</p>
+          <div className="grid items-center gap-14 lg:grid-cols-12 lg:gap-10">
+            <div className="reveal lg:col-span-7">
+              <p className="font-mono text-xs uppercase tracking-[0.2em] text-gold">{t(COPY.about.label)}</p>
+              <h2 className="mt-5 font-display text-[2.6rem] font-semibold leading-[1.06] tracking-[-0.01em] sm:text-6xl lg:text-[3.75rem]">
+                <span className="block">{t(COPY.about.statementA)}</span>
+                <span className="block pb-1 italic leading-[1.1] text-gradient">{t(COPY.about.statementB)}</span>
+              </h2>
+              <p className="mt-8 max-w-2xl text-base leading-relaxed text-ink/70 sm:text-lg">
+                {t(COPY.about.body)}
+              </p>
+            </div>
+
+            <div className="lg:col-span-5">
+              <AboutScene t={t} />
+            </div>
           </div>
 
-          {/* full-width stats strip */}
-          <dl className="reveal mt-14 grid grid-cols-3 gap-px overflow-hidden rounded-2xl border border-ink/10 bg-ink/10">
+          <dl className="about-stats reveal mt-16">
             {[
               { value: CHANNEL.subscribers, label: { en: 'YouTube subscribers', zh: 'YouTube 订阅' } as LocalizedText },
               { value: CHANNEL.videos, label: { en: 'videos shipped', zh: '视频' } as LocalizedText },
               { value: `${PROJECTS.length}`, label: { en: 'open-source projects', zh: '开源项目' } as LocalizedText },
-            ].map((s, i) => (
-              <div key={i} className="bg-surface/60 px-5 py-6 backdrop-blur-sm sm:px-8 sm:py-7">
-                <dt className="font-display text-4xl font-semibold leading-none tracking-tight sm:text-5xl">{s.value}</dt>
-                <dd className="mt-2.5 font-mono text-[10.5px] uppercase leading-tight tracking-wider text-ink/45">{t(s.label)}</dd>
+            ].map((s) => (
+              <div key={s.label.en} className="about-stat">
+                <dt className="font-display text-4xl font-semibold leading-none tracking-tight sm:text-5xl">
+                  {s.value}
+                </dt>
+                <dd className="mt-2.5 font-mono text-[10.5px] uppercase leading-tight tracking-wider text-ink/60">
+                  {t(s.label)}
+                </dd>
               </div>
             ))}
           </dl>
-
-          {/* three pillars - a clean, even row */}
-          <div className="mt-6 grid gap-4 sm:grid-cols-3">
-            {COPY.about.pillars.map((pillar, i) => (
-              <div
-                key={i}
-                className="reveal group flex flex-col rounded-2xl border border-ink/10 bg-surface/50 p-6 backdrop-blur-sm transition-all hover:-translate-y-1 hover:border-accent/30"
-                style={{ transitionDelay: `${i * 90}ms` }}
-              >
-                <span className="font-mono text-xs text-gold">0{i + 1}</span>
-                <h3 className="mt-3 font-display text-xl font-semibold tracking-tight">{t(pillar.title)}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-ink/55">{t(pillar.text)}</p>
-              </div>
-            ))}
-          </div>
         </section>
 
         {/* Now */}

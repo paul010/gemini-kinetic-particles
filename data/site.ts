@@ -1031,6 +1031,44 @@ export const COPY = {
       en: "By day I dig into AI automation and AI-assisted coding - the practical workflows and tools that save real, everyday time - and break them down on YouTube as 大雷 (4K+ subscribers, 400+ videos). By night I make playful, open-source web experiments that blend 3D graphics, real-time interaction, and AI, like Kinetic Particles. I also run, a lot. Everything I build is open source - take it apart, learn from it, make your own.",
       zh: '白天我钻研 AI 自动化与 AI 辅助编程 -- 那些能实打实省时间的工作流与工具 -- 并以「大雷」的身份在 YouTube 拆解它们（4000+ 订阅、400+ 视频）。晚上我做好玩的开源网页实验，融合 3D 图形、实时交互与 AI，比如 Kinetic Particles。我也很爱跑步。我做的一切都是开源的 -- 拆开它、从中学习、做出你自己的版本。',
     },
+    sceneModes: [
+      {
+        id: 'all',
+        label: { en: 'Whole scene', zh: '完整场景' },
+        heading: { en: 'One studio, three practices.', zh: '一个工作室，三种实践。' },
+        text: {
+          en: 'I build useful AI tools, explain the methods openly, and use running to keep the work grounded.',
+          zh: '我用 AI 做实用工具，公开讲清方法，也用跑步让自己保持清醒和持续行动。',
+        },
+      },
+      {
+        id: 'build',
+        label: { en: 'Build with AI', zh: '用 AI 构建' },
+        heading: { en: 'Turn workflows into tools.', zh: '把工作流做成真正能用的工具。' },
+        text: {
+          en: 'I test agents and automation against real work, then ship the useful parts as open source.',
+          zh: '我把智能体和自动化放进真实工作里验证，再把真正有用的部分开源出来。',
+        },
+      },
+      {
+        id: 'share',
+        label: { en: 'Share openly', zh: '公开分享' },
+        heading: { en: 'Explain what survives testing.', zh: '只分享经得起验证的方法。' },
+        text: {
+          en: 'On YouTube, I break working methods into practical steps that other people can reuse.',
+          zh: '我在 YouTube 把跑通的方法拆成清晰步骤，让更多人可以直接复用。',
+        },
+      },
+      {
+        id: 'move',
+        label: { en: 'Keep moving', zh: '持续行动' },
+        heading: { en: 'Running brings better questions back.', zh: '跑步，让我带着更好的问题回来。' },
+        text: {
+          en: 'Time away from the screen creates space to think, reset, and return to the work with sharper questions.',
+          zh: '离开屏幕去跑一段，能让我重新思考、恢复节奏，再带着更清晰的问题回到创作。',
+        },
+      },
+    ],
     pillars: [
       {
         title: { en: 'AI automation', zh: 'AI 自动化' },
