@@ -130,7 +130,7 @@ p {
   .fluid-bg { display: none; }
 }
 
-/* Soft warm wash — subtle vignette toward the edges */
+/* Soft warm wash - subtle vignette toward the edges */
 .bg-vignette {
   position: fixed;
   inset: 0;
@@ -141,7 +141,7 @@ p {
     radial-gradient(140% 95% at 50% 120%, rgb(var(--rgb-ink) / 0.06), transparent 60%);
 }
 
-/* Drifting aurora — soft warm light that slowly breathes */
+/* Drifting aurora - soft warm light that slowly breathes */
 .bg-aurora {
   position: fixed;
   inset: -20%;
@@ -183,7 +183,7 @@ p {
   transform: none;
 }
 
-/* Gradient text — gentle warm tonal shimmer (editorial) */
+/* Gradient text - gentle warm tonal shimmer (editorial) */
 .text-gradient {
   background: linear-gradient(
     100deg,
@@ -205,7 +205,7 @@ p {
   50% { background-position: 100% 50%; }
 }
 
-/* Hero entrance — staggered blur-up on load */
+/* Hero entrance - staggered blur-up on load */
 @keyframes hero-in {
   from { opacity: 0; transform: translateY(26px); filter: blur(10px); }
   to { opacity: 1; transform: none; filter: blur(0); }
@@ -213,20 +213,6 @@ p {
 .hero-in {
   opacity: 0;
   animation: hero-in 1s cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-
-/* Scroll progress bar */
-.scroll-progress {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 2px;
-  width: 100%;
-  transform-origin: 0 50%;
-  transform: scaleX(0);
-  background: linear-gradient(90deg, var(--accent), var(--accent-2));
-  z-index: 60;
-  will-change: transform;
 }
 
 /* Magnetic wrapper */
@@ -284,7 +270,7 @@ p {
   transform-origin: left;
 }
 
-/* Work row — editorial list interaction */
+/* Work row - editorial list interaction */
 .work-row {
   transition: background-color 0.4s ease;
 }
@@ -409,7 +395,7 @@ p {
   100% { transform: translateX(110%); }
 }
 
-/* Mobile nav dropdown — slide/fade in */
+/* Mobile nav dropdown - slide/fade in */
 @keyframes menu-in {
   from { opacity: 0; transform: translateY(-8px); }
   to { opacity: 1; transform: none; }
@@ -418,87 +404,13 @@ p {
   animation: menu-in 0.28s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-/* Typewriter cursor */
-.type-cursor {
-  display: inline-block;
-  margin-left: 1px;
-  color: var(--accent);
-  font-weight: 400;
-  animation: caret-blink 1s steps(1) infinite;
-}
-.type-cursor--done {
-  animation: caret-blink 1.1s steps(1) infinite;
-}
-@keyframes caret-blink {
-  0%, 50% { opacity: 1; }
-  50.01%, 100% { opacity: 0; }
-}
-
-/* ---- taste-skill polish: marquee strip, ghost section numerals, scroll cue ---- */
-
-/* the marquee breaks out to full-bleed; clip so it can't cause sideways scroll */
+/* The editorial layout clips decorative layers without causing horizontal scroll. */
 .home-root { overflow-x: clip; }
-
-.marquee { display: flex; overflow: hidden; }
-.marquee-track {
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  min-width: 100%;
-  animation: marquee-scroll 32s linear infinite;
-}
-@keyframes marquee-scroll { to { transform: translateX(-100%); } }
-
-/* outlined display type — alternating solid/outline words sell the editorial strip */
-.text-outline {
-  color: transparent;
-  -webkit-text-stroke: 1px rgb(var(--rgb-ink) / 0.4);
-}
-
-/* hero scroll cue — a hairline with a gold drop that keeps sliding down */
-.scroll-cue-line {
-  position: relative;
-  width: 1px;
-  height: 44px;
-  overflow: hidden;
-  background: linear-gradient(to bottom, rgb(var(--rgb-ink) / 0.3), transparent);
-}
-.scroll-cue-line::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: -40%;
-  width: 100%;
-  height: 40%;
-  background: rgb(var(--rgb-gold));
-  animation: cue-drop 2.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-}
-@keyframes cue-drop { to { top: 110%; } }
-
-/* oversized ghost numeral behind each section heading (second-read moment) */
-.section-index {
-  position: absolute;
-  top: -1.75rem;
-  right: 0;
-  z-index: 0;
-  font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: clamp(6rem, 14vw, 11rem);
-  font-weight: 700;
-  line-height: 0.8;
-  color: transparent;
-  -webkit-text-stroke: 1.5px rgb(var(--rgb-ink) / 0.1);
-  pointer-events: none;
-  user-select: none;
-}
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .reveal { opacity: 1; transform: none; transition: none; }
-  .float-slow, .pulse-dot, .type-cursor, .hero-figure, .ken-burns, .menu-in { animation: none; }
-  .scroll-cue-line::after { animation: none; display: none; }
+  .float-slow, .pulse-dot, .hero-figure, .ken-burns, .menu-in { animation: none; }
   .plate::after { animation: none; display: none; }
-  .type-cursor { opacity: 0; }
   .work-row:hover .work-title { transform: none; }
-  .marquee-track { animation: none; }
-  .marquee-track:last-child { display: none; }
 }

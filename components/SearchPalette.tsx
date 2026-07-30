@@ -3,7 +3,7 @@ import {
   PROJECTS,
   COPY,
   SOCIALS,
-  openEmail,
+  getEmail,
   youtubeWatch,
   type LocalizedText,
   type VideoItem,
@@ -114,7 +114,7 @@ const SearchPalette: React.FC<Props> = ({ open, onClose, t, videos, onNavigate, 
 
     const actions: { key: string; title: LocalizedText; hay: string; run: () => void }[] = [
       { key: 'theme', title: { en: 'Toggle light / dark theme', zh: '切换深色 / 浅色主题' }, hay: 'theme dark light 主题 深色 浅色', run: toggleTheme },
-      { key: 'email', title: { en: 'Email Da Lei', zh: '给大雷发邮件' }, hay: 'email mail contact 邮件 联系', run: openEmail },
+      { key: 'email', title: { en: 'Email Da Lei', zh: '给大雷发邮件' }, hay: 'email mail contact 邮件 联系', run: () => { window.location.href = `mailto:${getEmail()}`; } },
       { key: 'github', title: { en: 'Open GitHub profile', zh: '打开 GitHub 主页' }, hay: 'github code 源码 代码', run: () => window.open(SOCIALS.github, '_blank', 'noopener') },
       { key: 'youtube', title: { en: 'Open YouTube channel', zh: '打开 YouTube 频道' }, hay: 'youtube channel 频道 视频 大雷早上好', run: () => window.open(SOCIALS.youtube, '_blank', 'noopener') },
     ];
