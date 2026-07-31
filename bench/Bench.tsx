@@ -45,6 +45,7 @@ const CATS: { key: string; label: LocalizedText }[] = [
   { key: 'svg', label: { en: 'SVG', zh: 'SVG' } },
   { key: 'landing', label: { en: 'Landing', zh: '落地页' } },
   { key: 'webpage', label: { en: 'Webpage', zh: '网页' } },
+  { key: '3d', label: { en: '3D', zh: '3D' } },
   { key: 'design', label: { en: 'Design', zh: '设计' } },
   { key: 'logic', label: { en: 'Logic', zh: '逻辑' } },
 ];
@@ -145,8 +146,8 @@ const Bench: React.FC<Props> = ({ onHome }) => {
             <h1 className="font-display text-3xl font-semibold tracking-tight sm:text-4xl">{t({ en: 'Da Lei AI Benchmark', zh: '大雷 AI 评测台' })}</h1>
             <p className="mt-1 max-w-2xl text-sm text-ink/60">
               {t({
-                en: 'One fixed set of prompts, one rubric — each model’s real output side by side. A scarce personal comparison you can open straight on camera.',
-                zh: '一套固定题目、同一套规范，横向对照各家模型的真实输出 —— 录视频直接打开即可展示的稀缺个人横评。',
+                en: 'One fixed set of prompts and one rubric. Compare each model’s real output side by side, ready to open on camera.',
+                zh: '一套固定题目、同一套规范，横向对照各家模型的真实输出，录视频时可以直接打开展示。',
               })}
             </p>
           </div>
@@ -187,7 +188,7 @@ const Bench: React.FC<Props> = ({ onHome }) => {
                     {t({ en: 'Copy', zh: '复制' })}
                   </button>
                 </div>
-                <p className="whitespace-pre-wrap font-mono text-xs leading-relaxed text-ink/75">{test.prompt}</p>
+                <p className="max-h-64 overflow-y-auto whitespace-pre-wrap pr-2 font-mono text-xs leading-relaxed text-ink/75">{test.prompt}</p>
               </div>
 
               {/* Results grid */}
@@ -223,7 +224,7 @@ const Bench: React.FC<Props> = ({ onHome }) => {
         <p className="mt-10 text-center font-mono text-[11px] text-ink/40">
           {t({ en: 'Add a result? Edit ', zh: '想加结果？编辑 ' })}
           <span className="text-ink/60">bench/data/bench.ts</span>
-          {t({ en: ' — paste an SVG / HTML / screenshot (public/bench/) / link.', zh: ' —— 贴 SVG / HTML / 截图(public/bench/)/ 链接即可。' })}
+          {t({ en: '. Paste an SVG, HTML, screenshot (public/bench/), or link.', zh: '，贴入 SVG、HTML、截图（public/bench/）或链接即可。' })}
         </p>
       </main>
 
