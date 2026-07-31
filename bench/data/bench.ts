@@ -29,6 +29,8 @@ export interface Result {
   url?: string;
   note?: LocalizedText;
   verdict?: 'win' | 'ok' | 'fail';
+  simulated?: boolean;
+  score?: number;
 }
 
 export interface BenchTest {
@@ -259,8 +261,30 @@ export const TESTS: BenchTest[] = [
       zh: '程序化产品建模、Three.js 材质与灯光、3D 热点投影、复杂交互状态、响应式布局和运行可靠性。',
     },
     results: [
-      { modelId: 'claude', kind: 'pending' },
-      { modelId: 'gpt', kind: 'pending' },
+      {
+        modelId: 'claude',
+        kind: 'image',
+        image: '/bench/headphone-cyan-sim.webp',
+        simulated: true,
+        score: 94,
+        verdict: 'win',
+        note: {
+          en: 'Simulated showcase, not a recorded model run. Demonstrates a complete studio layout, product materials, hotspots, and restrained controls.',
+          zh: '模拟展示，并非真实模型跑分。用于预览完整工作室布局、产品材质、热点与克制的控制系统。',
+        },
+      },
+      {
+        modelId: 'gpt',
+        kind: 'image',
+        image: '/bench/headphone-amber-sim.webp',
+        simulated: true,
+        score: 91,
+        verdict: 'ok',
+        note: {
+          en: 'Simulated showcase, not a recorded model run. A more technical exploded-view interpretation of the same fixed prompt.',
+          zh: '模拟展示，并非真实模型跑分。同一固定提示词的技术拆解视图方向。',
+        },
+      },
       { modelId: 'gemini', kind: 'pending' },
       { modelId: 'grok', kind: 'pending' },
       { modelId: 'qwen', kind: 'pending' },
@@ -292,9 +316,31 @@ export const TESTS: BenchTest[] = [
       zh: '体素世界生成、第一人称控制、物理碰撞、射线增删方块、游戏状态、性能策略和完整可玩性。',
     },
     results: [
-      { modelId: 'claude', kind: 'pending' },
+      {
+        modelId: 'claude',
+        kind: 'image',
+        image: '/bench/voxel-night-sim.webp',
+        simulated: true,
+        score: 90,
+        verdict: 'ok',
+        note: {
+          en: 'Simulated showcase, not a recorded model run. Night exploration variant with a readable objective path and restrained HUD.',
+          zh: '模拟展示，并非真实模型跑分。夜间探索方向，目标路径清楚，HUD 保持克制。',
+        },
+      },
       { modelId: 'gpt', kind: 'pending' },
-      { modelId: 'gemini', kind: 'pending' },
+      {
+        modelId: 'gemini',
+        kind: 'image',
+        image: '/bench/voxel-sunset-sim.webp',
+        simulated: true,
+        score: 95,
+        verdict: 'win',
+        note: {
+          en: 'Simulated showcase, not a recorded model run. Daylight world-generation variant emphasizing depth, terrain variety, and objective clarity.',
+          zh: '模拟展示，并非真实模型跑分。日落世界生成方向，突出景深、地形丰富度和目标可读性。',
+        },
+      },
       { modelId: 'grok', kind: 'pending' },
       { modelId: 'qwen', kind: 'pending' },
       { modelId: 'deepseek', kind: 'pending' },
