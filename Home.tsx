@@ -459,56 +459,68 @@ const HeroFigure: React.FC<{
   t: (txt: LocalizedText) => string;
   onOpen: () => void;
 }> = ({ t, onOpen }) => {
-  const plateRef = useRef<HTMLDivElement>(null);
+  const plateRef = useRef<HTMLButtonElement>(null);
 
-  const onMove = (e: React.MouseEvent) => {
-    if (prefersReduced()) return;
+  const onMove = (e: React.PointerEvent<HTMLButtonElement>) => {
+    if (e.pointerType === 'touch' || prefersReduced()) return;
     const el = plateRef.current;
     if (!el) return;
     const r = el.getBoundingClientRect();
-    const x = ((e.clientX - r.left) / r.width - 0.5) * 14;
-    const y = ((e.clientY - r.top) / r.height - 0.5) * 14;
-    el.style.transform = `translate(${x}px, ${y}px)`;
+    const x = (e.clientX - r.left) / r.width - 0.5;
+    const y = (e.clientY - r.top) / r.height - 0.5;
+    el.style.setProperty('--hero-rx', `${-y * 7}deg`);
+    el.style.setProperty('--hero-ry', `${x * 9}deg`);
+    el.style.setProperty('--hero-light-x', `${(x + 0.5) * 100}%`);
+    el.style.setProperty('--hero-light-y', `${(y + 0.5) * 100}%`);
   };
+
   const reset = () => {
-    if (plateRef.current) plateRef.current.style.transform = '';
+    const el = plateRef.current;
+    if (!el) return;
+    el.style.removeProperty('--hero-rx');
+    el.style.removeProperty('--hero-ry');
+    el.style.removeProperty('--hero-light-x');
+    el.style.removeProperty('--hero-light-y');
   };
 
   return (
-    <figure className="hero-figure mx-auto w-full max-w-[9rem] sm:max-w-[18rem] lg:ml-auto lg:max-w-sm">
+    <figure className="hero-figure mx-auto w-full max-w-[12rem] sm:max-w-[18rem] lg:ml-auto lg:max-w-sm">
       <button
         type="button"
         ref={plateRef}
-        onMouseMove={onMove}
-        onMouseLeave={reset}
+        onPointerMove={onMove}
+        onPointerLeave={reset}
         onClick={onOpen}
-        aria-label={`${t(CHANNEL.name)} YouTube`}
-        className="plate group relative block aspect-[4/5] w-full cursor-pointer p-0 text-left transition-transform duration-300 ease-out"
+        aria-label={t({
+          en: `Open ${CHANNEL.name.en} on YouTube`,
+          zh: `在 YouTube 打开${CHANNEL.name.zh}`,
+        })}
+        className="clay-portrait group relative block aspect-[4/5] w-full cursor-pointer border-0 bg-transparent p-0 text-left"
       >
-        <img src={ASSETS.avatar} alt="大雷 · Da Lei" decoding="async" fetchPriority="high" />
-
-        {/* readability scrim for the label */}
-        <span className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/55 to-transparent" />
-
-        {/* corner registration ticks */}
-        <span className="pointer-events-none absolute left-3 top-3 h-4 w-4 border-l border-t border-paper/80" />
-        <span className="pointer-events-none absolute right-3 top-3 h-4 w-4 border-r border-t border-paper/80" />
-        <span className="pointer-events-none absolute bottom-3 left-3 h-4 w-4 border-b border-l border-paper/80" />
-        <span className="pointer-events-none absolute bottom-3 right-3 h-4 w-4 border-b border-r border-paper/80" />
-
-        <span className="pointer-events-none absolute bottom-5 left-5 font-mono text-[10px] uppercase tracking-[0.22em] text-paper/90">
-          {t(CHANNEL.name)}
+        <span className="clay-portrait__backing" aria-hidden="true" />
+        <span className="clay-portrait__frame">
+          <img
+            src={ASSETS.heroClay.large}
+            srcSet={`${ASSETS.heroClay.small} 480w, ${ASSETS.heroClay.large} 960w`}
+            sizes="(min-width: 1024px) 384px, (min-width: 640px) 288px, 168px"
+            alt={t({
+              en: 'Handmade clay portrait of Da Lei on a brick-red background with yellow stars',
+              zh: '砖红背景与黄色星星前的大雷手工粘土肖像',
+            })}
+            width="960"
+            height="1200"
+            decoding="async"
+            fetchPriority="high"
+          />
+          <span className="clay-portrait__light" aria-hidden="true" />
         </span>
-
-        <span className="absolute right-5 top-5 inline-flex items-center gap-1.5 rounded-full border border-paper/30 bg-black/50 px-3 py-1.5 text-[11px] font-semibold text-paper opacity-0 backdrop-blur-md transition-all duration-300 group-hover:opacity-100">
-          <YouTubeIcon className="h-3.5 w-3.5" />
-          YouTube
-        </span>
+        <span className="clay-portrait__thumbprint" aria-hidden="true" />
       </button>
 
-      <figcaption className="mt-3 flex items-baseline justify-between gap-3">
-        <span className="font-display text-lg italic text-ink/80">大雷 · Da Lei</span>
-        <span className="font-mono text-[11px] uppercase tracking-[0.15em] text-ink/45">
+      <figcaption className="hero-figure__caption mt-4 flex items-center justify-between gap-3">
+        <span className="whitespace-nowrap font-display text-base italic text-ink/80 sm:text-lg">大雷 · Da Lei</span>
+        <span className="inline-flex whitespace-nowrap items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.12em] text-ink/55">
+          <YouTubeIcon className="h-3.5 w-3.5 text-gold" />
           {CHANNEL.handle}
         </span>
       </figcaption>
@@ -946,7 +958,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
             </div>
           </div>
 
-          <div className="hero-in" style={{ animationDelay: '0.5s' }}>
+          <div>
             <HeroFigure t={t} onOpen={() => window.open(SOCIALS.youtube, '_blank', 'noopener')} />
           </div>
 

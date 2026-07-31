@@ -48,6 +48,10 @@ export const getEmail = () => EMAIL_PARTS.join('@');
 /** Shared image assets. */
 export const ASSETS = {
   avatar: '/avatar-480.webp',
+  heroClay: {
+    small: '/hero-clay-480.webp',
+    large: '/hero-clay-960.webp',
+  },
 };
 
 export const CHANNEL = {
