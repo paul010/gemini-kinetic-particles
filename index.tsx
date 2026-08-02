@@ -11,6 +11,7 @@ const ScreenshotToCode = React.lazy(() => import('./tools/ScreenshotToCode'));
 const FluidPlayground = React.lazy(() => import('./tools/FluidPlayground'));
 const ThreeOrb = React.lazy(() => import('./tools/ThreeOrb'));
 const TTTHourOfCode = React.lazy(() => import('./workshop/TTTHourOfCode'));
+const HearTheUniverse = React.lazy(() => import('./universe/HearTheUniverse'));
 const Bench = React.lazy(() => import('./bench/Bench'));
 const Fugu = React.lazy(() => import('./fugu/Fugu'));
 const Copilot = React.lazy(() => import('./copilot/Copilot'));
@@ -54,7 +55,7 @@ const Loader: React.FC<{ label: string }> = ({ label }) => (
   </div>
 );
 
-type Route = 'home' | 'particles' | 'arsenal' | 'md' | 'img' | 's2c' | 'fluid' | 'r3f' | 'ttt-hour-of-code' | 'bench' | 'fugu' | 'copilot' | 'copilotcamp' | 'promptforge' | 'notebooklm' | 'aihtml' | 'text2image' | 'farmer' | 'quyoubus' | 'hpworkshop' | 'agents' | 'skills' | 'uml' | 'town' | 'patterns' | 'prompts' | 'cici' | 'designskill' | 'videogen' | 'dino' | 'chengdu' | 'lab3d' | 'cappadocia' | 'zhangjiajie' | 'niagara' | 'fireflies' | 'harbin' | 'forbiddencity' | 'brooksfalls';
+type Route = 'home' | 'particles' | 'arsenal' | 'md' | 'img' | 's2c' | 'fluid' | 'r3f' | 'ttt-hour-of-code' | 'hear-the-universe' | 'bench' | 'fugu' | 'copilot' | 'copilotcamp' | 'promptforge' | 'notebooklm' | 'aihtml' | 'text2image' | 'farmer' | 'quyoubus' | 'hpworkshop' | 'agents' | 'skills' | 'uml' | 'town' | 'patterns' | 'prompts' | 'cici' | 'designskill' | 'videogen' | 'dino' | 'chengdu' | 'lab3d' | 'cappadocia' | 'zhangjiajie' | 'niagara' | 'fireflies' | 'harbin' | 'forbiddencity' | 'brooksfalls';
 
 const routeFromLocation = (): Route => {
   const { pathname, hash } = window.location;
@@ -67,6 +68,7 @@ const routeFromLocation = (): Route => {
   if (p.endsWith('/fluid') || hash === '#/fluid') return 'fluid';
   if (p.endsWith('/r3f') || hash === '#/r3f') return 'r3f';
   if (p.endsWith('/ttt-hour-of-code') || hash === '#/ttt-hour-of-code') return 'ttt-hour-of-code';
+  if (p.endsWith('/hear-the-universe') || hash === '#/hear-the-universe') return 'hear-the-universe';
   if (p.endsWith('/bench') || hash === '#/bench') return 'bench';
   if (p.endsWith('/fugu') || hash === '#/fugu') return 'fugu';
   if (p.endsWith('/copilotcamp') || hash === '#/copilotcamp') return 'copilotcamp';
@@ -138,6 +140,7 @@ const Router: React.FC = () => {
       fluid: 'Fluid 流体 · 大雷',
       r3f: '3D 起手式 · 大雷',
       'ttt-hour-of-code': '从 TTT 到代码一小时 · 大雷 Workshop',
+      'hear-the-universe': '听见宇宙 · 中文无障碍代码一小时 · 大雷',
       bench: '大雷 AI 评测台 · Da Lei AI Benchmark',
       fugu: 'Fugu / TRINITY 复现验证 · Da Lei Research',
       copilot: 'Microsoft Copilot / Agent 产品矩阵 · 大雷',
@@ -240,6 +243,14 @@ const Router: React.FC = () => {
     return (
       <Suspense fallback={<Loader label="LOADING WORKSHOP…" />}>
         <TTTHourOfCode onHome={() => navigate('/')} />
+      </Suspense>
+    );
+  }
+
+  if (route === 'hear-the-universe') {
+    return (
+      <Suspense fallback={<Loader label="正在连接宇宙通讯…" />}>
+        <HearTheUniverse onHome={() => navigate('/')} />
       </Suspense>
     );
   }

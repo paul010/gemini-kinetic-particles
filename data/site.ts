@@ -214,6 +214,28 @@ export const PROJECTS: Project[] = [
     ],
   },
   {
+    id: 'hear-the-universe',
+    category: 'creative',
+    title: { en: 'Hear the Universe', zh: '听见宇宙' },
+    year: '2026',
+    status: 'live',
+    featured: true,
+    cover: '/hear-the-universe-cover.svg',
+    tagline: {
+      en: 'A Chinese, keyboard-first Hour of Code experience designed for blind learners.',
+      zh: '为视障学习者设计的中文、键盘优先“代码一小时”。',
+    },
+    description: {
+      en: 'Five guided missions preserve the learning arc of output, variables, input, arithmetic and conditional debugging, while replacing a complex English IDE with one editor, one run action, screen-reader announcements, a Where am I command and an instructor cue panel.',
+      zh: '五个任务依次练习输出、变量、输入、运算和条件调试；把复杂英文 IDE 收敛为一个编辑区、一个运行操作、读屏播报、“我在哪里”命令和讲师提示面板。无需登录、摄像头或 API Key。',
+    },
+    tags: ['Accessibility', 'Hour of Code', 'Keyboard First', 'React'],
+    links: [
+      { label: { en: 'Start the missions', zh: '开始任务' }, href: '/hear-the-universe', kind: 'internal' },
+      { label: { en: 'Learning reference', zh: '学习逻辑参考' }, href: 'https://quorumlanguage.com/hourofcode/astro1.html', kind: 'live' },
+    ],
+  },
+  {
     id: 'ai-benchmark',
     category: 'ai',
     title: { en: 'Da Lei AI Benchmark', zh: '大雷 AI 评测台' },

@@ -1,0 +1,178 @@
+.htu-page {
+  --htu-bg: #050b18;
+  --htu-panel: #0b162a;
+  --htu-panel-2: #101f38;
+  --htu-line: #345174;
+  --htu-text: #f7fbff;
+  --htu-muted: #b9c9dc;
+  --htu-cyan: #70e1ff;
+  --htu-gold: #ffd166;
+  --htu-green: #70e58b;
+  --htu-pink: #ff6fa8;
+  position: relative;
+  min-height: 100vh;
+  overflow-x: hidden;
+  color: var(--htu-text);
+  background: radial-gradient(circle at 50% -20%, #16345d 0, var(--htu-bg) 48%);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+
+.htu-page *, .htu-page *::before, .htu-page *::after { box-sizing: border-box; }
+.htu-page button, .htu-page input, .htu-page textarea { font: inherit; }
+.htu-page button, .htu-page a, .htu-page input, .htu-page textarea, .htu-page summary { outline-offset: 4px; }
+.htu-page :focus-visible { outline: 3px solid var(--htu-gold); }
+.htu-page button { color: inherit; }
+
+.htu-stars { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; opacity: .7; }
+.htu-skip { position: fixed; z-index: 100; top: 10px; left: 10px; padding: 12px 16px; color: #050b18; background: var(--htu-gold); transform: translateY(-160%); }
+.htu-skip:focus { transform: translateY(0); }
+.htu-sr-live { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+
+.htu-header {
+  position: relative; z-index: 2;
+  display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 28px;
+  min-height: 92px; padding: 18px clamp(20px, 4vw, 64px);
+  background: rgba(5, 11, 24, .9); border-bottom: 1px solid var(--htu-line); backdrop-filter: blur(18px);
+}
+.htu-brand { justify-self: start; border: 0; background: none; cursor: pointer; font-weight: 900; letter-spacing: -.02em; }
+.htu-brand span { color: var(--htu-cyan); }
+.htu-title-group { text-align: center; }
+.htu-title-group p { margin: 0 0 4px; color: var(--htu-cyan); font: 750 10px/1.2 ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .17em; text-transform: uppercase; }
+.htu-title-group h1 { margin: 0; font-size: clamp(28px, 4vw, 46px); line-height: 1; letter-spacing: -.05em; }
+.htu-header-actions { justify-self: end; display: flex; gap: 10px; }
+.htu-header-actions button, .htu-statusbar button { padding: 9px 12px; border: 1px solid var(--htu-line); background: rgba(16, 31, 56, .78); cursor: pointer; }
+.htu-header-actions button:hover, .htu-header-actions button[aria-pressed="true"] { border-color: var(--htu-cyan); background: #17365b; }
+
+.htu-statusbar {
+  position: relative; z-index: 2;
+  display: grid; grid-template-columns: auto minmax(140px, 1fr) auto auto; align-items: center; gap: 24px;
+  padding: 13px clamp(20px, 4vw, 64px); color: var(--htu-muted); background: rgba(11, 22, 42, .86); border-bottom: 1px solid rgba(52, 81, 116, .72);
+}
+.htu-statusbar > div { display: flex; align-items: baseline; gap: 10px; }
+.htu-statusbar span { font-size: 12px; }
+.htu-statusbar strong { color: var(--htu-text); font: 900 17px/1 ui-monospace, monospace; }
+.htu-statusbar progress { width: 100%; height: 12px; accent-color: var(--htu-green); }
+.htu-statusbar label { display: flex; align-items: center; gap: 8px; font-size: 13px; white-space: nowrap; }
+.htu-statusbar input { width: 18px; height: 18px; accent-color: var(--htu-cyan); }
+
+.htu-layout {
+  position: relative; z-index: 1;
+  display: grid; grid-template-columns: minmax(250px, .72fr) minmax(0, 2.28fr); gap: 24px;
+  width: min(1540px, calc(100% - 40px)); margin: 30px auto; align-items: start;
+}
+.htu-missions, .htu-workspace { background: rgba(11, 22, 42, .94); border: 1px solid var(--htu-line); box-shadow: 0 24px 80px rgba(0, 0, 0, .28); }
+.htu-missions { position: sticky; top: 20px; padding: 22px; }
+.htu-panel-heading span, .htu-teacher > span, .htu-dialog > span { color: var(--htu-cyan); font: 800 10px/1 ui-monospace, monospace; letter-spacing: .15em; }
+.htu-panel-heading h2 { margin: 9px 0 18px; font-size: 25px; letter-spacing: -.04em; }
+.htu-missions ol { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
+.htu-missions li button { display: grid; width: 100%; gap: 5px; padding: 15px; text-align: left; color: var(--htu-muted); background: #0d1b31; border: 1px solid #284565; cursor: pointer; }
+.htu-missions li button:hover:not(:disabled) { border-color: var(--htu-cyan); transform: translateX(3px); }
+.htu-missions li button.is-current { color: var(--htu-text); background: #14365b; border-color: var(--htu-cyan); box-shadow: inset 4px 0 var(--htu-gold); }
+.htu-missions li button:disabled { opacity: .5; cursor: not-allowed; }
+.htu-missions li span { color: var(--htu-green); font: 800 10px/1 ui-monospace, monospace; letter-spacing: .12em; }
+.htu-missions li strong { font-size: 16px; }
+.htu-missions li small { font-size: 12px; }
+.htu-location { width: 100%; margin-top: 16px; padding: 12px; color: var(--htu-bg) !important; background: var(--htu-gold); border: 0; font-weight: 900; cursor: pointer; }
+
+.htu-workspace { min-width: 0; padding: clamp(18px, 3vw, 36px); }
+.htu-mission-brief { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 26px; padding-bottom: 24px; border-bottom: 1px solid var(--htu-line); }
+.htu-mission-brief span { color: var(--htu-pink); font: 900 12px/1 ui-monospace, monospace; letter-spacing: .12em; }
+.htu-mission-brief h2 { margin: 7px 0 0; font-size: clamp(30px, 4vw, 52px); line-height: .95; letter-spacing: -.06em; }
+.htu-mission-brief p { max-width: 680px; margin: 0; color: var(--htu-muted); font-size: clamp(16px, 1.5vw, 20px); line-height: 1.65; }
+.htu-mission-brief button { padding: 11px 13px; border: 1px solid var(--htu-cyan); background: transparent; cursor: pointer; white-space: nowrap; }
+
+.htu-code-grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(300px, .85fr); gap: 18px; margin-top: 24px; }
+.htu-editor-panel, .htu-output-panel { min-width: 0; overflow: hidden; background: #07101f; border: 1px solid #365579; }
+.htu-console-title { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 12px; padding: 11px 14px; background: #13233b; border-bottom: 1px solid #365579; }
+.htu-console-title > div { display: flex; gap: 5px; }
+.htu-console-title > div span:nth-child(1) { color: var(--htu-pink); }
+.htu-console-title > div span:nth-child(2) { color: var(--htu-gold); }
+.htu-console-title > div span:nth-child(3) { color: var(--htu-green); }
+.htu-console-title h3 { margin: 0; font-size: 14px; }
+.htu-console-title > span { color: var(--htu-muted); font: 700 10px/1 ui-monospace, monospace; }
+.htu-editor-label { display: block; padding: 13px 16px 0; color: var(--htu-cyan); font-size: 12px; }
+.htu-editor-panel textarea { display: block; width: calc(100% - 32px); min-height: 320px; margin: 12px 16px; padding: 18px; resize: vertical; color: #eef8ff; background: #030812; border: 1px solid #345174; caret-color: var(--htu-gold); font: 700 clamp(15px, 1.45vw, 20px)/1.75 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; tab-size: 2; }
+.htu-editor-panel > p { margin: 0 16px 14px; color: var(--htu-muted); font-size: 12px; }
+.htu-run-actions { display: flex; gap: 10px; padding: 0 16px 16px; }
+.htu-run-actions button, .htu-input-request button, .htu-dialog button, .htu-complete button { padding: 12px 18px; border: 1px solid var(--htu-line); background: #162b48; cursor: pointer; font-weight: 850; }
+.htu-run-actions .htu-run, .htu-dialog .htu-run { color: #02131a; background: var(--htu-green); border-color: var(--htu-green); }
+
+.htu-output { min-height: 250px; padding: 24px; }
+.htu-output > span { display: block; margin-bottom: 30px; color: var(--htu-cyan); font: 800 10px/1 ui-monospace, monospace; letter-spacing: .14em; }
+.htu-output strong { display: block; overflow-wrap: anywhere; color: var(--htu-green); font: 850 clamp(25px, 3vw, 44px)/1.12 ui-monospace, monospace; }
+.htu-output p { margin-top: 20px; color: var(--htu-muted); line-height: 1.6; }
+.htu-input-request { display: grid; gap: 10px; margin: 0 20px 18px; padding: 18px; background: #132b45; border-left: 5px solid var(--htu-gold); }
+.htu-input-request label { font-weight: 850; }
+.htu-input-request input { width: 100%; padding: 12px; color: var(--htu-text); background: #030812; border: 1px solid var(--htu-cyan); }
+.htu-hint { margin: 0 20px 20px; padding: 14px 16px; color: var(--htu-muted); border: 1px dashed #45698e; }
+.htu-hint summary { color: var(--htu-gold); cursor: pointer; font-weight: 850; }
+.htu-hint p { margin-bottom: 0; line-height: 1.6; }
+.htu-next-row { display: flex; align-items: center; justify-content: space-between; gap: 18px; margin-top: 22px; }
+.htu-next-row button { padding: 12px 16px; border: 1px solid var(--htu-line); background: #152b49; cursor: pointer; }
+.htu-next-row button:disabled { opacity: .45; cursor: not-allowed; }
+.htu-next-row .htu-next { color: #03131a; background: var(--htu-cyan); border-color: var(--htu-cyan); font-weight: 900; }
+.htu-next-row span { color: var(--htu-green); font-weight: 850; }
+
+.htu-complete {
+  position: relative; z-index: 1;
+  display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 24px;
+  width: min(1200px, calc(100% - 40px)); margin: 30px auto; padding: 28px;
+  color: #07101f; background: var(--htu-gold); border: 4px double #07101f;
+}
+.htu-complete > span { font-size: 54px; }
+.htu-complete p { margin: 0 0 5px; }
+.htu-complete h2 { margin: 0 0 8px; font-size: clamp(28px, 4vw, 50px); letter-spacing: -.05em; }
+.htu-complete button { color: var(--htu-text); background: #07101f; }
+
+.htu-teacher { position: fixed; z-index: 70; right: 20px; bottom: 20px; width: min(460px, calc(100vw - 40px)); max-height: calc(100vh - 40px); overflow: auto; padding: 24px; background: #101f38; border: 2px solid var(--htu-gold); box-shadow: 0 28px 90px rgba(0,0,0,.6); }
+.htu-teacher h2, .htu-dialog h2 { margin: 12px 40px 18px 0; font-size: 30px; }
+.htu-teacher dl, .htu-dialog dl { display: grid; gap: 12px; margin: 0; }
+.htu-teacher dl div, .htu-dialog dl div { padding: 13px; background: #0a1426; border-left: 4px solid var(--htu-cyan); }
+.htu-teacher dt, .htu-dialog dt { color: var(--htu-gold); font-weight: 900; }
+.htu-teacher dd, .htu-dialog dd { margin: 6px 0 0; color: var(--htu-muted); line-height: 1.55; }
+.htu-close { position: absolute; top: 12px; right: 12px; width: 38px; height: 38px; border: 1px solid var(--htu-line); background: #07101f; cursor: pointer; font-size: 24px; line-height: 1; }
+
+.htu-dialog-backdrop { position: fixed; z-index: 90; inset: 0; display: grid; place-items: center; padding: 20px; background: rgba(1, 5, 12, .85); }
+.htu-dialog { position: relative; width: min(700px, 100%); max-height: calc(100vh - 40px); overflow: auto; padding: 28px; background: #101f38; border: 2px solid var(--htu-cyan); box-shadow: 0 28px 100px rgba(0,0,0,.65); }
+.htu-dialog dl div { display: grid; grid-template-columns: 190px 1fr; gap: 18px; }
+.htu-dialog > p { color: var(--htu-muted); line-height: 1.6; }
+
+.htu-footer { position: relative; z-index: 1; display: flex; justify-content: space-between; gap: 18px; padding: 24px clamp(20px, 4vw, 64px); color: var(--htu-muted); border-top: 1px solid var(--htu-line); font-size: 12px; }
+.htu-footer p { margin: 0; }
+.htu-footer a { color: var(--htu-cyan); }
+
+@media (max-width: 1000px) {
+  .htu-header { grid-template-columns: 1fr auto; }
+  .htu-title-group { grid-column: 1 / -1; grid-row: 1; }
+  .htu-brand, .htu-header-actions { grid-row: 2; }
+  .htu-statusbar { grid-template-columns: auto 1fr; }
+  .htu-layout { grid-template-columns: minmax(0, 1fr); }
+  .htu-missions { position: relative; top: auto; min-width: 0; }
+  .htu-missions ol { width: 100%; max-width: 100%; grid-template-columns: repeat(5, 160px); overflow-x: auto; }
+  .htu-missions li button { height: 100%; }
+  .htu-code-grid { grid-template-columns: minmax(0, 1fr); }
+  .htu-mission-brief { grid-template-columns: 1fr; gap: 14px; }
+  .htu-mission-brief button { justify-self: start; }
+}
+
+@media (max-width: 620px) {
+  .htu-header { padding: 16px 18px; }
+  .htu-header-actions { flex-wrap: wrap; justify-content: flex-end; }
+  .htu-statusbar { grid-template-columns: 1fr; gap: 12px; padding: 14px 18px; }
+  .htu-layout { width: calc(100% - 20px); margin: 12px auto; }
+  .htu-workspace, .htu-missions { padding: 16px; }
+  .htu-editor-panel textarea { min-height: 260px; }
+  .htu-next-row, .htu-footer, .htu-complete { align-items: stretch; flex-direction: column; }
+  .htu-complete { grid-template-columns: 1fr; }
+  .htu-dialog dl div { grid-template-columns: 1fr; gap: 4px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .htu-page *, .htu-page *::before, .htu-page *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}
+
+@media print {
+  .htu-page { min-height: auto; color: #000; background: #fff; }
+  .htu-header, .htu-statusbar, .htu-layout, .htu-footer, .htu-teacher, .htu-dialog-backdrop, .htu-stars { display: none !important; }
+  .htu-complete { display: grid; width: 100%; margin: 12vh auto 0; border: 6px double #000; background: #fff; }
+}

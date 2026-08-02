@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+  <title id="title">听见宇宙项目封面</title>
+  <desc id="desc">深蓝宇宙背景中的中文代码控制台、耳机和星体轨道</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#06101f"/>
+      <stop offset="1" stop-color="#163a63"/>
+    </linearGradient>
+    <linearGradient id="screen" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#102b48"/>
+      <stop offset="1" stop-color="#07111f"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="720" fill="url(#bg)"/>
+  <g fill="#fff" opacity=".55">
+    <circle cx="90" cy="90" r="3"/><circle cx="180" cy="160" r="2"/><circle cx="1080" cy="120" r="3"/>
+    <circle cx="980" cy="230" r="2"/><circle cx="1120" cy="560" r="3"/><circle cx="130" cy="600" r="2"/>
+    <circle cx="740" cy="90" r="2"/><circle cx="620" cy="650" r="3"/>
+  </g>
+  <g transform="translate(105 135)">
+    <rect x="0" y="0" width="770" height="455" rx="26" fill="#0b172a" stroke="#70e1ff" stroke-width="5"/>
+    <rect x="34" y="50" width="702" height="280" rx="12" fill="url(#screen)" stroke="#355777" stroke-width="3"/>
+    <circle cx="62" cy="28" r="8" fill="#ff6fa8"/><circle cx="88" cy="28" r="8" fill="#ffd166"/><circle cx="114" cy="28" r="8" fill="#70e58b"/>
+    <text x="70" y="115" fill="#70e1ff" font-family="monospace" font-size="32" font-weight="700">output "你好，宇宙"</text>
+    <text x="70" y="180" fill="#70e58b" font-family="sans-serif" font-size="44" font-weight="800">程序输出：你好，宇宙</text>
+    <path d="M70 242h420" stroke="#355777" stroke-width="4" stroke-dasharray="12 12"/>
+    <text x="70" y="290" fill="#b9c9dc" font-family="sans-serif" font-size="25">Tab 导航 · Alt + Shift + R 运行 · F2 我在哪里</text>
+    <g transform="translate(34 360)">
+      <rect width="225" height="60" rx="10" fill="#70e58b"/>
+      <text x="112" y="40" text-anchor="middle" fill="#03131a" font-family="sans-serif" font-size="28" font-weight="900">运行程序</text>
+      <rect x="248" width="220" height="60" rx="10" fill="#17365b" stroke="#70e1ff" stroke-width="2"/>
+      <text x="358" y="40" text-anchor="middle" fill="#f7fbff" font-family="sans-serif" font-size="25" font-weight="800">F1 重复任务</text>
+    </g>
+  </g>
+  <g transform="translate(895 150)" fill="none" stroke-linecap="round">
+    <path d="M40 165a115 115 0 0 1 230 0" stroke="#ffd166" stroke-width="28"/>
+    <rect x="20" y="150" width="58" height="135" rx="26" fill="#ffd166" stroke="#ffd166"/>
+    <rect x="232" y="150" width="58" height="135" rx="26" fill="#ffd166" stroke="#ffd166"/>
+    <circle cx="155" cy="365" r="72" fill="#ff6fa8" stroke="#ff6fa8"/>
+    <ellipse cx="155" cy="365" rx="125" ry="34" stroke="#70e1ff" stroke-width="10" transform="rotate(-18 155 365)"/>
+  </g>
+  <text x="905" y="620" fill="#fff" font-family="sans-serif" font-size="58" font-weight="900">听见宇宙</text>
+  <text x="909" y="662" fill="#70e1ff" font-family="sans-serif" font-size="22" font-weight="700" letter-spacing="4">中文 · 键盘优先 · 读屏友好</text>
+</svg>
