@@ -9,6 +9,7 @@ interface Props {
 type PlatformFilter = 'all' | 'Cowork' | 'Copilot Studio' | 'Scout';
 type TypeFilter = 'all' | 'skill' | 'plugin' | 'automation';
 type SortMode = 'newest' | 'name' | 'downloads';
+type ViewMode = 'training' | 'catalog';
 type PreviewState =
   | { status: 'idle' | 'loading'; text: '' }
   | { status: 'ready'; text: string }
@@ -37,6 +38,37 @@ const typeLabels: Record<string, string> = {
   automation: 'Automation',
   plugin: 'Plugin',
 };
+
+const TRAINING_EXAMPLES = [
+  {
+    slug: 'accessibility-pass',
+    title: '检查一份文档',
+    summary: '找出 PPT、Word、网页或 Markdown 中影响阅读的问题。',
+    outcome: '得到问题清单和具体修改建议',
+    prompt: '请检查我提供的文件是否存在无障碍问题。先按严重程度列出问题，再说明位置和修改方法。可以直接修复的内容，请先告诉我你准备怎样修改。',
+  },
+  {
+    slug: 'work-brief',
+    title: '整理今日工作',
+    summary: '从邮件、日历和聊天记录中提取真正需要处理的事情。',
+    outcome: '生成一份清晰、可执行的工作简报',
+    prompt: '请根据我今天的邮件、日历和聊天内容整理一份工作简报。只保留需要我行动、等待他人回复或存在风险的事项，并给出建议优先级。',
+  },
+  {
+    slug: 'generating-podcast-script',
+    title: '把资料变成播客',
+    summary: '把文章或一组资料整理成自然的双人播客脚本。',
+    outcome: '得到带角色、节奏和结构的完整脚本',
+    prompt: '请把我提供的资料改写成一段双人播客脚本。保留关键事实，使用自然对话，不要添加资料中没有的信息，并标出开场、讨论和结尾。',
+  },
+  {
+    slug: 'agent-evaluation-designer',
+    title: '测试一个 AI Agent',
+    summary: '先定义什么叫做得好，再准备测试题和判断标准。',
+    outcome: '得到可执行的评测方案和上线判断依据',
+    prompt: '请为这个 AI Agent 设计一套评测方案。先确认使用场景和风险，再定义通过标准、测试题、评分方法以及上线或暂缓上线的判断规则。',
+  },
+] as const;
 
 const formatBytes = (bytes: number) => {
   if (bytes < 1024) return `${bytes} B`;
@@ -84,6 +116,10 @@ const initialsFor = (name: string) => name
   .toUpperCase();
 
 const CatAgentSkills: React.FC<Props> = ({ onHome }) => {
+  const [viewMode, setViewMode] = useState<ViewMode>(() => {
+    if (typeof window === 'undefined') return 'training';
+    return new URLSearchParams(window.location.search).get('view') === 'catalog' ? 'catalog' : 'training';
+  });
   const [query, setQuery] = useState('');
   const [platform, setPlatform] = useState<PlatformFilter>('all');
   const [type, setType] = useState<TypeFilter>('all');
@@ -92,6 +128,7 @@ const CatAgentSkills: React.FC<Props> = ({ onHome }) => {
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
   const [selected, setSelected] = useState<CatSkillRecord | null>(null);
   const [preview, setPreview] = useState<PreviewState>({ status: 'idle', text: '' });
+  const [copiedPrompt, setCopiedPrompt] = useState('');
   const [theme, setTheme] = useState<'light' | 'dark'>(() =>
     typeof document !== 'undefined' && document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light'
   );
@@ -102,6 +139,15 @@ const CatAgentSkills: React.FC<Props> = ({ onHome }) => {
     plugins: CAT_SKILLS.filter((item) => item.type === 'plugin').length,
     bundles: CAT_SKILLS.filter((item) => item.downloadName !== 'SKILL.md').length,
   }), []);
+
+  const trainingItems = useMemo(() => TRAINING_EXAMPLES.map((example) => ({
+    example,
+    item: CAT_SKILLS.find((item) => item.slug === example.slug),
+  })).filter((entry): entry is { example: typeof TRAINING_EXAMPLES[number]; item: CatSkillRecord } => Boolean(entry.item)), []);
+
+  const selectedTrainingExample = viewMode === 'training' && selected
+    ? TRAINING_EXAMPLES.find((example) => example.slug === selected.slug)
+    : undefined;
 
   const topTags = useMemo(() => {
     const counts = new Map<string, number>();
@@ -187,6 +233,22 @@ const CatAgentSkills: React.FC<Props> = ({ onHome }) => {
     setSort('newest');
   };
 
+  const changeViewMode = (next: ViewMode) => {
+    setViewMode(next);
+    const url = new URL(window.location.href);
+    if (next === 'catalog') url.searchParams.set('view', 'catalog');
+    else url.searchParams.delete('view');
+    window.history.replaceState({}, '', `${url.pathname}${url.search}${url.hash}`);
+    window.requestAnimationFrame(() => document.getElementById(next === 'training' ? 'training-cases' : 'catalog')?.scrollIntoView({ behavior: 'smooth', block: 'start' }));
+  };
+
+  const copyTrainingPrompt = (slug: string, prompt: string) => {
+    navigator.clipboard?.writeText(prompt).then(() => {
+      setCopiedPrompt(slug);
+      window.setTimeout(() => setCopiedPrompt((current) => current === slug ? '' : current), 1600);
+    }).catch(() => {});
+  };
+
   return (
     <div className="catalog-page">
       <style>{`
@@ -217,6 +279,9 @@ const CatAgentSkills: React.FC<Props> = ({ onHome }) => {
         .catalog-home:hover, .catalog-home:focus-visible { color: var(--catalog-text); }
         .catalog-brand-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 760; letter-spacing: -.02em; }
         .catalog-nav-links { display: flex; align-items: center; gap: 18px; font-size: 13px; white-space: nowrap; }
+        .catalog-view-switch { display: inline-flex; align-items: center; gap: 2px; padding: 3px; border: 1px solid var(--catalog-line); border-radius: 999px; background: var(--catalog-soft); }
+        .catalog-view-option { min-height: 30px; padding: 0 12px; border: 0; border-radius: 999px; background: transparent; color: var(--catalog-muted); cursor: pointer; font-size: 12px; font-weight: 700; }
+        .catalog-view-option-active { background: var(--ink); color: var(--paper); }
         .catalog-link { color: var(--catalog-muted); text-decoration: none; }
         .catalog-link:hover, .catalog-link:focus-visible { color: var(--catalog-accent); }
         .catalog-hero { padding: 70px 0 54px; display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(360px, .8fr); gap: 70px; align-items: end; }
@@ -229,6 +294,13 @@ const CatAgentSkills: React.FC<Props> = ({ onHome }) => {
         .catalog-button:active { transform: translateY(1px); }
         .catalog-button-primary { border-color: var(--catalog-accent); background: var(--catalog-accent); color: var(--catalog-accent-ink); }
         .catalog-manifest { display: grid; grid-template-columns: 1.15fr .85fr; gap: 10px; }
+        .catalog-classroom { padding: 22px; border: 1px solid var(--catalog-line); border-radius: 20px; background: color-mix(in srgb, var(--catalog-panel) 84%, transparent); }
+        .catalog-classroom h2 { margin: 0 0 18px; font-size: 20px; letter-spacing: -.025em; }
+        .catalog-classroom-list { display: grid; gap: 0; margin: 0; padding: 0; list-style: none; }
+        .catalog-classroom-list li { display: grid; grid-template-columns: 72px 1fr; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--catalog-line); }
+        .catalog-classroom-list li:last-child { border-bottom: 0; }
+        .catalog-classroom-list strong { font-size: 13px; }
+        .catalog-classroom-list span { color: var(--catalog-muted); font-size: 13px; line-height: 1.5; }
         .catalog-stat { min-height: 112px; padding: 18px; border: 1px solid var(--catalog-line); border-radius: 18px; background: var(--catalog-panel); }
         .catalog-stat:first-child { grid-row: span 2; display: flex; flex-direction: column; justify-content: space-between; background: var(--ink); color: var(--paper); }
         .catalog-stat-value { display: block; font: 760 clamp(34px, 4vw, 60px)/1 ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: -.06em; }
@@ -239,6 +311,22 @@ const CatAgentSkills: React.FC<Props> = ({ onHome }) => {
         .catalog-notice strong { color: var(--catalog-text); }
         .catalog-source-meta { text-align: right; color: var(--catalog-muted); font: 11px/1.55 ui-monospace, SFMono-Regular, Menlo, monospace; }
         .catalog-main { padding: 52px 0 90px; }
+        .catalog-training { padding: 52px 0 90px; }
+        .catalog-training-head { max-width: 680px; }
+        .catalog-training-head h2 { margin: 0; font-size: clamp(34px, 5vw, 52px); line-height: 1.05; letter-spacing: -.045em; }
+        .catalog-training-head p { margin: 16px 0 0; color: var(--catalog-muted); font-size: 16px; line-height: 1.65; }
+        .catalog-training-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 30px; }
+        .catalog-training-card { min-height: 300px; display: flex; flex-direction: column; padding: 26px; border: 1px solid var(--catalog-line); border-radius: 18px; background: color-mix(in srgb, var(--catalog-panel) 84%, transparent); }
+        .catalog-training-card:nth-child(1), .catalog-training-card:nth-child(4) { background: var(--catalog-soft); border-color: color-mix(in srgb, var(--catalog-accent) 44%, var(--catalog-line)); }
+        .catalog-training-card h3 { margin: 0; font-size: 28px; letter-spacing: -.035em; }
+        .catalog-training-official { margin-top: 8px; color: var(--catalog-muted); font: 11px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace; }
+        .catalog-training-summary { margin: 24px 0 0; color: var(--catalog-text); font-size: 16px; line-height: 1.65; }
+        .catalog-training-outcome { margin-top: 18px; color: var(--catalog-muted); font-size: 13px; line-height: 1.55; }
+        .catalog-training-outcome strong { display: block; margin-bottom: 4px; color: var(--catalog-text); }
+        .catalog-training-card .catalog-button { align-self: flex-start; margin-top: auto; }
+        .catalog-training-more { margin-top: 32px; display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 26px 0; border-top: 1px solid var(--catalog-line); }
+        .catalog-training-more h3 { margin: 0; font-size: 22px; }
+        .catalog-training-more p { margin: 7px 0 0; color: var(--catalog-muted); font-size: 13px; }
         .catalog-tools { display: grid; gap: 18px; }
         .catalog-search-row { display: grid; grid-template-columns: minmax(0, 1fr) 180px; gap: 12px; }
         .catalog-input, .catalog-select { width: 100%; min-height: 50px; border: 1px solid var(--catalog-line); border-radius: 14px; background: var(--catalog-panel); color: var(--catalog-text); outline: none; }
@@ -288,6 +376,7 @@ const CatAgentSkills: React.FC<Props> = ({ onHome }) => {
         .catalog-dialog-body { display: grid; grid-template-columns: minmax(280px, .4fr) minmax(0, 1fr); gap: 42px; padding: 32px; }
         .catalog-dialog-summary { align-self: start; position: sticky; top: 0; }
         .catalog-dialog-title { margin: 18px 0 0; font-size: clamp(28px, 3vw, 36px); line-height: 1.06; letter-spacing: -.04em; }
+        .catalog-dialog-official { margin-top: 9px; color: var(--catalog-muted); font: 11px/1.45 ui-monospace, SFMono-Regular, Menlo, monospace; }
         .catalog-dialog-description { margin: 16px 0 0; color: var(--catalog-muted); font-size: 14px; line-height: 1.65; }
         .catalog-detail-grid { margin-top: 24px; display: grid; gap: 1px; overflow: hidden; border: 1px solid var(--catalog-line); border-radius: 14px; background: var(--catalog-line); }
         .catalog-detail { padding: 13px 14px; background: var(--paper); }
@@ -301,6 +390,16 @@ const CatAgentSkills: React.FC<Props> = ({ onHome }) => {
         .catalog-preview-head { padding-bottom: 18px; border-bottom: 1px solid var(--catalog-line); }
         .catalog-preview-head h3 { margin: 0; font-size: 22px; letter-spacing: -.025em; }
         .catalog-preview-head p { margin: 7px 0 0; color: var(--catalog-muted); font-size: 12px; line-height: 1.55; }
+        .catalog-class-guide { margin-top: 22px; padding: 20px; border: 1px solid color-mix(in srgb, var(--catalog-accent) 44%, var(--catalog-line)); border-radius: 16px; background: var(--catalog-soft); }
+        .catalog-class-guide h4 { margin: 0; font-size: 18px; }
+        .catalog-class-guide p { margin: 9px 0 0; color: var(--catalog-muted); font-size: 14px; line-height: 1.6; }
+        .catalog-class-result { margin-top: 16px; color: var(--catalog-text); font-size: 13px; }
+        .catalog-class-prompt { margin-top: 18px; padding: 15px; border-radius: 12px; background: var(--paper); font-size: 13px; line-height: 1.65; }
+        .catalog-class-prompt strong { display: block; margin-bottom: 7px; font-size: 12px; }
+        .catalog-copy-prompt { display: block; margin-top: 12px; min-height: 34px; padding: 0 13px; border: 1px solid var(--catalog-line); border-radius: 999px; background: transparent; color: var(--catalog-text); cursor: pointer; font-size: 12px; font-weight: 700; }
+        .catalog-official-guide { margin: 30px 0 0; padding-top: 24px; border-top: 1px solid var(--catalog-line); }
+        .catalog-official-guide h4 { margin: 0; font-size: 18px; }
+        .catalog-official-guide p { margin: 7px 0 0; color: var(--catalog-muted); font-size: 12px; line-height: 1.55; }
         .catalog-preview-state { min-height: 260px; display: grid; place-items: center; padding: 32px; color: var(--catalog-muted); text-align: center; border-radius: 16px; background: var(--catalog-soft); }
         .catalog-preview-state strong { display: block; color: var(--catalog-text); margin-bottom: 8px; }
         .catalog-preview-skeleton { width: 100%; display: grid; gap: 12px; }
@@ -329,6 +428,8 @@ const CatAgentSkills: React.FC<Props> = ({ onHome }) => {
         @media (max-width: 820px) {
           .catalog-shell { width: min(100% - 30px, 680px); }
           .catalog-nav-source { display: none; }
+          .catalog-nav-links { gap: 8px; }
+          .catalog-view-option { padding: 0 9px; }
           .catalog-brand-name { font-size: 14px; }
           .catalog-hero { grid-template-columns: 1fr; gap: 40px; padding: 48px 0; }
           .catalog-title { font-size: clamp(42px, 13vw, 62px); }
@@ -338,7 +439,10 @@ const CatAgentSkills: React.FC<Props> = ({ onHome }) => {
           .catalog-notice-inner, .catalog-footer-inner { grid-template-columns: 1fr; }
           .catalog-source-meta { text-align: left; }
           .catalog-main { padding: 38px 0 64px; }
-          .catalog-search-row, .catalog-grid { grid-template-columns: 1fr; }
+          .catalog-search-row, .catalog-grid, .catalog-training-grid { grid-template-columns: 1fr; }
+          .catalog-training { padding: 38px 0 64px; }
+          .catalog-training-card { min-height: 270px; }
+          .catalog-training-more { align-items: flex-start; flex-direction: column; }
           .catalog-results-head { align-items: flex-start; flex-direction: column; gap: 6px; }
           .catalog-card { min-height: 270px; }
           .catalog-overlay { padding: 8px; align-items: end; }
@@ -346,6 +450,7 @@ const CatAgentSkills: React.FC<Props> = ({ onHome }) => {
           .catalog-dialog-body { grid-template-columns: 1fr; gap: 34px; padding: 22px 18px 32px; }
           .catalog-dialog-summary { position: static; }
           .catalog-detail-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+          .catalog-detail-grid-training { grid-template-columns: 1fr; }
         }
         @media (prefers-reduced-motion: reduce) {
           .catalog-button, .catalog-card { transition: none; }
@@ -362,51 +467,101 @@ const CatAgentSkills: React.FC<Props> = ({ onHome }) => {
             <span className="catalog-brand-name">CAT Agent Skills 中文分发</span>
           </div>
           <div className="catalog-nav-links">
+            <div className="catalog-view-switch" role="group" aria-label="页面模式">
+              <button className={`catalog-view-option ${viewMode === 'training' ? 'catalog-view-option-active' : ''}`} onClick={() => changeViewMode('training')} aria-pressed={viewMode === 'training'}>培训版</button>
+              <button className={`catalog-view-option ${viewMode === 'catalog' ? 'catalog-view-option-active' : ''}`} onClick={() => changeViewMode('catalog')} aria-pressed={viewMode === 'catalog'}>完整版</button>
+            </div>
             <button className="catalog-theme" onClick={toggleTheme} aria-label={theme === 'light' ? '切换到深色模式' : '切换到浅色模式'}>
               {theme === 'light' ? '深色' : '浅色'}
             </button>
             <a className="catalog-link catalog-nav-source" href="/cat-skills-data/catalog.json" target="_blank" rel="noreferrer">数据清单</a>
-            <a className="catalog-link" href={OFFICIAL_REPO} target="_blank" rel="noreferrer">官方源码 ↗</a>
+            <a className="catalog-link catalog-nav-source" href={OFFICIAL_REPO} target="_blank" rel="noreferrer">官方源码 ↗</a>
           </div>
         </div>
       </nav>
 
       <header className="catalog-shell catalog-hero">
         <div>
-          <p className="catalog-kicker">Agent Skill Distribution</p>
-          <h1 className="catalog-title">找到，检查，下载。</h1>
-          <p className="catalog-lead">微软 CAT 社区 Skill 的中文分发目录。数据和安装文件已同步到本站，可直接用于培训与实践。</p>
+          <p className="catalog-kicker">{viewMode === 'training' ? 'Agent Skill Training' : 'Agent Skill Distribution'}</p>
+          <h1 className="catalog-title">{viewMode === 'training' ? '先看懂，再动手。' : '找到，检查，下载。'}</h1>
+          <p className="catalog-lead">{viewMode === 'training' ? '从熟悉的工作案例开始，先理解用途，再阅读说明，最后按需下载。' : '微软 CAT 社区 Skill 的中文分发目录。数据和安装文件已同步到本站，可直接用于培训与实践。'}</p>
           <div className="catalog-actions">
-            <a className="catalog-button catalog-button-primary" href="#catalog">浏览全部 {CAT_CATALOG_META.total} 项</a>
-            <a className="catalog-button" href={OFFICIAL_GALLERY} target="_blank" rel="noreferrer">查看官方图库 ↗</a>
+            {viewMode === 'training' ? (
+              <>
+                <a className="catalog-button catalog-button-primary" href="#training-cases">开始看案例</a>
+                <button className="catalog-button" onClick={() => changeViewMode('catalog')}>查看完整目录</button>
+              </>
+            ) : (
+              <>
+                <a className="catalog-button catalog-button-primary" href="#catalog">浏览全部 {CAT_CATALOG_META.total} 项</a>
+                <button className="catalog-button" onClick={() => changeViewMode('training')}>返回培训版</button>
+              </>
+            )}
           </div>
         </div>
-        <div className="catalog-manifest" aria-label="目录统计">
-          <div className="catalog-stat">
-            <span className="catalog-stat-value">{CAT_CATALOG_META.total}</span>
-            <span className="catalog-stat-label">已同步条目<br />全部可在本站下载</span>
+        {viewMode === 'training' ? (
+          <div className="catalog-classroom" aria-label="课堂演示顺序">
+            <h2>课堂上只讲三件事</h2>
+            <ol className="catalog-classroom-list">
+              <li><strong>选案例</strong><span>从学员熟悉的工作任务开始</span></li>
+              <li><strong>看说明</strong><span>先理解它会做什么和需要什么</span></li>
+              <li><strong>再下载</strong><span>确认合适后再安装和试用</span></li>
+            </ol>
           </div>
-          <div className="catalog-stat">
-            <span className="catalog-stat-value">{stats.skills}</span>
-            <span className="catalog-stat-label">Skills</span>
+        ) : (
+          <div className="catalog-manifest" aria-label="目录统计">
+            <div className="catalog-stat">
+              <span className="catalog-stat-value">{CAT_CATALOG_META.total}</span>
+              <span className="catalog-stat-label">已同步条目<br />全部可在本站下载</span>
+            </div>
+            <div className="catalog-stat">
+              <span className="catalog-stat-value">{stats.skills}</span>
+              <span className="catalog-stat-label">Skills</span>
+            </div>
+            <div className="catalog-stat">
+              <span className="catalog-stat-value">{stats.automations + stats.plugins}</span>
+              <span className="catalog-stat-label">Automations + Plugins</span>
+            </div>
           </div>
-          <div className="catalog-stat">
-            <span className="catalog-stat-value">{stats.automations + stats.plugins}</span>
-            <span className="catalog-stat-label">Automations + Plugins</span>
-          </div>
-        </div>
+        )}
       </header>
 
       <section className="catalog-notice">
         <div className="catalog-shell catalog-notice-inner">
           <p><strong>安装前先审查。</strong> Skill 会继承 Agent 的权限。请检查说明、脚本、连接器和外部依赖，再加入培训或生产环境。</p>
-          <div className="catalog-source-meta">
-            SOURCE {CAT_CATALOG_META.sourceCommit.slice(0, 8)}<br />
-            SYNC {formatDate(CAT_CATALOG_META.sourceCommitDate)} / MIT
-          </div>
+          {viewMode === 'catalog' && <div className="catalog-source-meta">
+              SOURCE {CAT_CATALOG_META.sourceCommit.slice(0, 8)}<br />
+              SYNC {formatDate(CAT_CATALOG_META.sourceCommitDate)} / MIT
+            </div>}
         </div>
       </section>
 
+      {viewMode === 'training' ? (
+        <main className="catalog-shell catalog-training" id="training-cases">
+          <div className="catalog-training-head">
+            <h2>先从 4 个熟悉的工作开始</h2>
+            <p>每个案例只回答三个问题：什么时候用、能得到什么、如何开始。点击案例后会先看到中文导读，不需要立即下载。</p>
+          </div>
+          <div className="catalog-training-grid">
+            {trainingItems.map(({ example, item }) => (
+              <article className="catalog-training-card" key={item.slug}>
+                <h3>{example.title}</h3>
+                <div className="catalog-training-official">官方名称：{visibleText(item.name)}</div>
+                <p className="catalog-training-summary">{example.summary}</p>
+                <div className="catalog-training-outcome"><strong>你会得到</strong>{example.outcome}</div>
+                <button className="catalog-button" onClick={() => setSelected(item)}>打开案例</button>
+              </article>
+            ))}
+          </div>
+          <div className="catalog-training-more">
+            <div>
+              <h3>需要更多案例？</h3>
+              <p>完整目录包含 {CAT_CATALOG_META.total} 个 Skill、Automation 和 Plugin。</p>
+            </div>
+            <button className="catalog-button catalog-button-primary" onClick={() => changeViewMode('catalog')}>打开完整目录</button>
+          </div>
+        </main>
+      ) : (
       <main className="catalog-shell catalog-main" id="catalog">
         <div className="catalog-tools" aria-label="筛选 Skill">
           <div className="catalog-search-row">
@@ -506,6 +661,7 @@ const CatAgentSkills: React.FC<Props> = ({ onHome }) => {
           </div>
         )}
       </main>
+      )}
 
       <footer className="catalog-footer">
         <div className="catalog-shell catalog-footer-inner">
@@ -528,29 +684,50 @@ const CatAgentSkills: React.FC<Props> = ({ onHome }) => {
               <div className="catalog-dialog-body">
                 <aside className="catalog-dialog-summary">
                   <span className="catalog-mark">{initialsFor(visibleText(selected.name))}</span>
-                  <h2 className="catalog-dialog-title" id="catalog-dialog-title">{visibleText(selected.name)}</h2>
-                  <p className="catalog-dialog-description">{visibleText(selected.description)}</p>
-                  <div className="catalog-detail-grid">
+                  <h2 className="catalog-dialog-title" id="catalog-dialog-title">{selectedTrainingExample?.title || visibleText(selected.name)}</h2>
+                  {selectedTrainingExample && <div className="catalog-dialog-official">官方名称：{visibleText(selected.name)}</div>}
+                  <p className="catalog-dialog-description">{selectedTrainingExample?.summary || visibleText(selected.description)}</p>
+                  <div className={`catalog-detail-grid ${selectedTrainingExample ? 'catalog-detail-grid-training' : ''}`}>
                     <div className="catalog-detail"><span className="catalog-detail-label">类型</span><span className="catalog-detail-value">{typeLabels[selected.type] || selected.type}</span></div>
                     <div className="catalog-detail"><span className="catalog-detail-label">适用平台</span><span className="catalog-detail-value">{visibleText(selected.platforms.join(' / '))}</span></div>
-                    <div className="catalog-detail"><span className="catalog-detail-label">作者</span><span className="catalog-detail-value"><a href={selected.authorUrl} target="_blank" rel="noreferrer">{visibleText(selected.author)}</a></span></div>
-                    <div className="catalog-detail"><span className="catalog-detail-label">版本</span><span className="catalog-detail-value">{selected.version || '未标注'}</span></div>
-                    <div className="catalog-detail"><span className="catalog-detail-label">条目 ID</span><span className="catalog-detail-value">{selected.slug}</span></div>
-                    <div className="catalog-detail"><span className="catalog-detail-label">创建时间</span><span className="catalog-detail-value">{formatDate(selected.createdAt)}</span></div>
-                    <div className="catalog-detail"><span className="catalog-detail-label">更新时间</span><span className="catalog-detail-value">{formatDate(selected.updatedAt)}</span></div>
-                    <div className="catalog-detail"><span className="catalog-detail-label">官方历史下载记录</span><span className="catalog-detail-value">{selected.recordedDownloads.toLocaleString()}</span></div>
                     <div className="catalog-detail"><span className="catalog-detail-label">下载文件</span><span className="catalog-detail-value">{selected.downloadName}<br />{formatBytes(selected.downloadSize)}</span></div>
-                    <div className="catalog-detail"><span className="catalog-detail-label">来源提交</span><span className="catalog-detail-value">{CAT_CATALOG_META.sourceCommit.slice(0, 12)}</span></div>
+                    {!selectedTrainingExample && <>
+                      <div className="catalog-detail"><span className="catalog-detail-label">作者</span><span className="catalog-detail-value"><a href={selected.authorUrl} target="_blank" rel="noreferrer">{visibleText(selected.author)}</a></span></div>
+                      <div className="catalog-detail"><span className="catalog-detail-label">版本</span><span className="catalog-detail-value">{selected.version || '未标注'}</span></div>
+                      <div className="catalog-detail"><span className="catalog-detail-label">条目 ID</span><span className="catalog-detail-value">{selected.slug}</span></div>
+                      <div className="catalog-detail"><span className="catalog-detail-label">创建时间</span><span className="catalog-detail-value">{formatDate(selected.createdAt)}</span></div>
+                      <div className="catalog-detail"><span className="catalog-detail-label">更新时间</span><span className="catalog-detail-value">{formatDate(selected.updatedAt)}</span></div>
+                      <div className="catalog-detail"><span className="catalog-detail-label">官方历史下载记录</span><span className="catalog-detail-value">{selected.recordedDownloads.toLocaleString()}</span></div>
+                      <div className="catalog-detail"><span className="catalog-detail-label">来源提交</span><span className="catalog-detail-value">{CAT_CATALOG_META.sourceCommit.slice(0, 12)}</span></div>
+                    </>}
                   </div>
-                  <div className="catalog-dialog-tags">
-                    {selected.tags.map((itemTag) => <span className="catalog-dialog-tag" key={itemTag}>{visibleText(itemTag)}</span>)}
-                  </div>
+                  {!selectedTrainingExample && <div className="catalog-dialog-tags">
+                      {selected.tags.map((itemTag) => <span className="catalog-dialog-tag" key={itemTag}>{visibleText(itemTag)}</span>)}
+                    </div>}
                 </aside>
 
                 <div className="catalog-preview" aria-live="polite" aria-busy={preview.status === 'loading'}>
                   <div className="catalog-preview-head">
                     <h3>完整说明预览</h3>
                     <p>以下内容来自本站保存的官方 Markdown。无需下载即可先阅读和检查。</p>
+                  </div>
+                  {selectedTrainingExample && (
+                    <section className="catalog-class-guide" aria-label="课堂导读">
+                      <h4>课堂导读：{selectedTrainingExample.title}</h4>
+                      <p>{selectedTrainingExample.summary}</p>
+                      <div className="catalog-class-result"><strong>预期结果：</strong>{selectedTrainingExample.outcome}</div>
+                      <div className="catalog-class-prompt">
+                        <strong>可直接尝试的提示词</strong>
+                        {selectedTrainingExample.prompt}
+                        <button className="catalog-copy-prompt" onClick={() => copyTrainingPrompt(selectedTrainingExample.slug, selectedTrainingExample.prompt)}>
+                          {copiedPrompt === selectedTrainingExample.slug ? '已复制' : '复制提示词'}
+                        </button>
+                      </div>
+                    </section>
+                  )}
+                  <div className="catalog-official-guide">
+                    <h4>官方完整说明</h4>
+                    <p>内容保留原文，便于讲师检查功能、限制、脚本和依赖。</p>
                   </div>
                   {preview.status === 'loading' && (
                     <div className="catalog-preview-state" aria-label="正在加载说明">
