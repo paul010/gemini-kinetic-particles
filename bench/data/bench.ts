@@ -7,6 +7,7 @@
 //   kind 'pending' → a reserved slot you'll fill later
 
 import type { LocalizedText } from '../../data/site';
+import { SIMULATED_SVGS } from './simulatedSvg';
 export type { LocalizedText };
 
 export interface Model {
@@ -30,6 +31,7 @@ export interface Result {
   note?: LocalizedText;
   verdict?: 'win' | 'ok' | 'fail';
   simulated?: boolean;
+  featured?: boolean;
   score?: number;
 }
 
@@ -133,10 +135,10 @@ export const TESTS: BenchTest[] = [
       zh: '对象完整性、生物形态、机械结构、接触点、遮挡关系和 SVG 一次成型能力。',
     },
     results: [
-      { modelId: 'claude', kind: 'pending' },
-      { modelId: 'gpt', kind: 'pending' },
-      { modelId: 'gemini', kind: 'pending' },
-      { modelId: 'grok', kind: 'pending' },
+      { modelId: 'claude', kind: 'svg', svg: SIMULATED_SVGS.pelicanClaude, simulated: true, score: 91, note: { en: 'Simulated editorial illustration with warm, hand-drawn restraint.', zh: '模拟结果：温暖、克制的编辑插画方向。' } },
+      { modelId: 'gpt', kind: 'svg', svg: SIMULATED_SVGS.pelicanGpt, simulated: true, score: 94, note: { en: 'Simulated clean technical illustration emphasizing bicycle geometry.', zh: '模拟结果：强调自行车几何结构的清爽技术插画。' } },
+      { modelId: 'gemini', kind: 'svg', svg: SIMULATED_SVGS.pelicanGemini, simulated: true, score: 89, note: { en: 'Simulated colorful character-led interpretation with stronger motion.', zh: '模拟结果：色彩更活泼、动作感更强的角色化方向。' } },
+      { modelId: 'grok', kind: 'svg', svg: SIMULATED_SVGS.pelicanGrok, simulated: true, score: 86, note: { en: 'Simulated monochrome poster treatment with a signal-red accent.', zh: '模拟结果：黑白海报构图搭配信号红点缀。' } },
     ],
   },
   {
@@ -163,9 +165,9 @@ export const TESTS: BenchTest[] = [
     },
     results: [
       { modelId: 'dalei-ref', kind: 'svg', svg: REF_BUTTERFLY, note: { en: 'Da Lei reference (hand-drawn sample)', zh: '大雷参考基准（手绘示例）' }, verdict: 'ok' },
-      { modelId: 'claude', kind: 'pending' },
-      { modelId: 'gpt', kind: 'pending' },
-      { modelId: 'gemini', kind: 'pending' },
+      { modelId: 'claude', kind: 'svg', svg: SIMULATED_SVGS.butterflyClaude, simulated: true, score: 92, note: { en: 'Simulated warm naturalist palette with true mirrored reuse.', zh: '模拟结果：暖色自然主义配色与真实镜像复用。' } },
+      { modelId: 'gpt', kind: 'svg', svg: SIMULATED_SVGS.butterflyGpt, simulated: true, score: 95, note: { en: 'Simulated crisp blue geometric version with clipped internal marks.', zh: '模拟结果：清晰的蓝色几何版本，内部纹样经过裁切。' } },
+      { modelId: 'gemini', kind: 'svg', svg: SIMULATED_SVGS.butterflyGemini, simulated: true, score: 93, note: { en: 'Simulated expressive violet, coral, and teal interpretation.', zh: '模拟结果：紫、珊瑚与青绿色的表现性方向。' } },
     ],
   },
   {
@@ -200,10 +202,10 @@ export const TESTS: BenchTest[] = [
       zh: '品牌一致性、响应式构图、真实交互演示、完整状态、无障碍和单文件可靠性。',
     },
     results: [
-      { modelId: 'claude', kind: 'pending' },
-      { modelId: 'gpt', kind: 'pending' },
-      { modelId: 'gemini', kind: 'pending' },
-      { modelId: 'deepseek', kind: 'pending' },
+      { modelId: 'claude', kind: 'image', image: '/bench/foldnote-claude-sim.webp', simulated: true, score: 93, note: { en: 'Simulated editorial landing page with warm restraint and asymmetric hierarchy.', zh: '模拟结果：温暖克制、层级不对称的编辑式落地页。' } },
+      { modelId: 'gpt', kind: 'image', image: '/bench/foldnote-gpt-sim.webp', simulated: true, score: 95, note: { en: 'Simulated cobalt product system with a complete note-to-knowledge flow.', zh: '模拟结果：钴蓝产品系统与完整的笔记转知识流程。' } },
+      { modelId: 'gemini', kind: 'image', image: '/bench/foldnote-gemini-sim.webp', simulated: true, score: 91, note: { en: 'Simulated spatial note canvas with a lighter, more expressive composition.', zh: '模拟结果：更轻盈、更具表现力的空间笔记画布。' } },
+      { modelId: 'deepseek', kind: 'image', image: '/bench/foldnote-deepseek-sim.webp', simulated: true, score: 90, note: { en: 'Simulated dark technical workspace focused on privacy and source-linked answers.', zh: '模拟结果：突出隐私和来源回答的深色技术工作区。' } },
     ],
   },
   {
@@ -231,9 +233,9 @@ export const TESTS: BenchTest[] = [
       zh: '坐标系统、旋转中心、多速度轨道动画、SVG 复用、减少动效和语义完整性。',
     },
     results: [
-      { modelId: 'claude', kind: 'pending' },
-      { modelId: 'gemini', kind: 'pending' },
-      { modelId: 'qwen', kind: 'pending' },
+      { modelId: 'claude', kind: 'svg', svg: SIMULATED_SVGS.solarClaude, simulated: true, score: 92, note: { en: 'Simulated warm astronomical chart with restrained orbital animation.', zh: '模拟结果：暖色天文图谱与克制的轨道动画。' } },
+      { modelId: 'gemini', kind: 'svg', svg: SIMULATED_SVGS.solarGemini, simulated: true, score: 94, note: { en: 'Simulated luminous blue system with faster, more expressive orbital pacing.', zh: '模拟结果：明亮蓝色体系与更有表现力的轨道节奏。' } },
+      { modelId: 'qwen', kind: 'svg', svg: SIMULATED_SVGS.solarQwen, simulated: true, score: 90, note: { en: 'Simulated violet observatory interpretation with a compact legend.', zh: '模拟结果：紫色观测台方向并配有紧凑图例。' } },
     ],
   },
   {
@@ -266,6 +268,7 @@ export const TESTS: BenchTest[] = [
         kind: 'image',
         image: '/bench/headphone-cyan-sim.webp',
         simulated: true,
+        featured: true,
         score: 94,
         verdict: 'win',
         note: {
@@ -278,6 +281,7 @@ export const TESTS: BenchTest[] = [
         kind: 'image',
         image: '/bench/headphone-amber-sim.webp',
         simulated: true,
+        featured: true,
         score: 91,
         verdict: 'ok',
         note: {
@@ -285,10 +289,10 @@ export const TESTS: BenchTest[] = [
           zh: '模拟展示，并非真实模型跑分。同一固定提示词的技术拆解视图方向。',
         },
       },
-      { modelId: 'gemini', kind: 'pending' },
-      { modelId: 'grok', kind: 'pending' },
-      { modelId: 'qwen', kind: 'pending' },
-      { modelId: 'deepseek', kind: 'pending' },
+      { modelId: 'gemini', kind: 'image', image: '/bench/headphone-gemini-sim.webp', simulated: true, score: 92, note: { en: 'Simulated pearl-white studio with expressive material and lighting variants.', zh: '模拟结果：珍珠白工作室，强调材质与灯光变化。' } },
+      { modelId: 'grok', kind: 'image', image: '/bench/headphone-grok-sim.webp', simulated: true, score: 88, note: { en: 'Simulated black-and-red industrial configurator with mechanical emphasis.', zh: '模拟结果：突出机械感的黑红工业配置器。' } },
+      { modelId: 'qwen', kind: 'image', image: '/bench/headphone-qwen-sim.webp', simulated: true, score: 93, note: { en: 'Simulated ivory-and-jade luxury product gallery.', zh: '模拟结果：象牙与翡翠配色的奢华产品展厅。' } },
+      { modelId: 'deepseek', kind: 'image', image: '/bench/headphone-deepseek-sim.webp', simulated: true, score: 91, note: { en: 'Simulated engineering view pairing PBR rendering with mesh inspection.', zh: '模拟结果：结合 PBR 渲染与网格检查的工程视图。' } },
     ],
   },
   {
@@ -321,6 +325,7 @@ export const TESTS: BenchTest[] = [
         kind: 'image',
         image: '/bench/voxel-night-sim.webp',
         simulated: true,
+        featured: true,
         score: 90,
         verdict: 'ok',
         note: {
@@ -328,12 +333,13 @@ export const TESTS: BenchTest[] = [
           zh: '模拟展示，并非真实模型跑分。夜间探索方向，目标路径清楚，HUD 保持克制。',
         },
       },
-      { modelId: 'gpt', kind: 'pending' },
+      { modelId: 'gpt', kind: 'image', image: '/bench/voxel-gpt-sim.webp', simulated: true, score: 93, note: { en: 'Simulated bright coastal sandbox with a clean objective loop.', zh: '模拟结果：明亮海岛沙盒与清晰的目标循环。' } },
       {
         modelId: 'gemini',
         kind: 'image',
         image: '/bench/voxel-sunset-sim.webp',
         simulated: true,
+        featured: true,
         score: 95,
         verdict: 'win',
         note: {
@@ -341,9 +347,9 @@ export const TESTS: BenchTest[] = [
           zh: '模拟展示，并非真实模型跑分。日落世界生成方向，突出景深、地形丰富度和目标可读性。',
         },
       },
-      { modelId: 'grok', kind: 'pending' },
-      { modelId: 'qwen', kind: 'pending' },
-      { modelId: 'deepseek', kind: 'pending' },
+      { modelId: 'grok', kind: 'image', image: '/bench/voxel-grok-sim.webp', simulated: true, score: 87, note: { en: 'Simulated volcanic survival biome with stark risk readability.', zh: '模拟结果：风险辨识鲜明的火山生存群系。' } },
+      { modelId: 'qwen', kind: 'image', image: '/bench/voxel-qwen-sim.webp', simulated: true, score: 92, note: { en: 'Simulated misty bamboo mountain world with a poetic route to the shrine.', zh: '模拟结果：雾中竹山世界与通往神殿的诗意路线。' } },
+      { modelId: 'deepseek', kind: 'image', image: '/bench/voxel-deepseek-sim.webp', simulated: true, score: 90, note: { en: 'Simulated performance-oriented crystal cave with technical HUD cues.', zh: '模拟结果：性能导向的晶矿洞穴与技术 HUD。' } },
     ],
   },
 ];

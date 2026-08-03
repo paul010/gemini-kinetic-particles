@@ -102,7 +102,7 @@ const ScrollWorldShowcase: React.FC<ShowcaseProps> = ({ t, onOpen }) => {
   const [active, setActive] = useState(0);
   const [sceneProgress, setSceneProgress] = useState(0);
   const scenes = useMemo(
-    () => TESTS.flatMap((test) => test.results.filter((r) => r.simulated && r.image).map((r) => ({ test, r }))),
+    () => TESTS.flatMap((test) => test.results.filter((r) => r.simulated && r.featured && r.image).map((r) => ({ test, r }))),
     [],
   );
 
@@ -271,6 +271,12 @@ const Bench: React.FC<Props> = ({ onHome }) => {
   useEffect(() => {
     if (typeof window !== 'undefined') window.localStorage.setItem(STORAGE_KEY, lang);
   }, [lang]);
+  useEffect(() => {
+    const id = window.location.hash.slice(1);
+    if (!id) return;
+    const frame = requestAnimationFrame(() => document.getElementById(id)?.scrollIntoView());
+    return () => cancelAnimationFrame(frame);
+  }, []);
 
   const tests = useMemo(() => (cat === 'all' ? TESTS : TESTS.filter((bt) => bt.category === cat)), [cat]);
 
@@ -341,7 +347,7 @@ const Bench: React.FC<Props> = ({ onHome }) => {
         </div>
         <div className="flex flex-col gap-10">
           {tests.map((test) => (
-            <section key={test.id} className="rounded-2xl border border-ink/10 bg-surface/40 p-6 sm:p-7">
+            <section id={test.id} key={test.id} className="scroll-mt-20 rounded-2xl border border-ink/10 bg-surface/40 p-6 sm:p-7">
               <div className="flex flex-wrap items-start justify-between gap-3">
                 <div>
                   <h2 className="font-display text-2xl font-semibold tracking-tight">{t(test.title)}</h2>
