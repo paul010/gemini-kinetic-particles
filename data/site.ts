@@ -634,6 +634,28 @@ export const PROJECTS: Project[] = [
     ],
   },
   {
+    id: 'microsoft-cat-agent-skills',
+    category: 'ai',
+    title: { en: 'Microsoft CAT Agent Skills', zh: 'Microsoft CAT Agent Skills 培训入口' },
+    year: '2026',
+    status: 'live',
+    featured: true,
+    cover: '/cat-skills-cover.webp',
+    tagline: {
+      en: 'A Chinese training gateway to discover, review, test, and safely adopt Agent Skills.',
+      zh: '面向培训学员的中文入口：发现、审查、测试并安全采用 Agent Skill。',
+    },
+    description: {
+      en: 'A workshop-ready guide to the Microsoft CAT Agent Skills community gallery. It explains what a Skill is, provides a practical adoption path, links to seven recommended official Skills, and includes a copyable evaluation prompt for hands-on training. Downloads and current versions remain on the official Microsoft gallery.',
+      zh: '为 Microsoft CAT Agent Skills 社区图库制作的培训导览。讲清 Skill 是什么、如何安全采用，精选 7 个官方 Skill 组成完整练习路径，并附一段可直接复制的结构化评测提示词。下载与最新版本仍以微软官方图库为准。',
+    },
+    tags: ['Microsoft', 'Agent Skills', 'Copilot Studio', 'Training'],
+    links: [
+      { label: { en: 'Open training guide', zh: '打开培训导览' }, href: '/cat-skills', kind: 'internal' },
+      { label: { en: 'Official gallery', zh: '微软官方图库' }, href: 'https://microsoft.github.io/cat-agent-skills/', kind: 'live' },
+    ],
+  },
+  {
     id: 'smallville',
     category: 'creative',
     title: { en: 'Smallville - Generative Agents', zh: 'Smallville 小镇 · 生成式智能体' },

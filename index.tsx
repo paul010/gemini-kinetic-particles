@@ -25,6 +25,7 @@ const QuyouBus = React.lazy(() => import('./quyoubus/QuyouBus'));
 const HPWorkshop = React.lazy(() => import('./hpworkshop/HPWorkshop'));
 const Agents = React.lazy(() => import('./agents/Agents'));
 const Skills = React.lazy(() => import('./skills/Skills'));
+const CatAgentSkills = React.lazy(() => import('./catskills/CatAgentSkills'));
 const PlantUML = React.lazy(() => import('./tools/PlantUML'));
 const Smallville = React.lazy(() => import('./town/Smallville'));
 const Patterns = React.lazy(() => import('./patterns/Patterns'));
@@ -55,7 +56,7 @@ const Loader: React.FC<{ label: string }> = ({ label }) => (
   </div>
 );
 
-type Route = 'home' | 'particles' | 'arsenal' | 'md' | 'img' | 's2c' | 'fluid' | 'r3f' | 'ttt-hour-of-code' | 'hear-the-universe' | 'bench' | 'fugu' | 'copilot' | 'copilotcamp' | 'promptforge' | 'notebooklm' | 'aihtml' | 'text2image' | 'farmer' | 'quyoubus' | 'hpworkshop' | 'agents' | 'skills' | 'uml' | 'town' | 'patterns' | 'prompts' | 'cici' | 'designskill' | 'videogen' | 'dino' | 'chengdu' | 'lab3d' | 'cappadocia' | 'zhangjiajie' | 'niagara' | 'fireflies' | 'harbin' | 'forbiddencity' | 'brooksfalls';
+type Route = 'home' | 'particles' | 'arsenal' | 'md' | 'img' | 's2c' | 'fluid' | 'r3f' | 'ttt-hour-of-code' | 'hear-the-universe' | 'bench' | 'fugu' | 'copilot' | 'copilotcamp' | 'promptforge' | 'notebooklm' | 'aihtml' | 'text2image' | 'farmer' | 'quyoubus' | 'hpworkshop' | 'agents' | 'skills' | 'cat-skills' | 'uml' | 'town' | 'patterns' | 'prompts' | 'cici' | 'designskill' | 'videogen' | 'dino' | 'chengdu' | 'lab3d' | 'cappadocia' | 'zhangjiajie' | 'niagara' | 'fireflies' | 'harbin' | 'forbiddencity' | 'brooksfalls';
 
 const routeFromLocation = (): Route => {
   const { pathname, hash } = window.location;
@@ -82,6 +83,7 @@ const routeFromLocation = (): Route => {
   if (p.endsWith('/copilot') || hash === '#/copilot') return 'copilot';
   if (p.endsWith('/agents') || hash === '#/agents') return 'agents';
   if (p.endsWith('/skills') || hash === '#/skills') return 'skills';
+  if (p.endsWith('/cat-skills') || hash === '#/cat-skills') return 'cat-skills';
   if (p.endsWith('/uml') || hash === '#/uml') return 'uml';
   if (p.endsWith('/town') || hash === '#/town') return 'town';
   if (p.endsWith('/patterns') || hash === '#/patterns') return 'patterns';
@@ -154,6 +156,7 @@ const Router: React.FC = () => {
       hpworkshop: 'AI 实战工作坊演示面板 · 9 个 Copilot 案例 · 大雷',
       agents: 'Agent 模板库 · Agent Templates · 大雷',
       skills: 'Skill 技能库 · Skill Library · 大雷',
+      'cat-skills': 'Microsoft CAT Agent Skills 培训入口 · 大雷',
       uml: 'PlantUML 渲染器 · 大雷',
       town: 'Smallville 小镇 · 生成式智能体 · 大雷',
       patterns: 'Agent 设计模式 · Agent Design Patterns · 大雷',
@@ -355,6 +358,14 @@ const Router: React.FC = () => {
     return (
       <Suspense fallback={<Loader label="LOADING SKILLS…" />}>
         <Skills onHome={() => navigate('/')} />
+      </Suspense>
+    );
+  }
+
+  if (route === 'cat-skills') {
+    return (
+      <Suspense fallback={<Loader label="LOADING CAT SKILLS…" />}>
+        <CatAgentSkills onHome={() => navigate('/')} />
       </Suspense>
     );
   }
