@@ -1,0 +1,2267 @@
+{
+  "meta": {
+    "source": "https://github.com/microsoft/cat-agent-skills",
+    "sourceCommit": "362948bfef54f6fdeda77673ee2f21d1086003f3",
+    "sourceCommitDate": "2026-08-03T08:27:42+03:00",
+    "generatedAt": "2026-08-03T07:46:06.678Z",
+    "license": "MIT",
+    "total": 76
+  },
+  "items": [
+    {
+      "slug": "accessibility-pass",
+      "name": "Accessibility Pass",
+      "description": "Check a PowerPoint deck, Word document, HTML page, or Markdown file against Microsoft's Accessibility Checker rules (missing alt text, untitled slides, headerless tables, low contrast, illogical reading order) and fix what it finds.",
+      "platforms": [
+        "Copilot Studio",
+        "Cowork"
+      ],
+      "type": "skill",
+      "tags": [
+        "accessibility",
+        "documents",
+        "presentations",
+        "powerpoint",
+        "quality",
+        "scripts"
+      ],
+      "author": "Tim Karlsson",
+      "authorUrl": "https://github.com/Timziito",
+      "version": "1.0.0",
+      "createdAt": "2026-07-26",
+      "updatedAt": "2026-07-26",
+      "downloadUrl": "/cat-skills-data/bundles/accessibility-pass.zip",
+      "downloadName": "accessibility-pass.zip",
+      "downloadSize": 10069,
+      "recordedDownloads": 0,
+      "markdownUrl": "/cat-skills-data/markdown/accessibility-pass.md",
+      "officialUrl": "https://microsoft.github.io/cat-agent-skills/skills/accessibility-pass/",
+      "sourceUrl": "https://github.com/microsoft/cat-agent-skills/tree/362948bfef54f6fdeda77673ee2f21d1086003f3/submissions/accessibility-pass"
+    },
+    {
+      "slug": "acroform-writer",
+      "name": "AcroForm Writer",
+      "description": "Fill an existing AcroForm PDF's real form fields from supplied data and flatten the result into a finished, non-editable PDF",
+      "platforms": [
+        "Copilot Studio"
+      ],
+      "type": "skill",
+      "tags": [
+        "acroform",
+        "pdf",
+        "forms",
+        "python",
+        "documents"
+      ],
+      "author": "Sandeep Angara",
+      "authorUrl": "https://github.com/hisandeepangara",
+      "version": "1.0.0",
+      "createdAt": "2026-07-22",
+      "updatedAt": "2026-07-22",
+      "downloadUrl": "/cat-skills-data/bundles/acroform-writer.zip",
+      "downloadName": "acroform-writer.zip",
+      "downloadSize": 8989,
+      "recordedDownloads": 0,
+      "markdownUrl": "/cat-skills-data/markdown/acroform-writer.md",
+      "officialUrl": "https://microsoft.github.io/cat-agent-skills/skills/acroform-writer/",
+      "sourceUrl": "https://github.com/microsoft/cat-agent-skills/tree/362948bfef54f6fdeda77673ee2f21d1086003f3/submissions/acroform-writer"
+    },
+    {
+      "slug": "agent-evaluation-designer",
+      "name": "Agent Evaluation Designer",
+      "description": "Design a rigorous, platform-aware evaluation for an AI agent - define what good looks like, pick the right grading method, build a test set, and turn results into a defensible go/no-go decision.",
+      "platforms": [
+        "Copilot Studio"
+      ],
+      "type": "skill",
+      "tags": [
+        "evaluation",
+        "testing",
+        "quality-assurance",
+        "go-live",
+        "decision-making"
+      ],
+      "author": "James Papadimitriou",
+      "authorUrl": "https://github.com/jpapadimitriou",
+      "version": "1.0.0",
+      "createdAt": "2026-07-23",
+      "updatedAt": "2026-07-23",
+      "downloadUrl": "/cat-skills-data/bundles/agent-evaluation-designer.zip",
+      "downloadName": "agent-evaluation-designer.zip",
+      "downloadSize": 4692,
+      "recordedDownloads": 0,
+      "markdownUrl": "/cat-skills-data/markdown/agent-evaluation-designer.md",
+      "officialUrl": "https://microsoft.github.io/cat-agent-skills/skills/agent-evaluation-designer/",
+      "sourceUrl": "https://github.com/microsoft/cat-agent-skills/tree/362948bfef54f6fdeda77673ee2f21d1086003f3/submissions/agent-evaluation-designer"
+    },
+    {
+      "slug": "agent-harness-explorer",
+      "name": "Agent Harness Explorer",
+      "description": "Discover, document, and monitor what the agent harness can do — Python libraries, tools, MCP servers, and runtime capabilities — with repeatable, comparable snapshots.",
+      "platforms": [
+        "Copilot Studio",
+        "Cowork",
+        "Scout"
+      ],
+      "type": "skill",
+      "tags": [
+        "diagnostics",
+        "runtime",
+        "python",
+        "capabilities",
+        "snapshots",
+        "scripts"
+      ],
+      "author": "Chris Garty and Andrew Hess",
+      "authorUrl": "https://github.com/ChrisGarty",
+      "version": "0.1.0",
+      "createdAt": "2026-07-14",
+      "updatedAt": "2026-07-14",
+      "downloadUrl": "/cat-skills-data/bundles/agent-harness-explorer.zip",
+      "downloadName": "agent-harness-explorer.zip",
+      "downloadSize": 62472,
+      "recordedDownloads": 87,
+      "markdownUrl": "/cat-skills-data/markdown/agent-harness-explorer.md",
+      "officialUrl": "https://microsoft.github.io/cat-agent-skills/skills/agent-harness-explorer/",
+      "sourceUrl": "https://github.com/microsoft/cat-agent-skills/tree/362948bfef54f6fdeda77673ee2f21d1086003f3/submissions/agent-harness-explorer"
+    },
+    {
+      "slug": "ai-demo-assistant",
+      "name": "AI Demo Assistant",
+      "description": "Turns a customer name, line of business, and personas into a ready-to-seed Microsoft 365 Copilot demo — fictional Word/PowerPoint/Excel example files plus a full delivery and provisioning plan, with optional one-click seeding to OneDrive and Teams.",
+      "platforms": [
+        "Cowork"
+      ],
+      "type": "skill",
+      "tags": [
+        "demo",
+        "copilot",
+        "microsoft-365",
+        "sales-enablement",
+        "content",
+        "productivity"
+      ],
+      "author": "Doak Moore",
+      "authorUrl": "",
+      "version": "1.0.0",
+      "createdAt": "",
+      "updatedAt": "",
+      "downloadUrl": "/cat-skills-data/files/ai-demo-assistant/SKILL.md",
+      "downloadName": "SKILL.md",
+      "downloadSize": 23981,
+      "recordedDownloads": 0,
+      "markdownUrl": "/cat-skills-data/markdown/ai-demo-assistant.md",
+      "officialUrl": "https://microsoft.github.io/cat-agent-skills/skills/ai-demo-assistant/",
+      "sourceUrl": "https://github.com/microsoft/cat-agent-skills/tree/362948bfef54f6fdeda77673ee2f21d1086003f3/submissions/ai-demo-assistant"
+    },
+    {
+      "slug": "ai-usecase-assessment",
+      "name": "AI Use Case Assessment",
+      "description": "Turn any AI/agentic use case idea (chat, uploaded doc, or attached file) into an evidence-grounded, rubric-scored assessment with a customer-branded HTML report. Guides the user question-by-question through intake, categorisation, strengthening, scoring, and reporting — grounded in the Agentic Use Case Assessment Rubric v2. Runs in Microsoft Scout and Microsoft 365 Copilot Cowork.",
+      "platforms": [
+        "Scout",
+        "Cowork"
+      ],
+      "type": "skill",
+      "tags": [
+        "assessment",
+        "ai",
+        "agent",
+        "use-case",
+        "scoring",
+        "report",
+        "html",
+        "intake"
+      ],
+      "author": "Alicja Gilderdale",
+      "authorUrl": "https://www.linkedin.com/in/alicja-gilderdale/",
+      "version": "1.0.0",
+      "createdAt": "2026-07-17",
+      "updatedAt": "2026-07-17",
+      "downloadUrl": "/cat-skills-data/bundles/ai-usecase-assessment.zip",
+      "downloadName": "ai-usecase-assessment.zip",
+      "downloadSize": 453994,
+      "recordedDownloads": 101,
+      "markdownUrl": "/cat-skills-data/markdown/ai-usecase-assessment.md",
+      "officialUrl": "https://microsoft.github.io/cat-agent-skills/skills/ai-usecase-assessment/",
+      "sourceUrl": "https://github.com/microsoft/cat-agent-skills/tree/362948bfef54f6fdeda77673ee2f21d1086003f3/submissions/ai-usecase-assessment"
+    },
+    {
+      "slug": "ai-first-process-redesign",
+      "name": "AI-First Process Redesign",
+      "description": "Redesign your existing processes with AI-first thinking",
+      "platforms": [
+        "Cowork",
+        "Copilot Studio"
+      ],
+      "type": "skill",
+      "tags": [
+        "productivity",
+        "process-improvement",
+        "agentic-workflow"
+      ],
+      "author": "Tim Sparks",
+      "authorUrl": "",
+      "version": "2.1.0",
+      "createdAt": "",
+      "updatedAt": "",
+      "downloadUrl": "/cat-skills-data/bundles/ai-first-process-redesign.zip",
+      "downloadName": "ai-first-process-redesign.zip",
+      "downloadSize": 15220,
+      "recordedDownloads": 0,
+      "markdownUrl": "/cat-skills-data/markdown/ai-first-process-redesign.md",
+      "officialUrl": "https://microsoft.github.io/cat-agent-skills/skills/ai-first-process-redesign/",
+      "sourceUrl": "https://github.com/microsoft/cat-agent-skills/tree/362948bfef54f6fdeda77673ee2f21d1086003f3/submissions/ai-first-process-redesign"
+    },
+    {
+      "slug": "anonymised-case-study-writer",
+      "name": "Anonymised Case Study Writer",
+      "description": "Turn engagement notes into anonymised, publishable case studies without exposing client-confidential details.",
+      "platforms": [
+        "Cowork",
+        "Copilot Studio",
+        "Scout"
+      ],
+      "type": "skill",
+      "tags": [
+        "writing",
+        "case-study",
+        "marketing",
+        "documents",
+        "content",
+        "privacy"
+      ],
+      "author": "Simon Owen",
+      "authorUrl": "https://github.com/SimonOwenDigital",
+      "version": "0.1.0",
+      "createdAt": "2026-07-17",
+      "updatedAt": "2026-07-17",
+      "downloadUrl": "/cat-skills-data/bundles/anonymised-case-study-writer.zip",
+      "downloadName": "anonymised-case-study-writer.zip",
+      "downloadSize": 2687,
+      "recordedDownloads": 0,
+      "markdownUrl": "/cat-skills-data/markdown/anonymised-case-study-writer.md",
+      "officialUrl": "https://microsoft.github.io/cat-agent-skills/skills/anonymised-case-study-writer/",
+      "sourceUrl": "https://github.com/microsoft/cat-agent-skills/tree/362948bfef54f6fdeda77673ee2f21d1086003f3/submissions/anonymised-case-study-writer"
+    },
+    {
+      "slug": "clt-hr-assistant",
+      "name": "Assistente CLT para RH",
+      "description": "Assistente de legislação trabalhista brasileira (CLT) para equipes de RH e Departamento Pessoal. Responde dúvidas sobre férias, 13º salário, aviso prévio, jornada e tipos de rescisão, e calcula verbas rescisórias com memória de cálculo completa usando as tabelas oficiais vigentes de 2026 (salário mínimo, INSS e IRRF, incluindo a Lei 15.270/2025).",
+      "platforms": [
+        "Copilot Studio",
+        "Cowork",
+        "Scout"
+      ],
+      "type": "skill",
+      "tags": [
+        "rh",
+        "folha",
+        "clt",
+        "brasil",
+        "trabalhista",
+        "rescisao",
+        "inss",
+        "irrf",
+        "verbas-rescisorias",
+        "departamento-pessoal"
+      ],
+      "author": "Michael Ferro Pereira",
+      "authorUrl": "https://github.com/michaelfp",
+      "version": "",
+      "createdAt": "",
+      "updatedAt": "",
+      "downloadUrl": "/cat-skills-data/bundles/clt-hr-assistant.zip",
+      "downloadName": "clt-hr-assistant.zip",
+      "downloadSize": 14573,
+      "recordedDownloads": 0,
+      "markdownUrl": "/cat-skills-data/markdown/clt-hr-assistant.md",
+      "officialUrl": "https://microsoft.github.io/cat-agent-skills/skills/clt-hr-assistant/",
+      "sourceUrl": "https://github.com/microsoft/cat-agent-skills/tree/362948bfef54f6fdeda77673ee2f21d1086003f3/submissions/clt-hr-assistant"
+    },
+    {
+      "slug": "awaiting-reply",
+      "name": "Awaiting Reply",
+      "description": "A weekday-morning Scout automation that finds emails you sent that asked for something and never got an answer, reports how many are waiting, and prepares follow-up drafts in each thread's own language that it never sends.",
+      "platforms": [
+        "Scout"
+      ],
+      "type": "automation",
+      "tags": [
+        "email",
+        "follow-up",
+        "automation",
+        "productivity",
+        "inbox",
+        "reminder",
+        "multilingual"
+      ],
+      "author": "Allan De Castro",
+      "authorUrl": "https://github.com/allandecastro",
+      "version": "1.0.0",
+      "createdAt": "2026-07-27",
+      "updatedAt": "2026-07-27",
+      "downloadUrl": "/cat-skills-data/bundles/awaiting-reply.json",
+      "downloadName": "awaiting-reply.json",
+      "downloadSize": 6927,
+      "recordedDownloads": 0,
+      "markdownUrl": "/cat-skills-data/markdown/awaiting-reply.md",
+      "officialUrl": "https://microsoft.github.io/cat-agent-skills/skills/awaiting-reply/",
+      "sourceUrl": "https://github.com/microsoft/cat-agent-skills/tree/362948bfef54f6fdeda77673ee2f21d1086003f3/submissions/awaiting-reply"
+    },
+    {
+      "slug": "b2b-outreach-suite",
+      "name": "B2B Outreach Suite",
+      "description": "A six-playbook toolkit for agentic B2B sales outreach: prospect research briefings, cold emails, LinkedIn/social DMs, follow-up cadences, ad copywriting, and objection handling. Configurable via a company profile template, works for any industry, market, and language.",
+      "platforms": [
+        "Cowork",
+        "Copilot Studio",
+        "Scout"
+      ],
+      "type": "skill",
+      "tags": [
+        "sales-enablement",
+        "email",
+        "linkedin",
+        "writing",
+        "marketing",
+        "content"
+      ],
+      "author": "Marcel",
+      "authorUrl": "https://github.com/marcelhuszar",
+      "version": "1.0.0",
+      "createdAt": "",
+      "updatedAt": "",
+      "downloadUrl": "/cat-skills-data/bundles/b2b-outreach-suite.zip",
+      "downloadName": "b2b-outreach-suite.zip",
+      "downloadSize": 10702,
+      "recordedDownloads": 0,
+      "markdownUrl": "/cat-skills-data/markdown/b2b-outreach-suite.md",
+      "officialUrl": "https://microsoft.github.io/cat-agent-skills/skills/b2b-outreach-suite/",
+      "sourceUrl": "https://github.com/microsoft/cat-agent-skills/tree/362948bfef54f6fdeda77673ee2f21d1086003f3/submissions/b2b-outreach-suite"
+    },
+    {
+      "slug": "blog-content-auditor",
+      "name": "Blog Content Auditor",
+      "description": "Audit blog posts or a blog library for clarity, structure, evidence, audience fit, and improvement priority.",
+      "platforms": [
+        "Cowork",
+        "Copilot Studio",
+        "Scout"
+      ],
+      "type": "skill",
+      "tags": [
+        "blog",
+        "content",
+        "audit",
+        "writing",
+        "seo",
+        "productivity"
+      ],
+      "author": "Simon Owen",
+      "authorUrl": "https://github.com/SimonOwenDigital",
+      "version": "0.1.0",
+      "createdAt": "2026-07-17",
+      "updatedAt": "2026-07-17",
+      "downloadUrl": "/cat-skills-data/bundles/blog-content-auditor.zip",
+      "downloadName": "blog-content-auditor.zip",
+      "downloadSize": 2273,
+      "recordedDownloads": 0,
+      "markdownUrl": "/cat-skills-data/markdown/blog-content-auditor.md",
+      "officialUrl": "https://microsoft.github.io/cat-agent-skills/skills/blog-content-auditor/",
+      "sourceUrl": "https://github.com/microsoft/cat-agent-skills/tree/362948bfef54f6fdeda77673ee2f21d1086003f3/submissions/blog-content-auditor"
+    },
+    {
+      "slug": "blog-post-structure-pass",
+      "name": "Blog Post Structure Pass",
+      "description": "Restructure draft or existing blog posts into a stronger narrative without inventing new claims.",
+      "platforms": [
+        "Cowork",
+        "Copilot Studio",
+        "Scout"
+      ],
+      "type": "skill",
+      "tags": [
+        "blog",
+        "writing",
+        "authoring",
+        "content",
+        "structure",
+        "productivity"
+      ],
+      "author": "Simon Owen",
+      "authorUrl": "https://github.com/SimonOwenDigital",
+      "version": "0.1.0",
+      "createdAt": "2026-07-17",
+      "updatedAt": "2026-07-17",
+      "downloadUrl": "/cat-skills-data/bundles/blog-post-structure-pass.zip",
+      "downloadName": "blog-post-structure-pass.zip",
+      "downloadSize": 2060,
+      "recordedDownloads": 0,
+      "markdownUrl": "/cat-skills-data/markdown/blog-post-structure-pass.md",
+      "officialUrl": "https://microsoft.github.io/cat-agent-skills/skills/blog-post-structure-pass/",
+      "sourceUrl": "https://github.com/microsoft/cat-agent-skills/tree/362948bfef54f6fdeda77673ee2f21d1086003f3/submissions/blog-post-structure-pass"
+    },
+    {
+      "slug": "brand-template-enforcer",
+      "name": "Brand Template Enforcer",
+      "description": "Ensure every generated PowerPoint deck or Word document starts from the correct bundled or SharePoint-hosted brand template.",
+      "platforms": [
+        "Copilot Studio"
+      ],
+      "type": "skill",
+      "tags": [
+        "branding",
+        "powerpoint",
+        "word",
+        "templates",
+        "documents",
+        "presentations"
+      ],
+      "author": "Doug Bellingeri",
+      "authorUrl": "https://github.com/CATDAB",
+      "version": "1.2.0",
+      "createdAt": "2026-07-16",
+      "updatedAt": "2026-07-18",
+      "downloadUrl": "/cat-skills-data/bundles/brand-template-enforcer.zip",
+      "downloadName": "brand-template-enforcer.zip",
+      "downloadSize": 9944,
+      "recordedDownloads": 87,
+      "markdownUrl": "/cat-skills-data/markdown/brand-template-enforcer.md",
+      "officialUrl": "https://microsoft.github.io/cat-agent-skills/skills/brand-template-enforcer/",
+      "sourceUrl": "https://github.com/microsoft/cat-agent-skills/tree/362948bfef54f6fdeda77673ee2f21d1086003f3/submissions/brand-template-enforcer"
+    },
+    {
+      "slug": "brand-voice-pass",
+      "name": "Brand Voice Pass",
+      "description": "Rewrite drafts into a configurable house style, preserving meaning while removing generic AI phrasing.",
+      "platforms": [
+        "Cowork",
+        "Copilot Studio",
+        "Scout"
+      ],
+      "type": "skill",
+      "tags": [
+        "writing",
+        "content",
+        "voice",
+        "authoring",
+        "productivity"
+      ],
+      "author": "Simon Owen",
+      "authorUrl": "https://github.com/SimonOwenDigital",
+      "version": "0.1.0",
+      "createdAt": "2026-07-17",
+      "updatedAt": "2026-07-17",
+      "downloadUrl": "/cat-skills-data/bundles/brand-voice-pass.zip",
+      "downloadName": "brand-voice-pass.zip",
+      "downloadSize": 2748,
+      "recordedDownloads": 0,
+      "markdownUrl": "/cat-skills-data/markdown/brand-voice-pass.md",
+      "officialUrl": "https://microsoft.github.io/cat-agent-skills/skills/brand-voice-pass/",
+      "sourceUrl": "https://github.com/microsoft/cat-agent-skills/tree/362948bfef54f6fdeda77673ee2f21d1086003f3/submissions/brand-voice-pass"
+    },
+    {
+      "slug": "business-os",
+      "name": "Business OS",
+      "description": "A practical operating system for Copilot Studio that gives agents a consistent way to clarify outcomes, choose the right approach, solve problems, make decisions, plan projects, improve processes, handle incidents, and turn repeatable work into reusable skills. Unlike a standard Copilot experience that relies mainly on the prompt and available context, Business OS adds a structured way of working so responses are more consistent, actionable, and easier to reuse across real business tasks.",
+      "platforms": [
+        "Copilot Studio"
+      ],
+      "type": "skill",
+      "tags": [
+        "business",
+        "decision-making",
+        "problem-solving",
+        "project-planning",
+        "process-improvement",
+        "governance",
+        "skill-generation"
+      ],
+      "author": "Matthew James Davis",
+      "authorUrl": "https://agentskillslibrary.ai",
+      "version": "1.0.0",
+      "createdAt": "",
+      "updatedAt": "",
+      "downloadUrl": "/cat-skills-data/bundles/business-os.zip",
+      "downloadName": "business-os.zip",
+      "downloadSize": 29349,
+      "recordedDownloads": 0,
+      "markdownUrl": "/cat-skills-data/markdown/business-os.md",
+      "officialUrl": "https://microsoft.github.io/cat-agent-skills/skills/business-os/",
+      "sourceUrl": "https://github.com/microsoft/cat-agent-skills/tree/362948bfef54f6fdeda77673ee2f21d1086003f3/submissions/business-os"
+    },
+    {
+      "slug": "call-for-speakers-digest",
+      "name": "Call for Speakers Digest",
+      "description": "Weekly HTML email digest of open conference Call for Speakers (CFP) opportunities matching your topics of interest. Pulls from confs.tech, Papercall, AdatoSystems' CFP tracker, CFP Radar, Sessionize's public user-groups directory, community-specific hubs (like communitydays.org for the Microsoft ecosystem), targeted search of standalone Sessionize conferences and run.events, and general web search. Filters to genuinely open CFPs only, and includes close dates, event dates, format (virtual/in-person), and speaker benefits when stated. Won't repeat a listing week to week unless its deadline is closing soon.",
+      "platforms": [
+        "Copilot Studio",
+        "Scout",
+        "Cowork"
+      ],
+      "type": "skill",
+      "tags": [
+        "productivity",
+        "speaking",
+        "conference",
+        "automation"
+      ],
+      "author": "Michael Heath",
+      "authorUrl": "https://github.com/GetAutomating",
+      "version": "1.0.0",
+      "createdAt": "",
+      "updatedAt": "",
+      "downloadUrl": "/cat-skills-data/files/call-for-speakers-digest/SKILL.md",
+      "downloadName": "SKILL.md",
+      "downloadSize": 14873,
+      "recordedDownloads": 0,
+      "markdownUrl": "/cat-skills-data/markdown/call-for-speakers-digest.md",
+      "officialUrl": "https://microsoft.github.io/cat-agent-skills/skills/call-for-speakers-digest/",
+      "sourceUrl": "https://github.com/microsoft/cat-agent-skills/tree/362948bfef54f6fdeda77673ee2f21d1086003f3/submissions/call-for-speakers-digest"
+    },
+    {
+      "slug": "campaign-deck-builder",
+      "name": "Campaign Deck Builder",
+      "description": "Turn a short interview into a charming, vibrant 3-slide marketing-campaign deck by filling a bundled PowerPoint template.",
+      "platforms": [
+        "Copilot Studio"
+      ],
+      "type": "skill",
+      "tags": [
+        "marketing",
+        "presentations",
+        "powerpoint",
+        "automation",
+        "scripts"
+      ],
+      "author": "Adi Leibowitz",
+      "authorUrl": "https://microsoft.github.io/mcscatblog/",
+      "version": "1.0.0",
+      "createdAt": "2026-07-09",
+      "updatedAt": "2026-07-09",
+      "downloadUrl": "/cat-skills-data/bundles/campaign-deck-builder.zip",
+      "downloadName": "campaign-deck-builder.zip",
+      "downloadSize": 32184,
+      "recordedDownloads": 0,
+      "markdownUrl": "/cat-skills-data/markdown/campaign-deck-builder.md",
+      "officialUrl": "https://microsoft.github.io/cat-agent-skills/skills/campaign-deck-builder/",
+      "sourceUrl": "https://github.com/microsoft/cat-agent-skills/tree/362948bfef54f6fdeda77673ee2f21d1086003f3/submissions/campaign-deck-builder"
+    },
+    {
+      "slug": "chart-builder",
+      "name": "Chart Builder",
+      "description": "Generate clean, consistently-styled matplotlib charts (bar, line, scatter, histogram, pie) from a DataFrame or CSV with one call.",
+      "platforms": [
+        "Cowork",
+        "Copilot Studio",
+        "Scout"
+      ],
+      "type": "skill",
+      "tags": [
+        "data",
+        "charts",
+        "matplotlib",
+        "scripts"
+      ],
+      "author": "CAT Agent Skills",
+      "authorUrl": "https://github.com/microsoft/cat-agent-skills",
+      "version": "1.0.0",
+      "createdAt": "2026-07-14",
+      "updatedAt": "2026-07-14",
+      "downloadUrl": "/cat-skills-data/bundles/chart-builder.zip",
+      "downloadName": "chart-builder.zip",
+      "downloadSize": 7568,
+      "recordedDownloads": 218,
+      "markdownUrl": "/cat-skills-data/markdown/chart-builder.md",
+      "officialUrl": "https://microsoft.github.io/cat-agent-skills/skills/chart-builder/",
+      "sourceUrl": "https://github.com/microsoft/cat-agent-skills/tree/362948bfef54f6fdeda77673ee2f21d1086003f3/submissions/chart-builder"
+    },
+    {
+      "slug": "classic-text-adventure",
+      "name": "Classic Text Adventure",
+      "description": "Play a deterministic, resumable Colossal Cave adventure with exact game output and built-in diagnostics.",
+      "platforms": [
+        "Copilot Studio"
+      ],
+      "type": "skill",
+      "tags": [
+        "adventure",
+        "game",
+        "python"
+      ],
+      "author": "Andreas Adner",
+      "authorUrl": "https://github.com/Adner",
+      "version": "0.1.0",
+      "createdAt": "2026-07-22",
+      "updatedAt": "2026-07-22",
+      "downloadUrl": "/cat-skills-data/bundles/classic-text-adventure.zip",
+      "downloadName": "classic-text-adventure.zip",
+      "downloadSize": 122371,
+      "recordedDownloads": 0,
+      "markdownUrl": "/cat-skills-data/markdown/classic-text-adventure.md",
+      "officialUrl": "https://microsoft.github.io/cat-agent-skills/skills/classic-text-adventure/",
+      "sourceUrl": "https://github.com/microsoft/cat-agent-skills/tree/362948bfef54f6fdeda77673ee2f21d1086003f3/submissions/classic-text-adventure"
+    },
+    {
+      "slug": "commenting-content",
+      "name": "Commenting Content",
+      "description": "Comments Word or PowerPoint files with Comments.",
+      "platforms": [
+        "Cowork",
+        "Copilot Studio"
+      ],
+      "type": "skill",
+      "tags": [
+        "documents",
+        "productivity"
+      ],
+      "author": "AndrewHessMSFT",
+      "authorUrl": "https://github.com/AndrewHessMSFT",
+      "version": "1.0.0",
+      "createdAt": "2026-07-08",
+      "updatedAt": "2026-07-08",
+      "downloadUrl": "/cat-skills-data/bundles/commenting-content.zip",
+      "downloadName": "commenting-content.zip",
+      "downloadSize": 13497,
+      "recordedDownloads": 0,
+      "markdownUrl": "/cat-skills-data/markdown/commenting-content.md",
+      "officialUrl": "https://microsoft.github.io/cat-agent-skills/skills/commenting-content/",
+      "sourceUrl": "https://github.com/microsoft/cat-agent-skills/tree/362948bfef54f6fdeda77673ee2f21d1086003f3/submissions/commenting-content"
+    },
+    {
+      "slug": "style-analyzer",
+      "name": "Communication Style Analyzer",
+      "description": "Analyzes your Teams chats and emails to build a reusable profile of your writing voice — greetings, tone, length, punctuation, sign-offs, common phrases, and quirks — and saves it to memory for other assistants to use.",
+      "platforms": [
+        "Cowork",
+        "Scout"
+      ],
+      "type": "skill",
+      "tags": [
+        "writing",
+        "style",
+        "teams",
+        "email",
+        "memory",
+        "productivity"
+      ],
+      "author": "Srinivas Varukala",
+      "authorUrl": "https://github.com/svarukala",
+      "version": "1.0.0",
+      "createdAt": "2026-07-26",
+      "updatedAt": "2026-07-26",
+      "downloadUrl": "/cat-skills-data/files/style-analyzer/SKILL.md",
+      "downloadName": "SKILL.md",
+      "downloadSize": 4081,
+      "recordedDownloads": 0,
+      "markdownUrl": "/cat-skills-data/markdown/style-analyzer.md",
+      "officialUrl": "https://microsoft.github.io/cat-agent-skills/skills/style-analyzer/",
+      "sourceUrl": "https://github.com/microsoft/cat-agent-skills/tree/362948bfef54f6fdeda77673ee2f21d1086003f3/submissions/style-analyzer"
+    },
+    {
+      "slug": "competitive-battlecard-builder",
+      "name": "Competitive Battlecard Builder",
+      "description": "Build an interactive comparison app, either a sales battlecard advocating for your product against named competitors, or a neutral, unbiased comparison across two or more peer items with no side taken. Filterable by item and category, with live search, a compact scorecard, and copy-to-clipboard talking points. Every claim is tagged verified or unverified so nothing invented ends up in front of a customer. Exports to PowerPoint on request, with support for a real branding template.",
+      "platforms": [
+        "Copilot Studio"
+      ],
+      "type": "skill",
+      "tags": [
+        "sales-enablement",
+        "productivity",
+        "comparison"
+      ],
+      "author": "Michael Heath",
+      "authorUrl": "https://github.com/GetAutomating",
+      "version": "1.0.0",
+      "createdAt": "",
+      "updatedAt": "",
+      "downloadUrl": "/cat-skills-data/bundles/competitive-battlecard-builder.zip",
+      "downloadName": "competitive-battlecard-builder.zip",
+      "downloadSize": 15330,
+      "recordedDownloads": 0,
+      "markdownUrl": "/cat-skills-data/markdown/competitive-battlecard-builder.md",
+      "officialUrl": "https://microsoft.github.io/cat-agent-skills/skills/competitive-battlecard-builder/",
+      "sourceUrl": "https://github.com/microsoft/cat-agent-skills/tree/362948bfef54f6fdeda77673ee2f21d1086003f3/submissions/competitive-battlecard-builder"
+    },
+    {
+      "slug": "conditional-chat-reminder",
+      "name": "Conditional Chat Reminder",
+      "description": "Schedule a Teams reminder that sends only when the expected person has not already posted a relevant update.",
+      "platforms": [
+        "Scout"
+      ],
+      "type": "skill",
+      "tags": [
+        "automation",
+        "teams",
+        "reminders",
+        "follow-up",
+        "productivity"
+      ],
+      "author": "Giorgio Ughini",
+      "authorUrl": "https://github.com/GiorgioUghini",
+      "version": "1.0.0",
+      "createdAt": "2026-07-22",
+      "updatedAt": "2026-07-22",
+      "downloadUrl": "/cat-skills-data/files/conditional-chat-reminder/SKILL.md",
+      "downloadName": "SKILL.md",
+      "downloadSize": 6239,
+      "recordedDownloads": 0,
+      "markdownUrl": "/cat-skills-data/markdown/conditional-chat-reminder.md",
+      "officialUrl": "https://microsoft.github.io/cat-agent-skills/skills/conditional-chat-reminder/",
+      "sourceUrl": "https://github.com/microsoft/cat-agent-skills/tree/362948bfef54f6fdeda77673ee2f21d1086003f3/submissions/conditional-chat-reminder"
+    },
+    {
+      "slug": "conference-session-abstract-pack",
+      "name": "Conference Session Abstract Pack",
+      "description": "Create CFP-ready talk titles, abstracts, takeaways, speaker notes, and submission copy from a topic.",
+      "platforms": [
+        "Cowork",
+        "Copilot Studio",
+        "Scout"
+      ],
+      "type": "skill",
+      "tags": [
+        "writing",
+        "conference",
+        "abstract",
+        "speaking",
+        "content",
+        "productivity"
+      ],
+      "author": "Simon Owen",
+      "authorUrl": "https://github.com/SimonOwenDigital",
+      "version": "0.1.0",
+      "createdAt": "2026-07-17",
+      "updatedAt": "2026-07-17",
+      "downloadUrl": "/cat-skills-data/bundles/conference-session-abstract-pack.zip",
+      "downloadName": "conference-session-abstract-pack.zip",
+      "downloadSize": 2174,
+      "recordedDownloads": 0,
+      "markdownUrl": "/cat-skills-data/markdown/conference-session-abstract-pack.md",
+      "officialUrl": "https://microsoft.github.io/cat-agent-skills/skills/conference-session-abstract-pack/",
+      "sourceUrl": "https://github.com/microsoft/cat-agent-skills/tree/362948bfef54f6fdeda77673ee2f21d1086003f3/submissions/conference-session-abstract-pack"
+    },
+    {
+      "slug": "content-quality-auditor",
+      "name": "Content Quality Auditor",
+      "description": "Score documents, pages, posts, or artefact libraries against a configurable quality rubric and recommend fixes.",
+      "platforms": [
+        "Cowork",
+        "Copilot Studio",
+        "Scout"
+      ],
+      "type": "skill",
+      "tags": [
+        "content",
+        "quality",
+        "audit",
+        "documents",
+        "productivity",
+        "governance"
+      ],
+      "author": "Simon Owen",
+      "authorUrl": "https://github.com/SimonOwenDigital",
+      "version": "0.1.0",
+      "createdAt": "2026-07-17",
+      "updatedAt": "2026-07-17",
+      "downloadUrl": "/cat-skills-data/bundles/content-quality-auditor.zip",
+      "downloadName": "content-quality-auditor.zip",
+      "downloadSize": 2835,
+      "recordedDownloads": 0,
+      "markdownUrl": "/cat-skills-data/markdown/content-quality-auditor.md",
+      "officialUrl": "https://microsoft.github.io/cat-agent-skills/skills/content-quality-auditor/",
+      "sourceUrl": "https://github.com/microsoft/cat-agent-skills/tree/362948bfef54f6fdeda77673ee2f21d1086003f3/submissions/content-quality-auditor"
+    },
+    {
+      "slug": "copilot-agents-news-scout",
+      "name": "Copilot & Agents News Scout",
+      "description": "A Monday-morning Scout automation that scans authoritative Microsoft sources for the past week's Copilot, Copilot Studio, and agent news and posts a concise, linked digest to Teams.",
+      "platforms": [
+        "Scout"
+      ],
+      "type": "automation",
+      "tags": [
+        "news",
+        "copilot",
+        "agent",
+        "digest",
+        "automation",
+        "weekly",
+        "teams"
+      ],
+      "author": "Elliot Margot",
+      "authorUrl": "https://e-margot.ch",
+      "version": "1.0.0",
+      "createdAt": "2026-07-18",
+      "updatedAt": "2026-07-18",
+      "downloadUrl": "/cat-skills-data/bundles/copilot-agents-news-scout.json",
+      "downloadName": "copilot-agents-news-scout.json",
+      "downloadSize": 2289,
+      "recordedDownloads": 0,
+      "markdownUrl": "/cat-skills-data/markdown/copilot-agents-news-scout.md",
+      "officialUrl": "https://microsoft.github.io/cat-agent-skills/skills/copilot-agents-news-scout/",
+      "sourceUrl": "https://github.com/microsoft/cat-agent-skills/tree/362948bfef54f6fdeda77673ee2f21d1086003f3/submissions/copilot-agents-news-scout"
+    },
+    {
+      "slug": "copilot-studio-test-planner",
+      "name": "Copilot Studio Test Planner",
+      "description": "Reads an exported Copilot Studio agent and generates a graded, runnable test suite (happy-path, paraphrase, disambiguation, negative, knowledge-grounding, multilingual, and safety cases) plus a regression set, ready to run in the free Copilot Studio test panel.",
+      "platforms": [
+        "Cowork"
+      ],
+      "type": "plugin",
+      "tags": [
+        "qa",
+        "eval",
+        "regression",
+        "agent"
+      ],
+      "author": "Elliot Margot",
+      "authorUrl": "https://e-margot.ch",
+      "version": "1.0.0",
+      "createdAt": "2026-07-18",
+      "updatedAt": "2026-07-18",
+      "downloadUrl": "/cat-skills-data/bundles/copilot-studio-test-planner.zip",
+      "downloadName": "copilot-studio-test-planner.zip",
+      "downloadSize": 4868,
+      "recordedDownloads": 0,
+      "markdownUrl": "/cat-skills-data/markdown/copilot-studio-test-planner.md",
+      "officialUrl": "https://microsoft.github.io/cat-agent-skills/skills/copilot-studio-test-planner/",
+      "sourceUrl": "https://github.com/microsoft/cat-agent-skills/tree/362948bfef54f6fdeda77673ee2f21d1086003f3/submissions/copilot-studio-test-planner"
+    },
+    {
+      "slug": "copilot-studio-topic-blueprint",
+      "name": "Copilot Studio Topic Blueprint",
+      "description": "Turn a one-line use case into a build-ready Microsoft Copilot Studio agent blueprint: recommended agent type and orchestration, topics, tools, knowledge, variables, a welcome Adaptive Card, security and Copilot Credits notes, and a first test plan.",
+      "platforms": [
+        "Copilot Studio"
+      ],
+      "type": "skill",
+      "tags": [
+        "agent",
+        "blueprint",
+        "topics",
+        "design",
+        "power-platform",
+        "orchestration",
+        "adaptive-card"
+      ],
+      "author": "Elliot Margot",
+      "authorUrl": "https://e-margot.ch",
+      "version": "1.0.0",
+      "createdAt": "2026-07-18",
+      "updatedAt": "2026-07-18",
+      "downloadUrl": "/cat-skills-data/files/copilot-studio-topic-blueprint/SKILL.md",
+      "downloadName": "SKILL.md",
+      "downloadSize": 3736,
+      "recordedDownloads": 0,
+      "markdownUrl": "/cat-skills-data/markdown/copilot-studio-topic-blueprint.md",
+      "officialUrl": "https://microsoft.github.io/cat-agent-skills/skills/copilot-studio-topic-blueprint/",
+      "sourceUrl": "https://github.com/microsoft/cat-agent-skills/tree/362948bfef54f6fdeda77673ee2f21d1086003f3/submissions/copilot-studio-topic-blueprint"
+    },
+    {
+      "slug": "lookup-dataverse-table",
+      "name": "Dataverse Table Lookup",
+      "description": "Search any Microsoft Dataverse table, browse matching records, and drill into full record details — sourced live via the Dataverse MCP Server.",
+      "platforms": [
+        "Copilot Studio"
+      ],
+      "type": "skill",
+      "tags": [
+        "dataverse",
+        "mcp",
+        "data-lookup",
+        "power-platform",
+        "crm"
+      ],
+      "author": "Chris Garty",
+      "authorUrl": "https://github.com/ChrisGarty",
+      "version": "1.0.0",
+      "createdAt": "2026-07-18",
+      "updatedAt": "2026-07-18",
+      "downloadUrl": "/cat-skills-data/files/lookup-dataverse-table/SKILL.md",
+      "downloadName": "SKILL.md",
+      "downloadSize": 4858,
+      "recordedDownloads": 0,
+      "markdownUrl": "/cat-skills-data/markdown/lookup-dataverse-table.md",
+      "officialUrl": "https://microsoft.github.io/cat-agent-skills/skills/lookup-dataverse-table/",
+      "sourceUrl": "https://github.com/microsoft/cat-agent-skills/tree/362948bfef54f6fdeda77673ee2f21d1086003f3/submissions/lookup-dataverse-table"
+    },
+    {
+      "slug": "enterprise-agent-design-authority",
+      "name": "Enterprise Agent Design Authority (EADA)",
+      "description": "An enterprise design review framework that helps architects build secure, scalable, governable, and production-ready Microsoft Copilot Studio agents.",
+      "platforms": [
+        "Copilot Studio",
+        "Cowork"
+      ],
+      "type": "skill",
+      "tags": [
+        "assessment",
+        "review",
+        "architecture",
+        "enterprise",
+        "design-review",
+        "copilot-studio"
+      ],
+      "author": "Faride Ilanda",
+      "authorUrl": "https://github.com/farideilanda",
+      "version": "1.0.0",
+      "createdAt": "2026-07-22",
+      "updatedAt": "2026-07-22",
+      "downloadUrl": "/cat-skills-data/files/enterprise-agent-design-authority/SKILL.md",
+      "downloadName": "SKILL.md",
+      "downloadSize": 4372,
+      "recordedDownloads": 0,
+      "markdownUrl": "/cat-skills-data/markdown/enterprise-agent-design-authority.md",
+      "officialUrl": "https://microsoft.github.io/cat-agent-skills/skills/enterprise-agent-design-authority/",
+      "sourceUrl": "https://github.com/microsoft/cat-agent-skills/tree/362948bfef54f6fdeda77673ee2f21d1086003f3/submissions/enterprise-agent-design-authority"
+    },
+    {
+      "slug": "eu-greenwashing-analysis",
+      "name": "EU Greenwashing Analysis",
+      "description": "Detect greenwashing in product descriptions, marketing copy, and catalog entries against EU Directive 2024/825 and the Green Claims Directive. Returns a structured per-claim findings report with risk levels, regulation references, and recommended corrections.",
+      "platforms": [
+        "Copilot Studio",
+        "Cowork",
+        "Scout"
+      ],
+      "type": "skill",
+      "tags": [
+        "compliance",
+        "sustainability",
+        "greenwashing",
+        "eu-regulation",
+        "marketing-review",
+        "esg"
+      ],
+      "author": "Remi Dyon",
+      "authorUrl": "https://github.com/raemone",
+      "version": "1.0.0",
+      "createdAt": "2026-07-21",
+      "updatedAt": "2026-07-21",
+      "downloadUrl": "/cat-skills-data/files/eu-greenwashing-analysis/SKILL.md",
+      "downloadName": "SKILL.md",
+      "downloadSize": 4840,
+      "recordedDownloads": 0,
+      "markdownUrl": "/cat-skills-data/markdown/eu-greenwashing-analysis.md",
+      "officialUrl": "https://microsoft.github.io/cat-agent-skills/skills/eu-greenwashing-analysis/",
+      "sourceUrl": "https://github.com/microsoft/cat-agent-skills/tree/362948bfef54f6fdeda77673ee2f21d1086003f3/submissions/eu-greenwashing-analysis"
+    },
+    {
+      "slug": "exam-prep-learning-plan-builder",
+      "name": "Exam Prep Learning Plan Builder",
+      "description": "Build a personalized study plan app for an exam or certification: overview timeline, day-by-day schedule with a calendar picker, domain breakdown, one-click .ics download, and a notes tab to track confidence over time.",
+      "platforms": [
+        "Copilot Studio"
+      ],
+      "type": "skill",
+      "tags": [
+        "planning",
+        "productivity",
+        "learning"
+      ],
+      "author": "Michael Heath",
+      "authorUrl": "https://github.com/GetAutomating",
+      "version": "2.0.1",
+      "createdAt": "",
+      "updatedAt": "",
+      "downloadUrl": "/cat-skills-data/bundles/exam-prep-learning-plan-builder.zip",
+      "downloadName": "exam-prep-learning-plan-builder.zip",
+      "downloadSize": 12980,
+      "recordedDownloads": 0,
+      "markdownUrl": "/cat-skills-data/markdown/exam-prep-learning-plan-builder.md",
+      "officialUrl": "https://microsoft.github.io/cat-agent-skills/skills/exam-prep-learning-plan-builder/",
+      "sourceUrl": "https://github.com/microsoft/cat-agent-skills/tree/362948bfef54f6fdeda77673ee2f21d1086003f3/submissions/exam-prep-learning-plan-builder"
+    },
+    {
+      "slug": "gantt-chart-generator",
+      "name": "Gantt Chart Builder",
+      "description": "Generate clean, consistently-styled matplotlib Gantt charts from a schedule CSV or DataFrame — with group colours, completion overlays, and a today line.",
+      "platforms": [
+        "Copilot Studio"
+      ],
+      "type": "skill",
+      "tags": [
+        "gantt",
+        "timeline",
+        "project-management",
+        "matplotlib",
+        "charts",
+        "scripts"
+      ],
+      "author": "Nazish Qasim",
+      "authorUrl": "https://github.com/nazishqassim",
+      "version": "1.0.0",
+      "createdAt": "2026-07-23",
+      "updatedAt": "2026-07-23",
+      "downloadUrl": "/cat-skills-data/bundles/gantt-chart-generator.zip",
+      "downloadName": "gantt-chart-generator.zip",
+      "downloadSize": 9169,
+      "recordedDownloads": 0,
+      "markdownUrl": "/cat-skills-data/markdown/gantt-chart-generator.md",
+      "officialUrl": "https://microsoft.github.io/cat-agent-skills/skills/gantt-chart-generator/",
+      "sourceUrl": "https://github.com/microsoft/cat-agent-skills/tree/362948bfef54f6fdeda77673ee2f21d1086003f3/submissions/gantt-chart-generator"
+    },
+    {
+      "slug": "global-greenwashing-claim-auditor",
+      "name": "Global Greenwashing Claim Auditor",
+      "description": "Audit environmental claims in CSV, XLSX, DOCX, PPTX, conversational text, and public websites with separate ANY, CA, EU, and UK findings.",
+      "platforms": [
+        "Cowork",
+        "Copilot Studio",
+        "Scout"
+      ],
+      "type": "skill",
+      "tags": [
+        "greenwashing",
+        "environmental claims",
+        "sustainability",
+        "compliance",
+        "canada",
+        "european union",
+        "united kingdom",
+        "documents",
+        "spreadsheets",
+        "web"
+      ],
+      "author": "Chris Garty",
+      "authorUrl": "https://github.com/ChrisGarty",
+      "version": "1.0.0",
+      "createdAt": "2026-07-26",
+      "updatedAt": "2026-07-28",
+      "downloadUrl": "/cat-skills-data/bundles/global-greenwashing-claim-auditor.zip",
+      "downloadName": "global-greenwashing-claim-auditor.zip",
+      "downloadSize": 37587,
+      "recordedDownloads": 0,
+      "markdownUrl": "/cat-skills-data/markdown/global-greenwashing-claim-auditor.md",
+      "officialUrl": "https://microsoft.github.io/cat-agent-skills/skills/global-greenwashing-claim-auditor/",
+      "sourceUrl": "https://github.com/microsoft/cat-agent-skills/tree/362948bfef54f6fdeda77673ee2f21d1086003f3/submissions/global-greenwashing-claim-auditor"
+    },
+    {
+      "slug": "grab-my-files",
+      "name": "Grab My Files",
+      "description": "One-tap way to bundle every file your Copilot Studio agent produced in a session into a single timestamped .zip and hand it back as a download.",
+      "platforms": [
+        "Copilot Studio"
+      ],
+      "type": "skill",
+      "tags": [
+        "files",
+        "export",
+        "zip",
+        "download",
+        "productivity"
+      ],
+      "author": "Rafael Alcaraz",
+      "authorUrl": "https://github.com/rafalcaraz",
+      "version": "1.0.0",
+      "createdAt": "2026-07-24",
+      "updatedAt": "2026-07-24",
+      "downloadUrl": "/cat-skills-data/files/grab-my-files/SKILL.md",
+      "downloadName": "SKILL.md",
+      "downloadSize": 2902,
+      "recordedDownloads": 0,
+      "markdownUrl": "/cat-skills-data/markdown/grab-my-files.md",
+      "officialUrl": "https://microsoft.github.io/cat-agent-skills/skills/grab-my-files/",
+      "sourceUrl": "https://github.com/microsoft/cat-agent-skills/tree/362948bfef54f6fdeda77673ee2f21d1086003f3/submissions/grab-my-files"
+    },
+    {
+      "slug": "idea-refiner",
+      "name": "Idea Refiner",
+      "description": "Refines an existing plan, decision, or draft through relentless, branch-by-branch questioning. Grouped in batches of 2-5 with recommended answers, pulling facts from Work IQ where possible, until every part has been fully thought through.",
+      "platforms": [
+        "Copilot Studio"
+      ],
+      "type": "skill",
+      "tags": [
+        "productivity",
+        "planning",
+        "decision-making",
+        "refinement",
+        "brainstorming"
+      ],
+      "author": "Mathias Salomonsen",
+      "authorUrl": "https://www.linkedin.com/in/mathias-salomonsen-331949201",
+      "version": "1.0.0",
+      "createdAt": "2026-07-18",
+      "updatedAt": "2026-07-18",
+      "downloadUrl": "/cat-skills-data/files/idea-refiner/SKILL.md",
+      "downloadName": "SKILL.md",
+      "downloadSize": 961,
+      "recordedDownloads": 0,
+      "markdownUrl": "/cat-skills-data/markdown/idea-refiner.md",
+      "officialUrl": "https://microsoft.github.io/cat-agent-skills/skills/idea-refiner/",
+      "sourceUrl": "https://github.com/microsoft/cat-agent-skills/tree/362948bfef54f6fdeda77673ee2f21d1086003f3/submissions/idea-refiner"
+    },
+    {
+      "slug": "institutional-knowledge",
+      "name": "Institutional Knowledge Archivist",
+      "description": "Preserve a departing senior leader's institutional knowledge — decisions, rationale, relationships, and tribal knowledge — by mining their M365 signals into a structured, multi-phase archive a successor can ground on.",
+      "platforms": [
+        "Cowork",
+        "Scout"
+      ],
+      "type": "skill",
+      "tags": [
+        "knowledge",
+        "handoff",
+        "leadership",
+        "m365",
+        "offboarding",
+        "documentation",
+        "productivity"
+      ],
+      "author": "Srinivas Varukala",
+      "authorUrl": "https://github.com/svarukala",
+      "version": "1.0.1",
+      "createdAt": "2026-07-26",
+      "updatedAt": "2026-07-28",
+      "downloadUrl": "/cat-skills-data/files/institutional-knowledge/SKILL.md",
+      "downloadName": "SKILL.md",
+      "downloadSize": 25673,
+      "recordedDownloads": 0,
+      "markdownUrl": "/cat-skills-data/markdown/institutional-knowledge.md",
+      "officialUrl": "https://microsoft.github.io/cat-agent-skills/skills/institutional-knowledge/",
+      "sourceUrl": "https://github.com/microsoft/cat-agent-skills/tree/362948bfef54f6fdeda77673ee2f21d1086003f3/submissions/institutional-knowledge"
+    },
+    {
+      "slug": "iterative-file-editing",
+      "name": "Iterative File Editing",
+      "description": "In Copilot Studio, re-sending an edited file under the same name fails to deliver it — the change is made but never reaches the user. This skill gives each iteration a new version-numbered filename (report_v1.docx, report_v2.docx…) so every update actually lands in the chat as its own attachment.",
+      "platforms": [
+        "Copilot Studio"
+      ],
+      "type": "skill",
+      "tags": [
+        "files",
+        "iteration",
+        "workflow",
+        "collaboration",
+        "productivity"
+      ],
+      "author": "Adi Leibowitz",
+      "authorUrl": "https://github.com/adilei",
+      "version": "1.0.0",
+      "createdAt": "2026-07-21",
+      "updatedAt": "2026-07-21",
+      "downloadUrl": "/cat-skills-data/files/iterative-file-editing/SKILL.md",
+      "downloadName": "SKILL.md",
+      "downloadSize": 1262,
+      "recordedDownloads": 0,
+      "markdownUrl": "/cat-skills-data/markdown/iterative-file-editing.md",
+      "officialUrl": "https://microsoft.github.io/cat-agent-skills/skills/iterative-file-editing/",
+      "sourceUrl": "https://github.com/microsoft/cat-agent-skills/tree/362948bfef54f6fdeda77673ee2f21d1086003f3/submissions/iterative-file-editing"
+    },
+    {
+      "slug": "knowledge-corpus-curator",
+      "name": "Knowledge Corpus Curator",
+      "description": "Review uploaded knowledge-source files for duplication, redundancy, staleness, overlap, and potentially conflicting guidance, then produce an evidence-based curation backlog.",
+      "platforms": [
+        "Copilot Studio"
+      ],
+      "type": "skill",
+      "tags": [
+        "knowledge",
+        "sharepoint",
+        "governance",
+        "deduplication",
+        "documents",
+        "uploads",
+        "excel"
+      ],
+      "author": "Doug Bellingeri",
+      "authorUrl": "https://github.com/CATDAB",
+      "version": "0.8.0",
+      "createdAt": "2026-07-21",
+      "updatedAt": "2026-07-22",
+      "downloadUrl": "/cat-skills-data/bundles/knowledge-corpus-curator.zip",
+      "downloadName": "knowledge-corpus-curator.zip",
+      "downloadSize": 30047,
+      "recordedDownloads": 0,
+      "markdownUrl": "/cat-skills-data/markdown/knowledge-corpus-curator.md",
+      "officialUrl": "https://microsoft.github.io/cat-agent-skills/skills/knowledge-corpus-curator/",
+      "sourceUrl": "https://github.com/microsoft/cat-agent-skills/tree/362948bfef54f6fdeda77673ee2f21d1086003f3/submissions/knowledge-corpus-curator"
+    },
+    {
+      "slug": "knowledge-source-router",
+      "name": "Knowledge Source Router",
+      "description": "Route Copilot Studio knowledge searches to the right region-specific source (Americas, EMEA, APAC, or Global) based on where the user is, so answers stay locally accurate.",
+      "platforms": [
+        "Copilot Studio"
+      ],
+      "type": "skill",
+      "tags": [
+        "knowledge",
+        "routing",
+        "localization",
+        "location",
+        "grounding"
+      ],
+      "author": "Adi Leibowitz",
+      "authorUrl": "https://microsoft.github.io/mcscatblog/",
+      "version": "1.0.0",
+      "createdAt": "2026-06-23",
+      "updatedAt": "2026-06-23",
+      "downloadUrl": "/cat-skills-data/files/knowledge-source-router/SKILL.md",
+      "downloadName": "SKILL.md",
+      "downloadSize": 1171,
+      "recordedDownloads": 0,
+      "markdownUrl": "/cat-skills-data/markdown/knowledge-source-router.md",
+      "officialUrl": "https://microsoft.github.io/cat-agent-skills/skills/knowledge-source-router/",
+      "sourceUrl": "https://github.com/microsoft/cat-agent-skills/tree/362948bfef54f6fdeda77673ee2f21d1086003f3/submissions/knowledge-source-router"
+    },
+    {
+      "slug": "lab-column-mapper",
+      "name": "Lab Column Mapper",
+      "description": "When a health system's lab results ingestion pipeline hits an unknown column header, this skill semantically matches the source column against the canonical clinical schema (LOINC-anchored), scoped by lab and clinical domain, and writes a suggested mapping to a Dataverse review queue for a clinical informatics steward to approve.",
+      "platforms": [
+        "Copilot Studio"
+      ],
+      "type": "skill",
+      "tags": [
+        "healthcare",
+        "clinical-data",
+        "lab-results",
+        "schema-drift",
+        "column-mapping",
+        "data-ingestion",
+        "loinc",
+        "azure-ai-search",
+        "azure-data-factory",
+        "dataverse",
+        "power-automate",
+        "human-in-the-loop"
+      ],
+      "author": "Rafsan Huseynov",
+      "authorUrl": "https://www.linkedin.com/in/rafsanhuseynov",
+      "version": "1.0.0",
+      "createdAt": "2026-07-18",
+      "updatedAt": "2026-07-18",
+      "downloadUrl": "/cat-skills-data/bundles/lab-column-mapper.zip",
+      "downloadName": "lab-column-mapper.zip",
+      "downloadSize": 6351,
+      "recordedDownloads": 0,
+      "markdownUrl": "/cat-skills-data/markdown/lab-column-mapper.md",
+      "officialUrl": "https://microsoft.github.io/cat-agent-skills/skills/lab-column-mapper/",
+      "sourceUrl": "https://github.com/microsoft/cat-agent-skills/tree/362948bfef54f6fdeda77673ee2f21d1086003f3/submissions/lab-column-mapper"
+    },
+    {
+      "slug": "linkedin-content-system",
+      "name": "LinkedIn Content System",
+      "description": "Create evidence-led LinkedIn posts, promos, newsletter intros, and long-form copy from supplied facts or drafts.",
+      "platforms": [
+        "Cowork",
+        "Copilot Studio",
+        "Scout"
+      ],
+      "type": "skill",
+      "tags": [
+        "linkedin",
+        "social-media",
+        "writing",
+        "marketing",
+        "content"
+      ],
+      "author": "Simon Owen",
+      "authorUrl": "https://github.com/SimonOwenDigital",
+      "version": "0.1.0",
+      "createdAt": "2026-07-17",
+      "updatedAt": "2026-07-17",
+      "downloadUrl": "/cat-skills-data/bundles/linkedin-content-system.zip",
+      "downloadName": "linkedin-content-system.zip",
+      "downloadSize": 2207,
+      "recordedDownloads": 0,
+      "markdownUrl": "/cat-skills-data/markdown/linkedin-content-system.md",
+      "officialUrl": "https://microsoft.github.io/cat-agent-skills/skills/linkedin-content-system/",
+      "sourceUrl": "https://github.com/microsoft/cat-agent-skills/tree/362948bfef54f6fdeda77673ee2f21d1086003f3/submissions/linkedin-content-system"
+    },
+    {
+      "slug": "linkedin-content-writer",
+      "name": "LinkedIn Content Writer",
+      "description": "Create credible LinkedIn content from facts, notes or drafts, with configurable voice and no invented evidence.",
+      "platforms": [
+        "Copilot Studio"
+      ],
+      "type": "skill",
+      "tags": [
+        "linkedin",
+        "social-media",
+        "writing",
+        "content"
+      ],
+      "author": "Becky Still, Digital Boop Ltd",
+      "authorUrl": "https://digital-boop.co.uk/my-story",
+      "version": "1.0.1",
+      "createdAt": "2026-07-14",
+      "updatedAt": "2026-07-17",
+      "downloadUrl": "/cat-skills-data/files/linkedin-content-writer/SKILL.md",
+      "downloadName": "SKILL.md",
+      "downloadSize": 15692,
+      "recordedDownloads": 56,
+      "markdownUrl": "/cat-skills-data/markdown/linkedin-content-writer.md",
+      "officialUrl": "https://microsoft.github.io/cat-agent-skills/skills/linkedin-content-writer/",
+      "sourceUrl": "https://github.com/microsoft/cat-agent-skills/tree/362948bfef54f6fdeda77673ee2f21d1086003f3/submissions/linkedin-content-writer"
+    },
+    {
+      "slug": "mct-excellence-iq",
+      "name": "MCT Excellence IQ",
+      "description": "An AI-powered Instructional Intelligence Skill that helps Microsoft Certified Trainers design, deliver, assess, localize, and continuously improve world-class Microsoft learning experiences across Azure, Business Applications, Data & AI, Modern Work, and Security.",
+      "platforms": [
+        "Copilot Studio",
+        "Cowork"
+      ],
+      "type": "skill",
+      "tags": [
+        "mct",
+        "instructional-intelligence",
+        "microsoft-learning",
+        "courseware",
+        "microsoft-learn",
+        "azure",
+        "business-applications",
+        "data-ai",
+        "modern-work",
+        "security",
+        "instructional-design",
+        "learning-experience",
+        "workshops",
+        "hands-on-labs",
+        "demonstrations",
+        "assessment",
+        "surveys",
+        "learning-analytics",
+        "localization",
+        "responsible-ai"
+      ],
+      "author": "Faride Ilanda",
+      "authorUrl": "https://github.com/farideilanda",
+      "version": "1.0.0",
+      "createdAt": "2026-07-25",
+      "updatedAt": "2026-07-25",
+      "downloadUrl": "/cat-skills-data/files/mct-excellence-iq/SKILL.md",
+      "downloadName": "SKILL.md",
+      "downloadSize": 7211,
+      "recordedDownloads": 0,
+      "markdownUrl": "/cat-skills-data/markdown/mct-excellence-iq.md",
+      "officialUrl": "https://microsoft.github.io/cat-agent-skills/skills/mct-excellence-iq/",
+      "sourceUrl": "https://github.com/microsoft/cat-agent-skills/tree/362948bfef54f6fdeda77673ee2f21d1086003f3/submissions/mct-excellence-iq"
+    },
+    {
+      "slug": "meeting-analyzer",
+      "name": "Meeting Analyzer",
+      "description": "Analyzes meeting content pasted as text or provided as audio/video transcripts. Delivers a structured intelligence report: explicit decisions and action items, participant persona profiles, and — most importantly — hidden insights: unspoken tensions, implicit risks, unresolved topics, and signals that were not made explicit during the meeting but are critical to the context.",
+      "platforms": [
+        "Copilot Studio",
+        "Cowork"
+      ],
+      "type": "skill",
+      "tags": [
+        "meetings",
+        "analysis",
+        "insights",
+        "personas",
+        "transcription",
+        "productivity",
+        "communication"
+      ],
+      "author": "Michael Ferro Pereira",
+      "authorUrl": "https://github.com/michaelfp",
+      "version": "",
+      "createdAt": "",
+      "updatedAt": "",
+      "downloadUrl": "/cat-skills-data/bundles/meeting-analyzer.zip",
+      "downloadName": "meeting-analyzer.zip",
+      "downloadSize": 7574,
+      "recordedDownloads": 0,
+      "markdownUrl": "/cat-skills-data/markdown/meeting-analyzer.md",
+      "officialUrl": "https://microsoft.github.io/cat-agent-skills/skills/meeting-analyzer/",
+      "sourceUrl": "https://github.com/microsoft/cat-agent-skills/tree/362948bfef54f6fdeda77673ee2f21d1086003f3/submissions/meeting-analyzer"
+    },
+    {
+      "slug": "microsoft-ai-platform-advisor",
+      "name": "Microsoft AI Platform Advisor",
+      "description": "Guides a customer through a discovery interview, recommends the right Microsoft AI platform (M365 Copilot, Agent Builder, Copilot Studio, Foundry, Foundry Agent Service, Windows AI Foundry, or Agent 365 as the governance layer), scores technical complexity and risk, and plots them on a 2x2 quadrant chart with planning guidance.",
+      "platforms": [
+        "Copilot Studio"
+      ],
+      "type": "skill",
+      "tags": [
+        "advisor",
+        "discovery",
+        "architecture",
+        "decision-making",
+        "requirements",
+        "risk-assessment",
+        "microsoft-365-copilot",
+        "foundry",
+        "foundry-agent-service",
+        "agent-365",
+        "windows-ai-foundry"
+      ],
+      "author": "Rafsan Huseynov",
+      "authorUrl": "https://www.linkedin.com/in/rafsanhuseynov",
+      "version": "1.0.0",
+      "createdAt": "2026-07-18",
+      "updatedAt": "2026-07-18",
+      "downloadUrl": "/cat-skills-data/bundles/microsoft-ai-platform-advisor.zip",
+      "downloadName": "microsoft-ai-platform-advisor.zip",
+      "downloadSize": 7740,
+      "recordedDownloads": 0,
+      "markdownUrl": "/cat-skills-data/markdown/microsoft-ai-platform-advisor.md",
+      "officialUrl": "https://microsoft.github.io/cat-agent-skills/skills/microsoft-ai-platform-advisor/",
+      "sourceUrl": "https://github.com/microsoft/cat-agent-skills/tree/362948bfef54f6fdeda77673ee2f21d1086003f3/submissions/microsoft-ai-platform-advisor"
+    },
+    {
+      "slug": "own-voice-builder",
+      "name": "Own Voice Builder",
+      "description": "Mines your sent emails to extract your real writing voice — languages, tone modes, structure, vocabulary, taboo phrases — and generates a personal voice skill that makes every email and Teams draft sound like you.",
+      "platforms": [
+        "Cowork",
+        "Scout"
+      ],
+      "type": "skill",
+      "tags": [
+        "writing",
+        "voice",
+        "email",
+        "teams",
+        "productivity",
+        "microsoft-365"
+      ],
+      "author": "Marcel",
+      "authorUrl": "https://github.com/marcelhuszar",
+      "version": "1.0.0",
+      "createdAt": "",
+      "updatedAt": "",
+      "downloadUrl": "/cat-skills-data/files/own-voice-builder/SKILL.md",
+      "downloadName": "SKILL.md",
+      "downloadSize": 7387,
+      "recordedDownloads": 0,
+      "markdownUrl": "/cat-skills-data/markdown/own-voice-builder.md",
+      "officialUrl": "https://microsoft.github.io/cat-agent-skills/skills/own-voice-builder/",
+      "sourceUrl": "https://github.com/microsoft/cat-agent-skills/tree/362948bfef54f6fdeda77673ee2f21d1086003f3/submissions/own-voice-builder"
+    },
+    {
+      "slug": "pattern-radar",
+      "name": "Pattern Radar",
+      "description": "Scans your recent Microsoft 365 signals to surface recurring patterns worth productizing — things you keep explaining (blog candidates) or multi-step tasks you keep doing by hand (automation candidates).",
+      "platforms": [
+        "Cowork",
+        "Scout"
+      ],
+      "type": "skill",
+      "tags": [
+        "productivity",
+        "automation",
+        "content",
+        "email",
+        "teams",
+        "insights"
+      ],
+      "author": "Srinivas Varukala",
+      "authorUrl": "https://github.com/svarukala",
+      "version": "1.0.0",
+      "createdAt": "2026-07-26",
+      "updatedAt": "2026-07-26",
+      "downloadUrl": "/cat-skills-data/files/pattern-radar/SKILL.md",
+      "downloadName": "SKILL.md",
+      "downloadSize": 5498,
+      "recordedDownloads": 0,
+      "markdownUrl": "/cat-skills-data/markdown/pattern-radar.md",
+      "officialUrl": "https://microsoft.github.io/cat-agent-skills/skills/pattern-radar/",
+      "sourceUrl": "https://github.com/microsoft/cat-agent-skills/tree/362948bfef54f6fdeda77673ee2f21d1086003f3/submissions/pattern-radar"
+    },
+    {
+      "slug": "pattern-radar-automation",
+      "name": "Pattern Radar (Scheduled)",
+      "description": "Twice a week, scans your recent Microsoft 365 signals and posts a Teams summary of recurring patterns worth productizing — things you keep explaining (blog candidates) and multi-step tasks you keep doing by hand (automation candidates). Read-only and privacy-aware.",
+      "platforms": [
+        "Scout"
+      ],
+      "type": "automation",
+      "tags": [
+        "automation",
+        "productivity",
+        "teams",
+        "email",
+        "content",
+        "insights"
+      ],
+      "author": "Srinivas Varukala",
+      "authorUrl": "https://github.com/svarukala",
+      "version": "1.0.0",
+      "createdAt": "2026-07-26",
+      "updatedAt": "2026-07-26",
+      "downloadUrl": "/cat-skills-data/bundles/pattern-radar-automation.json",
+      "downloadName": "pattern-radar-automation.json",
+      "downloadSize": 6042,
+      "recordedDownloads": 0,
+      "markdownUrl": "/cat-skills-data/markdown/pattern-radar-automation.md",
+      "officialUrl": "https://microsoft.github.io/cat-agent-skills/skills/pattern-radar-automation/",
+      "sourceUrl": "https://github.com/microsoft/cat-agent-skills/tree/362948bfef54f6fdeda77673ee2f21d1086003f3/submissions/pattern-radar-automation"
+    },
+    {
+      "slug": "pdf-table-data-conversion",
+      "name": "PDF Table Data Conversion",
+      "description": "Extract tables from a PDF document (e.g. contract rebate or pricing schedules) and convert them into a clean, workable Excel spreadsheet or CSV.",
+      "platforms": [
+        "Copilot Studio"
+      ],
+      "type": "skill",
+      "tags": [
+        "documents",
+        "extraction",
+        "pdf",
+        "csv",
+        "xlsx",
+        "tables",
+        "sharepoint"
+      ],
+      "author": "Lewis Baybutt",
+      "authorUrl": "https://github.com/lewisdoesdev",
+      "version": "1.0.0",
+      "createdAt": "2026-07-16",
+      "updatedAt": "2026-07-16",
+      "downloadUrl": "/cat-skills-data/bundles/pdf-table-data-conversion.zip",
+      "downloadName": "pdf-table-data-conversion.zip",
+      "downloadSize": 6836,
+      "recordedDownloads": 0,
+      "markdownUrl": "/cat-skills-data/markdown/pdf-table-data-conversion.md",
+      "officialUrl": "https://microsoft.github.io/cat-agent-skills/skills/pdf-table-data-conversion/",
+      "sourceUrl": "https://github.com/microsoft/cat-agent-skills/tree/362948bfef54f6fdeda77673ee2f21d1086003f3/submissions/pdf-table-data-conversion"
+    },
+    {
+      "slug": "persona-reaction-panel",
+      "name": "Persona Reaction Panel",
+      "description": "Pre-test an internal launch, comms, or enablement artefact against your own role-based personas before it ships — surfaces blackspots, domain gaps, credible-detractor risks, and concrete edits. Bring your own personas file.",
+      "platforms": [
+        "Cowork",
+        "Copilot Studio"
+      ],
+      "type": "skill",
+      "tags": [
+        "communications",
+        "change-management",
+        "launch-readiness",
+        "personas",
+        "qa"
+      ],
+      "author": "Olivia Zhang",
+      "authorUrl": "https://github.com/Olivia2327",
+      "version": "1.0.0",
+      "createdAt": "",
+      "updatedAt": "",
+      "downloadUrl": "/cat-skills-data/bundles/persona-reaction-panel.zip",
+      "downloadName": "persona-reaction-panel.zip",
+      "downloadSize": 3786,
+      "recordedDownloads": 0,
+      "markdownUrl": "/cat-skills-data/markdown/persona-reaction-panel.md",
+      "officialUrl": "https://microsoft.github.io/cat-agent-skills/skills/persona-reaction-panel/",
+      "sourceUrl": "https://github.com/microsoft/cat-agent-skills/tree/362948bfef54f6fdeda77673ee2f21d1086003f3/submissions/persona-reaction-panel"
+    },
+    {
+      "slug": "phi-deidentifier",
+      "name": "PHI De-identifier",
+      "description": "Redact the 18 HIPAA Safe Harbor identifiers from clinical text (or produce a Limited Data Set) with consistent pseudonym tokens and an audit manifest of what was removed.",
+      "platforms": [
+        "Cowork",
+        "Copilot Studio",
+        "Scout"
+      ],
+      "type": "skill",
+      "tags": [
+        "healthcare",
+        "hls",
+        "phi",
+        "privacy",
+        "redaction",
+        "hipaa",
+        "compliance",
+        "scripts"
+      ],
+      "author": "Rafael Lopez Alcaraz",
+      "authorUrl": "https://github.com/rafalcaraz",
+      "version": "1.0.0",
+      "createdAt": "2026-07-19",
+      "updatedAt": "2026-07-19",
+      "downloadUrl": "/cat-skills-data/bundles/phi-deidentifier.zip",
+      "downloadName": "phi-deidentifier.zip",
+      "downloadSize": 20254,
+      "recordedDownloads": 0,
+      "markdownUrl": "/cat-skills-data/markdown/phi-deidentifier.md",
+      "officialUrl": "https://microsoft.github.io/cat-agent-skills/skills/phi-deidentifier/",
+      "sourceUrl": "https://github.com/microsoft/cat-agent-skills/tree/362948bfef54f6fdeda77673ee2f21d1086003f3/submissions/phi-deidentifier"
+    },
+    {
+      "slug": "generating-podcast-script",
+      "name": "Podcast Script Generator",
+      "description": "Turn a topic or a pile of source material — a newsletter, news digest, or set of articles — into a two-host, NotebookLM-style podcast episode, with multi-voice SSML and optional Azure Text-to-Speech audio.",
+      "platforms": [
+        "Copilot Studio"
+      ],
+      "type": "skill",
+      "tags": [
+        "content",
+        "podcast",
+        "audio",
+        "text-to-speech",
+        "ssml",
+        "news"
+      ],
+      "author": "Remi Dyon",
+      "authorUrl": "https://github.com/raemone",
+      "version": "1.1.0",
+      "createdAt": "2026-07-28",
+      "updatedAt": "2026-07-28",
+      "downloadUrl": "/cat-skills-data/files/generating-podcast-script/SKILL.md",
+      "downloadName": "SKILL.md",
+      "downloadSize": 10187,
+      "recordedDownloads": 0,
+      "markdownUrl": "/cat-skills-data/markdown/generating-podcast-script.md",
+      "officialUrl": "https://microsoft.github.io/cat-agent-skills/skills/generating-podcast-script/",
+      "sourceUrl": "https://github.com/microsoft/cat-agent-skills/tree/362948bfef54f6fdeda77673ee2f21d1086003f3/submissions/generating-podcast-script"
+    },
+    {
+      "slug": "pov-line-generator",
+      "name": "POV Line Generator",
+      "description": "Generate sharp, specific point-of-view lines for posts, slides, talks, campaigns, or positioning work.",
+      "platforms": [
+        "Cowork",
+        "Copilot Studio",
+        "Scout"
+      ],
+      "type": "skill",
+      "tags": [
+        "writing",
+        "positioning",
+        "marketing",
+        "content",
+        "social-media"
+      ],
+      "author": "Simon Owen",
+      "authorUrl": "https://github.com/SimonOwenDigital",
+      "version": "0.1.0",
+      "createdAt": "2026-07-17",
+      "updatedAt": "2026-07-17",
+      "downloadUrl": "/cat-skills-data/bundles/pov-line-generator.zip",
+      "downloadName": "pov-line-generator.zip",
+      "downloadSize": 1836,
+      "recordedDownloads": 0,
+      "markdownUrl": "/cat-skills-data/markdown/pov-line-generator.md",
+      "officialUrl": "https://microsoft.github.io/cat-agent-skills/skills/pov-line-generator/",
+      "sourceUrl": "https://github.com/microsoft/cat-agent-skills/tree/362948bfef54f6fdeda77673ee2f21d1086003f3/submissions/pov-line-generator"
+    },
+    {
+      "slug": "power-automate-desktop-assessment",
+      "name": "Power Automate Desktop Assessment",
+      "description": "Assess Power Automate Desktop and hybrid automation projects with evidence-based findings and prioritized remediation guidance.",
+      "platforms": [
+        "Cowork",
+        "Copilot Studio"
+      ],
+      "type": "skill",
+      "tags": [
+        "power-automate",
+        "desktop-flows",
+        "automation",
+        "assessment",
+        "governance"
+      ],
+      "author": "Ricardo Calejo",
+      "authorUrl": "https://github.com/dvsRCalejo",
+      "version": "1.1.0",
+      "createdAt": "2026-07-17",
+      "updatedAt": "2026-07-18",
+      "downloadUrl": "/cat-skills-data/bundles/power-automate-desktop-assessment.zip",
+      "downloadName": "power-automate-desktop-assessment.zip",
+      "downloadSize": 29047,
+      "recordedDownloads": 0,
+      "markdownUrl": "/cat-skills-data/markdown/power-automate-desktop-assessment.md",
+      "officialUrl": "https://microsoft.github.io/cat-agent-skills/skills/power-automate-desktop-assessment/",
+      "sourceUrl": "https://github.com/microsoft/cat-agent-skills/tree/362948bfef54f6fdeda77673ee2f21d1086003f3/submissions/power-automate-desktop-assessment"
+    },
+    {
+      "slug": "power-automate-documentation",
+      "name": "Power Automate Documentation",
+      "description": "Turns a Power Automate solution .zip into a clean markdown reference for every flow inside it: trigger, plain-English process, connection references, and a read/write/delete table for everything it touches. Maps which flows call each other and unresolved connections automatically.",
+      "platforms": [
+        "Cowork",
+        "Copilot Studio",
+        "Scout"
+      ],
+      "type": "skill",
+      "tags": [
+        "power-automate",
+        "documentation",
+        "audit",
+        "governance"
+      ],
+      "author": "Mathias Salomonsen",
+      "authorUrl": "https://www.linkedin.com/in/mathias-salomonsen-331949201",
+      "version": "1.0.0",
+      "createdAt": "2026-07-19",
+      "updatedAt": "2026-07-19",
+      "downloadUrl": "/cat-skills-data/files/power-automate-documentation/SKILL.md",
+      "downloadName": "SKILL.md",
+      "downloadSize": 15524,
+      "recordedDownloads": 0,
+      "markdownUrl": "/cat-skills-data/markdown/power-automate-documentation.md",
+      "officialUrl": "https://microsoft.github.io/cat-agent-skills/skills/power-automate-documentation/",
+      "sourceUrl": "https://github.com/microsoft/cat-agent-skills/tree/362948bfef54f6fdeda77673ee2f21d1086003f3/submissions/power-automate-documentation"
+    },
+    {
+      "slug": "power-bi-model-review",
+      "name": "Power BI Model Review",
+      "description": "Review a Power BI or Analysis Services semantic model (TMDL, BIM/JSON, or a pasted table/measure list) for relationship, DAX, date-handling, and naming issues, with corrected DAX for anything flagged.",
+      "platforms": [
+        "Copilot Studio",
+        "Cowork",
+        "Scout"
+      ],
+      "type": "skill",
+      "tags": [
+        "power-bi",
+        "dax",
+        "semantic-model",
+        "data",
+        "review",
+        "fabric"
+      ],
+      "author": "Tim Karlsson",
+      "authorUrl": "https://github.com/Timziito",
+      "version": "1.0.0",
+      "createdAt": "2026-07-26",
+      "updatedAt": "2026-07-26",
+      "downloadUrl": "/cat-skills-data/files/power-bi-model-review/SKILL.md",
+      "downloadName": "SKILL.md",
+      "downloadSize": 4822,
+      "recordedDownloads": 0,
+      "markdownUrl": "/cat-skills-data/markdown/power-bi-model-review.md",
+      "officialUrl": "https://microsoft.github.io/cat-agent-skills/skills/power-bi-model-review/",
+      "sourceUrl": "https://github.com/microsoft/cat-agent-skills/tree/362948bfef54f6fdeda77673ee2f21d1086003f3/submissions/power-bi-model-review"
+    },
+    {
+      "slug": "powerpoint-deck-designer",
+      "name": "PowerPoint Deck Designer",
+      "description": "Creates polished PowerPoint decks from a JSON specification using python-pptx. Designed as a Copilot Studio Skill that runs natively inside the agent's Python container (no Azure Function or custom connector required). Supports 8 layouts plus native charts (bar, column, line, pie, donut with stacked / 100% stacked variants).",
+      "platforms": [
+        "Copilot Studio"
+      ],
+      "type": "skill",
+      "tags": [
+        "powerpoint",
+        "presentations",
+        "python",
+        "charts"
+      ],
+      "author": "Ferran Chopo",
+      "authorUrl": "https://www.linkedin.com/in/fchopo",
+      "version": "1.0.0",
+      "createdAt": "",
+      "updatedAt": "",
+      "downloadUrl": "/cat-skills-data/bundles/powerpoint-deck-designer.zip",
+      "downloadName": "powerpoint-deck-designer.zip",
+      "downloadSize": 15162,
+      "recordedDownloads": 89,
+      "markdownUrl": "/cat-skills-data/markdown/powerpoint-deck-designer.md",
+      "officialUrl": "https://microsoft.github.io/cat-agent-skills/skills/powerpoint-deck-designer/",
+      "sourceUrl": "https://github.com/microsoft/cat-agent-skills/tree/362948bfef54f6fdeda77673ee2f21d1086003f3/submissions/powerpoint-deck-designer"
+    },
+    {
+      "slug": "presentation-talk-track-builder",
+      "name": "Presentation Talk Track Builder",
+      "description": "Writes natural, first-person spoken presenter scripts for the slides in a deck. Treats existing speaker notes as authoritative when they contradict slide text. Calibrates length to a target duration and speaking pace and returns a timing table. Never modifies visible slide content.",
+      "platforms": [
+        "Cowork",
+        "Copilot Studio",
+        "Scout"
+      ],
+      "type": "skill",
+      "tags": [
+        "presentations",
+        "speaker-notes",
+        "powerpoint",
+        "writing",
+        "productivity"
+      ],
+      "author": "Jagmeet Chabra",
+      "authorUrl": "https://github.com/jchha001",
+      "version": "1.0.0",
+      "createdAt": "2026-07-16",
+      "updatedAt": "2026-07-17",
+      "downloadUrl": "/cat-skills-data/bundles/presentation-talk-track-builder.zip",
+      "downloadName": "presentation-talk-track-builder.zip",
+      "downloadSize": 10967,
+      "recordedDownloads": 0,
+      "markdownUrl": "/cat-skills-data/markdown/presentation-talk-track-builder.md",
+      "officialUrl": "https://microsoft.github.io/cat-agent-skills/skills/presentation-talk-track-builder/",
+      "sourceUrl": "https://github.com/microsoft/cat-agent-skills/tree/362948bfef54f6fdeda77673ee2f21d1086003f3/submissions/presentation-talk-track-builder"
+    },
+    {
+      "slug": "process-sop-architect",
+      "name": "Process & SOP Architect",
+      "description": "Turn process notes and transcripts into an editable SOP, process map, RACI, control register, improvement backlog, and polished PowerPoint briefing.",
+      "platforms": [
+        "Copilot Studio"
+      ],
+      "type": "skill",
+      "tags": [
+        "process-improvement",
+        "sop",
+        "operations",
+        "powerpoint",
+        "productivity"
+      ],
+      "author": "Parag Dessai",
+      "authorUrl": "",
+      "version": "1.1.0",
+      "createdAt": "2026-07-24",
+      "updatedAt": "2026-07-24",
+      "downloadUrl": "/cat-skills-data/bundles/process-sop-architect.zip",
+      "downloadName": "process-sop-architect.zip",
+      "downloadSize": 18643,
+      "recordedDownloads": 0,
+      "markdownUrl": "/cat-skills-data/markdown/process-sop-architect.md",
+      "officialUrl": "https://microsoft.github.io/cat-agent-skills/skills/process-sop-architect/",
+      "sourceUrl": "https://github.com/microsoft/cat-agent-skills/tree/362948bfef54f6fdeda77673ee2f21d1086003f3/submissions/process-sop-architect"
+    },
+    {
+      "slug": "redlining-content",
+      "name": "Redlining Content",
+      "description": "Redlines a document based on changes from a template with Track Changes.",
+      "platforms": [
+        "Cowork",
+        "Copilot Studio"
+      ],
+      "type": "skill",
+      "tags": [
+        "documents",
+        "productivity"
+      ],
+      "author": "AndrewHessMSFT",
+      "authorUrl": "https://github.com/AndrewHessMSFT",
+      "version": "1.0.0",
+      "createdAt": "2026-07-08",
+      "updatedAt": "2026-07-08",
+      "downloadUrl": "/cat-skills-data/bundles/redlining-content.zip",
+      "downloadName": "redlining-content.zip",
+      "downloadSize": 59322,
+      "recordedDownloads": 70,
+      "markdownUrl": "/cat-skills-data/markdown/redlining-content.md",
+      "officialUrl": "https://microsoft.github.io/cat-agent-skills/skills/redlining-content/",
+      "sourceUrl": "https://github.com/microsoft/cat-agent-skills/tree/362948bfef54f6fdeda77673ee2f21d1086003f3/submissions/redlining-content"
+    },
+    {
+      "slug": "regulation-monitor",
+      "name": "Regulation Monitor",
+      "description": "Configure once, then on a schedule sweeps a locked list of authoritative sources (auto-discovered at setup, confirmed by the user) plus any user-supplied seeds. Classifies each item, flags items relevant to the user's team using a light WorkIQ-derived profile, and renders a self-contained HTML dashboard. A tightly-bounded fallback web search is used only when a locked source is silent in the window. Domain-agnostic (tax, privacy, AI/ML, healthcare, finance, ESG, labor, etc.).",
+      "platforms": [
+        "Cowork",
+        "Scout"
+      ],
+      "type": "skill",
+      "tags": [
+        "regulation",
+        "monitoring",
+        "compliance",
+        "dashboard",
+        "research"
+      ],
+      "author": "Jagmeet Chabra",
+      "authorUrl": "https://github.com/jchha001",
+      "version": "1.0.0",
+      "createdAt": "2026-07-23",
+      "updatedAt": "2026-07-23",
+      "downloadUrl": "/cat-skills-data/bundles/regulation-monitor.zip",
+      "downloadName": "regulation-monitor.zip",
+      "downloadSize": 15736,
+      "recordedDownloads": 0,
+      "markdownUrl": "/cat-skills-data/markdown/regulation-monitor.md",
+      "officialUrl": "https://microsoft.github.io/cat-agent-skills/skills/regulation-monitor/",
+      "sourceUrl": "https://github.com/microsoft/cat-agent-skills/tree/362948bfef54f6fdeda77673ee2f21d1086003f3/submissions/regulation-monitor"
+    },
+    {
+      "slug": "rich-html-presentation",
+      "name": "Rich HTML Presentation",
+      "description": "Create polished, self-contained HTML slide decks with keynote-style visuals, keyboard navigation, themes, animations, and reusable presentation components.",
+      "platforms": [
+        "Cowork",
+        "Copilot Studio"
+      ],
+      "type": "skill",
+      "tags": [
+        "presentations",
+        "html",
+        "design",
+        "productivity",
+        "writing"
+      ],
+      "author": "Henry Jammes",
+      "authorUrl": "https://www.linkedin.com/in/henryjammes/",
+      "version": "1.0.0",
+      "createdAt": "2026-07-21",
+      "updatedAt": "2026-07-21",
+      "downloadUrl": "/cat-skills-data/bundles/rich-html-presentation.zip",
+      "downloadName": "rich-html-presentation.zip",
+      "downloadSize": 13435,
+      "recordedDownloads": 92,
+      "markdownUrl": "/cat-skills-data/markdown/rich-html-presentation.md",
+      "officialUrl": "https://microsoft.github.io/cat-agent-skills/skills/rich-html-presentation/",
+      "sourceUrl": "https://github.com/microsoft/cat-agent-skills/tree/362948bfef54f6fdeda77673ee2f21d1086003f3/submissions/rich-html-presentation"
+    },
+    {
+      "slug": "scrollytelling-data",
+      "name": "Scrollytelling Data",
+      "description": "Turns data into a scroll-driven HTML story.",
+      "platforms": [
+        "Copilot Studio"
+      ],
+      "type": "skill",
+      "tags": [
+        "data",
+        "visualization",
+        "storytelling",
+        "reporting"
+      ],
+      "author": "AndrewHessMSFT",
+      "authorUrl": "https://github.com/AndrewHessMSFT",
+      "version": "1.0.0",
+      "createdAt": "2026-07-21",
+      "updatedAt": "2026-07-21",
+      "downloadUrl": "/cat-skills-data/bundles/scrollytelling-data.zip",
+      "downloadName": "scrollytelling-data.zip",
+      "downloadSize": 96920,
+      "recordedDownloads": 0,
+      "markdownUrl": "/cat-skills-data/markdown/scrollytelling-data.md",
+      "officialUrl": "https://microsoft.github.io/cat-agent-skills/skills/scrollytelling-data/",
+      "sourceUrl": "https://github.com/microsoft/cat-agent-skills/tree/362948bfef54f6fdeda77673ee2f21d1086003f3/submissions/scrollytelling-data"
+    },
+    {
+      "slug": "sharepoint-list-formatter",
+      "name": "SharePoint List Formatter",
+      "description": "Turns any SharePoint list data into a clean, consistent markdown table. Dynamic columns based on list type and query, plus a one-click Open link for every row.",
+      "platforms": [
+        "Cowork",
+        "Copilot Studio",
+        "Scout"
+      ],
+      "type": "skill",
+      "tags": [
+        "sharepoint",
+        "microsoft-365",
+        "productivity",
+        "tables",
+        "data"
+      ],
+      "author": "Mathias Salomonsen",
+      "authorUrl": "https://www.linkedin.com/in/mathias-salomonsen-331949201",
+      "version": "1.0.0",
+      "createdAt": "2026-07-17",
+      "updatedAt": "2026-07-17",
+      "downloadUrl": "/cat-skills-data/files/sharepoint-list-formatter/SKILL.md",
+      "downloadName": "SKILL.md",
+      "downloadSize": 6146,
+      "recordedDownloads": 0,
+      "markdownUrl": "/cat-skills-data/markdown/sharepoint-list-formatter.md",
+      "officialUrl": "https://microsoft.github.io/cat-agent-skills/skills/sharepoint-list-formatter/",
+      "sourceUrl": "https://github.com/microsoft/cat-agent-skills/tree/362948bfef54f6fdeda77673ee2f21d1086003f3/submissions/sharepoint-list-formatter"
+    },
+    {
+      "slug": "sharepoint-list-insight-report-generator",
+      "name": "SharePoint List Insight Report Generator",
+      "description": "Automatically discovers and validates a SharePoint list within a connected knowledge source, analyzes its structure and data, identifies key business insights, and generates a downloadable interactive HTML report. The report includes dynamic filters, interactive charts, sortable and searchable tables with pagination, detailed record drill-down through modal popups, and direct links to open items in SharePoint. If the requested list is not found, the skill suggests available lists and closest matches before stopping the analysis.",
+      "platforms": [
+        "Copilot Studio"
+      ],
+      "type": "skill",
+      "tags": [
+        "sharepoint",
+        "microsoft-365",
+        "lists",
+        "report",
+        "html"
+      ],
+      "author": "Marco Rocca",
+      "authorUrl": "https://www.linkedin.com/in/marco-rocca",
+      "version": "1.0.0",
+      "createdAt": "2026-07-24",
+      "updatedAt": "2026-07-24",
+      "downloadUrl": "/cat-skills-data/files/sharepoint-list-insight-report-generator/SKILL.md",
+      "downloadName": "SKILL.md",
+      "downloadSize": 8665,
+      "recordedDownloads": 0,
+      "markdownUrl": "/cat-skills-data/markdown/sharepoint-list-insight-report-generator.md",
+      "officialUrl": "https://microsoft.github.io/cat-agent-skills/skills/sharepoint-list-insight-report-generator/",
+      "sourceUrl": "https://github.com/microsoft/cat-agent-skills/tree/362948bfef54f6fdeda77673ee2f21d1086003f3/submissions/sharepoint-list-insight-report-generator"
+    },
+    {
+      "slug": "skill-authoring-coach",
+      "name": "Skill Authoring Coach",
+      "description": "Help makers design concise, reusable Agent Skills with clear triggers, instructions, resources, and packaging.",
+      "platforms": [
+        "Cowork",
+        "Copilot Studio",
+        "Scout"
+      ],
+      "type": "skill",
+      "tags": [
+        "skills",
+        "authoring",
+        "documentation",
+        "productivity",
+        "agent"
+      ],
+      "author": "Simon Owen",
+      "authorUrl": "https://github.com/SimonOwenDigital",
+      "version": "0.1.0",
+      "createdAt": "2026-07-17",
+      "updatedAt": "2026-07-17",
+      "downloadUrl": "/cat-skills-data/bundles/skill-authoring-coach.zip",
+      "downloadName": "skill-authoring-coach.zip",
+      "downloadSize": 2505,
+      "recordedDownloads": 79,
+      "markdownUrl": "/cat-skills-data/markdown/skill-authoring-coach.md",
+      "officialUrl": "https://microsoft.github.io/cat-agent-skills/skills/skill-authoring-coach/",
+      "sourceUrl": "https://github.com/microsoft/cat-agent-skills/tree/362948bfef54f6fdeda77673ee2f21d1086003f3/submissions/skill-authoring-coach"
+    },
+    {
+      "slug": "spend-more-time-with-friends-and-family",
+      "name": "Spend More Time With Friends & Family",
+      "description": "While you're out of office, watches a group chat and answers questions from your local knowledge docs (clearly marked AI-generated), logs anything it can't answer for later, and pings you on Teams if its setup is incomplete.",
+      "platforms": [
+        "Scout"
+      ],
+      "type": "automation",
+      "tags": [
+        "automation",
+        "teams",
+        "out-of-office",
+        "knowledge"
+      ],
+      "author": "Adi Leibowitz",
+      "authorUrl": "https://github.com/adilei",
+      "version": "1.0.0",
+      "createdAt": "2026-07-14",
+      "updatedAt": "2026-07-14",
+      "downloadUrl": "/cat-skills-data/bundles/spend-more-time-with-friends-and-family.json",
+      "downloadName": "spend-more-time-with-friends-and-family.json",
+      "downloadSize": 6707,
+      "recordedDownloads": 0,
+      "markdownUrl": "/cat-skills-data/markdown/spend-more-time-with-friends-and-family.md",
+      "officialUrl": "https://microsoft.github.io/cat-agent-skills/skills/spend-more-time-with-friends-and-family/",
+      "sourceUrl": "https://github.com/microsoft/cat-agent-skills/tree/362948bfef54f6fdeda77673ee2f21d1086003f3/submissions/spend-more-time-with-friends-and-family"
+    },
+    {
+      "slug": "tool-tracer",
+      "name": "Tool Tracer",
+      "description": "On-demand tool/action trace for Copilot Studio runs (`/special-debug tool-trace` → `tool_trace.json`).",
+      "platforms": [
+        "Copilot Studio"
+      ],
+      "type": "skill",
+      "tags": [
+        "transparency",
+        "observability",
+        "debugging",
+        "workflow",
+        "logging",
+        "json",
+        "productivity"
+      ],
+      "author": "Rafael Lopez Alcaraz",
+      "authorUrl": "https://github.com/rafalcaraz",
+      "version": "1.0.0",
+      "createdAt": "2026-07-22",
+      "updatedAt": "2026-07-22",
+      "downloadUrl": "/cat-skills-data/files/tool-tracer/SKILL.md",
+      "downloadName": "SKILL.md",
+      "downloadSize": 7058,
+      "recordedDownloads": 0,
+      "markdownUrl": "/cat-skills-data/markdown/tool-tracer.md",
+      "officialUrl": "https://microsoft.github.io/cat-agent-skills/skills/tool-tracer/",
+      "sourceUrl": "https://github.com/microsoft/cat-agent-skills/tree/362948bfef54f6fdeda77673ee2f21d1086003f3/submissions/tool-tracer"
+    },
+    {
+      "slug": "doc-format-converter",
+      "name": "Universal Document Converter",
+      "description": "Convert documents between Markdown, HTML, PDF, Word, PowerPoint, Excel/CSV and text — fully offline, using only the libraries already in the agent sandbox.",
+      "platforms": [
+        "Copilot Studio"
+      ],
+      "type": "skill",
+      "tags": [
+        "documents",
+        "conversion",
+        "markdown",
+        "pdf",
+        "office",
+        "scripts"
+      ],
+      "author": "Andreas Adner",
+      "authorUrl": "https://github.com/adner",
+      "version": "1.0.0",
+      "createdAt": "2026-07-16",
+      "updatedAt": "2026-07-16",
+      "downloadUrl": "/cat-skills-data/bundles/doc-format-converter.zip",
+      "downloadName": "doc-format-converter.zip",
+      "downloadSize": 80958,
+      "recordedDownloads": 152,
+      "markdownUrl": "/cat-skills-data/markdown/doc-format-converter.md",
+      "officialUrl": "https://microsoft.github.io/cat-agent-skills/skills/doc-format-converter/",
+      "sourceUrl": "https://github.com/microsoft/cat-agent-skills/tree/362948bfef54f6fdeda77673ee2f21d1086003f3/submissions/doc-format-converter"
+    },
+    {
+      "slug": "vacation-urgent-forwarder",
+      "name": "Vacation Urgent Forwarder",
+      "description": "A Scout automation installer that, only during a configured vacation window, scans work email and Teams and forwards genuinely urgent items to your personal email.",
+      "platforms": [
+        "Scout"
+      ],
+      "type": "automation",
+      "tags": [
+        "automation",
+        "email",
+        "teams",
+        "out-of-office"
+      ],
+      "author": "Giorgio Ughini",
+      "authorUrl": "https://github.com/GiorgioUghini",
+      "version": "1.0.0",
+      "createdAt": "2026-07-16",
+      "updatedAt": "2026-07-16",
+      "downloadUrl": "/cat-skills-data/bundles/vacation-urgent-forwarder.zip",
+      "downloadName": "vacation-urgent-forwarder.zip",
+      "downloadSize": 5782,
+      "recordedDownloads": 0,
+      "markdownUrl": "/cat-skills-data/markdown/vacation-urgent-forwarder.md",
+      "officialUrl": "https://microsoft.github.io/cat-agent-skills/skills/vacation-urgent-forwarder/",
+      "sourceUrl": "https://github.com/microsoft/cat-agent-skills/tree/362948bfef54f6fdeda77673ee2f21d1086003f3/submissions/vacation-urgent-forwarder"
+    },
+    {
+      "slug": "vendor-contract-risk-review",
+      "name": "Vendor Contract Risk Review",
+      "description": "First-pass review of a vendor contract or SOW for the clauses that commonly cause problems (auto-renewal, liability caps, termination, IP ownership), flagged by risk level to prepare for legal review, not replace it.",
+      "platforms": [
+        "Cowork",
+        "Copilot Studio"
+      ],
+      "type": "skill",
+      "tags": [
+        "contracts",
+        "legal",
+        "procurement",
+        "risk",
+        "vendor-management",
+        "review"
+      ],
+      "author": "Tim Karlsson",
+      "authorUrl": "https://github.com/Timziito",
+      "version": "1.0.0",
+      "createdAt": "2026-07-27",
+      "updatedAt": "2026-07-27",
+      "downloadUrl": "/cat-skills-data/files/vendor-contract-risk-review/SKILL.md",
+      "downloadName": "SKILL.md",
+      "downloadSize": 3851,
+      "recordedDownloads": 0,
+      "markdownUrl": "/cat-skills-data/markdown/vendor-contract-risk-review.md",
+      "officialUrl": "https://microsoft.github.io/cat-agent-skills/skills/vendor-contract-risk-review/",
+      "sourceUrl": "https://github.com/microsoft/cat-agent-skills/tree/362948bfef54f6fdeda77673ee2f21d1086003f3/submissions/vendor-contract-risk-review"
+    },
+    {
+      "slug": "whiteboard-to-infographic",
+      "name": "Whiteboard to Infographic",
+      "description": "Turn a photo of a hand-drawn whiteboard or process sketch into a polished, client-ready infographic slide (.pptx), generated natively in the agent's Python container.",
+      "platforms": [
+        "Copilot Studio"
+      ],
+      "type": "skill",
+      "tags": [
+        "infographic",
+        "whiteboard",
+        "powerpoint",
+        "presentations",
+        "diagrams",
+        "design",
+        "consulting"
+      ],
+      "author": "Andy Zehr",
+      "authorUrl": "https://www.linkedin.com/in/andyzehr",
+      "version": "1.0.0",
+      "createdAt": "2026-07-22",
+      "updatedAt": "2026-07-22",
+      "downloadUrl": "/cat-skills-data/bundles/whiteboard-to-infographic.zip",
+      "downloadName": "whiteboard-to-infographic.zip",
+      "downloadSize": 10551,
+      "recordedDownloads": 0,
+      "markdownUrl": "/cat-skills-data/markdown/whiteboard-to-infographic.md",
+      "officialUrl": "https://microsoft.github.io/cat-agent-skills/skills/whiteboard-to-infographic/",
+      "sourceUrl": "https://github.com/microsoft/cat-agent-skills/tree/362948bfef54f6fdeda77673ee2f21d1086003f3/submissions/whiteboard-to-infographic"
+    },
+    {
+      "slug": "wikipedia-human-style-writing",
+      "name": "Wikipedia Human Style Writing",
+      "description": "Rewrite or draft prose so it avoids the tell-tale signs of AI writing, using Wikipedia's 'Signs of AI writing' field guide.",
+      "platforms": [
+        "Cowork",
+        "Copilot Studio",
+        "Scout"
+      ],
+      "type": "skill",
+      "tags": [
+        "writing",
+        "content",
+        "editing",
+        "style",
+        "humanize",
+        "ai-detection",
+        "wikipedia"
+      ],
+      "author": "Chris Garty",
+      "authorUrl": "",
+      "version": "0.1.0",
+      "createdAt": "2026-07-20",
+      "updatedAt": "2026-07-20",
+      "downloadUrl": "/cat-skills-data/bundles/wikipedia-human-style-writing.zip",
+      "downloadName": "wikipedia-human-style-writing.zip",
+      "downloadSize": 6190,
+      "recordedDownloads": 0,
+      "markdownUrl": "/cat-skills-data/markdown/wikipedia-human-style-writing.md",
+      "officialUrl": "https://microsoft.github.io/cat-agent-skills/skills/wikipedia-human-style-writing/",
+      "sourceUrl": "https://github.com/microsoft/cat-agent-skills/tree/362948bfef54f6fdeda77673ee2f21d1086003f3/submissions/wikipedia-human-style-writing"
+    },
+    {
+      "slug": "work-brief",
+      "name": "Work Brief",
+      "description": "A morning brief that reads your mail, calendar, and Teams, then tells you what you owe people before the week starts.",
+      "platforms": [
+        "Scout"
+      ],
+      "type": "skill",
+      "tags": [
+        "productivity",
+        "automation",
+        "teams",
+        "email",
+        "calendar",
+        "briefing",
+        "multilingual"
+      ],
+      "author": "Allan De Castro",
+      "authorUrl": "https://github.com/allandecastro",
+      "version": "0.4.0",
+      "createdAt": "2026-07-25",
+      "updatedAt": "2026-07-27",
+      "downloadUrl": "/cat-skills-data/bundles/work-brief.zip",
+      "downloadName": "work-brief.zip",
+      "downloadSize": 15852,
+      "recordedDownloads": 0,
+      "markdownUrl": "/cat-skills-data/markdown/work-brief.md",
+      "officialUrl": "https://microsoft.github.io/cat-agent-skills/skills/work-brief/",
+      "sourceUrl": "https://github.com/microsoft/cat-agent-skills/tree/362948bfef54f6fdeda77673ee2f21d1086003f3/submissions/work-brief"
+    }
+  ]
+}

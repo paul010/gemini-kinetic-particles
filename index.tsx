@@ -156,7 +156,7 @@ const Router: React.FC = () => {
       hpworkshop: 'AI 实战工作坊演示面板 · 9 个 Copilot 案例 · 大雷',
       agents: 'Agent 模板库 · Agent Templates · 大雷',
       skills: 'Skill 技能库 · Skill Library · 大雷',
-      'cat-skills': 'Microsoft CAT Agent Skills 培训入口 · 大雷',
+      'cat-skills': 'CAT Agent Skills 中文分发站 · 大雷',
       uml: 'PlantUML 渲染器 · 大雷',
       town: 'Smallville 小镇 · 生成式智能体 · 大雷',
       patterns: 'Agent 设计模式 · Agent Design Patterns · 大雷',

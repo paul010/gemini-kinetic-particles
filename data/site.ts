@@ -636,18 +636,18 @@ export const PROJECTS: Project[] = [
   {
     id: 'microsoft-cat-agent-skills',
     category: 'ai',
-    title: { en: 'Microsoft CAT Agent Skills', zh: 'Microsoft CAT Agent Skills 培训入口' },
+    title: { en: 'CAT Agent Skills Distribution', zh: 'CAT Agent Skills 中文分发站' },
     year: '2026',
     status: 'live',
     featured: true,
     cover: '/cat-skills-cover.webp',
     tagline: {
-      en: 'A Chinese training gateway to discover, review, test, and safely adopt Agent Skills.',
-      zh: '面向培训学员的中文入口：发现、审查、测试并安全采用 Agent Skill。',
+      en: 'A locally distributed catalog of Microsoft CAT community Skills for training and hands-on use.',
+      zh: '为培训与实战准备的 Microsoft CAT 社区 Skill 本地分发目录。',
     },
     description: {
-      en: 'A workshop-ready guide to the Microsoft CAT Agent Skills community gallery. It explains what a Skill is, provides a practical adoption path, links to seven recommended official Skills, and includes a copyable evaluation prompt for hands-on training. Downloads and current versions remain on the official Microsoft gallery.',
-      zh: '为 Microsoft CAT Agent Skills 社区图库制作的培训导览。讲清 Skill 是什么、如何安全采用，精选 7 个官方 Skill 组成完整练习路径，并附一段可直接复制的结构化评测提示词。下载与最新版本仍以微软官方图库为准。',
+      en: 'A full local distribution mirror of the Microsoft CAT Agent Skills gallery. The catalog vendors 76 published entries, their metadata, readable Markdown, and every available ZIP, JSON, or SKILL.md download. Search by name, author, platform, type, or tag; inspect provenance and fixed-commit source links before installing. A repeatable sync script keeps the mirror refreshable while preserving contributor attribution and the upstream MIT license.',
+      zh: 'Microsoft CAT Agent Skills 图库的完整本地分发镜像。仓库内实际收录 76 个已发布条目的元数据、可阅读 Markdown，以及全部可用 ZIP、JSON 或 SKILL.md 下载文件。支持按名称、作者、平台、类型与标签检索，安装前可核对来源与固定提交源码。项目同时提供可重复同步脚本，并保留作者署名和上游 MIT 许可证。',
     },
     tags: ['Microsoft', 'Agent Skills', 'Copilot Studio', 'Training'],
     links: [
