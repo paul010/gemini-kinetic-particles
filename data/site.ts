@@ -651,7 +651,7 @@ export const PROJECTS: Project[] = [
     },
     tags: ['Microsoft', 'Agent Skills', 'Copilot Studio', 'Training'],
     links: [
-      { label: { en: 'Open training guide', zh: '打开培训导览' }, href: '/cat-skills', kind: 'internal' },
+      { label: { en: 'Open distribution catalog', zh: '打开分发目录' }, href: '/cat-skills', kind: 'internal' },
       { label: { en: 'Official gallery', zh: '微软官方图库' }, href: 'https://microsoft.github.io/cat-agent-skills/', kind: 'live' },
     ],
   },
