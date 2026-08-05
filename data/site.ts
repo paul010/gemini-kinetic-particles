@@ -359,13 +359,13 @@ export const PROJECTS: Project[] = [
       zh: '同一个虚构项目，三次现场升级：把任务说清楚、把事实找准确、再创建有边界的 Agent。',
     },
     description: {
-      en: 'A presenter-ready companion for a two-hour, 100+ person Microsoft Copilot session. It maps directly to the slide deck and packages three live demos: a three-pass Copilot Chat prompt, a four-file Microsoft 365 Copilot handover brief with source checks, and a Project Lighthouse knowledge Agent tested against known, unknown, conflicting, and out-of-scope requests. Every demo includes copyable prompts, input files, pass criteria, Go/No-Go checks, and a fallback path.',
-      zh: '为两小时、100+ 人 Microsoft Copilot 线上分享准备的讲师演示台，与 PPT 第 9、15–17、24–26 页逐页对应。三段 Live Demo 依次展示：Copilot Chat 三轮升级、四份工作材料形成可追溯接手简报，以及 Project Lighthouse 知识 Agent 的创建与已知/未知/冲突/越界测试。页面内置可复制提示词、输入材料、通过标准、Go/No-Go 与翻车备用路径。',
+      en: 'A presenter-ready companion for a two-hour, 100+ person Microsoft Copilot session. It maps directly to the slide deck and packages three live demos. The web page gives the presenter timing, prompts, pass criteria and Go/No-Go gates; every public download is now a learner-facing kit containing only task cards, practice inputs, templates and self-check questions.',
+      zh: '为两小时、100+ 人 Microsoft Copilot 线上分享准备的讲师演示台，与 PPT 第 9、15–17、24–26 页逐页对应。网页保留讲师所需的节奏、提示词、通过标准和 Go/No-Go；公开下载包全部改成学员视角，只包含任务卡、练习输入文件、模板和自检问题，不包含黄金答案与讲师私有内容。',
     },
-    tags: ['Microsoft Copilot', 'Agent Builder', 'Workshop', 'Presenter Tool'],
+    tags: ['Microsoft Copilot', 'Agent Builder', 'Workshop', 'Learner Kit'],
     links: [
       { label: { en: 'Open demo console', zh: '打开演示控制台' }, href: '/copilot-demo', kind: 'internal' },
-      { label: { en: 'Download demo kit', zh: '下载完整演示包' }, href: '/copilot-demo/CN-Print-Copilot-三段Demo现场演示包-v2.zip', kind: 'live' },
+      { label: { en: 'Download learner kit', zh: '下载学员素材包' }, href: '/copilot-demo/CN-Print-Copilot-学员Demo素材包-v3.zip', kind: 'live' },
     ],
   },
   {
