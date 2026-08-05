@@ -65,7 +65,7 @@ first featured project. The full particle experience lives at **`/particles`**.
 
 - **Homepage / 首页** — bilingual (EN / 中文), animated cosmic background, project cards
 - **`/particles`** — the interactive hand-gesture particle app (below)
-- **`/copilot-demo`** — presenter-ready CN Print Copilot three-demo console and downloadable demo kits
+- **`/copilot-demo`** — presenter-ready CN Print Copilot console with learner-facing downloadable practice kits
 - Adding a new project = one entry in [`data/site.ts`](./data/site.ts)
 
 > Routing is client-side (History API) with a hash fallback (`/#/particles`).
