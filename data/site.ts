@@ -150,6 +150,26 @@ export const VIDEOS: VideoItem[] = [
  */
 export const PROJECTS: Project[] = [
   {
+    id: 'vibe-check',
+    category: 'creative',
+    title: { en: 'Vibe Check', zh: '隐藏气质测试' },
+    year: '2026',
+    status: 'live',
+    tagline: {
+      en: 'Six playful questions. One delightfully unserious personality card.',
+      zh: '六道没有标准答案的小题，生成一张纯娱乐的隐藏气质卡。',
+    },
+    description: {
+      en: 'A privacy-friendly, just-for-fun personality quiz with four original archetypes. Answers stay in the browser and the result is ready to copy and share.',
+      zh: '一个不登录、不上传答案的纯娱乐人格测试。四种原创气质类型，完成后可一键复制结果分享。',
+    },
+    tags: ['React', 'Interactive', 'Quiz', 'Privacy'],
+    links: [
+      { label: { en: 'Take the quiz', zh: '开始测试' }, href: '/vibe-check', kind: 'internal' },
+    ],
+    cover: '/vibe-check-cover.svg',
+  },
+  {
     id: 'kinetic-particles',
     category: 'creative',
     title: { en: 'Kinetic Particles', zh: 'Kinetic Particles' },

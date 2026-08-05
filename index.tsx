@@ -43,6 +43,7 @@ const Fireflies = React.lazy(() => import('./lab3d/Fireflies'));
 const Harbin = React.lazy(() => import('./lab3d/Harbin'));
 const ForbiddenCity = React.lazy(() => import('./lab3d/ForbiddenCity'));
 const BrooksFalls = React.lazy(() => import('./lab3d/BrooksFalls'));
+const VibeCheck = React.lazy(() => import('./vibecheck/VibeCheck'));
 
 const Loader: React.FC<{ label: string }> = ({ label }) => (
   <div
@@ -56,7 +57,7 @@ const Loader: React.FC<{ label: string }> = ({ label }) => (
   </div>
 );
 
-type Route = 'home' | 'particles' | 'arsenal' | 'md' | 'img' | 's2c' | 'fluid' | 'r3f' | 'ttt-hour-of-code' | 'hear-the-universe' | 'bench' | 'fugu' | 'copilot' | 'copilotcamp' | 'promptforge' | 'notebooklm' | 'aihtml' | 'text2image' | 'farmer' | 'quyoubus' | 'hpworkshop' | 'agents' | 'skills' | 'cat-skills' | 'uml' | 'town' | 'patterns' | 'prompts' | 'cici' | 'designskill' | 'videogen' | 'dino' | 'chengdu' | 'lab3d' | 'cappadocia' | 'zhangjiajie' | 'niagara' | 'fireflies' | 'harbin' | 'forbiddencity' | 'brooksfalls';
+type Route = 'home' | 'particles' | 'arsenal' | 'md' | 'img' | 's2c' | 'fluid' | 'r3f' | 'ttt-hour-of-code' | 'hear-the-universe' | 'bench' | 'fugu' | 'copilot' | 'copilotcamp' | 'promptforge' | 'notebooklm' | 'aihtml' | 'text2image' | 'farmer' | 'quyoubus' | 'hpworkshop' | 'agents' | 'skills' | 'cat-skills' | 'uml' | 'town' | 'patterns' | 'prompts' | 'cici' | 'designskill' | 'videogen' | 'dino' | 'chengdu' | 'lab3d' | 'cappadocia' | 'zhangjiajie' | 'niagara' | 'fireflies' | 'harbin' | 'forbiddencity' | 'brooksfalls' | 'vibe-check';
 
 const routeFromLocation = (): Route => {
   const { pathname, hash } = window.location;
@@ -101,6 +102,7 @@ const routeFromLocation = (): Route => {
   if (p.endsWith('/harbin') || hash === '#/harbin') return 'harbin';
   if (p.endsWith('/forbiddencity') || hash === '#/forbiddencity') return 'forbiddencity';
   if (p.endsWith('/brooksfalls') || hash === '#/brooksfalls') return 'brooksfalls';
+  if (p.endsWith('/vibe-check') || hash === '#/vibe-check') return 'vibe-check';
   return 'home';
 };
 
@@ -174,6 +176,7 @@ const Router: React.FC = () => {
       harbin: '哈尔滨冰雪大世界 · #8 已生成 · 大雷',
       forbiddencity: '紫禁城初雪 · #9 已生成 · 大雷',
       brooksfalls: '布鲁克斯瀑布鲑鱼洄游 · #59 已生成 · 大雷',
+      'vibe-check': '你的隐藏气质是什么？· 纯娱乐测试 · 大雷',
     };
     document.title = titles[route];
   }, [route]);
@@ -502,6 +505,14 @@ const Router: React.FC = () => {
     return (
       <Suspense fallback={<Loader label="THE RUN BEGINS…" />}>
         <BrooksFalls onBack={() => navigate('/lab3d')} />
+      </Suspense>
+    );
+  }
+
+  if (route === 'vibe-check') {
+    return (
+      <Suspense fallback={<Loader label="READING YOUR VIBE…" />}>
+        <VibeCheck onHome={() => navigate('/')} />
       </Suspense>
     );
   }
