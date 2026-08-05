@@ -347,6 +347,28 @@ export const PROJECTS: Project[] = [
     ],
   },
   {
+    id: 'cn-print-copilot-demo',
+    category: 'ai',
+    title: { en: 'Copilot Live Demo Console', zh: 'Copilot 三段现场演示控制台' },
+    year: '2026',
+    status: 'live',
+    featured: true,
+    cover: '/copilot-demo-cover.svg',
+    tagline: {
+      en: 'One fictional project, three live upgrades: clarify the task, verify the facts, then build a bounded Agent.',
+      zh: '同一个虚构项目，三次现场升级：把任务说清楚、把事实找准确、再创建有边界的 Agent。',
+    },
+    description: {
+      en: 'A presenter-ready companion for a two-hour, 100+ person Microsoft Copilot session. It maps directly to the slide deck and packages three live demos: a three-pass Copilot Chat prompt, a four-file Microsoft 365 Copilot handover brief with source checks, and a Project Lighthouse knowledge Agent tested against known, unknown, conflicting, and out-of-scope requests. Every demo includes copyable prompts, input files, pass criteria, Go/No-Go checks, and a fallback path.',
+      zh: '为两小时、100+ 人 Microsoft Copilot 线上分享准备的讲师演示台，与 PPT 第 9、15–17、24–26 页逐页对应。三段 Live Demo 依次展示：Copilot Chat 三轮升级、四份工作材料形成可追溯接手简报，以及 Project Lighthouse 知识 Agent 的创建与已知/未知/冲突/越界测试。页面内置可复制提示词、输入材料、通过标准、Go/No-Go 与翻车备用路径。',
+    },
+    tags: ['Microsoft Copilot', 'Agent Builder', 'Workshop', 'Presenter Tool'],
+    links: [
+      { label: { en: 'Open demo console', zh: '打开演示控制台' }, href: '/copilot-demo', kind: 'internal' },
+      { label: { en: 'Download demo kit', zh: '下载完整演示包' }, href: '/copilot-demo/CN-Print-Copilot-三段Demo现场演示包-v2.zip', kind: 'live' },
+    ],
+  },
+  {
     id: 'copilot-matrix',
     category: 'ai',
     title: { en: 'Microsoft Copilot / Agent Matrix', zh: 'Microsoft Copilot / Agent 产品矩阵' },

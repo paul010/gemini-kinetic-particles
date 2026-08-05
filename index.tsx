@@ -16,6 +16,7 @@ const Bench = React.lazy(() => import('./bench/Bench'));
 const Fugu = React.lazy(() => import('./fugu/Fugu'));
 const Copilot = React.lazy(() => import('./copilot/Copilot'));
 const CopilotCamp = React.lazy(() => import('./copilotcamp/CopilotCamp'));
+const CopilotDemo = React.lazy(() => import('./copilotdemo/CopilotDemo'));
 const PromptForge = React.lazy(() => import('./promptforge/PromptForge'));
 const NotebookLM = React.lazy(() => import('./notebooklm/NotebookLM'));
 const AIHtmlLab = React.lazy(() => import('./aihtml/AIHtmlLab'));
@@ -57,7 +58,7 @@ const Loader: React.FC<{ label: string }> = ({ label }) => (
   </div>
 );
 
-type Route = 'home' | 'particles' | 'arsenal' | 'md' | 'img' | 's2c' | 'fluid' | 'r3f' | 'ttt-hour-of-code' | 'hear-the-universe' | 'bench' | 'fugu' | 'copilot' | 'copilotcamp' | 'promptforge' | 'notebooklm' | 'aihtml' | 'text2image' | 'farmer' | 'quyoubus' | 'hpworkshop' | 'agents' | 'skills' | 'cat-skills' | 'uml' | 'town' | 'patterns' | 'prompts' | 'cici' | 'designskill' | 'videogen' | 'dino' | 'chengdu' | 'lab3d' | 'cappadocia' | 'zhangjiajie' | 'niagara' | 'fireflies' | 'harbin' | 'forbiddencity' | 'brooksfalls' | 'vibe-check';
+type Route = 'home' | 'particles' | 'arsenal' | 'md' | 'img' | 's2c' | 'fluid' | 'r3f' | 'ttt-hour-of-code' | 'hear-the-universe' | 'bench' | 'fugu' | 'copilot' | 'copilotcamp' | 'copilot-demo' | 'promptforge' | 'notebooklm' | 'aihtml' | 'text2image' | 'farmer' | 'quyoubus' | 'hpworkshop' | 'agents' | 'skills' | 'cat-skills' | 'uml' | 'town' | 'patterns' | 'prompts' | 'cici' | 'designskill' | 'videogen' | 'dino' | 'chengdu' | 'lab3d' | 'cappadocia' | 'zhangjiajie' | 'niagara' | 'fireflies' | 'harbin' | 'forbiddencity' | 'brooksfalls' | 'vibe-check';
 
 const routeFromLocation = (): Route => {
   const { pathname, hash } = window.location;
@@ -74,6 +75,7 @@ const routeFromLocation = (): Route => {
   if (p.endsWith('/bench') || hash === '#/bench') return 'bench';
   if (p.endsWith('/fugu') || hash === '#/fugu') return 'fugu';
   if (p.endsWith('/copilotcamp') || hash === '#/copilotcamp') return 'copilotcamp';
+  if (p.endsWith('/copilot-demo') || hash === '#/copilot-demo') return 'copilot-demo';
   if (p.endsWith('/promptforge') || hash === '#/promptforge') return 'promptforge';
   if (p.endsWith('/notebooklm') || hash === '#/notebooklm') return 'notebooklm';
   if (p.endsWith('/aihtml') || hash === '#/aihtml') return 'aihtml';
@@ -149,6 +151,7 @@ const Router: React.FC = () => {
       fugu: 'Fugu / TRINITY 复现验证 · Da Lei Research',
       copilot: 'Microsoft Copilot / Agent 产品矩阵 · 大雷',
       copilotcamp: 'Copilot Camp · Cowork 设置与扩展学习课 · 大雷',
+      'copilot-demo': 'CN Print Copilot 三段 Demo 现场控制台 · 大雷',
       promptforge: '提示词锻造台 · PromptForge · 大雷',
       notebooklm: 'NotebookLM 线画幻灯片提示词 · 大雷',
       aihtml: 'AI 做看得见的 HTML 小工具 · Workshop · 大雷',
@@ -289,6 +292,14 @@ const Router: React.FC = () => {
     return (
       <Suspense fallback={<Loader label="LOADING COURSE…" />}>
         <CopilotCamp onHome={() => navigate('/')} />
+      </Suspense>
+    );
+  }
+
+  if (route === 'copilot-demo') {
+    return (
+      <Suspense fallback={<Loader label="LOADING COPILOT DEMO…" />}>
+        <CopilotDemo onHome={() => navigate('/')} />
       </Suspense>
     );
   }
