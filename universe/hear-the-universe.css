@@ -49,6 +49,52 @@
 .htu-header-actions button, .htu-statusbar button { padding: 9px 12px; border: 1px solid var(--htu-line); background: rgba(16, 31, 56, .78); cursor: pointer; }
 .htu-header-actions button:hover, .htu-header-actions button[aria-pressed="true"] { border-color: var(--htu-cyan); background: #17365b; }
 
+.htu-celebration { position: fixed; z-index: 85; inset: 0; display: grid; place-items: center; pointer-events: none; overflow: hidden; background: radial-gradient(circle, rgba(112,225,255,.12), transparent 48%); }
+.htu-celebration span { padding: 14px 20px; color: #04121c; background: var(--htu-gold); border: 3px solid #fff; box-shadow: 0 20px 70px rgba(0,0,0,.55); font-weight: 950; animation: htu-success-card 1.7s ease both; }
+.htu-celebration i { position: absolute; top: 50%; left: 50%; width: 10px; height: 42px; border-radius: 10px; background: var(--htu-cyan); transform-origin: 50% 180px; animation: htu-firework 1.45s cubic-bezier(.16,.78,.24,1) both; }
+.htu-celebration i:nth-child(3n) { background: var(--htu-gold); }
+.htu-celebration i:nth-child(4n) { background: var(--htu-pink); }
+.htu-celebration i:nth-child(1) { transform: rotate(0deg) translateY(-170px); }
+.htu-celebration i:nth-child(2) { transform: rotate(30deg) translateY(-170px); }
+.htu-celebration i:nth-child(3) { transform: rotate(60deg) translateY(-170px); }
+.htu-celebration i:nth-child(4) { transform: rotate(90deg) translateY(-170px); }
+.htu-celebration i:nth-child(5) { transform: rotate(120deg) translateY(-170px); }
+.htu-celebration i:nth-child(6) { transform: rotate(150deg) translateY(-170px); }
+.htu-celebration i:nth-child(7) { transform: rotate(180deg) translateY(-170px); }
+.htu-celebration i:nth-child(8) { transform: rotate(210deg) translateY(-170px); }
+.htu-celebration i:nth-child(9) { transform: rotate(240deg) translateY(-170px); }
+.htu-celebration i:nth-child(10) { transform: rotate(270deg) translateY(-170px); }
+.htu-celebration i:nth-child(11) { transform: rotate(300deg) translateY(-170px); }
+.htu-celebration i:nth-child(12) { transform: rotate(330deg) translateY(-170px); }
+@keyframes htu-firework { 0% { opacity: 0; scale: .15; } 18% { opacity: 1; } 100% { opacity: 0; scale: 1.25; translate: 0 80px; } }
+@keyframes htu-success-card { 0% { opacity: 0; transform: scale(.82); } 18%, 72% { opacity: 1; transform: scale(1); } 100% { opacity: 0; transform: scale(.96); } }
+
+.htu-student-start { position: relative; z-index: 2; display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(320px, .75fr); gap: clamp(28px, 6vw, 88px); align-items: center; width: min(1320px, calc(100% - 48px)); min-height: 62svh; margin: 0 auto; padding: clamp(60px, 9vh, 110px) 0 44px; }
+.htu-student-start > div > span, .htu-instructor-console > div > span { color: var(--htu-cyan); font: 850 11px/1 ui-monospace, monospace; letter-spacing: .15em; }
+.htu-student-start h2 { margin: 18px 0 22px; font-size: clamp(42px, 5vw, 70px); line-height: .98; letter-spacing: -.06em; text-wrap: balance; }
+.htu-student-start > div > p { max-width: 760px; color: #dce9f6; font-size: clamp(17px, 1.45vw, 21px); line-height: 1.7; }
+.htu-student-start .htu-primary { margin-top: 18px; padding: 15px 22px; color: #03131a; background: var(--htu-gold); border: 1px solid var(--htu-gold); cursor: pointer; font-weight: 950; }
+.htu-student-start ol { display: grid; gap: 12px; margin: 0; padding: 24px; list-style: none; background: rgba(7,16,31,.9); border: 1px solid rgba(112,225,255,.45); }
+.htu-student-start li { display: grid; grid-template-columns: 48px 1fr; gap: 14px; align-items: center; padding: 14px; background: rgba(16,31,56,.76); border-left: 3px solid var(--htu-cyan); }
+.htu-student-start li strong { color: var(--htu-gold); font: 950 27px/1 ui-monospace, monospace; }
+.htu-student-start li span { color: var(--htu-muted); line-height: 1.5; }
+.htu-student-promise { grid-column: 1 / -1; margin: 0; padding: 14px 18px; color: var(--htu-green); background: rgba(10,30,31,.78); border: 1px solid rgba(112,229,139,.42); text-align: center; font-weight: 850; }
+
+.htu-instructor-console { position: relative; z-index: 4; display: grid; grid-template-columns: 220px minmax(360px, 1fr) minmax(360px, 1fr); gap: 14px; width: min(1500px, calc(100% - 48px)); margin: 28px auto 0; }
+.htu-instructor-console > div { padding: 20px; background: rgba(7,16,31,.94); border: 1px solid rgba(112,225,255,.38); box-shadow: 0 20px 60px rgba(0,0,0,.3); }
+.htu-instructor-clock strong { display: block; margin: 12px 0; color: var(--htu-gold); font: 950 46px/1 ui-monospace, monospace; }
+.htu-instructor-console button { padding: 9px 12px; color: var(--htu-text); background: #152b49; border: 1px solid var(--htu-line); cursor: pointer; }
+.htu-instructor-clock div, .htu-instructor-command > div, .htu-instructor-quick-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.htu-instructor-command h2 { margin: 10px 0; font-size: 30px; }
+.htu-instructor-command p { color: var(--htu-muted); line-height: 1.5; }
+.htu-instructor-command button[aria-pressed="true"] { color: #04121c; background: var(--htu-gold); border-color: var(--htu-gold); font-weight: 900; }
+.htu-seat-board > div:first-of-type { display: grid; grid-template-columns: repeat(5, minmax(58px, 1fr)); gap: 8px; margin: 14px 0; }
+.htu-seat-board button[data-seat-state] { display: grid; gap: 5px; min-height: 60px; border-left: 6px solid var(--htu-green); }
+.htu-seat-board button[data-seat-state="help"] { border-left-color: var(--htu-gold); }
+.htu-seat-board button[data-seat-state="paused"] { border-left-color: var(--htu-muted); }
+.htu-seat-board button[data-seat-state="tech"] { border-left-color: var(--htu-pink); }
+.htu-seat-board small { color: var(--htu-muted); font-size: 10px; }
+
 .htu-hero {
   position: relative; z-index: 2;
   display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(330px, .65fr); align-items: center; gap: clamp(30px, 6vw, 90px);
@@ -109,15 +155,16 @@
 
 .htu-statusbar {
   position: relative; z-index: 2;
-  display: grid; grid-template-columns: auto minmax(140px, 1fr) auto auto; align-items: center; gap: 24px;
+  display: grid; grid-template-columns: minmax(190px, 1fr) minmax(270px, auto) auto; align-items: center; gap: 24px;
   padding: 13px clamp(20px, 4vw, 64px); color: var(--htu-muted); background: rgba(11, 22, 42, .86); border-bottom: 1px solid rgba(52, 81, 116, .72);
 }
 .htu-statusbar > div { display: flex; align-items: baseline; gap: 10px; }
 .htu-statusbar span { font-size: 12px; }
 .htu-statusbar strong { color: var(--htu-text); font: 900 17px/1 ui-monospace, monospace; }
-.htu-statusbar progress { width: 100%; height: 12px; accent-color: var(--htu-green); }
 .htu-statusbar label { display: flex; align-items: center; gap: 8px; font-size: 13px; white-space: nowrap; }
 .htu-statusbar input { width: 18px; height: 18px; accent-color: var(--htu-cyan); }
+.htu-sound-mode { display: grid !important; grid-template-columns: auto minmax(200px, 1fr); align-items: center !important; gap: 10px !important; }
+.htu-sound-mode select { min-width: 0; padding: 9px 32px 9px 10px; color: var(--htu-text); background: #10233c; border: 1px solid var(--htu-line); }
 
 .htu-layout {
   position: relative; z-index: 1;
@@ -137,6 +184,7 @@
 .htu-missions li strong { font-size: 16px; }
 .htu-missions li small { font-size: 12px; }
 .htu-location { width: 100%; margin-top: 16px; padding: 12px; color: var(--htu-bg) !important; background: var(--htu-gold); border: 0; font-weight: 900; cursor: pointer; }
+.htu-mission-note { margin: 14px 2px 0; color: var(--htu-muted); font-size: 12px; line-height: 1.55; }
 
 .htu-workspace { min-width: 0; padding: clamp(18px, 3vw, 36px); }
 .htu-mission-brief { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 26px; padding-bottom: 24px; border-bottom: 1px solid var(--htu-line); }
@@ -144,6 +192,7 @@
 .htu-mission-brief h2 { margin: 7px 0 0; font-size: clamp(30px, 4vw, 52px); line-height: .95; letter-spacing: -.06em; }
 .htu-mission-brief p { max-width: 680px; margin: 0; color: var(--htu-muted); font-size: clamp(16px, 1.5vw, 20px); line-height: 1.65; }
 .htu-mission-brief button { padding: 11px 13px; border: 1px solid var(--htu-cyan); background: transparent; cursor: pointer; white-space: nowrap; }
+.htu-instruction-actions { display: grid; gap: 8px; }
 
 .htu-code-grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(300px, .85fr); gap: 18px; margin-top: 24px; }
 .htu-editor-panel, .htu-output-panel { min-width: 0; overflow: hidden; background: #07101f; border: 1px solid #365579; }
@@ -171,6 +220,7 @@
 .htu-hint { margin: 0 20px 20px; padding: 14px 16px; color: var(--htu-muted); border: 1px dashed #45698e; }
 .htu-hint summary { color: var(--htu-gold); cursor: pointer; font-weight: 850; }
 .htu-hint p { margin-bottom: 0; line-height: 1.6; }
+.htu-back-editor { margin: 0 20px 20px; padding: 10px 14px; color: var(--htu-text); background: #162b48; border: 1px solid var(--htu-line); cursor: pointer; }
 .htu-next-row { display: flex; align-items: center; justify-content: space-between; gap: 18px; margin-top: 22px; }
 .htu-next-row button { padding: 12px 16px; border: 1px solid var(--htu-line); background: #152b49; cursor: pointer; }
 .htu-next-row button:disabled { opacity: .45; cursor: not-allowed; }
@@ -188,13 +238,18 @@
 .htu-complete h2 { margin: 0 0 8px; font-size: clamp(28px, 4vw, 50px); letter-spacing: -.05em; }
 .htu-complete button { color: var(--htu-text); background: #07101f; }
 
-.htu-teacher { position: fixed; z-index: 70; right: 20px; bottom: 20px; width: min(460px, calc(100vw - 40px)); max-height: calc(100vh - 40px); overflow: auto; padding: 24px; background: #101f38; border: 2px solid var(--htu-gold); box-shadow: 0 28px 90px rgba(0,0,0,.6); }
+.htu-teacher, .htu-support-card { position: fixed; z-index: 70; right: 20px; bottom: 20px; width: min(500px, calc(100vw - 40px)); max-height: calc(100vh - 40px); overflow: auto; padding: 24px; background: #101f38; border: 2px solid var(--htu-gold); box-shadow: 0 28px 90px rgba(0,0,0,.6); }
 .htu-teacher h2, .htu-dialog h2 { margin: 12px 40px 18px 0; font-size: 30px; }
 .htu-teacher dl, .htu-dialog dl { display: grid; gap: 12px; margin: 0; }
 .htu-teacher dl div, .htu-dialog dl div { padding: 13px; background: #0a1426; border-left: 4px solid var(--htu-cyan); }
 .htu-teacher dt, .htu-dialog dt { color: var(--htu-gold); font-weight: 900; }
 .htu-teacher dd, .htu-dialog dd { margin: 6px 0 0; color: var(--htu-muted); line-height: 1.55; }
 .htu-close { position: absolute; top: 12px; right: 12px; width: 38px; height: 38px; border: 1px solid var(--htu-line); background: #07101f; cursor: pointer; font-size: 24px; line-height: 1; }
+.htu-support-card { border-color: var(--htu-cyan); }
+.htu-support-card > span { color: var(--htu-cyan); font: 800 10px/1 ui-monospace, monospace; letter-spacing: .15em; }
+.htu-support-card h2 { margin: 12px 42px 16px 0; font-size: 28px; }
+.htu-support-card ol { display: grid; gap: 10px; padding-left: 24px; color: var(--htu-muted); line-height: 1.6; }
+.htu-support-card > p { padding: 14px; color: var(--htu-muted); background: #0a1426; border-left: 4px solid var(--htu-gold); line-height: 1.6; }
 
 .htu-dialog-backdrop { position: fixed; z-index: 90; inset: 0; display: grid; place-items: center; padding: 20px; background: rgba(1, 5, 12, .85); }
 .htu-dialog { position: relative; width: min(700px, 100%); max-height: calc(100vh - 40px); overflow: auto; padding: 28px; background: #101f38; border: 2px solid var(--htu-cyan); box-shadow: 0 28px 100px rgba(0,0,0,.65); }
@@ -211,6 +266,9 @@
   .htu-title-group { grid-column: 1 / -1; grid-row: 1; }
   .htu-brand, .htu-header-actions { grid-row: 2; }
   .htu-hero { grid-template-columns: minmax(0, 1fr); width: min(900px, calc(100% - 36px)); }
+  .htu-student-start { grid-template-columns: 1fr; width: min(900px, calc(100% - 36px)); }
+  .htu-instructor-console { grid-template-columns: 1fr 1fr; width: calc(100% - 32px); }
+  .htu-seat-board { grid-column: 1 / -1; }
   .htu-hero-brief { max-width: 720px; }
   .htu-world-story { grid-template-columns: minmax(0, 1fr); width: calc(100% - 28px); }
   .htu-route-rail { z-index: 20; top: 8px; display: flex; align-items: center; overflow-x: auto; max-height: none; margin-top: 0; padding: 10px 12px; }
@@ -241,6 +299,12 @@
   .htu-header-actions button { padding: 9px 6px; font-size: 13px; white-space: nowrap; }
   .htu-title-group h1 { font-size: 32px; }
   .htu-hero { min-height: auto; width: calc(100% - 24px); padding: 70px 0 90px; }
+  .htu-student-start { min-height: auto; width: calc(100% - 24px); padding: 52px 0 32px; }
+  .htu-student-start h2 { font-size: clamp(40px, 12vw, 58px); }
+  .htu-student-start h2 br { display: none; }
+  .htu-instructor-console { grid-template-columns: 1fr; width: calc(100% - 24px); }
+  .htu-seat-board { grid-column: auto; }
+  .htu-seat-board > div:first-of-type { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .htu-hero h2 { font-size: clamp(42px, 13vw, 66px); }
   .htu-hero h2 br { display: none; }
   .htu-hero-actions { display: grid; }
@@ -257,6 +321,8 @@
   .htu-lab-section { padding-top: 34px; }
   .htu-lab-intro { width: calc(100% - 28px); }
   .htu-statusbar { grid-template-columns: 1fr; gap: 12px; padding: 14px 18px; }
+  .htu-sound-mode { grid-template-columns: 1fr !important; }
+  .htu-effect-toggle { white-space: normal !important; }
   .htu-layout { width: calc(100% - 20px); margin: 12px auto; }
   .htu-workspace, .htu-missions { padding: 16px; }
   .htu-editor-panel textarea { min-height: 260px; }
@@ -272,6 +338,8 @@
 
 .htu-page.is-reduced-motion *, .htu-page.is-reduced-motion *::before, .htu-page.is-reduced-motion *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 .htu-page.is-reduced-motion .htu-world-stage img { transition: none; }
+.htu-page.is-reduced-motion .htu-celebration i { display: none; }
+.htu-page.is-reduced-motion .htu-celebration span { animation: none; }
 
 @media print {
   @page { size: A4; margin: 14mm; }

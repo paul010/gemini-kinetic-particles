@@ -10,7 +10,13 @@ type RunResult = {
   output: string;
   feedback: string;
   needsInput?: boolean;
+  warmup?: boolean;
 };
+
+type ViewMode = 'student' | 'instructor';
+type SoundMode = 'screen-reader' | 'narration' | 'text';
+type ClassroomState = 'listen' | 'work' | 'close';
+type SeatState = 'ready' | 'help' | 'paused' | 'tech';
 
 type Mission = {
   number: string;
@@ -55,8 +61,8 @@ const MISSIONS: Mission[] = [
     hint: 'output 后面要有一个空格，文字要放在英文双引号中。',
     teacherCue: '先建立“输入—运行—听见结果”的闭环，只讲 output 一个概念。',
     assistantCue: '只提示键位或当前行，不触碰学员键盘，不替学员输入。',
-    successEvidence: '学员独立输入并运行 output，读屏读出正确结果。',
-    voiceIntro: '第一关，唤醒沉睡的星站。请在编辑区确认“你好，宇宙”，然后运行程序。我们正在等待第一个回应。',
+    successEvidence: '学员修改双引号中的广播，自己运行，并听到新结果。',
+    voiceIntro: '第一关，唤醒沉睡的星站。请修改双引号里的宇宙广播，然后运行程序。我们正在等待你的第一个信号。',
     voiceRetry: '星站收到了信号，但还没有听清。请检查 output 后的空格和英文双引号，一次只改一处。',
     voiceSuccess: '叮，星站已经醒来。你写下的第一句话，正在宇宙中回响。',
   },
@@ -178,14 +184,18 @@ const CLASSROOM_CHAPTERS: ClassroomChapter[] = [
   },
 ];
 
-const isEditableTarget = (target: EventTarget | null) => {
-  const element = target as HTMLElement | null;
-  return element?.tagName === 'TEXTAREA' || element?.tagName === 'INPUT' || element?.isContentEditable;
-};
-
 const normalizeQuotes = (value: string) => value.replace(/[“”]/g, '"').replace(/[‘’]/g, "'");
+const normalizeCode = (value: string) => normalizeQuotes(value).replace(/\s+/g, ' ').trim();
 const clamp = (value: number, minimum = 0, maximum = 1) => Math.min(maximum, Math.max(minimum, value));
 const MISSION_CHAPTER_INDEX = [2, 2, 3, 3, 4];
+const MISSION_TYPES = ['核心创作', '核心创作', '可选挑战', '可选挑战', '核心调试'] as const;
+const CLASSROOM_STATE_COPY: Record<ClassroomState, { label: string; phrase: string }> = {
+  listen: { label: '统一听讲', phrase: '请先停下键盘，我们只听这一句。' },
+  work: { label: '安静操作', phrase: '现在请自己修改一处，运行后听完程序的回答。' },
+  close: { label: '分享收尾', phrase: '不比速度。请用一句话说出：你让宇宙回应了什么？' },
+};
+const SEAT_STATE_COPY: Record<SeatState, string> = { ready: '在操作', help: '需提示', paused: '已靠泊', tech: '设备支持' };
+const NEXT_SEAT_STATE: Record<SeatState, SeatState> = { ready: 'help', help: 'paused', paused: 'tech', tech: 'ready' };
 
 const validateMission = (missionIndex: number, rawCode: string): RunResult => {
   const code = normalizeQuotes(rawCode).trim();
@@ -198,7 +208,10 @@ const validateMission = (missionIndex: number, rawCode: string): RunResult => {
     const match = code.match(/^\s*output\s+"([^"]+)"\s*$/im);
     if (!match) return { ok: false, output: '语法检查未通过。', feedback: '请检查 output、空格和英文双引号。' };
     if (!match[1].includes('宇宙')) return { ok: false, output: match[1], feedback: '程序运行了。再试一次，让输出中包含“宇宙”。' };
-    return { ok: true, output: match[1], feedback: '通讯成功。你让计算机输出了第一句话。' };
+    if (normalizeCode(rawCode) === normalizeCode(MISSIONS[0].starter)) {
+      return { ok: false, warmup: true, output: match[1], feedback: '热身运行成功。现在请修改双引号里的广播，再运行一次。' };
+    }
+    return { ok: true, output: match[1], feedback: '通讯成功。你让计算机输出了自己的宇宙广播。' };
   }
 
   if (missionIndex === 1) {
@@ -206,6 +219,9 @@ const validateMission = (missionIndex: number, rawCode: string): RunResult => {
     const output = /output\s+starName\b/i.test(code);
     if (!variable) return { ok: false, output: '没有找到 starName 的文本内容。', feedback: '请检查 text、starName、等号和双引号。' };
     if (!output) return { ok: false, output: '变量已经保存，但还没有输出。', feedback: '请在下一行输入 output starName。' };
+    if (normalizeCode(rawCode) === normalizeCode(MISSIONS[1].starter)) {
+      return { ok: false, warmup: true, output: variable[1], feedback: '热身运行成功。请把北极星改成你想要的名字，再运行一次。' };
+    }
     return { ok: true, output: variable[1], feedback: `命名成功。控制台读到了${variable[1]}。` };
   }
 
@@ -244,6 +260,10 @@ const validateMission = (missionIndex: number, rawCode: string): RunResult => {
 };
 
 const HearTheUniverse: React.FC<HearTheUniverseProps> = ({ onHome }) => {
+  const [viewMode, setViewMode] = useState<ViewMode>(() => {
+    if (typeof window === 'undefined') return 'student';
+    return new URLSearchParams(window.location.search).get('mode') === 'instructor' ? 'instructor' : 'student';
+  });
   const [current, setCurrent] = useState(0);
   const [codes, setCodes] = useState(() => MISSIONS.map((mission) => mission.starter));
   const [completed, setCompleted] = useState<boolean[]>(() => MISSIONS.map(() => false));
@@ -252,10 +272,16 @@ const HearTheUniverse: React.FC<HearTheUniverseProps> = ({ onHome }) => {
   const [announcement, setAnnouncement] = useState('听见宇宙已打开。');
   const [waitingForInput, setWaitingForInput] = useState(false);
   const [missionCode, setMissionCode] = useState('');
-  const [voiceEnabled, setVoiceEnabled] = useState(false);
-  const [soundEnabled, setSoundEnabled] = useState(false);
+  const [soundMode, setSoundMode] = useState<SoundMode>('screen-reader');
+  const [effectsEnabled, setEffectsEnabled] = useState(false);
+  const [celebration, setCelebration] = useState(0);
   const [showHelp, setShowHelp] = useState(false);
   const [showTeacher, setShowTeacher] = useState(false);
+  const [showSupport, setShowSupport] = useState(false);
+  const [classroomState, setClassroomState] = useState<ClassroomState>('listen');
+  const [elapsedSeconds, setElapsedSeconds] = useState(0);
+  const [timerRunning, setTimerRunning] = useState(false);
+  const [seatStates, setSeatStates] = useState<SeatState[]>(['ready', 'ready', 'ready', 'ready', 'ready']);
   const [activeChapter, setActiveChapter] = useState(0);
   const [journeyProgress, setJourneyProgress] = useState(0);
   const [motionReduced, setMotionReduced] = useState(false);
@@ -269,51 +295,67 @@ const HearTheUniverse: React.FC<HearTheUniverseProps> = ({ onHome }) => {
   const chapterRefs = useRef<Array<HTMLElement | null>>([]);
   const helpButtonRef = useRef<HTMLButtonElement>(null);
   const helpCloseRef = useRef<HTMLButtonElement>(null);
+  const helpDialogRef = useRef<HTMLElement>(null);
   const helpWasOpenRef = useRef(false);
   const currentMission = MISSIONS[current];
   const classroomChapter = CLASSROOM_CHAPTERS[MISSION_CHAPTER_INDEX[current]];
   const completedCount = completed.filter(Boolean).length;
-  const allComplete = completedCount === MISSIONS.length;
+  const firstSignalRecovered = completed[0] || completed[1];
+  const coreExperienceComplete = firstSignalRecovered && completed[4];
 
-  const speak = useCallback((text: string) => {
-    setAnnouncement(text);
-    if (!voiceEnabled || !('speechSynthesis' in window)) return;
-    window.speechSynthesis.cancel();
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = 'zh-CN';
-    utterance.rate = 0.92;
-    window.speechSynthesis.speak(utterance);
-  }, [voiceEnabled]);
-
-  const playTone = useCallback((success: boolean) => {
-    if (!soundEnabled) return;
+  const playEffect = useCallback((kind: 'success' | 'retry') => {
+    if (!effectsEnabled) return;
     const AudioContextClass = window.AudioContext || (window as typeof window & { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
     if (!AudioContextClass) return;
     const context = new AudioContextClass();
-    const oscillator = context.createOscillator();
-    const gain = context.createGain();
-    oscillator.type = 'sine';
-    oscillator.frequency.value = success ? 660 : 220;
-    gain.gain.setValueAtTime(0.0001, context.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.08, context.currentTime + 0.02);
-    gain.gain.exponentialRampToValueAtTime(0.0001, context.currentTime + 0.18);
-    oscillator.connect(gain).connect(context.destination);
-    oscillator.start();
-    oscillator.stop(context.currentTime + 0.2);
-    oscillator.addEventListener('ended', () => void context.close());
-  }, [soundEnabled]);
+    const frequencies = kind === 'success' ? [523, 659, 784] : [220];
+    frequencies.forEach((frequency, index) => {
+      const oscillator = context.createOscillator();
+      const gain = context.createGain();
+      oscillator.type = kind === 'success' ? 'sine' : 'triangle';
+      oscillator.frequency.value = frequency;
+      const start = context.currentTime + index * 0.08;
+      gain.gain.setValueAtTime(0.0001, start);
+      gain.gain.exponentialRampToValueAtTime(kind === 'success' ? 0.045 : 0.035, start + 0.02);
+      gain.gain.exponentialRampToValueAtTime(0.0001, start + (kind === 'success' ? 0.28 : 0.16));
+      oscillator.connect(gain).connect(context.destination);
+      oscillator.start(start);
+      oscillator.stop(start + 0.3);
+    });
+    window.setTimeout(() => void context.close(), 700);
+  }, [effectsEnabled]);
+
+  const speak = useCallback((text: string, kind: 'info' | 'success' | 'retry' = 'info') => {
+    if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+    if (kind !== 'info') playEffect(kind);
+    const delay = effectsEnabled && kind !== 'info' ? (kind === 'success' ? 420 : 220) : 0;
+    window.setTimeout(() => {
+      if (soundMode === 'screen-reader') {
+        setAnnouncement('');
+        window.requestAnimationFrame(() => setAnnouncement(text));
+        return;
+      }
+      if (soundMode === 'narration' && 'speechSynthesis' in window) {
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'zh-CN';
+        utterance.rate = 0.92;
+        window.speechSynthesis.speak(utterance);
+      }
+    }, delay);
+  }, [effectsEnabled, playEffect, soundMode]);
 
   const announceLocation = useCallback(() => {
-    const state = `当前课堂时段 ${currentMission.timeSlot}，${currentMission.stage}。你在任务 ${current + 1}，${currentMission.title}。已经完成 ${completedCount} 个任务。当前焦点可以用 Tab 键继续移动。`;
+    const active = document.activeElement as HTMLElement | null;
+    const focusName = active === editorRef.current ? '代码编辑区' : active === inputRef.current ? '任务代号输入框' : active?.textContent?.trim().slice(0, 24) || '页面';
+    const state = `你在任务 ${current + 1}，${currentMission.title}。当前焦点：${focusName}。${completed[current] ? '这一关已成功。' : '这一关正在尝试。'}`;
     speak(state);
-  }, [completedCount, current, currentMission.stage, currentMission.timeSlot, currentMission.title, speak]);
+  }, [completed, current, currentMission.title, speak]);
 
   const runCode = useCallback(() => {
     setWaitingForInput(false);
     const result = validateMission(current, codes[current]);
     setConsoleText(result.output);
     setFeedback(result.feedback);
-    if (!result.needsInput) playTone(result.ok);
 
     if (result.needsInput) {
       setWaitingForInput(true);
@@ -324,38 +366,36 @@ const HearTheUniverse: React.FC<HearTheUniverseProps> = ({ onHome }) => {
 
     if (result.ok) {
       setCompleted((previous) => previous.map((value, index) => index === current ? true : value));
+      setCelebration((value) => value + 1);
     }
-    speak(result.ok
-      ? `成功信号。${currentMission.voiceSuccess}`
-      : `线索信号。${currentMission.voiceRetry}`);
-    window.setTimeout(() => consoleRef.current?.focus(), 0);
-  }, [codes, current, currentMission, playTone, speak]);
+    if (result.warmup) {
+      speak(`热身成功。${result.feedback}`);
+    } else {
+      speak(
+        result.ok ? `成功。${currentMission.voiceSuccess}` : `线索。${currentMission.voiceRetry}`,
+        result.ok ? 'success' : 'retry',
+      );
+    }
+  }, [codes, current, currentMission, speak]);
 
   const submitMissionCode = useCallback(() => {
     const trimmed = missionCode.trim();
     if (!trimmed) {
       setConsoleText('没有收到任务代号。');
       setFeedback('请输入至少一个字符，然后按回车。');
-      playTone(false);
-      speak(`线索信号。${currentMission.voiceRetry}`);
+      speak(`线索。${currentMission.voiceRetry}`, 'retry');
       return;
     }
     setConsoleText(trimmed);
     setFeedback('输入成功。程序收到了你的任务代号。');
     setWaitingForInput(false);
     setCompleted((previous) => previous.map((value, index) => index === current ? true : value));
-    playTone(true);
-    speak(`成功信号。程序输出${trimmed}。${currentMission.voiceSuccess}`);
-    window.setTimeout(() => consoleRef.current?.focus(), 0);
-  }, [current, currentMission, missionCode, playTone, speak]);
+    setCelebration((value) => value + 1);
+    speak(`成功。程序输出${trimmed}。${currentMission.voiceSuccess}`, 'success');
+  }, [current, currentMission, missionCode, speak]);
 
   const changeMission = useCallback((next: number) => {
     if (next < 0 || next >= MISSIONS.length) return;
-    const unlocked = next === 0 || completed.slice(0, next).every(Boolean);
-    if (!unlocked) {
-      speak(`任务 ${next + 1} 尚未解锁，请先完成前面的任务。`);
-      return;
-    }
     setCurrent(next);
     setWaitingForInput(false);
     setMissionCode('');
@@ -363,20 +403,28 @@ const HearTheUniverse: React.FC<HearTheUniverseProps> = ({ onHome }) => {
     setFeedback(MISSIONS[next].brief);
     speak(`关卡开始信号。${MISSIONS[next].voiceIntro}`);
     window.setTimeout(() => editorRef.current?.focus(), 0);
-  }, [completed, speak]);
+  }, [speak]);
 
   const scrollToChapter = useCallback((index: number) => {
     chapterRefs.current[index]?.scrollIntoView({ behavior: motionReduced ? 'auto' : 'smooth', block: 'center' });
   }, [motionReduced]);
 
   const openTaskLab = useCallback((requested?: number) => {
-    const firstIncomplete = completed.findIndex((value) => !value);
-    const furthestUnlocked = firstIncomplete === -1 ? MISSIONS.length - 1 : firstIncomplete;
-    const target = typeof requested === 'number' ? Math.min(requested, furthestUnlocked) : current;
+    const target = typeof requested === 'number' ? requested : current;
     changeMission(target);
     labRef.current?.scrollIntoView({ behavior: motionReduced ? 'auto' : 'smooth', block: 'start' });
     window.setTimeout(() => editorRef.current?.focus(), motionReduced ? 0 : 450);
-  }, [changeMission, completed, current, motionReduced]);
+  }, [changeMission, current, motionReduced]);
+
+  const switchViewMode = useCallback((nextMode: ViewMode) => {
+    const url = new URL(window.location.href);
+    if (nextMode === 'instructor') url.searchParams.set('mode', 'instructor');
+    else url.searchParams.delete('mode');
+    window.history.replaceState({}, '', url);
+    setViewMode(nextMode);
+    setShowTeacher(false);
+    window.scrollTo({ top: 0, behavior: motionReduced ? 'auto' : 'smooth' });
+  }, [motionReduced]);
 
   const printDocument = useCallback((view: 'instructor' | 'certificate') => {
     setPrintView(view);
@@ -384,8 +432,12 @@ const HearTheUniverse: React.FC<HearTheUniverseProps> = ({ onHome }) => {
   }, []);
 
   const repeatInstruction = useCallback(() => {
-    speak(`重复关卡信号。${currentMission.voiceIntro}。如果需要线索：${currentMission.hint}`);
+    speak(currentMission.voiceIntro);
   }, [currentMission, speak]);
+
+  const readHint = useCallback(() => {
+    speak(`提示。${currentMission.hint}`);
+  }, [currentMission.hint, speak]);
 
   const stopProgram = useCallback(() => {
     setWaitingForInput(false);
@@ -426,16 +478,6 @@ const HearTheUniverse: React.FC<HearTheUniverseProps> = ({ onHome }) => {
         announceLocation();
         return;
       }
-      if (!isEditableTarget(event.target) && event.key.toLowerCase() === 'n') {
-        event.preventDefault();
-        setShowTeacher((value) => !value);
-        return;
-      }
-      if (!isEditableTarget(event.target) && event.key.toLowerCase() === 'f') {
-        event.preventDefault();
-        if (!document.fullscreenElement) void document.documentElement.requestFullscreen();
-        else void document.exitFullscreen();
-      }
       if (event.key === 'Escape') {
         setShowHelp(false);
         setShowTeacher(false);
@@ -444,6 +486,22 @@ const HearTheUniverse: React.FC<HearTheUniverseProps> = ({ onHome }) => {
     window.addEventListener('keydown', onKeyDown);
     return () => window.removeEventListener('keydown', onKeyDown);
   }, [announceLocation, repeatInstruction, runCode, stopProgram]);
+
+  useEffect(() => {
+    if (!timerRunning) return;
+    const timer = window.setInterval(() => setElapsedSeconds((value) => value + 1), 1000);
+    return () => window.clearInterval(timer);
+  }, [timerRunning]);
+
+  useEffect(() => {
+    if (!celebration) return;
+    const timer = window.setTimeout(() => setCelebration(0), motionReduced ? 900 : 1900);
+    return () => window.clearTimeout(timer);
+  }, [celebration, motionReduced]);
+
+  useEffect(() => {
+    if (soundMode !== 'narration' && 'speechSynthesis' in window) window.speechSynthesis.cancel();
+  }, [soundMode]);
 
   useEffect(() => {
     if (waitingForInput) inputRef.current?.focus();
@@ -459,6 +517,29 @@ const HearTheUniverse: React.FC<HearTheUniverseProps> = ({ onHome }) => {
       helpWasOpenRef.current = false;
       window.requestAnimationFrame(() => helpButtonRef.current?.focus());
     }
+  }, [showHelp]);
+
+  useEffect(() => {
+    if (!showHelp) return;
+    const dialog = helpDialogRef.current;
+    if (!dialog) return;
+    const trapFocus = (event: KeyboardEvent) => {
+      if (event.key !== 'Tab') return;
+      const focusable = Array.from(dialog.querySelectorAll<HTMLElement>('button, a[href], input, select, textarea, [tabindex]:not([tabindex="-1"])'))
+        .filter((element) => !element.hasAttribute('disabled'));
+      if (!focusable.length) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+    dialog.addEventListener('keydown', trapFocus);
+    return () => dialog.removeEventListener('keydown', trapFocus);
   }, [showHelp]);
 
   useEffect(() => {
@@ -557,7 +638,7 @@ const HearTheUniverse: React.FC<HearTheUniverseProps> = ({ onHome }) => {
 
   const textState = useMemo(() => ({
     coordinateSystem: 'DOM课堂界面；滚动世界是装饰性视觉，所有内容都可用 Tab 和地标导航',
-    mode: allComplete ? 'complete' : waitingForInput ? 'waiting-for-input' : 'mission',
+    mode: coreExperienceComplete ? 'core-complete' : firstSignalRecovered ? 'first-signal' : waitingForInput ? 'waiting-for-input' : 'mission',
     classroom: {
       duration: '60 分钟',
       scrollChapter: { index: activeChapter + 1, time: CLASSROOM_CHAPTERS[activeChapter].time, title: CLASSROOM_CHAPTERS[activeChapter].title },
@@ -573,7 +654,7 @@ const HearTheUniverse: React.FC<HearTheUniverseProps> = ({ onHome }) => {
     feedback,
     waitingForInput,
     shortcuts: ['Alt+Shift+R 运行', 'Alt+Shift+S 停止', 'Alt+Shift+E 编辑区', 'Alt+Shift+C 控制台', 'F1 重复任务', 'F2 我在哪里'],
-  }), [activeChapter, allComplete, classroomChapter, codes, completed, completedCount, consoleText, current, currentMission, feedback, motionReduced, waitingForInput]);
+  }), [activeChapter, classroomChapter, codes, completed, completedCount, consoleText, coreExperienceComplete, current, currentMission, feedback, firstSignalRecovered, motionReduced, waitingForInput]);
 
   useEffect(() => {
     window.render_game_to_text = () => JSON.stringify(textState);
@@ -584,32 +665,84 @@ const HearTheUniverse: React.FC<HearTheUniverseProps> = ({ onHome }) => {
     };
   }, [textState]);
 
+  const timerText = `${String(Math.floor(elapsedSeconds / 60)).padStart(2, '0')}:${String(elapsedSeconds % 60).padStart(2, '0')}`;
+
   return (
-    <main className={`htu-page ${motionReduced ? 'is-reduced-motion' : ''}`} data-testid="hear-the-universe" data-print-view={printView ?? undefined}>
+    <main className={`htu-page ${motionReduced ? 'is-reduced-motion' : ''}`} data-testid="hear-the-universe" data-view-mode={viewMode} data-print-view={printView ?? undefined}>
       <canvas ref={canvasRef} className="htu-stars" aria-hidden="true" />
       <div className="htu-world-stage" aria-hidden="true">
         <img src="/hear-the-universe-world.webp" alt="" style={worldImageStyle} />
         <div className="htu-world-shade" />
       </div>
-      <a className="htu-skip" href="#classroom-story">跳到 60 分钟课堂路线</a>
-      <a className="htu-skip htu-skip-lab" href="#code-lab">跳到代码任务台</a>
-      <div className="htu-sr-live" role="status" aria-live="polite" aria-atomic="true">{announcement}</div>
+      {viewMode === 'instructor' && <a className="htu-skip" href="#classroom-story">跳到 60 分钟课堂路线</a>}
+      <a className={`htu-skip ${viewMode === 'instructor' ? 'htu-skip-lab' : ''}`} href="#code-lab">跳到代码任务台</a>
+      <div className="htu-sr-live" role="status" aria-live={soundMode === 'screen-reader' ? 'polite' : 'off'} aria-atomic="true">{announcement}</div>
+
+      {celebration > 0 && (
+        <div className="htu-celebration" aria-hidden="true">
+          <i /><i /><i /><i /><i /><i /><i /><i /><i /><i /><i /><i />
+          <span>{motionReduced ? '成功信号已点亮' : '宇宙收到了你的信号'}</span>
+        </div>
+      )}
 
       <header className="htu-header">
         <button type="button" className="htu-brand" onClick={onHome} aria-label="返回大雷个人主页">
           <span aria-hidden="true">◀</span> 大雷 / LAB
         </button>
         <div className="htu-title-group">
-          <p>HP 代码一小时 · 视障青年场</p>
+          <p>{viewMode === 'student' ? '学员任务台 · 键盘优先' : '讲师控制台 · 60 分钟活动'}</p>
           <h1>听见宇宙</h1>
         </div>
         <nav className="htu-header-actions" aria-label="页面工具">
+          <button type="button" onClick={() => switchViewMode(viewMode === 'student' ? 'instructor' : 'student')}>{viewMode === 'student' ? '讲师模式' : '学员模式'}</button>
           <button type="button" onClick={() => setMotionReduced((value) => !value)} aria-pressed={motionReduced}>低动态 {motionReduced ? '开' : '关'}</button>
           <button ref={helpButtonRef} type="button" onClick={() => setShowHelp(true)}>键盘帮助</button>
-          <button type="button" onClick={() => setShowTeacher((value) => !value)} aria-pressed={showTeacher}>讲师提示</button>
-          <button type="button" onClick={() => printDocument('instructor')}>打印讲师卡</button>
+          {viewMode === 'instructor' && <button type="button" onClick={() => setShowSupport((value) => !value)} aria-pressed={showSupport}>陪护速查</button>}
+          {viewMode === 'instructor' && <button type="button" onClick={() => setShowTeacher((value) => !value)} aria-pressed={showTeacher}>本关话术</button>}
+          {viewMode === 'instructor' && <button type="button" onClick={() => printDocument('instructor')}>打印讲师卡</button>}
         </nav>
       </header>
+
+      {viewMode === 'instructor' ? (
+        <>
+      <section className="htu-instructor-console" aria-labelledby="instructor-console-title">
+        <div className="htu-instructor-clock">
+          <span>活动计时</span>
+          <strong aria-label={`已计时 ${Math.floor(elapsedSeconds / 60)} 分 ${elapsedSeconds % 60} 秒`}>{timerText}</strong>
+          <div>
+            <button type="button" onClick={() => setTimerRunning((value) => !value)}>{timerRunning ? '暂停' : elapsedSeconds ? '继续' : '开始'}</button>
+            <button type="button" onClick={() => { setTimerRunning(false); setElapsedSeconds(0); }}>归零</button>
+          </div>
+        </div>
+        <div className="htu-instructor-command">
+          <span>NOW / 全班状态</span>
+          <h2 id="instructor-console-title">{CLASSROOM_STATE_COPY[classroomState].label}</h2>
+          <p>统一口令：“{CLASSROOM_STATE_COPY[classroomState].phrase}”</p>
+          <div role="group" aria-label="选择全班状态">
+            {(Object.keys(CLASSROOM_STATE_COPY) as ClassroomState[]).map((state) => (
+              <button key={state} type="button" aria-pressed={classroomState === state} onClick={() => setClassroomState(state)}>{CLASSROOM_STATE_COPY[state].label}</button>
+            ))}
+          </div>
+        </div>
+        <div className="htu-seat-board">
+          <span>匿名座位信号</span>
+          <div>
+            {seatStates.map((state, index) => (
+              <button
+                key={index}
+                type="button"
+                data-seat-state={state}
+                aria-label={`座位 ${index + 1}，${SEAT_STATE_COPY[state]}。按下切换状态`}
+                onClick={() => setSeatStates((previous) => previous.map((value, seatIndex) => seatIndex === index ? NEXT_SEAT_STATE[value] : value))}
+              >{index + 1}<small>{SEAT_STATE_COPY[state]}</small></button>
+            ))}
+          </div>
+          <div className="htu-instructor-quick-actions">
+            <button type="button" onClick={() => openTaskLab(4)}>直达调试任务</button>
+            <button type="button" onClick={() => openTaskLab(0)}>回到核心任务</button>
+          </div>
+        </div>
+      </section>
 
       <section className="htu-hero" aria-labelledby="htu-hero-title">
         <div className="htu-hero-copy">
@@ -685,23 +818,47 @@ const HearTheUniverse: React.FC<HearTheUniverseProps> = ({ onHome }) => {
         </div>
       </section>
 
+        </>
+      ) : (
+        <section className="htu-student-start" aria-labelledby="student-start-title">
+          <div>
+            <span>故事任务</span>
+            <h2 id="student-start-title">宇宙失去了声音。<br />请发出你的第一个信号。</h2>
+            <p>你可以先修改一句宇宙广播，也可以为星星命名。程序回应一次，就算找回了第一段声音。</p>
+            <button type="button" className="htu-primary" onClick={() => openTaskLab(0)}>进入代码编辑区</button>
+          </div>
+          <ol aria-label="今天的三条规则">
+            <li><strong>1</strong><span>听清这一关要做什么</span></li>
+            <li><strong>2</strong><span>自己修改一处，需要时请求提示</span></li>
+            <li><strong>3</strong><span>自己运行，听完程序的回答</span></li>
+          </ol>
+          <p className="htu-student-promise">不比速度 · 不必全部通关 · 错误是程序给的线索</p>
+        </section>
+      )}
+
       <section ref={labRef} id="code-lab" className="htu-lab-section" aria-labelledby="code-lab-title">
         <header className="htu-lab-intro">
           <div>
-            <span>10–50 分钟 · 学员任务台</span>
-            <h2 id="code-lab-title">五站旅程，找回宇宙的声音</h2>
+            <span>{viewMode === 'student' ? '学员任务台 · 核心两任务 + 一次调试' : '11–51 分钟 · 课堂任务台'}</span>
+            <h2 id="code-lab-title">用代码，让宇宙回应你</h2>
           </div>
-          <p><strong>{currentMission.timeSlot}·{currentMission.stage}</strong><br />讲师统一口头节奏，陪护只描述焦点和提示，不替学员操作。</p>
+          <p><strong>{MISSION_TYPES[current]} · {currentMission.stage}</strong><br />{viewMode === 'student' ? '任务可以跳转。完成一次自己的修改，就会收到成功信号。' : '陪护只描述焦点和提示，不替学员操作。'}</p>
         </header>
 
       <section className="htu-statusbar" aria-label="课程状态">
         <div>
-          <span>任务进度</span>
-          <strong>{completedCount} / {MISSIONS.length}</strong>
+          <span>当前状态</span>
+          <strong>{completed[current] ? '宇宙已回应' : waitingForInput ? '等待输入' : '正在尝试'}</strong>
         </div>
-        <progress max={MISSIONS.length} value={completedCount} aria-label={`已完成 ${completedCount} 个任务，共 ${MISSIONS.length} 个`} />
-        <label title="已使用读屏软件时，可保持关闭以避免重叠播报"><input type="checkbox" checked={voiceEnabled} onChange={(event) => setVoiceEnabled(event.target.checked)} /> 任务语音提示<span className="htu-sr-only">，使用读屏软件时建议关闭，避免重叠播报</span></label>
-        <label><input type="checkbox" checked={soundEnabled} onChange={(event) => setSoundEnabled(event.target.checked)} /> 简短提示音</label>
+        <div className="htu-sound-mode">
+          <label htmlFor="htu-sound-mode">反馈方式</label>
+          <select id="htu-sound-mode" value={soundMode} onChange={(event) => setSoundMode(event.target.value as SoundMode)}>
+            <option value="screen-reader">读屏状态（默认）</option>
+            <option value="narration">浏览器朗读（请先暂停读屏）</option>
+            <option value="text">仅文字</option>
+          </select>
+        </div>
+        <label className="htu-effect-toggle"><input type="checkbox" checked={effectsEnabled} onChange={(event) => setEffectsEnabled(event.target.checked)} /> 庆祝音效<span className="htu-sr-only">，成功音效会先播放，之后再播报成功内容</span></label>
       </section>
 
       <div className="htu-layout">
@@ -712,17 +869,15 @@ const HearTheUniverse: React.FC<HearTheUniverseProps> = ({ onHome }) => {
           </div>
           <ol>
             {MISSIONS.map((mission, index) => {
-              const unlocked = index === 0 || completed.slice(0, index).every(Boolean);
               return (
                 <li key={mission.number}>
                   <button
                     type="button"
                     onClick={() => changeMission(index)}
                     className={index === current ? 'is-current' : ''}
-                    disabled={!unlocked}
                     aria-current={index === current ? 'step' : undefined}
                   >
-                    <span>{completed[index] ? '已完成' : unlocked ? mission.number : '未解锁'}</span>
+                    <span>{completed[index] ? '宇宙已回应' : `${mission.number} · ${MISSION_TYPES[index]}`}</span>
                     <strong>{mission.title}</strong>
                     <small>{mission.timeSlot} · {mission.concept}</small>
                   </button>
@@ -731,16 +886,20 @@ const HearTheUniverse: React.FC<HearTheUniverseProps> = ({ onHome }) => {
             })}
           </ol>
           <button type="button" className="htu-location" onClick={announceLocation}>F2 · 我在哪里？</button>
+          <p className="htu-mission-note">可以跳过可选挑战。建议至少完成一个核心创作和最后的调试。</p>
         </aside>
 
         <section className="htu-workspace" aria-labelledby="current-mission-title">
           <div className="htu-mission-brief" id="mission-instruction">
             <div>
               <span>{currentMission.timeSlot} · {currentMission.stage} · 任务 {currentMission.number}</span>
-              <h2 id="current-mission-title">{currentMission.title}</h2>
+              <h2 id="current-mission-title" tabIndex={-1}>{currentMission.title}</h2>
             </div>
             <p>{currentMission.brief}</p>
-            <button type="button" onClick={repeatInstruction}>F1 · 播放本关语音</button>
+            <div className="htu-instruction-actions">
+              <button type="button" onClick={repeatInstruction}>F1 · 重复任务</button>
+              <button type="button" onClick={readHint}>只听提示</button>
+            </div>
           </div>
 
           <div className="htu-code-grid">
@@ -772,9 +931,9 @@ const HearTheUniverse: React.FC<HearTheUniverseProps> = ({ onHome }) => {
               <div className="htu-console-title">
                 <div><span aria-hidden="true">●</span><span aria-hidden="true">●</span><span aria-hidden="true">●</span></div>
                 <h3 id="output-title">读屏输出控制台</h3>
-                <span>ARIA LIVE</span>
+                <span>RESULT</span>
               </div>
-              <div ref={consoleRef} className="htu-output" tabIndex={-1} role="log" aria-live="polite" aria-atomic="true">
+              <div ref={consoleRef} className="htu-output" tabIndex={-1} role="region" aria-labelledby="output-title">
                 <span>程序输出</span>
                 <strong>{consoleText}</strong>
                 <p>{feedback}</p>
@@ -792,37 +951,38 @@ const HearTheUniverse: React.FC<HearTheUniverseProps> = ({ onHome }) => {
                 <summary>需要一点提示</summary>
                 <p>{currentMission.hint}</p>
               </details>
+              <button type="button" className="htu-back-editor" onClick={() => editorRef.current?.focus()}>返回代码编辑区</button>
             </section>
           </div>
 
           <div className="htu-next-row">
             <button type="button" onClick={() => changeMission(current - 1)} disabled={current === 0}>上一个任务</button>
             {current < MISSIONS.length - 1 ? (
-              <button type="button" className="htu-next" onClick={() => changeMission(current + 1)} disabled={!completed[current]}>进入下一个任务</button>
+              <button type="button" className="htu-next" onClick={() => changeMission(current + 1)}>选择下一个任务</button>
             ) : (
-              <span>{completed[current] ? '全部任务已完成' : '完成调试后即可获得结业徽章'}</span>
+              <span>{completed[current] ? '调试成功，声音灯塔已点亮' : '听错误、只修一处、再次运行'}</span>
             )}
           </div>
         </section>
       </div>
       </section>
 
-      {allComplete && (
+      {firstSignalRecovered && (
         <section className="htu-complete" aria-labelledby="complete-title">
           <span aria-hidden="true">✦</span>
           <div>
             <p>HP 代码一小时</p>
-            <h2 id="complete-title">听见宇宙 · 代码探索者</h2>
-            <p>你已经完成输出、变量、输入、运算和条件调试五个任务。</p>
+            <h2 id="complete-title">{coreExperienceComplete ? '核心任务已完成' : '你找回了第一段声音'}</h2>
+            <p>{coreExperienceComplete ? '你完成了自己的创作，也听线索修好了一处错误。可选挑战不影响活动完成。' : '你亲手修改了代码，程序已经回答你。接下来可以进入最后的调试任务。'}</p>
           </div>
-          <button type="button" onClick={() => printDocument('certificate')}>打印完成证明</button>
+          {coreExperienceComplete ? <button type="button" onClick={() => printDocument('certificate')}>打印完成证明</button> : <button type="button" onClick={() => openTaskLab(4)}>进入调试任务</button>}
         </section>
       )}
 
-      {showTeacher && (
+      {viewMode === 'instructor' && showTeacher && (
         <aside className="htu-teacher" aria-labelledby="teacher-title">
           <button type="button" className="htu-close" onClick={() => setShowTeacher(false)} aria-label="关闭讲师提示">×</button>
-          <span>讲师模式 · N 键开关</span>
+          <span>讲师本关话术</span>
           <h2 id="teacher-title">{currentMission.title}</h2>
           <dl>
             <div><dt>计划时段</dt><dd>{currentMission.timeSlot} · {currentMission.stage}</dd></div>
@@ -833,9 +993,24 @@ const HearTheUniverse: React.FC<HearTheUniverseProps> = ({ onHome }) => {
         </aside>
       )}
 
+      {viewMode === 'instructor' && showSupport && (
+        <aside className="htu-support-card" aria-labelledby="support-card-title">
+          <button type="button" className="htu-close" onClick={() => setShowSupport(false)} aria-label="关闭陪护速查">×</button>
+          <span>SUPPORT QUICK CARD</span>
+          <h2 id="support-card-title">陪护只给信号，不代替操作</h2>
+          <ol>
+            <li>先问：“你希望我读提示、说焦点，还是只等你操作？”</li>
+            <li>只说当前焦点、错误类型和可选动作。</li>
+            <li>给出提示后安静等待 5–8 秒。</li>
+            <li>不抢键盘、不抓手、不代输入。</li>
+          </ol>
+          <p><strong>靠泊方案：</strong>如果设备或读屏不稳定，保留当前代码和成功证据，跳过可选任务，由技术支持处理设备。</p>
+        </aside>
+      )}
+
       {showHelp && (
         <div className="htu-dialog-backdrop" role="presentation">
-          <section className="htu-dialog" role="dialog" aria-modal="true" aria-labelledby="help-title">
+          <section ref={helpDialogRef} className="htu-dialog" role="dialog" aria-modal="true" aria-labelledby="help-title">
             <button ref={helpCloseRef} type="button" className="htu-close" onClick={() => setShowHelp(false)} aria-label="关闭键盘帮助">×</button>
             <span>KEYBOARD MAP</span>
             <h2 id="help-title">键盘操作说明</h2>
@@ -846,8 +1021,8 @@ const HearTheUniverse: React.FC<HearTheUniverseProps> = ({ onHome }) => {
               <div><dt>Alt + Shift + E</dt><dd>回到代码编辑区</dd></div>
               <div><dt>Alt + Shift + C</dt><dd>跳到输出控制台</dd></div>
               <div><dt>F1 / F2</dt><dd>重复任务 / 告诉我在哪里</dd></div>
-              <div><dt>F / Esc</dt><dd>进入全屏 / 退出或关闭弹层</dd></div>
-              <div><dt>课堂路线</dt><dd>使用地标或页面右侧时间点跳转；滚动动画不影响任务操作</dd></div>
+              <div><dt>Esc</dt><dd>关闭弹层或讲师提示</dd></div>
+              {viewMode === 'instructor' && <div><dt>课堂路线</dt><dd>使用地标或时间点跳转；滚动动画不影响任务操作</dd></div>}
             </dl>
             <p>页面不拦截普通字母输入；焦点在编辑区时，可以正常输入代码。</p>
             <button type="button" className="htu-run" onClick={() => setShowHelp(false)}>我知道了</button>
@@ -873,7 +1048,7 @@ const HearTheUniverse: React.FC<HearTheUniverseProps> = ({ onHome }) => {
         <p>HP 代码一小时</p>
         <span aria-hidden="true">✦</span>
         <h1>听见宇宙·代码探索者</h1>
-        <p>完成输出、变量、输入、运算和条件调试任务，亲手让计算机执行了自己的指令。</p>
+        <p>完成至少一次个人化代码创作和一次错误调试，亲手让计算机执行了自己的指令。</p>
         <footer><span>参与优先 · 不比速度</span><span>活动完成证明</span></footer>
       </section>
 
