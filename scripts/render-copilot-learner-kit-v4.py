@@ -34,7 +34,7 @@ SOURCE_MATERIALS = ROOT / "copilotdemo" / "materials-v4"
 PUBLIC_ROOT = ROOT / "public" / "copilot-demo"
 PUBLIC_V4 = PUBLIC_ROOT / "v4"
 OUTPUT_PDF = ROOT / "output" / "pdf" / "CN-Print-Copilot-学员速查与行动卡-v4.pdf"
-KIT_ROOT = ROOT / "output" / "learner-kit-v4" / "CN-Print-Copilot-Learner-Kit-v4-20260811"
+KIT_ROOT = ROOT / "output" / "learner-kit-v5" / "CN-Print-Copilot-Demo-Kit-v5-Simple"
 
 INK = colors.HexColor("#201E1A")
 MUTED = colors.HexColor("#6D655A")
@@ -46,6 +46,8 @@ PALE_GOLD = colors.HexColor("#EEE2C8")
 
 
 def ensure_dirs() -> None:
+    if KIT_ROOT.exists():
+        shutil.rmtree(KIT_ROOT)
     for path in (PUBLIC_ROOT, PUBLIC_V4, OUTPUT_PDF.parent, KIT_ROOT):
         path.mkdir(parents=True, exist_ok=True)
 
@@ -119,6 +121,52 @@ def task_text(demo: dict) -> str:
     return "\n".join(lines)
 
 
+def run_demo_text(demo: dict, index: int) -> str:
+    lines = [
+        f"Demo {index}｜{demo['title']}",
+        f"工具：{demo['product']}｜建议时间：{demo['duration']}",
+        "",
+        "怎么演示",
+    ]
+    lines.extend([f"{step_index}. {step}" for step_index, step in enumerate(demo["steps"], 1)])
+    lines.extend(["", "现场提示词（按顺序复制）"])
+    for prompt_index, prompt in enumerate(demo["prompts"], 1):
+        lines.extend(["", f"【{prompt_index}｜{prompt['label']}】", prompt["text"]])
+    lines.extend(["", "最后只检查这三件事"])
+    lines.extend([f"- {item}" for item in demo["checks"][:3]])
+    lines.extend([
+        "",
+        "隐私提醒：全部材料均为课程虚构数据，不要替换成真实客户、员工、账号或项目资料。",
+    ])
+    return "\n".join(lines)
+
+
+def simple_kit_start_html(data: dict) -> str:
+    cards = []
+    demo_folders = ["Demo-1-Copilot-Chat", "Demo-2-M365-Copilot", "Demo-3-Agent-Builder"]
+    labels = ["任务说清", "事实查准", "方法复用"]
+    for index, (demo, folder, label) in enumerate(zip(data["demos"], demo_folders, labels), 1):
+        cards.append(
+            f"<a class='card' href='./{folder}/00-RUN-DEMO.txt'>"
+            f"<span>DEMO {index}</span><h2>{html.escape(label)}</h2>"
+            f"<p>{html.escape(demo['title'])}</p><b>打开演示步骤与提示词 →</b></a>"
+        )
+    return f"""<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CN Print Copilot｜精简演示包</title>
+<style>
+body{{margin:0;background:#f7f3ea;color:#201e1a;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Microsoft YaHei',sans-serif}}
+main{{max-width:980px;margin:auto;padding:48px 24px 80px}}h1{{font:700 52px/1.08 Georgia,'Songti SC',serif;margin:10px 0}}.lead{{font-size:20px;color:#6d655a}}.grid{{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:34px 0}}.card{{display:block;color:inherit;text-decoration:none;background:#fffdf8;border:1px solid #d9d0c1;border-radius:18px;padding:24px;min-height:190px}}.card:hover{{border-color:#9a6c21;transform:translateY(-2px)}}.card span,.eyebrow{{color:#9a6c21;font-size:12px;font-weight:700;letter-spacing:.12em}}.card h2{{font-size:28px;margin:14px 0 6px}}.card p{{color:#6d655a;min-height:44px}}.card b{{color:#7c5318}}.note{{border-left:4px solid #9a6c21;background:#fffdf8;padding:18px 20px;margin-top:28px}}.actions a{{color:#7c5318;font-weight:700}}@media(max-width:720px){{h1{{font-size:40px}}.grid{{grid-template-columns:1fr}}.card{{min-height:auto}}}}
+</style></head><body><main>
+<p class="eyebrow">CN PRINT · COPILOT SHARE · SIMPLE KIT</p>
+<h1>打开一个 Demo，照着演示</h1>
+<p class="lead">不需要先读整套课件。进入对应文件夹，先打开 <strong>00-RUN-DEMO.txt</strong>，再使用同文件夹里的虚构材料。</p>
+<div class="grid">{''.join(cards)}</div>
+<p class="actions"><a href="./01-ALL-PROMPTS.txt">只看全部提示词 →</a>　·　<a href="{html.escape(data['meta']['publicUrl'])}">打开线上学员页 →</a></p>
+<div class="note"><strong>课上建议：</strong>跟着讲师只做一段也可以。没有权限就观察输入、输出变化和人工停止点。全部材料均为虚构，请勿放入真实业务数据。</div>
+</main></body></html>"""
+
+
 def start_html(data: dict, demo: dict | None = None) -> str:
     title = demo["title"] if demo else data["meta"]["title"]
     if demo:
@@ -190,9 +238,9 @@ def build_text_and_html(data: dict) -> None:
 
     prompts = all_prompts_text(data)
     write_text(PUBLIC_ROOT / "CN-Print-Copilot-提示词全集-v4.txt", prompts)
-    write_text(KIT_ROOT / "03-ALL-PROMPTS.txt", prompts)
-    write_text(KIT_ROOT / "00-START-HERE.html", start_html(data))
-    write_text(KIT_ROOT / "01-ACCESS-AND-PRIVACY.txt", data["meta"]["privacy"] + "\n\n" + "\n".join(f"{i}. {item}" for i, item in enumerate(data["accessChecks"], 1)))
+    write_text(PUBLIC_ROOT / "CN-Print-Copilot-All-Prompts-v5.txt", prompts)
+    write_text(KIT_ROOT / "01-ALL-PROMPTS.txt", prompts)
+    write_text(KIT_ROOT / "00-START-HERE.html", simple_kit_start_html(data))
 
 
 def make_styles():
@@ -327,28 +375,23 @@ def build_kit(data: dict) -> None:
     demo_destinations = [
         KIT_ROOT / "Demo-1-Copilot-Chat",
         KIT_ROOT / "Demo-2-M365-Copilot",
-        KIT_ROOT / "Demo-3-SharePoint-Agent",
+        KIT_ROOT / "Demo-3-Agent-Builder",
     ]
     public_demo_sources = [
         PUBLIC_V4 / "Demo-1-Copilot-Chat",
         PUBLIC_V4 / "Demo-2-M365-Copilot",
         PUBLIC_V4 / "Demo-3-SharePoint-Agent",
     ]
-    for source, destination in zip(public_demo_sources, demo_destinations):
+    material_names = [
+        ["01-PROJECT-BACKGROUND.txt"],
+        ["01-PROJECT-EMAIL-THREAD.docx", "02-PROJECT-MEETING-NOTES.docx", "03-TEAMS-CHAT.txt", "04-PROJECT-STATUS.xlsx"],
+        ["01-PROJECT-OVERVIEW.docx", "02-ROLES-AND-ESCALATION.docx", "03-COLLABORATION-PROCESS.docx", "04-FAQ.docx"],
+    ]
+    for index, (demo, source, destination, names) in enumerate(zip(data["demos"], public_demo_sources, demo_destinations, material_names), 1):
         destination.mkdir(parents=True, exist_ok=True)
-        for item in source.iterdir():
-            if item.is_file():
-                shutil.copy2(item, destination / item.name)
-
-    shutil.copy2(OUTPUT_PDF, KIT_ROOT / "CN-Print-Copilot-LEARNER-HANDOUT-v4.pdf")
-    extract_pdf_pages(OUTPUT_PDF, KIT_ROOT / "00-START-HERE.pdf", [0, 1])
-    extract_pdf_pages(OUTPUT_PDF, KIT_ROOT / "02-THREE-DEMO-QUICK-CARD.pdf", [0, 2, 3, 4])
-    extract_pdf_pages(OUTPUT_PDF, KIT_ROOT / "04-OBSERVATION-CARD.pdf", [5])
-    extract_pdf_pages(OUTPUT_PDF, KIT_ROOT / "05-SEVEN-DAY-ACTION-CARD.pdf", [6])
-    extract_pdf_pages(OUTPUT_PDF, KIT_ROOT / "06-LEADER-SCENARIO-CARD.pdf", [7])
-    extract_pdf_pages(OUTPUT_PDF, KIT_ROOT / "07-CAPABILITY-STATUS-AND-SOURCES.pdf", [7])
-    for page_index, destination in zip([2, 3, 4], demo_destinations):
-        extract_pdf_pages(OUTPUT_PDF, destination / "00-TASK-CARD.pdf", [page_index])
+        write_text(destination / "00-RUN-DEMO.txt", run_demo_text(demo, index))
+        for name in names:
+            shutil.copy2(source / name, destination / name)
 
     manifest = {
         "version": data["meta"]["version"],
@@ -368,16 +411,10 @@ def build_kit(data: dict) -> None:
             "traditionalChineseScreenshotsOwner": "Min",
         },
     }
-    write_text(KIT_ROOT / "manifest.json", json.dumps(manifest, ensure_ascii=False, indent=2))
-
-    files = sorted(path for path in KIT_ROOT.rglob("*") if path.is_file() and path.name != "SHA256SUMS.txt")
-    checksums = "\n".join(f"{sha256(path)}  {path.relative_to(KIT_ROOT).as_posix()}" for path in files)
-    write_text(KIT_ROOT / "SHA256SUMS.txt", checksums)
-
     zip_targets = [
-        (PUBLIC_ROOT / "CN-Print-Copilot-Demo1-Learner-Kit-v4.zip", demo_destinations[0]),
-        (PUBLIC_ROOT / "CN-Print-Copilot-Demo2-Learner-Kit-v4.zip", demo_destinations[1]),
-        (PUBLIC_ROOT / "CN-Print-Copilot-Demo3-Learner-Kit-v4.zip", demo_destinations[2]),
+        (PUBLIC_ROOT / "CN-Print-Copilot-Demo1-v5-Simple.zip", demo_destinations[0]),
+        (PUBLIC_ROOT / "CN-Print-Copilot-Demo2-v5-Simple.zip", demo_destinations[1]),
+        (PUBLIC_ROOT / "CN-Print-Copilot-Demo3-v5-Simple.zip", demo_destinations[2]),
     ]
     for zip_path, source_dir in zip_targets:
         with zipfile.ZipFile(zip_path, "w", zipfile.ZIP_DEFLATED) as archive:
@@ -385,16 +422,25 @@ def build_kit(data: dict) -> None:
                 if path.is_file():
                     archive.write(path, f"{source_dir.name}/{path.relative_to(source_dir).as_posix()}")
 
-    full_zip = PUBLIC_ROOT / "CN-Print-Copilot-Learner-Kit-v4-20260811.zip"
+    full_zip = PUBLIC_ROOT / "CN-Print-Copilot-Demo-Kit-v5-Simple.zip"
     with zipfile.ZipFile(full_zip, "w", zipfile.ZIP_DEFLATED) as archive:
         for path in sorted(KIT_ROOT.rglob("*")):
             if path.is_file():
                 archive.write(path, f"{KIT_ROOT.name}/{path.relative_to(KIT_ROOT).as_posix()}")
 
+    legacy_targets = [
+        PUBLIC_ROOT / "CN-Print-Copilot-Demo1-Learner-Kit-v4.zip",
+        PUBLIC_ROOT / "CN-Print-Copilot-Demo2-Learner-Kit-v4.zip",
+        PUBLIC_ROOT / "CN-Print-Copilot-Demo3-Learner-Kit-v4.zip",
+    ]
+    for (zip_path, _), legacy_path in zip(zip_targets, legacy_targets):
+        shutil.copy2(zip_path, legacy_path)
+    shutil.copy2(full_zip, PUBLIC_ROOT / "CN-Print-Copilot-Learner-Kit-v4-20260811.zip")
+
     shutil.copy2(OUTPUT_PDF, PUBLIC_ROOT / OUTPUT_PDF.name)
     write_text(PUBLIC_ROOT / "course-manifest-v4.json", json.dumps(manifest, ensure_ascii=False, indent=2))
-    public_files = [OUTPUT_PDF.name, "CN-Print-Copilot-提示词全集-v4.txt"] + [path.name for path, _ in zip_targets] + [full_zip.name]
-    write_text(PUBLIC_ROOT / "SHA256SUMS-v4.txt", "\n".join(f"{sha256(PUBLIC_ROOT / name)}  {name}" for name in public_files))
+    public_files = ["CN-Print-Copilot-All-Prompts-v5.txt"] + [path.name for path, _ in zip_targets] + [full_zip.name]
+    write_text(PUBLIC_ROOT / "SHA256SUMS-v5.txt", "\n".join(f"{sha256(PUBLIC_ROOT / name)}  {name}" for name in public_files))
 
 
 def main() -> None:
@@ -406,7 +452,7 @@ def main() -> None:
     build_kit(data)
     print(json.dumps({
         "pdf": str(OUTPUT_PDF),
-        "kit": str(PUBLIC_ROOT / "CN-Print-Copilot-Learner-Kit-v4-20260811.zip"),
+        "kit": str(PUBLIC_ROOT / "CN-Print-Copilot-Demo-Kit-v5-Simple.zip"),
         "pages": len(PdfReader(str(OUTPUT_PDF)).pages),
     }, ensure_ascii=False, indent=2))
 

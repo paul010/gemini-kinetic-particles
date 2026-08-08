@@ -201,7 +201,7 @@ const CopilotDemo: React.FC<CopilotDemoProps> = ({ onHome }) => {
             <a href="#demo-2">事实查准</a>
             <a href="#demo-3">方法复用</a>
           </nav>
-          <a href={data.downloads.all} download className="ink-button ink-button-small">下载完整包</a>
+          <a href={data.downloads.all} download className="ink-button ink-button-small">下载精简演示包</a>
         </div>
       </header>
 
@@ -213,7 +213,7 @@ const CopilotDemo: React.FC<CopilotDemoProps> = ({ onHome }) => {
             <p className="hero-summary">任务说清。事实查准。方法留下。三段练习都能跟着做，也能看着学。</p>
             <div className="hero-actions">
               <a href="#choose-path" className="ink-button">选择学习路径</a>
-              <a href={data.downloads.handout} target="_blank" rel="noreferrer" className="paper-button">打开速查课件</a>
+              <a href={data.downloads.all} download className="paper-button">下载精简演示包</a>
             </div>
           </div>
 
@@ -436,12 +436,11 @@ const CopilotDemo: React.FC<CopilotDemoProps> = ({ onHome }) => {
 
         <section className="take-home-section notebook-reveal">
           <p className="hand-note">把练习带回去</p>
-          <h2>页面、V4 素材、速查课件和七天行动卡都在这里</h2>
-          <p>不用把三段全部重做。选最贴近自己的一段，完整跑一遍，留下输入、结果、人工修改和一个仍待解决的问题。</p>
+          <h2>只带走三段演示材料和提示词</h2>
+          <p>解压后先打开 00-START-HERE.html，再选择一段。每个 Demo 只有一份演示步骤和真正会用到的虚构材料。</p>
           <div className="progress-copy" aria-live="polite">本机自检记录：{completedChecks}/{totalChecks}</div>
           <div className="take-home-actions">
-            <a href={data.downloads.all} download className="ink-button">下载完整包</a>
-            <a href={data.downloads.handout} target="_blank" rel="noreferrer" className="paper-button">打开打印课件</a>
+            <a href={data.downloads.all} download className="ink-button">下载精简演示包</a>
             <a href={data.downloads.prompts} download className="paper-button">下载提示词</a>
             <button onClick={resetChecks} className="paper-button">重置自检</button>
           </div>
