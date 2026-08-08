@@ -1,22 +1,54 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
-  <title id="title">CN Print Copilot Demo Console</title>
-  <desc id="desc">Three luminous stages connect Copilot Chat, Microsoft 365 Copilot, and Agent Builder.</desc>
+  <title id="title">Copilot 三段故事演示</title>
+  <desc id="desc">从任务说清、事实查准，到方法复用的暖色编辑风路径图。</desc>
   <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#050816"/><stop offset="1" stop-color="#0b1630"/></linearGradient>
-    <linearGradient id="path" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#22d3ee"/><stop offset=".55" stop-color="#3b82f6"/><stop offset="1" stop-color="#8b5cf6"/></linearGradient>
-    <filter id="glow"><feGaussianBlur stdDeviation="12" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#f7f3e9" />
+      <stop offset="1" stop-color="#eae2d2" />
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="0">
+      <stop stop-color="#765726" />
+      <stop offset="0.5" stop-color="#b08a49" />
+      <stop offset="1" stop-color="#765726" />
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#2b251d" flood-opacity="0.13" />
+    </filter>
+    <pattern id="grain" width="32" height="32" patternUnits="userSpaceOnUse">
+      <circle cx="4" cy="7" r="0.7" fill="#2b251d" opacity="0.08" />
+      <circle cx="22" cy="18" r="0.6" fill="#2b251d" opacity="0.06" />
+      <circle cx="13" cy="28" r="0.5" fill="#8a682c" opacity="0.08" />
+    </pattern>
   </defs>
-  <rect width="1200" height="675" fill="url(#bg)"/>
-  <g opacity=".16" stroke="#8db5ff"><path d="M0 112h1200M0 225h1200M0 338h1200M0 451h1200M0 564h1200"/><path d="M150 0v675M300 0v675M450 0v675M600 0v675M750 0v675M900 0v675M1050 0v675"/></g>
-  <text x="72" y="94" fill="#22d3ee" font-family="Arial, sans-serif" font-size="22" font-weight="700" letter-spacing="4">PROJECT LIGHTHOUSE</text>
-  <text x="72" y="164" fill="#fff" font-family="Arial, Microsoft YaHei, sans-serif" font-size="54" font-weight="800">三段 Demo 现场控制台</text>
-  <text x="72" y="210" fill="#9fb0c9" font-family="Arial, Microsoft YaHei, sans-serif" font-size="24">Chat → Microsoft 365 Copilot → Agent</text>
-  <path d="M190 440C350 325 470 520 620 405S875 315 1015 425" fill="none" stroke="url(#path)" stroke-width="16" stroke-linecap="round" filter="url(#glow)"/>
-  <g font-family="Arial, Microsoft YaHei, sans-serif" text-anchor="middle">
-    <g transform="translate(190 440)"><circle r="72" fill="#071625" stroke="#22d3ee" stroke-width="3"/><text y="-5" fill="#22d3ee" font-size="26" font-weight="800">01</text><text y="31" fill="#fff" font-size="20" font-weight="700">任务说清楚</text></g>
-    <g transform="translate(620 405)"><circle r="72" fill="#0b1230" stroke="#60a5fa" stroke-width="3"/><text y="-5" fill="#60a5fa" font-size="26" font-weight="800">02</text><text y="31" fill="#fff" font-size="20" font-weight="700">事实找准确</text></g>
-    <g transform="translate(1015 425)"><circle r="72" fill="#17102b" stroke="#a78bfa" stroke-width="3"/><text y="-5" fill="#a78bfa" font-size="26" font-weight="800">03</text><text y="31" fill="#fff" font-size="20" font-weight="700">方法可复用</text></g>
+  <rect width="1200" height="675" fill="url(#paper)" />
+  <rect width="1200" height="675" fill="url(#grain)" />
+  <circle cx="1060" cy="90" r="220" fill="#b08a49" opacity="0.07" />
+  <circle cx="120" cy="610" r="250" fill="#2b251d" opacity="0.035" />
+
+  <text x="70" y="86" fill="#8a682c" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="700" letter-spacing="4">CN PRINT · COPILOT SHARE</text>
+  <text x="70" y="152" fill="#2b251d" font-family="Georgia, Noto Serif SC, serif" font-size="52" font-weight="700">三次升级，一条工作路径</text>
+  <text x="70" y="196" fill="#675f54" font-family="Inter, Microsoft YaHei, sans-serif" font-size="22">任务说清 → 事实查准 → 方法复用</text>
+
+  <path d="M190 430C340 320 475 500 620 400S865 320 1010 420" fill="none" stroke="url(#gold)" stroke-width="9" stroke-linecap="round" opacity="0.85" />
+
+  <g filter="url(#shadow)" font-family="Inter, Microsoft YaHei, sans-serif" text-anchor="middle">
+    <g transform="translate(190 430)">
+      <circle r="76" fill="#fbf8f0" stroke="#b08a49" stroke-width="2" />
+      <text y="-8" fill="#8a682c" font-size="17" font-weight="700">任务</text>
+      <text y="28" fill="#2b251d" font-size="24" font-weight="800">说清楚</text>
+    </g>
+    <g transform="translate(620 400)">
+      <circle r="76" fill="#fbf8f0" stroke="#b08a49" stroke-width="2" />
+      <text y="-8" fill="#8a682c" font-size="17" font-weight="700">事实</text>
+      <text y="28" fill="#2b251d" font-size="24" font-weight="800">查准确</text>
+    </g>
+    <g transform="translate(1010 420)">
+      <circle r="76" fill="#fbf8f0" stroke="#b08a49" stroke-width="2" />
+      <text y="-8" fill="#8a682c" font-size="17" font-weight="700">方法</text>
+      <text y="28" fill="#2b251d" font-size="24" font-weight="800">可复用</text>
+    </g>
   </g>
-  <rect x="72" y="594" width="1056" height="1" fill="#ffffff" opacity=".14"/>
-  <text x="72" y="630" fill="#ff8a5b" font-family="Arial, Microsoft YaHei, sans-serif" font-size="22" font-weight="700">关键事实可追溯 · 冲突必须停止 · 决策始终在人</text>
+
+  <line x1="70" x2="1130" y1="590" y2="590" stroke="#2b251d" opacity="0.12" />
+  <text x="70" y="628" fill="#675f54" font-family="Inter, Microsoft YaHei, sans-serif" font-size="19">同一个 Project Lighthouse 故事，贯穿 Chat、Microsoft 365 Copilot 与 Agent</text>
 </svg>

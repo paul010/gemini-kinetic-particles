@@ -349,7 +349,7 @@ export const PROJECTS: Project[] = [
   {
     id: 'cn-print-copilot-demo',
     category: 'ai',
-    title: { en: 'Copilot Live Demo Console', zh: 'Copilot 三段现场演示控制台' },
+    title: { en: 'Copilot Learner Demo Kit', zh: 'Copilot 三段学员实践包' },
     year: '2026',
     status: 'live',
     featured: true,
@@ -359,8 +359,8 @@ export const PROJECTS: Project[] = [
       zh: '同一个虚构项目，三次现场升级：把任务说清楚、把事实找准确、再创建有边界的 Agent。',
     },
     description: {
-      en: 'A presenter-ready companion for a two-hour, 100+ person Microsoft Copilot session. It maps directly to the slide deck and packages three live demos. The web page gives the presenter timing, prompts, pass criteria and Go/No-Go gates; every public download is now a learner-facing kit containing only task cards, practice inputs, templates and self-check questions.',
-      zh: '为两小时、100+ 人 Microsoft Copilot 线上分享准备的讲师演示台，与 PPT 第 9、15–17、24–26 页逐页对应。网页保留讲师所需的节奏、提示词、通过标准和 Go/No-Go；公开下载包全部改成学员视角，只包含任务卡、练习输入文件、模板和自检问题，不包含黄金答案与讲师私有内容。',
+      en: 'A learner-facing practice companion for a two-hour, 100+ person Microsoft Copilot sharing session. It maps directly to the slide deck and turns three demos into clear tasks: clarify a request, verify facts across four fictional files, then create a bounded Agent. Colleagues with the right access can copy the same prompts and follow along; everyone else can observe the input, output, and change, then keep the kits for later practice.',
+      zh: '为两小时、100+ 人 Microsoft Copilot 线上分享准备的学员实践页，与 PPT 第 9、15-17、24-26 页对应。三段 Demo 全部按学员视角组织：把任务说清、在四份虚构材料中核对事实、再创建一个会守边界的 Agent。有相应权限的同事可以复制同一条提示词同步跟练；其他同事可以观察输入、输出和变化，并在课后继续使用学员素材。',
     },
     tags: ['Microsoft Copilot', 'Agent Builder', 'Workshop', 'Learner Kit'],
     links: [

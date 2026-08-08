@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 interface CopilotDemoProps {
   onHome: () => void;
@@ -7,16 +7,17 @@ interface CopilotDemoProps {
 type Demo = {
   id: string;
   slide: string;
-  eyebrow: string;
+  product: string;
   title: string;
-  summary: string;
+  story: string;
+  question: string;
+  inputs: string;
   steps: string[];
   prompt: string;
   copyLabel: string;
-  result: string;
-  gate: string;
-  accent: string;
-  soft: string;
+  expected: string;
+  mistake: string;
+  takeaway: string;
   download: string;
 };
 
@@ -31,102 +32,129 @@ const demos: Demo[] = [
   {
     id: 'demo-1',
     slide: 'PPT 09',
-    eyebrow: 'Demo 1 · Copilot Chat',
+    product: 'Copilot Chat',
     title: '一句话，三轮升级',
-    summary: '把“帮我写一个更新”升级成目标、背景、标准、来源都清楚的任务说明书。',
+    story: '周一早上，领导只发来一句：“帮我写一个项目更新。”我们很容易立刻让 Copilot 写，但问题不是它会不会写，而是任务根本还没有被说清楚。',
+    question: '同一句话，为什么有人得到套话，有人却能得到可直接使用的结果？',
+    inputs: '项目背景说明 + 三轮提示词模板',
     steps: [
-      '第一轮故意模糊，结果出来后停 3 秒。',
-      '请观众判断：对象、范围、依据、未知项缺了什么。',
-      '第二轮先让 Copilot 诊断任务，不急着重写。',
-      '附加背景材料，再输入四要素完整版。',
-      '最后区分事实、归纳和待确认项。',
+      '先输入那句故意模糊的要求，观察结果为什么“正确但无用”。',
+      '不急着重写，让 Copilot 反过来诊断任务还缺什么。',
+      '补全目标、背景、输出标准和信息来源，再生成第三版。',
+      '对比第一版和第三版，圈出事实、归纳与待确认项。',
     ],
     prompt: '先不要写。请告诉我：要把这个请求变成一项可执行任务，我还需要补充哪些信息？请按目标、背景、输出标准、信息来源四类提问。',
-    copyLabel: '复制第二轮提示词',
-    result: '观众能清楚看见第一轮和第三轮的结构差异；未确认信息不会被补成事实。',
-    gate: '不是咒语，是任务说明书。',
-    accent: '#22d3ee',
-    soft: 'rgba(34,211,238,.12)',
+    copyLabel: '复制诊断提示词',
+    expected: '你的第二轮输出应该主动追问目标、背景、输出标准和信息来源；第三轮要把未确认信息与事实分开。',
+    mistake: '堆了一连串要求，却没有给来源；把 Copilot 的补全当成已确认事实。',
+    takeaway: '提示词不是咒语，是你写给智能同事的任务说明书。',
     download: downloads.demo1,
   },
   {
     id: 'demo-2',
-    slide: 'PPT 15–17',
-    eyebrow: 'Demo 2 · Microsoft 365 Copilot',
+    slide: 'PPT 15-17',
+    product: 'Microsoft 365 Copilot',
     title: '四份材料，一页接手简报',
-    summary: '邮件、会议纪要、Teams 聊天和 Excel 状态表先做事实审计，再按对象重组。',
+    story: '你刚从休假中回来，Project Lighthouse 已经累积了邮件、会议纪要、Teams 聊天和 Excel 状态表。每份材料都只有一部分真相，而且两个关键数字还互相冲突。',
+    question: '面对大量上下文，我们应该先让 Copilot “写总结”，还是先让它“查事实”？',
+    inputs: '邮件 + 会议纪要 + Teams 聊天 + Excel 状态表',
     steps: [
-      '只附加 01–04 四份输入材料，不上传黄金答案。',
-      '先列已确认事实、冲突、缺失和行动项。',
-      '点开至少两处引用：8 月 18 日、保修期限。',
-      '生成一页接手简报，再改成三个对象版本。',
-      '最后读出 Leader 需要回答的范围决策。',
+      '只附加四份输入材料，先说明不要直接写结论。',
+      '让 Copilot 把信息分成已确认、有冲突、仍缺失和待行动四类。',
+      '点开至少两个引用，回看 8 月 18 日和保修期限的原始材料。',
+      '确认事实底稿后，再生成一页接手简报，并改写为三个对象版本。',
+      '最后不要复述完整答案，只保留 Leader 真正需要决定的那一项。',
     ],
     prompt: '只依据这 4 份 Project Lighthouse 材料，整理一份事实核对表。分为：已确认事实、材料冲突、缺失信息、行动项。每一条必须标出来源文件；无法确认的内容写“未确认”。先不要写管理层总结，也不要自行选择冲突中的一方。',
-    copyLabel: '复制事实审计提示词',
-    result: '8/16 = 旧计划；8/18 = 内部试运行；保修期 12/24 个月 = 未确认；China Social 只保留 Draft。',
-    gate: '先点开引用，再写结论。',
-    accent: '#8b5cf6',
-    soft: 'rgba(139,92,246,.12)',
+    copyLabel: '复制事实核对提示词',
+    expected: '每一条都能点回来源；8/16 与 8/18 没有被合并；保修期冲突没有被自行判断；China Social 仍然保留 Draft。',
+    mistake: '一上来就要管理层摘要；看到流畅的结论就直接接受；没有点回引用核对原文。',
+    takeaway: '不是让 Copilot 帮我们更快地下结论，而是先帮我们更快地把事实理清楚。',
     download: downloads.demo2,
   },
   {
     id: 'demo-3',
-    slide: 'PPT 24–26',
-    eyebrow: 'Demo 3 · Agent Builder',
+    slide: 'PPT 24-26',
+    product: 'Agent Builder',
     title: '创建跨团队资料导航员',
-    summary: '只连接批准资料，把回答格式、停止条件和人工升级路径写进第一版 Agent。',
+    story: '项目进入跨团队协作后，新同事每天都在问相同问题：时间表在哪里？这个日期确定了吗？冲突应该找谁？这时我们需要的不只是一次问答，而是一个稳定、可追溯的入口。',
+    question: '什么时候应该继续用 Chat，什么时候值得把方法做成 Agent？',
+    inputs: '四份已批准知识文件 + Agent 创建模板',
     steps: [
-      '提前把 4 份批准资料放到可访问的 SharePoint / OneDrive。',
-      'Agents → New agent，填写 Purpose 与 Instructions。',
-      '只连接四份批准知识文件，添加 Starter prompts。',
-      '进入 Try it，依次跑已知、未知、冲突、越界。',
-      '四类测试全部通过前，不上线、不分享。',
+      '打开 Agent Builder，用一段自然语言说清它服务谁、解决什么问题。',
+      '只连接四份已批准资料，写明回答格式、来源和适用范围。',
+      '加入停止条件：遇到未知、冲突、未批准或需要最终判断时，不再继续推断。',
+      '选择 2 到 4 个问题，观察它知道什么，也观察它什么时候会停下。',
+      '用“人仍然负责最终判断”总结，第一次练习不必扩展到复杂流程编排。',
     ],
     prompt: '创建一个名为“跨团队资料导航员”的 Agent，服务 Project Lighthouse 的新加入同事和跨团队伙伴。它只依据我提供的批准资料回答问题，必须给出来源和适用范围。遇到未知、冲突、未批准或需要最终判断的内容时停止推断，并告诉用户应联系哪个角色。它不能替团队批准政策、承诺日期、发送消息或修改系统状态。',
     copyLabel: '复制 Agent 创建描述',
-    result: '已知题给来源；未知题找 Jia；冲突题找 Alex；越界题拒绝批准和发送。',
-    gate: '不批准政策 · 不承诺日期 · 不发送消息',
-    accent: '#ff7a45',
-    soft: 'rgba(255,122,69,.12)',
+    expected: '已知题能给来源；未知题能说未确认；冲突题能停止判断并找正确角色；越界请求不代替人执行。',
+    mistake: '把所有文件都接进去；只测一个正常问题；为了显得“聪明”，让 Agent 在未知时继续猜。',
+    takeaway: '真正好用的 Agent，不是什么都敢答，而是知道什么时候应该停下来找人。',
     download: downloads.demo3,
   },
 ];
 
-const readiness = [
-  '演示账号已登录 Microsoft 365 Copilot，并确认工作账号与许可证。',
-  'Demo 2 的四个文件可以附加，回答中的引用能够打开。',
-  'Agent Builder / New agent 在当前租户可见。',
-  'Demo 3 的四份批准资料已经放到可访问的 SharePoint / OneDrive。',
-  '四类 Agent 测试至少完整跑过一次。',
-  '浏览器缩放 100%，通知和敏感窗口均已关闭。',
+const schedule = [
+  ['00-10', '先回答“与我何干”', 'License 不等于生产力，先找一个真实小任务。'],
+  ['10-23', '从 Chat 到任务说明书', '理解四要素，用简单对比建立直觉。'],
+  ['23-38', 'Demo 1', '完成三轮升级；有权限的同事可选同步跟练。'],
+  ['38-50', '从 Chat 到工作上下文', '用一条接手工作链理解邮件、会议、文件与权限。'],
+  ['50-72', 'Demo 2', '先核对事实，再形成简报，并点回引用。'],
+  ['72-77', '中场停一下', '记下前两段中你最意外的一个发现。'],
+  ['77-89', '从一次回答到稳定角色', '理解什么任务值得 Agent 化，以及知识和边界。'],
+  ['89-105', 'Demo 3', '完成第一版 Agent，选 2 到 4 个问题观察能力与停止点。'],
+  ['105-112', '新信号与三句话收口', '用 Rules、Skill 和 Vision 看变化，再收回任务、事实和方法。'],
+  ['112-120', 'QA 与 Thank you', '围绕入口、任务、权限和 Agent 带走答案。'],
 ];
 
-const tests = [
-  ['已知', '8 月 18 日是什么日期？', '内部试运行目标，并给出处', '#22d3ee'],
-  ['未知', '外部推广是哪一天？', '明确未确认，联系 Jia', '#60a5fa'],
-  ['冲突', '保修期 12 个月还是 24 个月？', '停止判断，联系 Alex', '#a78bfa'],
-  ['越界', '直接批准 FAQ 并发给 China Social', '拒绝批准和发送，给升级路径', '#fb784b'],
+const boundaryQuestions = [
+  ['已知', '8 月 18 日是什么日期？', '应该给出“内部试运行目标”和来源。'],
+  ['未知', '对外推广是哪一天？', '应该明确说未确认，并建议联系 Jia。'],
+  ['冲突', '保修期是 12 个月还是 24 个月？', '应该停止判断，告诉用户联系 Alex。'],
+  ['越界', '直接批准 FAQ 并发给 China Social。', '应该拒绝批准和发送，但给出正确升级路径。'],
+];
+
+const trends = [
+  {
+    title: 'Excel .Rules',
+    text: '把格式、图表、函数与布局要求写进工作簿，让一次提示词开始变成团队共享的文件规则。',
+    link: 'https://support.microsoft.com/zh-CN/excel/copilot/copilot-in-excel-rules',
+    label: '查看 Microsoft Support',
+  },
+  {
+    title: 'Skill Recorder',
+    text: '把一次真实操作和口头说明整理成可复用的技能，展示从“我会做”到“团队可复用”的可能路径。',
+    link: 'https://github.com/microsoft/skill-recorder',
+    label: '查看官方仓库',
+  },
+  {
+    title: 'Copilot Vision',
+    text: '当用户主动分享屏幕时，屏幕内容也能成为上下文。它适合解释和引导，不等于获得系统操作权。',
+    link: 'https://support.microsoft.com/en-us/microsoft-365-copilot/use-vision-microsoft-365-copilot',
+    label: '查看 Microsoft Support',
+  },
+];
+
+const learnerChecks = [
+  '有 Copilot Chat 权限：可以完成 Demo 1，跟着体验三轮提示词的变化。',
+  '有 Microsoft 365 Copilot 与文件上传权限：可以完成 Demo 2，使用四份虚构材料做事实核对。',
+  '当前账号能看到 Agent Builder：可以完成 Demo 3，使用已批准知识文件创建第一版 Agent。',
+  '暂时没有对应权限：不影响学习，请重点观察每段的输入、输出和前后变化。',
+  '所有练习材料都是课程虚构数据；请不要在公开练习中上传真实客户、员工或项目数据。',
+  '跟不上时不需要着急：页面、提示词和三个 ZIP 都可以留到课后再完成。',
 ];
 
 const CopilotDemo: React.FC<CopilotDemoProps> = ({ onHome }) => {
   const [copied, setCopied] = useState<string | null>(null);
-  const [checked, setChecked] = useState<boolean[]>(() => readiness.map(() => false));
 
-  useEffect(() => {
-    const previous = document.body.style.background;
-    document.body.style.background = '#050816';
-    return () => {
-      document.body.style.background = previous;
-    };
-  }, []);
-
-  const copy = async (id: string, text: string) => {
+  const copy = async (id: string, value: string) => {
     try {
-      await navigator.clipboard.writeText(text);
+      await navigator.clipboard.writeText(value);
     } catch {
       const textarea = document.createElement('textarea');
-      textarea.value = text;
+      textarea.value = value;
       textarea.style.position = 'fixed';
       textarea.style.opacity = '0';
       document.body.appendChild(textarea);
@@ -138,123 +166,121 @@ const CopilotDemo: React.FC<CopilotDemoProps> = ({ onHome }) => {
     window.setTimeout(() => setCopied(null), 1400);
   };
 
-  const readyCount = checked.filter(Boolean).length;
-
   return (
-    <div className="min-h-screen bg-[#050816] text-slate-50 selection:bg-cyan-300 selection:text-slate-950">
-      <div className="pointer-events-none fixed inset-0 overflow-hidden" aria-hidden="true">
-        <div className="absolute -left-24 top-24 h-96 w-96 rounded-full bg-cyan-500/10 blur-[120px]" />
-        <div className="absolute right-0 top-0 h-[34rem] w-[34rem] rounded-full bg-violet-600/10 blur-[140px]" />
-        <div className="absolute bottom-0 left-1/2 h-80 w-80 rounded-full bg-orange-500/5 blur-[120px]" />
-      </div>
+    <div className="min-h-screen bg-paper font-sans text-ink selection:bg-gold/30">
+      <div className="bg-vignette pointer-events-none fixed inset-0" aria-hidden="true" />
+      <div className="bg-aurora pointer-events-none fixed inset-0 opacity-80" aria-hidden="true" />
+      <div className="bg-grain pointer-events-none fixed inset-0 opacity-30" aria-hidden="true" />
 
-      <header className="sticky top-0 z-40 border-b border-white/10 bg-[#050816]/88 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-4 sm:px-8">
-          <button onClick={onHome} className="inline-flex items-center gap-2 text-sm font-semibold text-slate-300 transition hover:text-white">
-            <span aria-hidden="true">←</span> Da Lei · 大雷
+      <header className="sticky top-0 z-40 border-b border-ink/10 bg-paper/85 backdrop-blur-xl">
+        <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-4 sm:px-8">
+          <button onClick={onHome} className="group inline-flex items-center gap-3 text-sm font-semibold text-ink/70 transition hover:text-ink">
+            <span className="grid h-9 w-9 place-items-center rounded-xl border border-ink/15 bg-surface/60 font-display text-lg font-bold text-gold transition group-hover:border-gold/50">大</span>
+            <span>Da Lei · 大雷</span>
           </button>
-          <div className="hidden text-xs font-medium uppercase tracking-[.22em] text-cyan-300 sm:block">CN Print · Copilot Demo Console</div>
-          <a href={downloads.all} download className="rounded-full border border-cyan-300/30 bg-cyan-300/10 px-4 py-2 text-xs font-bold text-cyan-100 transition hover:border-cyan-200 hover:bg-cyan-300/20">
-            下载学员完整包
+          <div className="hidden text-xs font-semibold tracking-[0.16em] text-ink/45 md:block">CN PRINT · COPILOT SHARE</div>
+          <a href={downloads.all} download className="rounded-full bg-ink px-4 py-2.5 text-xs font-bold text-paper transition hover:bg-gold">
+            下载三段 Demo 素材
           </a>
         </div>
       </header>
 
-      <main className="relative mx-auto max-w-7xl px-5 pb-24 pt-14 sm:px-8 sm:pt-20">
-        <section className="grid gap-10 lg:grid-cols-[1.25fr_.75fr] lg:items-end">
+      <main className="relative mx-auto max-w-6xl px-5 pb-24 pt-12 sm:px-8 sm:pt-18">
+        <section className="grid gap-10 border-b border-ink/10 pb-14 lg:grid-cols-[1.08fr_.92fr] lg:items-center">
           <div>
-            <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-cyan-300/20 bg-cyan-300/10 px-3 py-1 text-xs font-semibold text-cyan-200">
-              <span className="h-2 w-2 rounded-full bg-cyan-300 shadow-[0_0_14px_#22d3ee]" />
-              Project Lighthouse · 100+ 人线上分享
+            <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-gold/30 bg-gold/10 px-3 py-1.5 text-xs font-semibold text-gold">
+              2 小时线上分享 · 100+ 人 · 可选同步跟练
             </div>
-            <h1 className="max-w-4xl text-4xl font-black leading-[1.08] tracking-tight sm:text-6xl lg:text-7xl">
-              从 Copilot Chat
-              <span
-                className="block text-cyan-300"
-                style={{
-                  backgroundImage: 'linear-gradient(90deg, #67e8f9, #60a5fa, #a78bfa)',
-                  backgroundClip: 'text',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                }}
-              >
-                到 Microsoft 365 Copilot
-              </span>
-              <span className="block">再到第一个 Agent</span>
+            <h1 className="max-w-3xl font-display text-5xl font-semibold leading-[0.98] tracking-[-0.035em] text-ink sm:text-6xl lg:text-7xl">
+              把 Copilot
+              <span className="block text-gold">变成你的工作搭档</span>
             </h1>
-            <p className="mt-7 max-w-2xl text-base leading-8 text-slate-300 sm:text-lg">
-              这不是产品功能清单，而是一套可以直接投屏演示的讲师控制台：页面给讲师掌握节奏，下载包则全部采用学员视角，只包含任务卡、练习材料、模板和自检问题。
-            </p>
-          </div>
-          <div className="rounded-3xl border border-white/10 bg-white/[.045] p-6 shadow-2xl shadow-black/30">
-            <div className="text-xs font-semibold uppercase tracking-[.2em] text-slate-400">Tonight's route</div>
-            <div className="mt-5 space-y-4">
-              {demos.map((demo, index) => (
-                <a key={demo.id} href={`#${demo.id}`} className="group flex items-center gap-4">
-                  <span className="grid h-10 w-10 place-items-center rounded-full border text-sm font-black" style={{ borderColor: `${demo.accent}66`, color: demo.accent, background: demo.soft }}>{String(index + 1).padStart(2, '0')}</span>
-                  <span><strong className="block text-sm text-white group-hover:text-cyan-200">{demo.title}</strong><span className="text-xs text-slate-500">{demo.slide}</span></span>
-                </a>
-              ))}
+            <p className="mt-6 max-w-2xl text-lg leading-8 text-ink/65">从一句话到可信简报，再到第一个会守边界的 Agent。有相应权限，你可以下载学员素材，复制和讲师一样的提示词同步跟练；暂时没有权限，跟着观察每段的输入、输出和变化就可以。</p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <a href="#demo-1" className="rounded-full bg-ink px-6 py-3 text-sm font-bold text-paper transition hover:bg-gold">从第一个案例开始</a>
+              <a href="https://microsoft365.com/chat" target="_blank" rel="noreferrer" className="rounded-full border border-ink/15 bg-surface/50 px-6 py-3 text-sm font-bold text-ink transition hover:border-gold/50 hover:text-gold">打开 Microsoft 365 Copilot ↗</a>
             </div>
           </div>
+          <figure className="overflow-hidden rounded-[2rem] border border-ink/10 bg-surface/55 p-3 shadow-[0_24px_70px_rgb(var(--rgb-ink)/0.10)]">
+            <img src="/copilot-demo-cover.svg" alt="Copilot 三段案例的路径图" className="aspect-[16/9] w-full rounded-[1.4rem] object-cover" />
+            <figcaption className="flex items-center justify-between gap-4 px-3 pb-2 pt-4 text-xs text-ink/50">
+              <span>Project Lighthouse 贯穿三段案例</span>
+              <span>任务 → 事实 → 方法</span>
+            </figcaption>
+          </figure>
         </section>
 
-        <section className="mt-14 rounded-3xl border border-cyan-300/20 bg-cyan-300/[.06] p-5 sm:p-6">
-          <div className="grid gap-4 sm:grid-cols-4">
-            {[
-              ['01', 'PPT 讲到对应 Demo'],
-              ['02', '点击下载学员素材'],
-              ['03', '解压并选择输入文件'],
-              ['04', '现场上传 / 粘贴演示'],
-            ].map(([number, label]) => (
-              <div key={number} className="flex items-center gap-3">
-                <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-cyan-300/10 text-xs font-black text-cyan-200">{number}</span>
-                <span className="text-sm font-bold text-slate-200">{label}</span>
-              </div>
+        <section className="py-14">
+          <div className="max-w-3xl">
+            <p className="text-sm font-bold text-gold">一场分享，三个完整故事</p>
+            <h2 className="mt-3 font-display text-4xl font-semibold tracking-tight sm:text-5xl">不追求把所有功能都试一遍，只让你看懂三次关键升级</h2>
+          </div>
+          <div className="mt-8 grid gap-4 md:grid-cols-3">
+            {demos.map((demo) => (
+              <a key={demo.id} href={`#${demo.id}`} className="group rounded-3xl border border-ink/10 bg-surface/45 p-6 transition hover:-translate-y-1 hover:border-gold/45 hover:bg-surface/70">
+                <div className="flex items-center justify-between gap-4 text-xs font-semibold text-ink/45"><span>{demo.product}</span><span>{demo.slide}</span></div>
+                <h3 className="mt-7 font-display text-2xl font-semibold leading-tight group-hover:text-gold">{demo.title}</h3>
+                <p className="mt-4 text-sm leading-6 text-ink/60">{demo.question}</p>
+                <div className="mt-6 text-sm font-bold text-gold">打开案例 →</div>
+              </a>
             ))}
           </div>
         </section>
 
-        <section className="mt-5 flex flex-wrap gap-3 border-y border-white/10 py-5">
-          <a href="https://microsoft365.com/chat" target="_blank" rel="noreferrer" className="rounded-xl bg-white px-5 py-3 text-sm font-black text-slate-950 transition hover:bg-cyan-100">打开 Microsoft 365 Copilot ↗</a>
-          <a href={downloads.demo1} download className="rounded-xl border border-white/15 bg-white/5 px-5 py-3 text-sm font-semibold text-slate-200 transition hover:border-cyan-300/50">下载 Demo 1 学员素材</a>
-          <a href={downloads.demo2} download className="rounded-xl border border-white/15 bg-white/5 px-5 py-3 text-sm font-semibold text-slate-200 transition hover:border-violet-300/50">下载 Demo 2 学员素材</a>
-          <a href={downloads.demo3} download className="rounded-xl border border-white/15 bg-white/5 px-5 py-3 text-sm font-semibold text-slate-200 transition hover:border-orange-300/50">下载 Demo 3 学员素材</a>
-        </section>
-
-        <div className="mt-16 space-y-10">
-          {demos.map((demo, index) => (
-            <section id={demo.id} key={demo.id} className="scroll-mt-24 overflow-hidden rounded-[2rem] border border-white/10 bg-[#0b1020]/90 shadow-2xl shadow-black/25">
-              <div className="h-1 w-full" style={{ background: `linear-gradient(90deg, ${demo.accent}, transparent)` }} />
-              <div className="grid gap-0 lg:grid-cols-[.9fr_1.1fr]">
-                <div className="border-b border-white/10 p-7 sm:p-9 lg:border-b-0 lg:border-r">
-                  <div className="flex items-center justify-between gap-4">
-                    <span className="text-xs font-black uppercase tracking-[.18em]" style={{ color: demo.accent }}>{demo.eyebrow}</span>
-                    <span className="rounded-full border border-white/10 px-3 py-1 text-xs font-bold text-slate-400">{demo.slide}</span>
+        <div className="space-y-14">
+          {demos.map((demo) => (
+            <section id={demo.id} key={demo.id} className="scroll-mt-24 overflow-hidden rounded-[2rem] border border-ink/10 bg-surface/52 shadow-[0_24px_80px_rgb(var(--rgb-ink)/0.08)]">
+              <div className="grid lg:grid-cols-[.92fr_1.08fr]">
+                <div className="border-b border-ink/10 p-7 sm:p-9 lg:border-b-0 lg:border-r">
+                  <div className="flex items-center justify-between gap-4 text-xs font-semibold text-ink/45"><span>{demo.product}</span><span className="rounded-full border border-ink/10 px-3 py-1">{demo.slide}</span></div>
+                  <h2 className="mt-6 font-display text-4xl font-semibold tracking-tight sm:text-5xl">{demo.title}</h2>
+                  <div className="mt-7 border-l-2 border-gold pl-5">
+                    <div className="text-xs font-bold text-gold">你收到的任务</div>
+                    <p className="mt-3 text-base leading-7 text-ink/70">{demo.story}</p>
                   </div>
-                  <h2 className="mt-5 text-3xl font-black tracking-tight sm:text-4xl">{demo.title}</h2>
-                  <p className="mt-4 leading-7 text-slate-400">{demo.summary}</p>
-                  <ol className="mt-8 space-y-4">
-                    {demo.steps.map((step, stepIndex) => (
-                      <li key={step} className="flex gap-3 text-sm leading-6 text-slate-200">
-                        <span className="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full text-[11px] font-black" style={{ color: demo.accent, background: demo.soft }}>{stepIndex + 1}</span>
+                  <div className="mt-7 rounded-2xl border border-ink/10 bg-paper/55 p-5">
+                    <div className="text-xs font-bold text-ink/45">开始前先想一想</div>
+                    <p className="mt-2 font-display text-xl font-semibold leading-7">{demo.question}</p>
+                  </div>
+                  <div className="mt-7 text-xs font-bold text-ink/45">你会用到</div>
+                  <p className="mt-2 text-sm leading-6 text-ink/65">{demo.inputs}</p>
+                </div>
+
+                <div className="p-7 sm:p-9">
+                  <div className="text-xs font-bold text-gold">跟着完成</div>
+                  <ol className="mt-5 space-y-4">
+                    {demo.steps.map((step, index) => (
+                      <li key={step} className="flex gap-4 text-sm leading-6 text-ink/75">
+                        <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-gold/12 text-xs font-bold text-gold">{index + 1}</span>
                         <span>{step}</span>
                       </li>
                     ))}
                   </ol>
-                </div>
-                <div className="flex flex-col p-7 sm:p-9">
-                  <div className="text-xs font-bold uppercase tracking-[.16em] text-slate-500">Live prompt</div>
-                  <div className="mt-4 flex-1 rounded-2xl border border-white/10 bg-[#050816] p-5 font-mono text-sm leading-7 text-slate-200">{demo.prompt}</div>
-                  <div className="mt-4 flex flex-wrap gap-3">
-                    <button onClick={() => copy(demo.id, demo.prompt)} className="rounded-xl px-5 py-3 text-sm font-black text-slate-950 transition hover:brightness-110" style={{ background: demo.accent }}>
-                      {copied === demo.id ? '已复制 ✓' : demo.copyLabel}
-                    </button>
-                    <a href={demo.download} download className="rounded-xl border border-white/15 bg-white/5 px-5 py-3 text-sm font-semibold text-slate-200 transition hover:bg-white/10">下载本段学员素材</a>
+
+                  <div className="mt-8 rounded-2xl border border-ink/10 bg-paper/65 p-5">
+                    <div className="flex items-center justify-between gap-4">
+                      <div className="text-xs font-bold text-ink/45">你要复制的提示词</div>
+                      <button onClick={() => copy(demo.id, demo.prompt)} className="rounded-full border border-gold/30 bg-gold/10 px-3 py-1.5 text-xs font-bold text-gold transition hover:bg-gold hover:text-paper">
+                        {copied === demo.id ? '已复制 ✓' : demo.copyLabel}
+                      </button>
+                    </div>
+                    <p className="mt-4 font-mono text-sm leading-7 text-ink/75">{demo.prompt}</p>
                   </div>
-                  <div className="mt-7 grid gap-3 sm:grid-cols-2">
-                    <div className="rounded-2xl border border-white/10 p-4"><div className="text-[11px] font-bold uppercase tracking-wider text-slate-500">成功信号</div><p className="mt-2 text-sm leading-6 text-slate-200">{demo.result}</p></div>
-                    <div className="rounded-2xl border p-4" style={{ borderColor: `${demo.accent}55`, background: demo.soft }}><div className="text-[11px] font-bold uppercase tracking-wider" style={{ color: demo.accent }}>讲师收束</div><p className="mt-2 text-sm font-bold leading-6 text-white">{demo.gate}</p></div>
+
+                  <div className="mt-6 grid gap-4 sm:grid-cols-2">
+                    <div className="rounded-2xl border border-ink/10 p-5">
+                      <div className="text-xs font-bold text-gold">完成后自检</div>
+                      <p className="mt-3 text-sm leading-6 text-ink/70">{demo.expected}</p>
+                    </div>
+                    <div className="rounded-2xl border border-ink/10 p-5">
+                      <div className="text-xs font-bold text-ink/45">容易踩坑</div>
+                      <p className="mt-3 text-sm leading-6 text-ink/70">{demo.mistake}</p>
+                    </div>
+                  </div>
+
+                  <div className="mt-6 flex flex-col gap-4 rounded-2xl bg-ink p-5 text-paper sm:flex-row sm:items-center sm:justify-between">
+                    <p className="font-display text-xl font-semibold leading-7">{demo.takeaway}</p>
+                    <a href={demo.download} download className="shrink-0 rounded-full bg-paper px-4 py-2.5 text-xs font-bold text-ink transition hover:bg-gold hover:text-paper">下载本段材料</a>
                   </div>
                 </div>
               </div>
@@ -262,49 +288,86 @@ const CopilotDemo: React.FC<CopilotDemoProps> = ({ onHome }) => {
           ))}
         </div>
 
-        <section className="mt-16 rounded-[2rem] border border-white/10 bg-white/[.035] p-7 sm:p-9">
-          <div className="grid gap-10 lg:grid-cols-[.8fr_1.2fr]">
+        <section className="mt-20 border-y border-ink/10 py-16">
+          <div className="grid gap-10 lg:grid-cols-[.72fr_1.28fr]">
             <div>
-              <div className="text-xs font-black uppercase tracking-[.2em] text-orange-300">Go / No-Go</div>
-              <h2 className="mt-4 text-3xl font-black tracking-tight sm:text-4xl">上台前，把风险关在门外</h2>
-              <p className="mt-4 leading-7 text-slate-400">全部勾选才按 Live 路径演示。未通过的段落直接切备用方案，不在 100 多人的直播里排查租户权限。</p>
-              <div className="mt-7 rounded-2xl border border-white/10 bg-[#050816] p-5">
-                <div className="flex items-end justify-between"><span className="text-sm font-bold text-slate-300">Ready score</span><strong className="text-3xl font-black text-white">{readyCount}<span className="text-base text-slate-500"> / {readiness.length}</span></strong></div>
-                <div className="mt-4 h-2 overflow-hidden rounded-full bg-white/10"><div className="h-full rounded-full bg-gradient-to-r from-orange-400 via-violet-400 to-cyan-300 transition-all" style={{ width: `${(readyCount / readiness.length) * 100}%` }} /></div>
-              </div>
+              <p className="text-sm font-bold text-gold">你的 120 分钟学习路线</p>
+              <h2 className="mt-3 font-display text-4xl font-semibold tracking-tight sm:text-5xl">三次升级，把一次回答变成可复用的工作方法</h2>
+              <p className="mt-5 leading-7 text-ink/65">三段 Demo 约占 53 分钟，其余时间用来理解“为什么”、对比前后变化、回看来源，并把方法带回你的工作。有权限时可以同步跟练，暂时没有权限时先理解思路。</p>
             </div>
-            <div className="space-y-3">
-              {readiness.map((item, index) => (
-                <label key={item} className="flex cursor-pointer items-start gap-3 rounded-2xl border border-white/10 bg-[#0b1020] p-4 transition hover:border-cyan-300/30">
-                  <input type="checkbox" checked={checked[index]} onChange={() => setChecked((current) => current.map((value, i) => i === index ? !value : value))} className="mt-1 h-4 w-4 accent-cyan-300" />
-                  <span className={`text-sm leading-6 ${checked[index] ? 'text-slate-500 line-through' : 'text-slate-200'}`}>{item}</span>
-                </label>
+            <div className="divide-y divide-ink/10 border-y border-ink/10">
+              {schedule.map(([time, title, detail]) => (
+                <div key={time} className="grid gap-2 py-4 sm:grid-cols-[72px_180px_1fr] sm:items-start">
+                  <span className="font-mono text-xs font-bold text-gold">{time}</span>
+                  <strong className="text-sm">{title}</strong>
+                  <span className="text-sm leading-6 text-ink/60">{detail}</span>
+                </div>
               ))}
             </div>
           </div>
         </section>
 
-        <section className="mt-16">
-          <div className="text-xs font-black uppercase tracking-[.2em] text-violet-300">Agent launch gate</div>
-          <h2 className="mt-4 text-3xl font-black tracking-tight sm:text-4xl">四类测试不过，不上线</h2>
-          <div className="mt-7 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-            {tests.map(([label, question, answer, color]) => (
-              <article key={label} className="rounded-3xl border border-white/10 bg-[#0b1020] p-5">
-                <div className="text-sm font-black" style={{ color }}>{label}</div>
-                <h3 className="mt-4 min-h-12 font-bold leading-6 text-white">{question}</h3>
-                <div className="mt-5 border-t border-white/10 pt-4 text-sm leading-6 text-slate-400">通过：{answer}</div>
+        <section className="mt-20">
+          <div className="max-w-3xl">
+            <p className="text-sm font-bold text-gold">检查你的第一个 Agent</p>
+            <h2 className="mt-3 font-display text-4xl font-semibold tracking-tight sm:text-5xl">用四个问题，同时看见能力与边界</h2>
+            <p className="mt-5 leading-7 text-ink/65">时间有限时可以选 2 到 4 个问题，但请至少保留一个未知或越界问题。只会回答已知问题还不够，知道什么时候应该停下同样重要。</p>
+          </div>
+          <div className="mt-8 grid gap-4 md:grid-cols-2">
+            {boundaryQuestions.map(([label, question, answer]) => (
+              <article key={label} className="rounded-3xl border border-ink/10 bg-surface/45 p-6">
+                <div className="text-xs font-bold text-gold">{label}</div>
+                <h3 className="mt-4 font-display text-2xl font-semibold leading-8">{question}</h3>
+                <p className="mt-5 border-t border-ink/10 pt-4 text-sm leading-6 text-ink/60">你希望看到：{answer}</p>
               </article>
             ))}
           </div>
         </section>
 
-        <section className="mt-16 rounded-[2rem] border border-cyan-300/20 bg-gradient-to-br from-cyan-300/10 via-blue-500/5 to-violet-500/10 p-8 text-center sm:p-12">
-          <div className="text-xs font-black uppercase tracking-[.22em] text-cyan-200">Take the whole kit</div>
-          <h2 className="mx-auto mt-4 max-w-3xl text-3xl font-black tracking-tight sm:text-5xl">PPT 翻到 Demo 页，打开材料，照着控制台正常演示</h2>
-          <p className="mx-auto mt-5 max-w-2xl leading-7 text-slate-300">学员完整包只包含三套学员任务卡、练习输入材料、提示词模板、Agent 创建模板和自检问题；不包含黄金答案、讲师动作或备用话术。</p>
+        <section className="mt-20 rounded-[2rem] border border-ink/10 bg-ink p-8 text-paper sm:p-10">
+          <div className="grid gap-10 lg:grid-cols-[.68fr_1.32fr]">
+            <div>
+              <p className="text-sm font-bold text-gold">案例之外的三个新信号</p>
+              <h2 className="mt-3 font-display text-4xl font-semibold tracking-tight">从一次问答，走向可重复的工作方法</h2>
+              <p className="mt-5 leading-7 text-paper/65">这一段只做趋势科普，不新增第四个 Demo。用三个变化说明：上下文、规则、步骤和边界正在逐步进入 Copilot 的日常工作方式。</p>
+            </div>
+            <div className="divide-y divide-paper/15 border-y border-paper/15">
+              {trends.map((trend) => (
+                <article key={trend.title} className="py-5">
+                  <h3 className="font-display text-2xl font-semibold text-gold">{trend.title}</h3>
+                  <p className="mt-2 text-sm leading-6 text-paper/70">{trend.text}</p>
+                  <a href={trend.link} target="_blank" rel="noreferrer" className="mt-3 inline-block text-xs font-bold text-paper/60 transition hover:text-gold">{trend.label} ↗</a>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="mt-20 rounded-[2rem] border border-ink/10 bg-surface/45 p-7 sm:p-9">
+          <div className="grid gap-10 lg:grid-cols-[.72fr_1.28fr]">
+            <div>
+              <p className="text-sm font-bold text-gold">开始前先看这里</p>
+              <h2 className="mt-3 font-display text-4xl font-semibold tracking-tight">根据你的权限，选择跟练或观察</h2>
+              <p className="mt-5 leading-7 text-ink/65">每段练习都有一个对应入口。可以打开就同步做，暂时打不开就先观察方法，页面和材料可以课后继续使用。</p>
+            </div>
+            <ul className="grid gap-3 sm:grid-cols-2">
+              {learnerChecks.map((item) => (
+                <li key={item} className="flex gap-3 rounded-2xl border border-ink/10 bg-paper/50 p-4 text-sm leading-6 text-ink/70">
+                  <span className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-gold" />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+
+        <section className="mt-20 rounded-[2rem] border border-gold/25 bg-gold/10 p-8 text-center sm:p-12">
+          <p className="text-sm font-bold text-gold">把练习带回去</p>
+          <h2 className="mx-auto mt-3 max-w-3xl font-display text-4xl font-semibold tracking-tight sm:text-5xl">下载三段素材，选一个案例在课后完整做一遍</h2>
+          <p className="mx-auto mt-5 max-w-2xl leading-7 text-ink/65">完整包里只有三套学员任务卡、练习材料、提示词模板、Agent 创建模板和自检问题。有权限的同事可以在课上同步跟练，也可以在分享结束后再自己完成。</p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
-            <a href={downloads.all} download className="rounded-xl bg-cyan-300 px-6 py-3 text-sm font-black text-slate-950 transition hover:bg-cyan-200">下载三段 Demo 学员完整包</a>
-            <a href="https://microsoft365.com/chat" target="_blank" rel="noreferrer" className="rounded-xl border border-white/20 bg-white/5 px-6 py-3 text-sm font-bold text-white transition hover:bg-white/10">打开 Microsoft 365 Copilot ↗</a>
+            <a href={downloads.all} download className="rounded-full bg-ink px-6 py-3 text-sm font-bold text-paper transition hover:bg-gold">下载三段 Demo 完整包</a>
+            <a href="https://microsoft365.com/chat" target="_blank" rel="noreferrer" className="rounded-full border border-ink/15 bg-paper/55 px-6 py-3 text-sm font-bold text-ink transition hover:border-gold/50 hover:text-gold">打开 Microsoft 365 Copilot ↗</a>
           </div>
         </section>
       </main>

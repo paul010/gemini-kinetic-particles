@@ -12,6 +12,7 @@ export default {
     './fugu/**/*.{ts,tsx}',
     './copilot/**/*.{ts,tsx}',
     './copilotcamp/**/*.{ts,tsx}',
+    './copilotdemo/**/*.{ts,tsx}',
     './promptforge/**/*.{ts,tsx}',
     './notebooklm/**/*.{ts,tsx}',
     './aihtml/**/*.{ts,tsx}',
