@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">Notebook World UI Skill cover</title>
+  <desc id="desc">Original editorial notebook scene with notes connected by a coral path to a lighthouse.</desc>
+  <defs>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="8" dy="10" stdDeviation="8" flood-color="#182332" flood-opacity=".13"/>
+    </filter>
+    <pattern id="rules" width="1200" height="48" patternUnits="userSpaceOnUse">
+      <path d="M0 47.5H1200" stroke="#6384a2" stroke-opacity=".18"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="675" rx="34" fill="#f8f7f1"/>
+  <rect width="1200" height="675" rx="34" fill="url(#rules)"/>
+  <path d="M74 0V675" stroke="#c54e34" stroke-opacity=".32" stroke-width="3"/>
+
+  <g transform="translate(116 82)">
+    <text x="0" y="0" dominant-baseline="hanging" fill="#c54e34" font-family="ui-monospace, monospace" font-size="18" font-weight="800" letter-spacing="3">OPEN CODEX SKILL</text>
+    <text x="0" y="64" dominant-baseline="hanging" fill="#182332" font-family="Georgia, 'Times New Roman', serif" font-size="82" font-weight="700">Notebook</text>
+    <text x="0" y="145" dominant-baseline="hanging" fill="#182332" font-family="Georgia, 'Times New Roman', serif" font-size="82" font-weight="700">World UI</text>
+    <path d="M2 244c111 18 231 14 358-4" fill="none" stroke="#c54e34" stroke-width="13" stroke-linecap="round" opacity=".34"/>
+    <text x="0" y="282" dominant-baseline="hanging" fill="#4c535e" font-family="system-ui, sans-serif" font-size="26">paper · ink · tape · story</text>
+  </g>
+
+  <g transform="translate(585 54) rotate(1)" filter="url(#shadow)">
+    <rect x="0" y="0" width="510" height="550" rx="15" fill="#fffdf7" stroke="#182332" stroke-opacity=".28" stroke-width="2"/>
+    <rect x="185" y="-17" width="142" height="34" rx="2" fill="#e6b66c" fill-opacity=".72" transform="rotate(-3 256 0)"/>
+    <g stroke="#7390aa" opacity=".2">
+      <path d="M0 82H510M0 130H510M0 178H510M0 226H510M0 274H510M0 322H510M0 370H510M0 418H510M0 466H510"/>
+    </g>
+    <path d="M92 0V550" stroke="#c54e34" stroke-opacity=".28" stroke-width="2"/>
+
+    <g fill="none" stroke="#182332" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M89 169c80-73 140-58 189 10 45 63 83 80 153 34" stroke="#c54e34" stroke-width="11" stroke-dasharray="2 20"/>
+      <path d="M52 91l136-17 14 105-136 18z" fill="#fffaf7" stroke-width="5"/>
+      <path d="M65 105l59 36 65-49M72 174l47-38M194 160l-70-24" stroke-width="4"/>
+      <path d="M219 93h156v111H219z" fill="#f4ead3" stroke-width="5"/>
+      <path d="M239 122h111M239 148h91M239 174h101" stroke-width="4" opacity=".62"/>
+      <path d="M270 254l132-26 20 101-132 26z" fill="#fffdf7" stroke-width="5"/>
+      <circle cx="343" cy="289" r="29" stroke-width="5"/>
+      <path d="M343 264v25l19 13M306 338l17-31M394 320l-17-25" stroke-width="4"/>
+      <path d="M359 462h69l-11-139h-47z" fill="#fffdf7" stroke-width="5"/>
+      <path d="M359 462h70M371 358h45M376 323l17-38 21 38M379 381h31M381 409h28" stroke-width="4"/>
+      <path d="M393 284v-35M359 267l-29-23M428 267l29-22" stroke="#c54e34" stroke-width="6"/>
+      <path d="M72 421c47-38 96-31 127 9M84 459c42-31 82-22 108 6" stroke-width="4" opacity=".55"/>
+    </g>
+    <g fill="#c54e34">
+      <circle cx="90" cy="169" r="9"/><circle cx="245" cy="218" r="9"/><circle cx="356" cy="251" r="9"/><circle cx="432" cy="212" r="9"/>
+    </g>
+    <text x="48" y="505" fill="#182332" font-family="Georgia, serif" font-size="25" font-style="italic">one story, made useful</text>
+  </g>
+
+  <g transform="translate(117 483)">
+    <rect width="360" height="94" rx="9" fill="#182332"/>
+    <text x="24" y="24" dominant-baseline="hanging" fill="#fffaf4" font-family="system-ui, sans-serif" font-size="20" font-weight="700">Skill + starter + audit</text>
+    <text x="24" y="57" dominant-baseline="hanging" fill="#fffaf4" fill-opacity=".7" font-family="ui-monospace, monospace" font-size="15">MIT · responsive · accessible</text>
+  </g>
+</svg>

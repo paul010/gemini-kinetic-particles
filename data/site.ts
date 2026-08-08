@@ -170,6 +170,28 @@ export const PROJECTS: Project[] = [
     cover: '/vibe-check-cover.svg',
   },
   {
+    id: 'notebook-world-ui-skill',
+    category: 'tool',
+    title: { en: 'Notebook World UI Skill', zh: '手写笔记世界 UI Skill' },
+    year: '2026',
+    status: 'live',
+    featured: true,
+    cover: '/notebook-world-skill-cover.svg',
+    tagline: {
+      en: 'Turn warm paper, ink, tape and doodles into a reusable interface system.',
+      zh: '把纸张、墨迹、胶带和涂鸦，变成一套可以反复调用的界面设计方法。',
+    },
+    description: {
+      en: 'An open Codex Skill and zero-build starter for learner pages, portfolios, project explainers and workshop companions. It turns content into a continuous notebook journey instead of another equal-card grid, while keeping responsive layouts, dark mode, keyboard access, reduced motion and production verification as hard delivery gates. The repository includes the Skill, design tokens, component anatomy, an original SVG illustration, copy-ready HTML/CSS/JS, and dependency-free copy and audit scripts.',
+      zh: '一套开源 Codex Skill 与零构建页面模板，适用于学员实践页、作品集、项目说明和工作坊配套页面。它把内容组织成连续的纸上故事路径，而不是再做一组整齐却没有重点的卡片；同时把响应式、深色模式、键盘访问、减少动效与线上验证设为交付门槛。仓库包含 Skill、设计变量、组件结构、原创 SVG 插画、可直接复制的 HTML/CSS/JS，以及无依赖的复制与检查脚本。',
+    },
+    tags: ['Codex Skill', 'UI Design', 'Accessibility', 'Open Source'],
+    links: [
+      { label: { en: 'Open live demo', zh: '打开在线示例' }, href: 'https://paul010.github.io/notebook-world-ui-skill/', kind: 'live' },
+      { label: { en: 'View source', zh: '查看开源仓库' }, href: 'https://github.com/paul010/notebook-world-ui-skill', kind: 'github' },
+    ],
+  },
+  {
     id: 'kinetic-particles',
     category: 'creative',
     title: { en: 'Kinetic Particles', zh: 'Kinetic Particles' },
