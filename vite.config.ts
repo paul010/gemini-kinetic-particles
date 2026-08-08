@@ -18,6 +18,14 @@ export default defineConfig(({ mode }) => {
         alias: {
           '@': path.resolve(__dirname, '.'),
         }
+      },
+      build: {
+        rollupOptions: {
+          input: {
+            main: path.resolve(__dirname, 'index.html'),
+            copilotDemo: path.resolve(__dirname, 'copilot-demo/index.html'),
+          },
+        },
       }
     };
 });

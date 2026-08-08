@@ -1,0 +1,22 @@
+{
+  "version": "v4",
+  "updated": "2026-08-08",
+  "courseDate": "2026-08-11",
+  "publicUrl": "https://dailycosmos.net/copilot-demo",
+  "source": "copilotdemo/course-data-v4.json",
+  "demoIds": [
+    "demo-1",
+    "demo-2",
+    "demo-3"
+  ],
+  "facts": {
+    "oldPlan": "2026-08-16",
+    "internalPilotTarget": "2026-08-18",
+    "externalLaunch": "unconfirmed",
+    "warranty": "12 vs 24 months conflict",
+    "chinaSocial": "Draft until approval",
+    "unknownDateOwner": "Jia",
+    "warrantyConflictOwner": "Alex",
+    "traditionalChineseScreenshotsOwner": "Min"
+  }
+}

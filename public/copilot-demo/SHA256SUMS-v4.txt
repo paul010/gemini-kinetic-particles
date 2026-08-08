@@ -1,0 +1,6 @@
+efadc6a013908f81dfcc6bd414837a5aff6ff64e017236b2bb1934dec989ec09  CN-Print-Copilot-学员速查与行动卡-v4.pdf
+81e28ebb601427765de3f9bdffead8b97f1bacd1fd248ffcd86cd56973aff22f  CN-Print-Copilot-提示词全集-v4.txt
+31673e067aac6755d1e870ac085f2f1d7fc2e265b96b41f5af5b52ef59fa8acd  CN-Print-Copilot-Demo1-Learner-Kit-v4.zip
+580bdb399c87121f0ae56ba6cfd909b97cdab7467621e75010c93057bef5358e  CN-Print-Copilot-Demo2-Learner-Kit-v4.zip
+70434b9640ae4f5302916651810494c9babfa82d48a872d1f33d35708e6b6089  CN-Print-Copilot-Demo3-Learner-Kit-v4.zip
+b97b9124584ac46896f672794ed2f0c1588ce2a9c8d0f255a0a645b4b9588b56  CN-Print-Copilot-Learner-Kit-v4-20260811.zip

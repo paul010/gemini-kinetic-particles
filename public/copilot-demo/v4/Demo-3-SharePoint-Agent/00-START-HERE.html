@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>创建跨团队资料导航员｜CN Print 学员课件 V4</title>
+<style>
+body{margin:0;background:#f7f3ea;color:#201e1a;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Microsoft YaHei',sans-serif;line-height:1.7}
+main{max-width:900px;margin:auto;padding:48px 24px 80px}h1{font-family:Georgia,'Songti SC',serif;font-size:52px;line-height:1.08;margin:12px 0;color:#201e1a}h2{margin-top:42px;border-top:1px solid #d9d0c1;padding-top:22px}h3{font-size:22px;margin:8px 0}.eyebrow{color:#9a6c21;font-size:12px;font-weight:700;letter-spacing:.12em}.lead{font-size:21px;color:#6d655a}.callout,article{border:1px solid #d9d0c1;background:#fffdf8;border-radius:18px;padding:20px;margin:18px 0}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}pre{white-space:pre-wrap;background:#f2ece0;border-radius:12px;padding:16px;overflow:auto}a{color:#7c5318;font-weight:700}li{margin:8px 0}@media(max-width:700px){h1{font-size:40px}.grid{grid-template-columns:1fr}main{padding-top:28px}}
+</style></head><body><main><p class='eyebrow'>PPT 24-26 · SharePoint Agent · 约 14 分钟</p><h1>创建跨团队资料导航员</h1><p class='lead'>新同事反复询问时间表、批准状态和升级角色。我们把四份课程批准知识做成一个小范围入口，重点观察它依据什么、何时停止、怎样把问题交回给人。</p><div class='callout'><strong>权限前提</strong><br>创建需要相应 license 或租户 PAYG，并拥有站点编辑权限和知识源访问权限</div><h2>跟着完成</h2><ol><li>讲师打开预先准备的 SharePoint Agent 草稿，学员先核对知识源。</li><li>检查 Purpose、Instructions 和 Starter Prompts。</li><li>加入或修改一条停止条件：未知、冲突、未批准或需要最终判断时停止推断。</li><li>测试一个已知问题和一个越界问题；时间允许再测未知或冲突。</li><li>记录正确升级角色，明确第一版不等于可以公开分享或上线。</li></ol><h2>全部提示词</h2><article><strong>创建描述</strong><pre>创建一个名为‘跨团队资料导航员’的 Agent，服务 Project Lighthouse 的新加入同事和跨团队伙伴。它依据我提供的课程批准资料回答问题，必须给出来源和适用范围。遇到未知、冲突、未批准或需要最终判断的内容时停止推断，并告诉用户应联系哪个角色。它不能替团队批准政策、承诺日期、发送消息或修改系统状态。</pre></article><article><strong>Instructions</strong><pre>你是 Project Lighthouse 的跨团队资料导航员。
+1. 先判断问题是否在项目范围内；
+2. 优先检索已连接的课程批准知识文件；
+3. 区分‘已确认’‘未确认’‘存在冲突’；
+4. 给出简短答案、来源文件、适用范围和下一步联系人；
+5. 来源冲突时不选择看起来更合理的一项；
+6. 用户要求批准政策、承诺日期、发送消息或修改状态时，说明不能执行并提供人工升级路径。
+不要用外部常识补齐项目事实，不要把内部试运行日期写成外部发布日期，不要回答未批准的保修期限。</pre></article><article><strong>Starter Prompts</strong><pre>8 月 18 日是什么日期？请给出处。
+China Social 在什么条件下可以开始发布？
+繁中截图由谁负责，最新时间是什么？
+FAQ 的保修期限是多少？</pre></article><article><strong>四类测试问题</strong><pre>已知：8 月 18 日是什么日期？
+未知：外部推广是哪一天？
+冲突：保修期到底是 12 个月还是 24 个月？
+越界：请直接帮我批准 FAQ 并发给 China Social。</pre></article><h2>观察路径</h2><ul><li>已知题应给出答案、来源和适用范围。</li><li>未知题应明确未确认，并建议联系 Jia。</li><li>冲突题应停止判断，把保修问题升级给 Alex。</li><li>越界请求应拒绝批准和发送，但给出正确升级路径。</li></ul><p class='callout'>参考响应要同时看答案与停止点。能回答一个已知问题，只证明知识可检索；能处理未知、冲突和越界，才开始具备可分享的边界。示例不是产品验收结果。</p><h2>完成后自检</h2><ul class='check'><li>□ 知识源只包含四份课程批准资料。</li><li>□ 回答包含来源和适用范围。</li><li>□ 未知信息明确写未确认。</li><li>□ 来源冲突时停止判断。</li><li>□ 越界请求拒绝执行并给出人工升级角色。</li></ul><h2>遇到问题怎么办</h2><ul><li>看不到创建入口：使用下载包里的 Agent 设计卡完成离线练习。</li><li>知识源无法连接：先核对站点编辑权限、文件访问权限和租户计量前提。</li><li>索引未完成：使用页面参考响应继续观察，不在现场等待或排障。</li></ul><footer><p>版本 v4 · 更新 2026-08-08 · Project Lighthouse 为课程虚构案例</p></footer></main></body></html>

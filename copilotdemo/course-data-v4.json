@@ -1,0 +1,298 @@
+{
+  "meta": {
+    "version": "v4",
+    "updated": "2026-08-08",
+    "courseDate": "2026-08-11",
+    "title": "让 Copilot 真正上岗",
+    "subtitle": "学员实践页｜任务说清、事实查准、方法复用",
+    "publicUrl": "https://dailycosmos.net/copilot-demo",
+    "project": "Project Lighthouse",
+    "privacy": "全部练习材料均为虚构。不要上传真实客户、员工、项目、账号或租户数据，并遵守公司的数据与 AI 使用策略。"
+  },
+  "downloads": {
+    "all": "/copilot-demo/CN-Print-Copilot-Learner-Kit-v4-20260811.zip",
+    "demo1": "/copilot-demo/CN-Print-Copilot-Demo1-Learner-Kit-v4.zip",
+    "demo2": "/copilot-demo/CN-Print-Copilot-Demo2-Learner-Kit-v4.zip",
+    "demo3": "/copilot-demo/CN-Print-Copilot-Demo3-Learner-Kit-v4.zip",
+    "handout": "/copilot-demo/CN-Print-Copilot-学员速查与行动卡-v4.pdf",
+    "prompts": "/copilot-demo/CN-Print-Copilot-提示词全集-v4.txt"
+  },
+  "demos": [
+    {
+      "id": "demo-1",
+      "slide": "PPT 09",
+      "duration": "约 13 分钟",
+      "product": "Copilot Chat",
+      "access": "工作账号可用 Copilot Chat；没有入口也可完整观察",
+      "status": "可直接练习",
+      "title": "一句话，三轮升级",
+      "story": "周一早上，领导只发来一句：‘帮我写一个项目更新。’我们先不追求漂亮答案，而是看任务经过三轮补充后，少了哪些猜测，多了哪些确定性。",
+      "question": "同一句话，为什么有人得到套话，有人却能得到可以直接修改和使用的草稿？",
+      "inputs": [
+        {
+          "name": "Project Lighthouse 项目背景材料",
+          "detail": "课程虚构资料｜材料日期：2026-08-10",
+          "href": "/copilot-demo/v4/Demo-1-Copilot-Chat/01-PROJECT-BACKGROUND.txt"
+        }
+      ],
+      "steps": [
+        "复制第一轮模糊请求，观察输出缺少对象、背景、标准还是来源。",
+        "复制第二轮诊断提示词，让 Copilot 先提问，不急着重写。",
+        "附加或粘贴背景材料，再复制第三轮四要素提示词。",
+        "复制最后的自检提示词，把事实、归纳和待确认项分开。"
+      ],
+      "prompts": [
+        {
+          "id": "d1-p1",
+          "label": "第一轮｜故意模糊",
+          "text": "帮我写一个项目更新。"
+        },
+        {
+          "id": "d1-p2",
+          "label": "第二轮｜先诊断任务",
+          "text": "先不要写。请告诉我：要把这个请求变成一项可执行任务，我还需要补充哪些信息？请按目标、背景、输出标准、信息来源四类提问。"
+        },
+        {
+          "id": "d1-p3",
+          "label": "第三轮｜补齐四要素",
+          "text": "目标：为 Project Lighthouse 的 China Social、Taiwan Team、Cheetah 和项目负责人起草一份跨团队项目更新，让大家快速看懂当前状态和下一步。\n\n背景：这是内部协作草稿，不是对外公告。材料中同时出现了 8 月 12 日、8 月 13 日、8 月 16 日和 8 月 18 日，请不要自行把它们解释成同一个日期。\n\n输出标准：\n1. 使用中文，180-220 字；\n2. 依次列出‘已确认进展、主要风险、下一步、仍需确认’；\n3. 每条尽量指出责任角色和日期；\n4. 对不能确认的信息明确写‘未确认’；\n5. 不使用夸张、承诺式语气。\n\n来源：只依据我提供的 Project Lighthouse 背景材料，不使用常识补齐，不虚构政策、日期、Owner 或批准状态。"
+        },
+        {
+          "id": "d1-p4",
+          "label": "最后一步｜自检输出",
+          "text": "请自检刚才的草稿：哪些句子是材料中的事实，哪些是你的归纳，哪些仍然需要人工确认？用三列表格列出。"
+        }
+      ],
+      "observe": [
+        "第一版通常会默认对象、语气和项目状态，读起来完整，却无法确认依据。",
+        "第二轮先追问缺失信息，重点是把猜测暴露出来。",
+        "第三轮仍然不是标准答案，但应该能区分事实、风险、下一步和未确认。"
+      ],
+      "reference": "观察前后变化：第一版缺少对象、背景、输出标准和信息来源；第三版应该明确内部草稿、使用范围、字数结构、可信材料和未确认项。示例不是唯一答案。",
+      "checks": [
+        "第一轮输入与 PPT、网页、材料包完全一致。",
+        "第二轮主动追问 Goal、Context、Expectations、Source。",
+        "第三轮没有把 8/18 写成对外发布日期。",
+        "保修期限与对外推广日期仍标为未确认。",
+        "最后能分开事实、归纳和待确认项。"
+      ],
+      "mistake": "要求写得很多，却没有给来源；把 Copilot 的补全当成已确认事实。",
+      "takeaway": "提示词是你写给智能同事的任务说明书。",
+      "fallbacks": [
+        "看不到 Copilot Chat：先在页面阅读四轮提示词与前后变化。",
+        "无法上传文件：把背景材料分段粘贴，并保留‘只依据这些材料’的边界。",
+        "手机端：建议走观察模式，课后用电脑完成上传与对比。"
+      ],
+      "download": "/copilot-demo/CN-Print-Copilot-Demo1-Learner-Kit-v4.zip"
+    },
+    {
+      "id": "demo-2",
+      "slide": "PPT 15-17",
+      "duration": "约 18 分钟",
+      "product": "Microsoft 365 Copilot",
+      "access": "完整跟练需要可上传四份文件，并使用 Microsoft 365 Copilot 工作体验",
+      "status": "需 Microsoft 365 Copilot 能力",
+      "title": "四份材料，一页接手简报",
+      "story": "你刚从休假中回来。Project Lighthouse 的信息散在邮件、会议纪要、Teams 聊天和 Excel 状态表里。材料不算多，难点是旧计划、冲突和草稿混在一起。",
+      "question": "面对分散材料，我们应该先写总结，还是先建立一份可以回查的事实底稿？",
+      "inputs": [
+        {
+          "name": "01 项目邮件线程",
+          "detail": "5 封虚构邮件",
+          "href": "/copilot-demo/v4/Demo-2-M365-Copilot/01-PROJECT-EMAIL-THREAD.docx"
+        },
+        {
+          "name": "02 项目会议纪要",
+          "detail": "已确认结论、行动项和决策请求",
+          "href": "/copilot-demo/v4/Demo-2-M365-Copilot/02-PROJECT-MEETING-NOTES.docx"
+        },
+        {
+          "name": "03 Teams 聊天记录",
+          "detail": "课程虚构聊天记录",
+          "href": "/copilot-demo/v4/Demo-2-M365-Copilot/03-TEAMS-CHAT.txt"
+        },
+        {
+          "name": "04 项目状态表",
+          "detail": "8 行任务与状态",
+          "href": "/copilot-demo/v4/Demo-2-M365-Copilot/04-PROJECT-STATUS.xlsx"
+        }
+      ],
+      "steps": [
+        "附加四份材料，先说明只做事实审计，不写管理层总结。",
+        "生成已确认、冲突、缺失和行动项四类事实表。",
+        "点回至少两个来源；引用不可点时，手动打开文件搜索原句。",
+        "事实稳定后，生成一页接手简报。",
+        "保持事实不变，再分别改写为个人、团队和 Leader 版本。"
+      ],
+      "prompts": [
+        {
+          "id": "d2-p1",
+          "label": "第一步｜事实核对",
+          "text": "只依据这 4 份 Project Lighthouse 材料，整理一份事实核对表。分为：已确认事实、材料冲突、缺失信息、行动项。每一条必须标出来源文件；无法确认的内容写‘未确认’。先不要写管理层总结，也不要自行选择冲突中的一方。"
+        },
+        {
+          "id": "d2-p2",
+          "label": "第二步｜一页接手简报",
+          "text": "基于刚才的事实核对表，生成一页中文接手简报，包含：1. 当前状态；2. 三个最高优先级风险；3. 行动项、Owner 和日期；4. 需要 Leader 决定的一件事。保持事实与来源一致，不把内部试运行写成对外发布，不替团队确认保修期限。"
+        },
+        {
+          "id": "d2-p3",
+          "label": "第三步｜同一事实，三个对象",
+          "text": "保持事实完全一致，分别改写为：A. 给执行同事的行动清单；B. 给跨团队伙伴的依赖与待确认问题；C. 给 Leader 的 120 字更新，突出影响、风险和决策请求。"
+        }
+      ],
+      "observe": [
+        "8/16 是旧计划；8/18 是内部试运行目标，不是对外发布日期。",
+        "保修期限 12 个月与 24 个月仍然冲突，不能自行选择。",
+        "China Social 只保留 Draft；Leader 要决定的是有限内部试运行范围。"
+      ],
+      "reference": "参考事实表应至少分开：已确认、冲突、缺失、行动项和来源。关键结论能回到原文件；流畅程度不能代替证据。示例不是唯一答案。",
+      "checks": [
+        "8/16 被识别为旧计划。",
+        "8/18 只描述为内部试运行目标。",
+        "保修期仍标为冲突或未确认。",
+        "China Social 保持 Draft。",
+        "每个关键结论都能回到来源或原句。"
+      ],
+      "mistake": "一上来就要管理层摘要；看到流畅结论就直接接受；没有点回引用。",
+      "takeaway": "先把事实理清楚，再决定怎样表达。",
+      "fallbacks": [
+        "四份文件不能同时上传：分两批建立事实表，最后再合并并标出来源。",
+        "引用不可点击：手动打开文件，搜索日期、姓名或原句。",
+        "公司网络拦截 ZIP：从页面逐个下载四份输入文件。"
+      ],
+      "download": "/copilot-demo/CN-Print-Copilot-Demo2-Learner-Kit-v4.zip"
+    },
+    {
+      "id": "demo-3",
+      "slide": "PPT 24-26",
+      "duration": "约 14 分钟",
+      "product": "SharePoint Agent",
+      "access": "创建需要相应 license 或租户 PAYG，并拥有站点编辑权限和知识源访问权限",
+      "status": "需 License / PAYG + 站点权限",
+      "title": "创建跨团队资料导航员",
+      "story": "新同事反复询问时间表、批准状态和升级角色。我们把四份课程批准知识做成一个小范围入口，重点观察它依据什么、何时停止、怎样把问题交回给人。",
+      "question": "什么时候继续用 Chat，什么时候值得把稳定方法做成一个有边界的知识入口？",
+      "inputs": [
+        {
+          "name": "01 项目概览｜课程批准版",
+          "detail": "范围、日期和批准状态",
+          "href": "/copilot-demo/v4/Demo-3-SharePoint-Agent/01-PROJECT-OVERVIEW.docx"
+        },
+        {
+          "name": "02 角色与升级路径｜课程批准版",
+          "detail": "Jia、Alex、Min 等角色与停止条件",
+          "href": "/copilot-demo/v4/Demo-3-SharePoint-Agent/02-ROLES-AND-ESCALATION.docx"
+        },
+        {
+          "name": "03 协作流程｜课程批准版",
+          "detail": "草稿、核对、批准、本地化、执行",
+          "href": "/copilot-demo/v4/Demo-3-SharePoint-Agent/03-COLLABORATION-PROCESS.docx"
+        },
+        {
+          "name": "04 常见问题｜课程批准版",
+          "detail": "已知、未知、冲突和越界示例",
+          "href": "/copilot-demo/v4/Demo-3-SharePoint-Agent/04-FAQ.docx"
+        }
+      ],
+      "steps": [
+        "讲师打开预先准备的 SharePoint Agent 草稿，学员先核对知识源。",
+        "检查 Purpose、Instructions 和 Starter Prompts。",
+        "加入或修改一条停止条件：未知、冲突、未批准或需要最终判断时停止推断。",
+        "测试一个已知问题和一个越界问题；时间允许再测未知或冲突。",
+        "记录正确升级角色，明确第一版不等于可以公开分享或上线。"
+      ],
+      "prompts": [
+        {
+          "id": "d3-p1",
+          "label": "创建描述",
+          "text": "创建一个名为‘跨团队资料导航员’的 Agent，服务 Project Lighthouse 的新加入同事和跨团队伙伴。它依据我提供的课程批准资料回答问题，必须给出来源和适用范围。遇到未知、冲突、未批准或需要最终判断的内容时停止推断，并告诉用户应联系哪个角色。它不能替团队批准政策、承诺日期、发送消息或修改系统状态。"
+        },
+        {
+          "id": "d3-p2",
+          "label": "Instructions",
+          "text": "你是 Project Lighthouse 的跨团队资料导航员。\n1. 先判断问题是否在项目范围内；\n2. 优先检索已连接的课程批准知识文件；\n3. 区分‘已确认’‘未确认’‘存在冲突’；\n4. 给出简短答案、来源文件、适用范围和下一步联系人；\n5. 来源冲突时不选择看起来更合理的一项；\n6. 用户要求批准政策、承诺日期、发送消息或修改状态时，说明不能执行并提供人工升级路径。\n不要用外部常识补齐项目事实，不要把内部试运行日期写成外部发布日期，不要回答未批准的保修期限。"
+        },
+        {
+          "id": "d3-p3",
+          "label": "Starter Prompts",
+          "text": "8 月 18 日是什么日期？请给出处。\nChina Social 在什么条件下可以开始发布？\n繁中截图由谁负责，最新时间是什么？\nFAQ 的保修期限是多少？"
+        },
+        {
+          "id": "d3-p4",
+          "label": "四类测试问题",
+          "text": "已知：8 月 18 日是什么日期？\n未知：外部推广是哪一天？\n冲突：保修期到底是 12 个月还是 24 个月？\n越界：请直接帮我批准 FAQ 并发给 China Social。"
+        }
+      ],
+      "observe": [
+        "已知题应给出答案、来源和适用范围。",
+        "未知题应明确未确认，并建议联系 Jia。",
+        "冲突题应停止判断，把保修问题升级给 Alex。",
+        "越界请求应拒绝批准和发送，但给出正确升级路径。"
+      ],
+      "reference": "参考响应要同时看答案与停止点。能回答一个已知问题，只证明知识可检索；能处理未知、冲突和越界，才开始具备可分享的边界。示例不是产品验收结果。",
+      "checks": [
+        "知识源只包含四份课程批准资料。",
+        "回答包含来源和适用范围。",
+        "未知信息明确写未确认。",
+        "来源冲突时停止判断。",
+        "越界请求拒绝执行并给出人工升级角色。"
+      ],
+      "mistake": "把所有文件都接进去；只测正常问题；为了显得聪明，让 Agent 在未知时继续猜。",
+      "takeaway": "好 Agent 知道怎样回答，也知道什么时候停下来找人。",
+      "fallbacks": [
+        "看不到创建入口：使用下载包里的 Agent 设计卡完成离线练习。",
+        "知识源无法连接：先核对站点编辑权限、文件访问权限和租户计量前提。",
+        "索引未完成：使用页面参考响应继续观察，不在现场等待或排障。"
+      ],
+      "download": "/copilot-demo/CN-Print-Copilot-Demo3-Learner-Kit-v4.zip"
+    }
+  ],
+  "schedule": [
+    ["00-10", "开场与定位", "聊天区 1/2/3/4，找到自己的起点。"],
+    ["10-35", "会问 + Demo 1", "把‘帮我写项目更新’补成可执行任务。"],
+    ["35-69", "会用 + Demo 2", "先查事实，再形成可追溯的接手简报。"],
+    ["69-74", "中场回看", "判断问题卡在入口、上下文还是证据。"],
+    ["74-103", "会创建 + Demo 3", "在 SharePoint Agent 草稿上核对知识、边界与停止点。"],
+    ["103-113", "新信号与行动", "区分状态、映射场景、写下七天小任务。"],
+    ["113-120", "QA 与收口", "把真实任务、权限和治理问题带回来。"]
+  ],
+  "trends": [
+    {
+      "title": "Vision",
+      "status": "官方已文档化｜商业租户需实测",
+      "text": "用户主动分享屏幕或窗口后，画面可以成为当前会话的上下文。它用于解释和引导，不点击、不输入、不操作屏幕。",
+      "caution": "只有课前在 CN Print 账号看到入口时才现场演示。",
+      "link": "https://support.microsoft.com/en-us/microsoft-365-copilot/how-vision-microsoft-365-works"
+    },
+    {
+      "title": "Excel .Rules",
+      "status": "官方功能｜当前英文完整支持",
+      "text": "把工作簿级指导写在可见的 `.Rules` 工作表 A 列，让规则随文件共享。它不是传统 Excel 的强制校验。",
+      "caution": "课程统一用英文规则，并逐项检查 Copilot 是否真正遵守。",
+      "link": "https://support.microsoft.com/en-us/excel/copilot/copilot-in-excel-rules"
+    },
+    {
+      "title": "Skill Recorder",
+      "status": "微软开源 source release｜非租户默认产品",
+      "text": "把真实操作和讲解整理成 Skill 或 Automation，用来观察个人方法怎样被记录和复用。",
+      "caution": "Analyze 后事件、截图和讲解文本会发送到 GitHub 云端，内部试用前需审批。",
+      "link": "https://github.com/microsoft/skill-recorder"
+    }
+  ],
+  "accessChecks": [
+    "确认登录的是工作账号，不是个人账号。",
+    "确认当前账号是否有 Microsoft 365 Copilot add-on；同一个 Chat 入口的工作数据能力会不同。",
+    "确认管理员是否开放对应功能，地区与租户界面是否已经出现。",
+    "创建 SharePoint Agent 还要核对 license 或 PAYG、站点编辑权限和知识源访问权限。",
+    "Copilot Studio 还要核对作者身份、环境、容量、连接器、DLP 和发布权限。",
+    "没有入口时继续走观察路径，不把‘看不到按钮’当作学习失败。"
+  ],
+  "leaderChecks": [
+    "场景 Owner 是谁？",
+    "哪些知识源被课程或业务明确批准？",
+    "好结果怎样量化：时间、准确率、返工还是引用完整度？",
+    "哪些情况必须停止并交回给人？",
+    "七天或两周后由谁复盘，保留什么证据？"
+  ]
+}

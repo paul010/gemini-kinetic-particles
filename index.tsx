@@ -151,7 +151,7 @@ const Router: React.FC = () => {
       fugu: 'Fugu / TRINITY 复现验证 · Da Lei Research',
       copilot: 'Microsoft Copilot / Agent 产品矩阵 · 大雷',
       copilotcamp: 'Copilot Camp · Cowork 设置与扩展学习课 · 大雷',
-      'copilot-demo': 'CN Print Copilot 三段 Demo 现场控制台 · 大雷',
+      'copilot-demo': '让 Copilot 真正上岗｜CN Print 随课实践页',
       promptforge: '提示词锻造台 · PromptForge · 大雷',
       notebooklm: 'NotebookLM 线画幻灯片提示词 · 大雷',
       aihtml: 'AI 做看得见的 HTML 小工具 · Workshop · 大雷',
