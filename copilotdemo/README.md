@@ -1,4 +1,4 @@
-# CN Print Copilot 随课实践页 V4 Spec
+# CN Print Copilot 随课实践页 V5 Spec
 
 ## 定位
 
@@ -13,7 +13,7 @@
 
 ## 单一内容源
 
-页面、下载包、提示词全集和 PDF 课件使用：
+页面、下载包、提示词全集和 PDF 课件仍使用同一份课程数据：
 
 `copilotdemo/course-data-v4.json`
 
@@ -27,7 +27,7 @@
 
 - `public/copilot-demo/v4/` 的逐文件材料。
 - 三段独立 ZIP。
-- Learner Kit V4 完整 ZIP。
+- 只含演示步骤与真实所需虚构材料的精简 ZIP。
 - 提示词全集。
 - `output/pdf/CN-Print-Copilot-学员速查与行动卡-v4.pdf`。
 - Manifest 与 SHA-256 校验和。
@@ -79,12 +79,14 @@
 
 ## 下载契约
 
-- 完整包：`/public/copilot-demo/CN-Print-Copilot-Learner-Kit-v4-20260811.zip`
-- Demo 1：`/public/copilot-demo/CN-Print-Copilot-Demo1-Learner-Kit-v4.zip`
-- Demo 2：`/public/copilot-demo/CN-Print-Copilot-Demo2-Learner-Kit-v4.zip`
-- Demo 3：`/public/copilot-demo/CN-Print-Copilot-Demo3-Learner-Kit-v4.zip`
+- 精简完整包：`/public/copilot-demo/CN-Print-Copilot-Demo-Kit-v5-Simple.zip`
+- Demo 1：`/public/copilot-demo/CN-Print-Copilot-Demo1-v5-Simple.zip`
+- Demo 2：`/public/copilot-demo/CN-Print-Copilot-Demo2-v5-Simple.zip`
+- Demo 3：`/public/copilot-demo/CN-Print-Copilot-Demo3-v5-Simple.zip`
 - PDF：`/public/copilot-demo/CN-Print-Copilot-学员速查与行动卡-v4.pdf`
-- 提示词：`/public/copilot-demo/CN-Print-Copilot-提示词全集-v4.txt`
+- 提示词：`/public/copilot-demo/CN-Print-Copilot-All-Prompts-v5.txt`
+
+完整 ZIP 只保留：`00-START-HERE.html`、`01-ALL-PROMPTS.txt` 和三个 Demo 文件夹。观察卡、行动卡、Leader 卡、能力状态卡、Manifest 与校验文件不进入学员 ZIP。
 
 ZIP 内主文件名统一使用 ASCII，正文使用简体中文，降低 Windows 解压乱码风险。
 

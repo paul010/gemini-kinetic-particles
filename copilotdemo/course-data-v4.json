@@ -1,6 +1,6 @@
 {
   "meta": {
-    "version": "v4",
+    "version": "v5 · 精简演示包",
     "updated": "2026-08-08",
     "courseDate": "2026-08-11",
     "title": "让 Copilot 真正上岗",
@@ -10,12 +10,12 @@
     "privacy": "全部练习材料均为虚构。不要上传真实客户、员工、项目、账号或租户数据，并遵守公司的数据与 AI 使用策略。"
   },
   "downloads": {
-    "all": "/copilot-demo/CN-Print-Copilot-Learner-Kit-v4-20260811.zip",
-    "demo1": "/copilot-demo/CN-Print-Copilot-Demo1-Learner-Kit-v4.zip",
-    "demo2": "/copilot-demo/CN-Print-Copilot-Demo2-Learner-Kit-v4.zip",
-    "demo3": "/copilot-demo/CN-Print-Copilot-Demo3-Learner-Kit-v4.zip",
+    "all": "/copilot-demo/CN-Print-Copilot-Demo-Kit-v5-Simple.zip",
+    "demo1": "/copilot-demo/CN-Print-Copilot-Demo1-v5-Simple.zip",
+    "demo2": "/copilot-demo/CN-Print-Copilot-Demo2-v5-Simple.zip",
+    "demo3": "/copilot-demo/CN-Print-Copilot-Demo3-v5-Simple.zip",
     "handout": "/copilot-demo/CN-Print-Copilot-学员速查与行动卡-v4.pdf",
-    "prompts": "/copilot-demo/CN-Print-Copilot-提示词全集-v4.txt"
+    "prompts": "/copilot-demo/CN-Print-Copilot-All-Prompts-v5.txt"
   },
   "demos": [
     {

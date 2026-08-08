@@ -1,0 +1,5 @@
+81e28ebb601427765de3f9bdffead8b97f1bacd1fd248ffcd86cd56973aff22f  CN-Print-Copilot-All-Prompts-v5.txt
+ed5383f8a165b4056b12290780bceb5094ded11f90c096f572852e22aa6da46d  CN-Print-Copilot-Demo1-v5-Simple.zip
+9e37988b567b4b7d051ab0627ff432a98fc2d3e97cc5ffc5828933b2bfffe087  CN-Print-Copilot-Demo2-v5-Simple.zip
+5cfefbc2b2d2aeacc465bb864f6cd5e34d497c890bfb1a37acafc43bd420fdd6  CN-Print-Copilot-Demo3-v5-Simple.zip
+b3a82b041a5120d54e1db26ea52a65567d3a02bfa0036e65b0c775f7761315aa  CN-Print-Copilot-Demo-Kit-v5-Simple.zip
