@@ -1,3 +1,5 @@
+@import url("https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/lxgwwenkai-regular.css");
+
 .htu-page {
   --htu-bg: #050b18;
   --htu-panel: #0b162a;
@@ -9,6 +11,9 @@
   --htu-gold: #ffd166;
   --htu-green: #70e58b;
   --htu-pink: #ff6fa8;
+  --htu-paper: rgba(9, 24, 43, .94);
+  --htu-paper-line: rgba(112, 225, 255, .12);
+  --htu-paper-margin: rgba(255, 111, 168, .48);
   position: relative;
   min-height: 100vh;
   overflow-x: clip;
@@ -23,6 +28,8 @@
 .htu-page button, .htu-page a, .htu-page input, .htu-page textarea, .htu-page summary { outline-offset: 4px; }
 .htu-page :focus-visible { outline: 3px solid var(--htu-gold); }
 .htu-page button { color: inherit; }
+.htu-page button:active { transform: translateY(1px) scale(.99); }
+.htu-handwritten { font-family: "LXGW WenKai", "Kaiti SC", STKaiti, KaiTi, cursive; font-weight: 400 !important; letter-spacing: .015em !important; }
 
 .htu-stars { position: fixed; z-index: -1; inset: 0; width: 100%; height: 100%; pointer-events: none; opacity: .58; }
 .htu-world-stage { position: fixed; z-index: -2; inset: 0; overflow: hidden; pointer-events: none; background: #020815; }
@@ -45,12 +52,13 @@
 .htu-title-group { text-align: center; }
 .htu-title-group p { margin: 0 0 4px; color: var(--htu-cyan); font: 750 10px/1.2 ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .17em; text-transform: uppercase; }
 .htu-title-group h1 { margin: 0; font-size: clamp(28px, 4vw, 46px); line-height: 1; letter-spacing: -.05em; }
+.htu-title-group h1.htu-handwritten { color: #fff8dc; text-shadow: 0 1px 0 rgba(255,209,102,.2); }
 .htu-header-actions { justify-self: end; display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; }
 .htu-header-actions button, .htu-statusbar button { padding: 9px 12px; border: 1px solid var(--htu-line); background: rgba(16, 31, 56, .78); cursor: pointer; }
 .htu-header-actions button:hover, .htu-header-actions button[aria-pressed="true"] { border-color: var(--htu-cyan); background: #17365b; }
 
 .htu-celebration { position: fixed; z-index: 85; inset: 0; display: grid; place-items: center; pointer-events: none; overflow: hidden; background: radial-gradient(circle, rgba(112,225,255,.12), transparent 48%); }
-.htu-celebration span { padding: 14px 20px; color: #04121c; background: var(--htu-gold); border: 3px solid #fff; box-shadow: 0 20px 70px rgba(0,0,0,.55); font-weight: 950; animation: htu-success-card 1.7s ease both; }
+.htu-celebration span { padding: 16px 24px; color: #04121c; background: var(--htu-gold); border: 3px solid #fff; clip-path: polygon(1% 4%, 99% 0, 97% 96%, 3% 100%); box-shadow: 0 20px 70px rgba(0,0,0,.55); font: 400 clamp(22px, 3vw, 34px)/1.25 "LXGW WenKai", "Kaiti SC", STKaiti, KaiTi, cursive; animation: htu-success-card 1.7s ease both; }
 .htu-celebration i { position: absolute; top: 50%; left: 50%; width: 10px; height: 42px; border-radius: 10px; background: var(--htu-cyan); transform-origin: 50% 180px; animation: htu-firework 1.45s cubic-bezier(.16,.78,.24,1) both; }
 .htu-celebration i:nth-child(3n) { background: var(--htu-gold); }
 .htu-celebration i:nth-child(4n) { background: var(--htu-pink); }
@@ -69,13 +77,17 @@
 @keyframes htu-firework { 0% { opacity: 0; scale: .15; } 18% { opacity: 1; } 100% { opacity: 0; scale: 1.25; translate: 0 80px; } }
 @keyframes htu-success-card { 0% { opacity: 0; transform: scale(.82); } 18%, 72% { opacity: 1; transform: scale(1); } 100% { opacity: 0; transform: scale(.96); } }
 
-.htu-student-start { position: relative; z-index: 2; display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(320px, .75fr); gap: clamp(28px, 6vw, 88px); align-items: center; width: min(1320px, calc(100% - 48px)); min-height: 62svh; margin: 0 auto; padding: clamp(60px, 9vh, 110px) 0 44px; }
+.htu-student-start { position: relative; z-index: 2; display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(320px, .75fr); gap: clamp(28px, 6vw, 88px); align-items: center; width: min(1320px, calc(100% - 48px)); min-height: 62svh; margin: 34px auto; padding: clamp(54px, 8vh, 92px) clamp(28px, 5vw, 72px) 50px; isolation: isolate; }
+.htu-student-start::before { content: ""; position: absolute; z-index: -2; inset: 0; background: repeating-linear-gradient(0deg, transparent 0 31px, var(--htu-paper-line) 31px 32px), linear-gradient(135deg, rgba(112,225,255,.06), transparent 38%), var(--htu-paper); border: 1px solid rgba(112,225,255,.44); clip-path: polygon(.4% 1.1%, 99.4% 0, 100% 98.7%, .8% 100%); box-shadow: 0 34px 90px rgba(0,0,0,.42), inset 0 1px rgba(255,255,255,.05); transform: rotate(-.18deg); }
+.htu-student-start::after { content: ""; position: absolute; z-index: -1; top: 14px; bottom: 16px; left: clamp(18px, 3.2vw, 46px); width: 1px; background: var(--htu-paper-margin); box-shadow: 4px 0 rgba(255,111,168,.08); }
 .htu-student-start > div > span, .htu-instructor-console > div > span { color: var(--htu-cyan); font: 850 11px/1 ui-monospace, monospace; letter-spacing: .15em; }
-.htu-student-start h2 { margin: 18px 0 22px; font-size: clamp(42px, 5vw, 70px); line-height: .98; letter-spacing: -.06em; text-wrap: balance; }
+.htu-student-start h2 { margin: 18px 0 22px; color: #fff8dc; font-size: clamp(42px, 4.3vw, 62px); line-height: 1.08; text-wrap: balance; text-shadow: 0 2px 0 rgba(255,209,102,.18); }
 .htu-student-start > div > p { max-width: 760px; color: #dce9f6; font-size: clamp(17px, 1.45vw, 21px); line-height: 1.7; }
+.htu-student-start > div > p.htu-hand-note { position: relative; display: table; margin: 22px 0 4px; padding: 8px 12px 6px; color: var(--htu-gold); background: rgba(255,209,102,.07); font: 400 clamp(19px, 2vw, 27px)/1.35 "LXGW WenKai", "Kaiti SC", STKaiti, KaiTi, cursive; transform: rotate(-1deg); }
+.htu-hand-note::after { content: ""; position: absolute; right: 4px; bottom: 2px; left: 6px; height: 3px; background: linear-gradient(90deg, transparent, rgba(255,209,102,.8) 7%, rgba(255,209,102,.35) 82%, transparent); transform: rotate(-.7deg); }
 .htu-student-start .htu-primary { margin-top: 18px; padding: 15px 22px; color: #03131a; background: var(--htu-gold); border: 1px solid var(--htu-gold); cursor: pointer; font-weight: 950; }
-.htu-student-start ol { display: grid; gap: 12px; margin: 0; padding: 24px; list-style: none; background: rgba(7,16,31,.9); border: 1px solid rgba(112,225,255,.45); }
-.htu-student-start li { display: grid; grid-template-columns: 48px 1fr; gap: 14px; align-items: center; padding: 14px; background: rgba(16,31,56,.76); border-left: 3px solid var(--htu-cyan); }
+.htu-student-start ol { display: grid; gap: 12px; margin: 0; padding: 22px; list-style: none; background: rgba(4,12,24,.68); border: 1px dashed rgba(255,209,102,.52); box-shadow: 8px 10px 0 rgba(3,9,19,.36); transform: rotate(.35deg); }
+.htu-student-start li { display: grid; grid-template-columns: 48px 1fr; gap: 14px; align-items: center; padding: 14px; background: rgba(16,31,56,.74); border-left: 3px solid var(--htu-cyan); }
 .htu-student-start li strong { color: var(--htu-gold); font: 950 27px/1 ui-monospace, monospace; }
 .htu-student-start li span { color: var(--htu-muted); line-height: 1.5; }
 .htu-student-promise { grid-column: 1 / -1; margin: 0; padding: 14px 18px; color: var(--htu-green); background: rgba(10,30,31,.78); border: 1px solid rgba(112,229,139,.42); text-align: center; font-weight: 850; }
@@ -103,6 +115,7 @@
 .htu-hero-copy { max-width: 860px; }
 .htu-kicker { display: inline-flex; padding: 8px 12px; color: var(--htu-cyan); background: rgba(6,17,32,.68); border: 1px solid rgba(112,225,255,.38); font: 850 11px/1 ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .14em; }
 .htu-hero h2 { max-width: 900px; margin: 22px 0 24px; font-size: clamp(46px, 6.5vw, 98px); line-height: .94; letter-spacing: -.065em; text-wrap: balance; text-shadow: 0 5px 34px rgba(0,0,0,.7); }
+.htu-hero h2.htu-handwritten { line-height: 1.03; letter-spacing: 0; }
 .htu-hero-copy > p { max-width: 720px; margin: 0; color: #d7e5f3; font-size: clamp(17px, 1.55vw, 23px); line-height: 1.68; text-shadow: 0 2px 20px rgba(0,0,0,.72); }
 .htu-hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
 .htu-hero-actions button, .htu-chapter-card > button { padding: 14px 20px; color: var(--htu-text); background: rgba(8,21,40,.88); border: 1px solid rgba(112,225,255,.52); cursor: pointer; font-weight: 900; }
@@ -165,6 +178,8 @@
 .htu-statusbar input { width: 18px; height: 18px; accent-color: var(--htu-cyan); }
 .htu-sound-mode { display: grid !important; grid-template-columns: auto minmax(200px, 1fr); align-items: center !important; gap: 10px !important; }
 .htu-sound-mode select { min-width: 0; padding: 9px 32px 9px 10px; color: var(--htu-text); background: #10233c; border: 1px solid var(--htu-line); }
+.htu-effect-controls { display: flex !important; align-items: center !important; justify-content: flex-end; gap: 10px !important; }
+.htu-effect-controls button { padding: 8px 11px; color: var(--htu-gold); background: #10233c; border: 1px dashed rgba(255,209,102,.65); cursor: pointer; }
 
 .htu-layout {
   position: relative; z-index: 1;
@@ -187,9 +202,10 @@
 .htu-mission-note { margin: 14px 2px 0; color: var(--htu-muted); font-size: 12px; line-height: 1.55; }
 
 .htu-workspace { min-width: 0; padding: clamp(18px, 3vw, 36px); }
-.htu-mission-brief { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 26px; padding-bottom: 24px; border-bottom: 1px solid var(--htu-line); }
+.htu-mission-brief { position: relative; display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 26px; padding: 22px 22px 22px 38px; overflow: hidden; background: repeating-linear-gradient(0deg, transparent 0 29px, var(--htu-paper-line) 29px 30px), var(--htu-paper); border: 1px solid rgba(112,225,255,.34); box-shadow: 7px 8px 0 rgba(2,8,18,.38); }
+.htu-mission-brief::before { content: ""; position: absolute; top: 0; bottom: 0; left: 20px; width: 1px; background: var(--htu-paper-margin); }
 .htu-mission-brief span { color: var(--htu-pink); font: 900 12px/1 ui-monospace, monospace; letter-spacing: .12em; }
-.htu-mission-brief h2 { margin: 7px 0 0; font-size: clamp(30px, 4vw, 52px); line-height: .95; letter-spacing: -.06em; }
+.htu-mission-brief h2 { margin: 7px 0 0; color: #fff8dc; font-size: clamp(30px, 4vw, 52px); line-height: 1.05; }
 .htu-mission-brief p { max-width: 680px; margin: 0; color: var(--htu-muted); font-size: clamp(16px, 1.5vw, 20px); line-height: 1.65; }
 .htu-mission-brief button { padding: 11px 13px; border: 1px solid var(--htu-cyan); background: transparent; cursor: pointer; white-space: nowrap; }
 .htu-instruction-actions { display: grid; gap: 8px; }
@@ -236,6 +252,7 @@
 .htu-complete > span { font-size: 54px; }
 .htu-complete p { margin: 0 0 5px; }
 .htu-complete h2 { margin: 0 0 8px; font-size: clamp(28px, 4vw, 50px); letter-spacing: -.05em; }
+.htu-complete h2.htu-handwritten { letter-spacing: .015em; }
 .htu-complete button { color: var(--htu-text); background: #07101f; }
 
 .htu-teacher, .htu-support-card { position: fixed; z-index: 70; right: 20px; bottom: 20px; width: min(500px, calc(100vw - 40px)); max-height: calc(100vh - 40px); overflow: auto; padding: 24px; background: #101f38; border: 2px solid var(--htu-gold); box-shadow: 0 28px 90px rgba(0,0,0,.6); }
@@ -299,7 +316,7 @@
   .htu-header-actions button { padding: 9px 6px; font-size: 13px; white-space: nowrap; }
   .htu-title-group h1 { font-size: 32px; }
   .htu-hero { min-height: auto; width: calc(100% - 24px); padding: 70px 0 90px; }
-  .htu-student-start { min-height: auto; width: calc(100% - 24px); padding: 52px 0 32px; }
+  .htu-student-start { min-height: auto; width: calc(100% - 24px); margin: 14px auto 28px; padding: 46px 20px 32px 36px; }
   .htu-student-start h2 { font-size: clamp(40px, 12vw, 58px); }
   .htu-student-start h2 br { display: none; }
   .htu-instructor-console { grid-template-columns: 1fr; width: calc(100% - 24px); }
@@ -323,6 +340,7 @@
   .htu-statusbar { grid-template-columns: 1fr; gap: 12px; padding: 14px 18px; }
   .htu-sound-mode { grid-template-columns: 1fr !important; }
   .htu-effect-toggle { white-space: normal !important; }
+  .htu-effect-controls { justify-content: flex-start; flex-wrap: wrap; }
   .htu-layout { width: calc(100% - 20px); margin: 12px auto; }
   .htu-workspace, .htu-missions { padding: 16px; }
   .htu-editor-panel textarea { min-height: 260px; }
@@ -340,6 +358,10 @@
 .htu-page.is-reduced-motion .htu-world-stage img { transition: none; }
 .htu-page.is-reduced-motion .htu-celebration i { display: none; }
 .htu-page.is-reduced-motion .htu-celebration span { animation: none; }
+
+@media (prefers-reduced-transparency: reduce) {
+  .htu-student-start::before, .htu-mission-brief { background-color: #0b182b; background-image: none; }
+}
 
 @media print {
   @page { size: A4; margin: 14mm; }
