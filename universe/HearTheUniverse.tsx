@@ -24,6 +24,9 @@ type Mission = {
   teacherCue: string;
   assistantCue: string;
   successEvidence: string;
+  voiceIntro: string;
+  voiceRetry: string;
+  voiceSuccess: string;
 };
 
 type ClassroomChapter = {
@@ -43,68 +46,83 @@ type ClassroomChapter = {
 const MISSIONS: Mission[] = [
   {
     number: '01',
-    title: '启动宇宙通讯',
+    title: '唤醒沉睡的星站',
     concept: '输出 output',
     timeSlot: '10–18 分钟',
     stage: '通讯星站',
-    brief: '让程序说出“你好，宇宙”。输入完成后运行程序，听一听控制台的结果。',
+    brief: '宇宙突然失去了声音。写下第一句呼唤，让沉睡的星站重新回应。',
     starter: 'output "你好，宇宙"',
     hint: 'output 后面要有一个空格，文字要放在英文双引号中。',
     teacherCue: '先建立“输入—运行—听见结果”的闭环，只讲 output 一个概念。',
     assistantCue: '只提示键位或当前行，不触碰学员键盘，不替学员输入。',
     successEvidence: '学员独立输入并运行 output，读屏读出正确结果。',
+    voiceIntro: '第一关，唤醒沉睡的星站。请在编辑区确认“你好，宇宙”，然后运行程序。我们正在等待第一个回应。',
+    voiceRetry: '星站收到了信号，但还没有听清。请检查 output 后的空格和英文双引号，一次只改一处。',
+    voiceSuccess: '叮，星站已经醒来。你写下的第一句话，正在宇宙中回响。',
   },
   {
     number: '02',
-    title: '给星星命名',
+    title: '为无名星点亮名字',
     concept: '文本变量 text',
     timeSlot: '18–28 分钟',
     stage: '通讯星站',
-    brief: '创建一个叫 starName 的文本变量，把你喜欢的星星名字放进去，再输出它。',
+    brief: '星站找到一颗没有名字的星星。为它命名，再让程序把这个名字传向宇宙。',
     starter: 'text starName = "北极星"\noutput starName',
     hint: '第一行保存名字，第二行直接 output starName，不需要再加双引号。',
     teacherCue: '把变量比作“有标签的收纳盒”，强调变量名可以重复使用。',
     assistantCue: '如果卡住，只确认变量名和双引号，不直接说出整段答案。',
     successEvidence: '学员至少修改一次星星名称，并听到变量的新内容。',
+    voiceIntro: '第二关，为无名星点亮名字。请找到双引号中的星星名称，换成你想起的名字，再运行。',
+    voiceRetry: '名字还没有传出去。请检查第一行的 starName，以及第二行的 output starName。',
+    voiceSuccess: '叮，命名完成。这颗星星从现在起有了名字，宇宙也记住了它。',
   },
   {
     number: '03',
-    title: '输入任务代号',
+    title: '接收来自远方的密令',
     concept: '键盘输入 input',
     timeSlot: '28–34 分钟',
     stage: '航行参数站',
-    brief: '让程序向你询问任务代号。运行后，页面会把焦点送到输入框。',
+    brief: '一段很弱的信号正在等待回答。让程序询问你的任务代号，输入密令后按回车。',
     starter: 'text missionCode = input("请输入任务代号")\noutput missionCode',
     hint: 'input 的问题要放在括号和双引号里，下一行输出 missionCode。',
     teacherCue: '提醒大家：程序暂停不是坏掉了，它正在等待人的输入。',
     assistantCue: '读屏宣布“等待输入”后，让学员自己键入代号并按回车。',
     successEvidence: '学员听见输入请求，自主输入任务代号并提交。',
+    voiceIntro: '第三关，接收来自远方的密令。运行后程序会暂停，这不是故障，它正在等你输入任务代号。',
+    voiceRetry: '密令通道还没有完全打开。请检查 input 的括号和双引号，然后再运行。',
+    voiceSuccess: '叮，密令已确认。远方的信号认出了你，下一段航路已经打开。',
   },
   {
     number: '04',
-    title: '计算星际距离',
+    title: '穿越八十四光年',
     concept: '整数与运算',
     timeSlot: '34–40 分钟',
     stage: '航行参数站',
-    brief: '把两个观测段合在一起。将下划线替换成数字 2，让程序算出 84。',
+    brief: '求救信号来自两段星路之外。补上缺少的数字，让飞船算出 84 光年的航程。',
     starter: 'integer distance = 42\noutput distance * __',
     hint: '找到第二行末尾的两个下划线，把它们替换成数字 2。',
     teacherCue: '只让学员改一个数值，听到 84 就算成功，不扩展复杂公式。',
     assistantCue: '可提示“第二行最后”，不要替学员移动光标或删除字符。',
     successEvidence: '学员先预测、再替换一个数值，最后听到 84。',
+    voiceIntro: '第四关，穿越八十四光年。请找到第二行最后的两个下划线，换成一个数字，让计算结果变成八十四。',
+    voiceRetry: '飞船已经起飞，但航程还不是八十四光年。请只检查第二行最后的乘数。',
+    voiceSuccess: '叮，航程锁定，八十四光年。飞船正在穿越星海，声音灯塔就在前方。',
   },
   {
     number: '05',
-    title: '修复信号判断',
+    title: '修复最后一座声音灯塔',
     concept: '条件判断与调试',
     timeSlot: '40–50 分钟',
     stage: '安全判断站',
-    brief: '程序里少了一个英文双引号。找到错误、补上它，再运行并锁定信号。',
+    brief: '声音灯塔的程序少了一个符号。听完错误线索，只修好一处，让整个宇宙再次发声。',
     starter: 'integer signal = 75\nif signal >= 60\n  output "信号已锁定\nelse\n  output "继续搜索"\nend',
     hint: '检查“信号已锁定”这一行：一句文字的开头和结尾都需要双引号。',
     teacherCue: '把错误当作线索：先听反馈，再只改一个地方，然后重试。',
     assistantCue: '先复述错误类型，等待 5 到 8 秒；仍卡住再提示所在行。',
     successEvidence: '学员根据错误信息定位一处问题，修正后再次运行。',
+    voiceIntro: '第五关，修复最后一座声音灯塔。程序里只少了一个英文双引号。先听错误，只修一处，然后重新运行。',
+    voiceRetry: '灯塔发出了一条错误线索。请检查“信号已锁定”这一行的结尾，文字开头和结尾都需要双引号。',
+    voiceSuccess: '叮，灯塔已点亮。星站、航线和灯塔重新连接。你修好了最后的信号，宇宙又有声音了。',
   },
 ];
 
@@ -117,29 +135,29 @@ const CLASSROOM_CHAPTERS: ClassroomChapter[] = [
     tags: ['4–5 名全盲青年', '1 主讲 + 5 陪护 + 1 技术', '固定座位'], accent: '#70E1FF', action: '进入指令热身',
   },
   {
-    id: 'warmup', time: '05–10', eyebrow: 'ORBIT 01', title: '理解“代码＝可执行指令”',
-    body: '用生活中的顺序指令热身：人发出命令，计算机执行，结果告诉我们下一步。',
+    id: 'warmup', time: '05–10', eyebrow: 'PROLOGUE', title: '宇宙为什么失去了声音？',
+    body: '一场宇宙风暴让星站、航线和声音灯塔全部沉默。今天，我们要用代码把声音一段一段找回来。',
     lecturer: '只建立“输入—运行—听结果”一个闭环，不提前讲语法细节。',
     support: '让学员复述一个生活算法，用学员选择的节奏继续。',
-    tags: ['一次只讲一个概念', '先预测再运行', '无竞速'], accent: '#70E58B', action: '打开第 1 个任务', taskIndex: 0,
+    tags: ['听清任务', '自己输入', '运行后听结果'], accent: '#70E58B', action: '唤醒第一座星站', taskIndex: 0,
   },
   {
-    id: 'communication', time: '10–28', eyebrow: 'ORBIT 02', title: '通讯星站',
-    body: '用 output 让电脑说话，再用 text 变量给星星命名。目标是每个人听见自己第一段程序。',
+    id: 'communication', time: '10–28', eyebrow: 'CHAPTER 01', title: '星站醒来了',
+    body: '发出第一句呼唤，再为一颗无名星点亮名字。宇宙中出现了第一个回应。',
     lecturer: '任务 1 与 2 各只增加一个新概念，演示后留出 5–8 秒安静操作时间。',
     support: '只读提示、描述焦点、记录成功证据；不代打、不抓手。',
     tags: ['任务 1–2', 'output', 'text 变量'], accent: '#FFD166', action: '从任务 1 开始', taskIndex: 0,
   },
   {
-    id: 'navigation', time: '28–40', eyebrow: 'ORBIT 03', title: '航行参数站',
-    body: '程序开始向学员提问，并使用整数完成一次简单运算。',
+    id: 'navigation', time: '28–40', eyebrow: 'CHAPTER 02', title: '远方传来了密令',
+    body: '接收任务代号，再计算穿越星海的距离。程序开始与我们对话。',
     lecturer: '强调程序暂停是在等待输入；每次改动前先请学员预测结果。',
     support: '报出当前焦点和可选动作，学员决定键入什么。',
     tags: ['任务 3–4', 'input', '整数与运算'], accent: '#70E1FF', action: '继续当前任务', taskIndex: 2,
   },
   {
-    id: 'safety', time: '40–50', eyebrow: 'ORBIT 04', title: '安全判断站',
-    body: '从错误信息中找线索，修好一处字符串问题，让条件判断锁定信号。',
+    id: 'safety', time: '40–50', eyebrow: 'CHAPTER 03', title: '点亮声音灯塔',
+    body: '最后一座灯塔出现故障。听错误、找线索、修好一处，宇宙的声音就会重新连成一片。',
     lecturer: '把“错了”改成“程序给了我们一条线索”，先听、再改一处、然后重试。',
     support: '先复述错误类型并等待 5–8 秒，必要时只提示行号。',
     tags: ['任务 5', '条件判断', '完成一次调试'], accent: '#FF6FA8', action: '进入调试任务', taskIndex: 4,
@@ -152,8 +170,8 @@ const CLASSROOM_CHAPTERS: ClassroomChapter[] = [
     tags: ['通过设备实测才开启', '可随时降级', '不临场冒险'], accent: '#70E1FF', action: '返回任务台',
   },
   {
-    id: 'return', time: '56–60', eyebrow: 'RETURN', title: '返回地球·分享与完成证明',
-    body: '每人用一句话说“我让电脑做了什么”。参与、尝试和自主操作都值得被看见。',
+    id: 'return', time: '56–60', eyebrow: 'EPILOGUE', title: '宇宙重新有了声音',
+    body: '每人发出一句自己的宇宙广播：我唤醒了什么，或者我修好了什么。',
     lecturer: '不排名、不比较速度；给每位学员发放完成证明和奖品。',
     support: '可以帮学员复述完成的行动，不要代替学员评价自己。',
     tags: ['一句话分享', '人人完成', '无排名'], accent: '#FFD166', action: '前往任务台完成任务',
@@ -295,11 +313,11 @@ const HearTheUniverse: React.FC<HearTheUniverseProps> = ({ onHome }) => {
     const result = validateMission(current, codes[current]);
     setConsoleText(result.output);
     setFeedback(result.feedback);
-    playTone(result.ok);
+    if (!result.needsInput) playTone(result.ok);
 
     if (result.needsInput) {
       setWaitingForInput(true);
-      speak(`${result.output}${result.feedback}`);
+      speak(`信号提示。${result.output}。${result.feedback}`);
       window.setTimeout(() => inputRef.current?.focus(), 0);
       return;
     }
@@ -307,9 +325,11 @@ const HearTheUniverse: React.FC<HearTheUniverseProps> = ({ onHome }) => {
     if (result.ok) {
       setCompleted((previous) => previous.map((value, index) => index === current ? true : value));
     }
-    speak(`${result.output}。${result.feedback}`);
+    speak(result.ok
+      ? `成功信号。${currentMission.voiceSuccess}`
+      : `线索信号。${currentMission.voiceRetry}`);
     window.setTimeout(() => consoleRef.current?.focus(), 0);
-  }, [codes, current, playTone, speak]);
+  }, [codes, current, currentMission, playTone, speak]);
 
   const submitMissionCode = useCallback(() => {
     const trimmed = missionCode.trim();
@@ -317,7 +337,7 @@ const HearTheUniverse: React.FC<HearTheUniverseProps> = ({ onHome }) => {
       setConsoleText('没有收到任务代号。');
       setFeedback('请输入至少一个字符，然后按回车。');
       playTone(false);
-      speak('没有收到任务代号。请输入至少一个字符，然后按回车。');
+      speak(`线索信号。${currentMission.voiceRetry}`);
       return;
     }
     setConsoleText(trimmed);
@@ -325,9 +345,9 @@ const HearTheUniverse: React.FC<HearTheUniverseProps> = ({ onHome }) => {
     setWaitingForInput(false);
     setCompleted((previous) => previous.map((value, index) => index === current ? true : value));
     playTone(true);
-    speak(`程序输出${trimmed}。输入成功。`);
+    speak(`成功信号。程序输出${trimmed}。${currentMission.voiceSuccess}`);
     window.setTimeout(() => consoleRef.current?.focus(), 0);
-  }, [current, missionCode, playTone, speak]);
+  }, [current, currentMission, missionCode, playTone, speak]);
 
   const changeMission = useCallback((next: number) => {
     if (next < 0 || next >= MISSIONS.length) return;
@@ -341,7 +361,7 @@ const HearTheUniverse: React.FC<HearTheUniverseProps> = ({ onHome }) => {
     setMissionCode('');
     setConsoleText(`任务 ${next + 1}：${MISSIONS[next].title}。`);
     setFeedback(MISSIONS[next].brief);
-    speak(`任务 ${next + 1}，${MISSIONS[next].title}。${MISSIONS[next].brief}`);
+    speak(`关卡开始信号。${MISSIONS[next].voiceIntro}`);
     window.setTimeout(() => editorRef.current?.focus(), 0);
   }, [completed, speak]);
 
@@ -364,8 +384,8 @@ const HearTheUniverse: React.FC<HearTheUniverseProps> = ({ onHome }) => {
   }, []);
 
   const repeatInstruction = useCallback(() => {
-    speak(`任务 ${current + 1}，${currentMission.title}。${currentMission.brief}。提示：${currentMission.hint}`);
-  }, [current, currentMission, speak]);
+    speak(`重复关卡信号。${currentMission.voiceIntro}。如果需要线索：${currentMission.hint}`);
+  }, [currentMission, speak]);
 
   const stopProgram = useCallback(() => {
     setWaitingForInput(false);
@@ -594,22 +614,22 @@ const HearTheUniverse: React.FC<HearTheUniverseProps> = ({ onHome }) => {
       <section className="htu-hero" aria-labelledby="htu-hero-title">
         <div className="htu-hero-copy">
           <span className="htu-kicker">中文 · 键盘优先 · 读屏友好</span>
-          <h2 id="htu-hero-title">一小时，从按下第一个键<br />到听见自己的程序。</h2>
-          <p>这既是学员的五个代码任务，也是讲师当天可直接使用的滚动课件。页面从入场定位、键盘热身一直带到分享和完成证明。</p>
+          <h2 id="htu-hero-title">宇宙失去了声音。<br />你能把它找回来吗？</h2>
+          <p>用五段简单代码，唤醒星站、接收密令、穿越星海，最后点亮声音灯塔。</p>
           <div className="htu-hero-actions">
-            <button type="button" className="htu-primary" onClick={() => scrollToChapter(0)}>开始 60 分钟课堂路线</button>
-            <button type="button" onClick={() => openTaskLab(0)}>直接进入代码任务</button>
+            <button type="button" className="htu-primary" onClick={() => openTaskLab(0)}>开始找回声音</button>
+            <button type="button" onClick={() => scrollToChapter(0)}>听完整个故事</button>
           </div>
         </div>
         <aside className="htu-hero-brief" aria-label="活动关键配置">
-          <span>MISSION BRIEF</span>
-          <h3>视障青年场·现场配置</h3>
+          <span>THREE SIMPLE RULES</span>
+          <h3>今天只有三条规则</h3>
           <dl>
-            <div><dt>4–5</dt><dd>名全盲青年，熟练使用电脑、键盘与读屏</dd></div>
-            <div><dt>1+5+1</dt><dd>1 主讲、5 固定陪护、1 机动技术支持</dd></div>
-            <div><dt>60</dt><dd>分钟主线，五个任务，不分组、不竞速</dd></div>
+            <div><dt>01</dt><dd>先听清这一关要找回什么</dd></div>
+            <div><dt>02</dt><dd>自己输入，需要时可以请求提示</dd></div>
+            <div><dt>03</dt><dd>自己运行，听完程序的回答</dd></div>
           </dl>
-          <p>成功不是过完所有关，而是自己输入、自己运行，至少完成一次调试。</p>
+          <p>不比速度，不要求全部通关。只要亲手让宇宙回应一次，就是成功。</p>
         </aside>
         <button type="button" className="htu-scroll-cue" onClick={() => scrollToChapter(0)}>
           <span>滚动推进课堂</span><i aria-hidden="true" />
@@ -669,7 +689,7 @@ const HearTheUniverse: React.FC<HearTheUniverseProps> = ({ onHome }) => {
         <header className="htu-lab-intro">
           <div>
             <span>10–50 分钟 · 学员任务台</span>
-            <h2 id="code-lab-title">五个任务，一条清晰主线</h2>
+            <h2 id="code-lab-title">五站旅程，找回宇宙的声音</h2>
           </div>
           <p><strong>{currentMission.timeSlot}·{currentMission.stage}</strong><br />讲师统一口头节奏，陪护只描述焦点和提示，不替学员操作。</p>
         </header>
@@ -680,7 +700,7 @@ const HearTheUniverse: React.FC<HearTheUniverseProps> = ({ onHome }) => {
           <strong>{completedCount} / {MISSIONS.length}</strong>
         </div>
         <progress max={MISSIONS.length} value={completedCount} aria-label={`已完成 ${completedCount} 个任务，共 ${MISSIONS.length} 个`} />
-        <label><input type="checkbox" checked={voiceEnabled} onChange={(event) => setVoiceEnabled(event.target.checked)} /> 浏览器语音反馈</label>
+        <label title="已使用读屏软件时，可保持关闭以避免重叠播报"><input type="checkbox" checked={voiceEnabled} onChange={(event) => setVoiceEnabled(event.target.checked)} /> 任务语音提示<span className="htu-sr-only">，使用读屏软件时建议关闭，避免重叠播报</span></label>
         <label><input type="checkbox" checked={soundEnabled} onChange={(event) => setSoundEnabled(event.target.checked)} /> 简短提示音</label>
       </section>
 
@@ -720,7 +740,7 @@ const HearTheUniverse: React.FC<HearTheUniverseProps> = ({ onHome }) => {
               <h2 id="current-mission-title">{currentMission.title}</h2>
             </div>
             <p>{currentMission.brief}</p>
-            <button type="button" onClick={repeatInstruction}>F1 · 重复任务与提示</button>
+            <button type="button" onClick={repeatInstruction}>F1 · 播放本关语音</button>
           </div>
 
           <div className="htu-code-grid">
