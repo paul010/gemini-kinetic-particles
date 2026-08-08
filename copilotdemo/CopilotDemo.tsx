@@ -318,7 +318,7 @@ const CopilotDemo: React.FC<CopilotDemoProps> = ({ onHome }) => {
                           <div key={prompt.id} className="rounded-2xl border border-ink/10 bg-paper/65 p-5">
                             <div className="flex flex-wrap items-center justify-between gap-3">
                               <div className="text-xs font-bold text-ink/55">{prompt.label}</div>
-                              <button onClick={() => copy(prompt.id, prompt.text)} className={`min-h-10 rounded-full border px-3 py-1.5 text-xs font-bold transition ${state && !state.ok ? 'border-red-400/50 bg-red-50 text-red-700' : 'border-gold/30 bg-gold/10 text-gold hover:bg-gold hover:text-paper'}`}>
+                              <button onClick={() => copy(prompt.id, prompt.text)} className={`min-h-11 rounded-full border px-3 py-1.5 text-xs font-bold transition ${state && !state.ok ? 'border-red-400/50 bg-red-50 text-red-700' : 'border-gold/30 bg-gold/10 text-gold hover:bg-gold hover:text-paper'}`}>
                                 {state ? (state.ok ? '已复制 ✓' : '复制失败，请手动选择') : '复制提示词'}
                               </button>
                             </div>
