@@ -38,14 +38,13 @@
 
 所有 Demo 使用 Project Lighthouse 课程虚构案例。
 
-### Demo 3 四区创建契约
+### Demo 3 Agent Builder 创建契约
 
 Demo 3 的页面、提示词、`00-RUN-DEMO.txt` 和 PPT 37–42 统一按以下顺序：
 
-1. **概述**：设置名称、创建描述和服务范围。
-2. **源**：添加四份课程批准文件，核对版本和当前账号权限。
-3. **行为**：写清来源、状态标签、停止条件和人工升级角色；第一版不配动作。
-4. **代理预览**：测试已知、未知、冲突和越界四类问题。
+1. **Describe**：用自然语言说明角色、任务、材料和停止条件。
+2. **Configure**：核对 Name and description、Instructions、Knowledge、Suggested prompts。
+3. **Try it**：测试已知、未知、冲突和越界四类问题，通过后再分享。
 
 Instructions 要求“优先依据当前已连接且用户有权访问的批准资料”，同时明确资料未覆盖、版本冲突、未批准或越界时的停止与升级路径，避免绝对化的来源限定。
 
@@ -72,7 +71,7 @@ Instructions 要求“优先依据当前已连接且用户有权访问的批准�
 - 标题与 PPT 一致：`让 Copilot 真正上岗`。
 - 首屏先选择跟练或观察模式，并显示虚构数据、隐私与公司策略提醒。
 - 每个 Demo 显示 PPT 页码、时间、产品、权限前提、全部提示词、输入文件、观察路径和失败兜底。
-- 新能力卡只讲 Agent Builder 四区创建、复制到 Copilot Studio 的快照边界、Studio 的动作与治理。
+- 新能力卡只讲 Agent Builder 的 Describe → Configure → Try it、复制到 Copilot Studio 的快照边界、Studio 的动作与治理。
 - 单段 ZIP 和固定锚点保持可用。
 
 ## 六个公开下载入口
