@@ -175,7 +175,7 @@
       "question": "什么时候继续用 Chat，什么时候值得把稳定方法做成一个有边界的知识入口？",
       "inputs": [
         {
-          "name": "01 项目概览｜课程批准版",
+          "name": "01 项目概述｜课程批准版",
           "detail": "范围、日期和批准状态",
           "href": "/copilot-demo/v6/Demo-3-Agent-Builder/01-项目概述-批准版.docx"
         },

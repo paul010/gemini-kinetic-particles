@@ -130,6 +130,23 @@ const CopilotDemo: React.FC<CopilotDemoProps> = ({ onHome }) => {
     return () => observer.disconnect();
   }, []);
 
+  useEffect(() => {
+    const scrollToHash = () => {
+      const id = decodeURIComponent(window.location.hash.slice(1));
+      if (!id) return;
+      window.requestAnimationFrame(() => {
+        document.getElementById(id)?.scrollIntoView({ block: 'start' });
+      });
+    };
+
+    const timer = window.setTimeout(scrollToHash, 0);
+    window.addEventListener('hashchange', scrollToHash);
+    return () => {
+      window.clearTimeout(timer);
+      window.removeEventListener('hashchange', scrollToHash);
+    };
+  }, []);
+
   const chooseMode = (next: Mode) => {
     setMode(next);
     try {
