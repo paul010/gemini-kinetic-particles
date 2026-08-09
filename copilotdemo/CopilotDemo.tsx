@@ -80,7 +80,7 @@ const CopilotDemo: React.FC<CopilotDemoProps> = ({ onHome }) => {
     try {
       const savedMode = window.localStorage.getItem('copilot-demo-mode');
       if (savedMode === 'practice' || savedMode === 'observe') setMode(savedMode);
-      const savedChecks = window.localStorage.getItem('copilot-demo-checks-v4');
+      const savedChecks = window.localStorage.getItem('copilot-demo-checks-v6');
       if (savedChecks) setChecks(JSON.parse(savedChecks));
     } catch {
       // The page remains fully usable when local storage is unavailable.
@@ -91,7 +91,7 @@ const CopilotDemo: React.FC<CopilotDemoProps> = ({ onHome }) => {
     document.documentElement.lang = 'zh-CN';
     document.title = '让 Copilot 真正上岗｜CN Print 随课实践页';
 
-    const description = 'CN Print Copilot 两小时分享随课实践页：任务说清、事实查准、方法复用。支持有权限跟练与无权限观察。';
+    const description = 'CN Print Copilot 两小时分享随课实践页：从 Copilot Chat、Microsoft 365 Copilot 到 Agent Builder 与 Copilot Studio。';
     const setMeta = (selector: string, attribute: string, value: string) => {
       const element = document.querySelector<HTMLMetaElement>(selector);
       if (element) element.setAttribute(attribute, value);
@@ -166,7 +166,7 @@ const CopilotDemo: React.FC<CopilotDemoProps> = ({ onHome }) => {
     setChecks((current) => {
       const next = { ...current, [id]: !current[id] };
       try {
-        window.localStorage.setItem('copilot-demo-checks-v4', JSON.stringify(next));
+        window.localStorage.setItem('copilot-demo-checks-v6', JSON.stringify(next));
       } catch {
         // Local progress is optional.
       }
@@ -177,7 +177,7 @@ const CopilotDemo: React.FC<CopilotDemoProps> = ({ onHome }) => {
   const resetChecks = () => {
     setChecks({});
     try {
-      window.localStorage.removeItem('copilot-demo-checks-v4');
+      window.localStorage.removeItem('copilot-demo-checks-v6');
     } catch {
       // Nothing else to do.
     }
@@ -199,9 +199,9 @@ const CopilotDemo: React.FC<CopilotDemoProps> = ({ onHome }) => {
           <nav className="notebook-links" aria-label="三段练习导航">
             <a href="#demo-1">任务说清</a>
             <a href="#demo-2">事实查准</a>
-            <a href="#demo-3">方法复用</a>
+            <a href="#demo-3">Agent 上岗</a>
           </nav>
-          <a href={data.downloads.all} download className="ink-button ink-button-small">下载完整包</a>
+          <a href={data.downloads.all} download className="ink-button ink-button-small">下载精简演示包</a>
         </div>
       </header>
 
@@ -213,7 +213,7 @@ const CopilotDemo: React.FC<CopilotDemoProps> = ({ onHome }) => {
             <p className="hero-summary">任务说清。事实查准。方法留下。三段练习都能跟着做，也能看着学。</p>
             <div className="hero-actions">
               <a href="#choose-path" className="ink-button">选择学习路径</a>
-              <a href={data.downloads.handout} target="_blank" rel="noreferrer" className="paper-button">打开速查课件</a>
+              <a href={data.downloads.all} download className="paper-button">下载精简演示包</a>
             </div>
           </div>
 
@@ -408,9 +408,9 @@ const CopilotDemo: React.FC<CopilotDemoProps> = ({ onHome }) => {
 
         <section className="trend-section notebook-reveal">
           <div className="section-heading">
-            <p className="hand-note">三个新信号，三种不同状态</p>
-            <h2>先看状态与边界，再看新闻标题</h2>
-            <p>这一段只做趋势科普，不新增第四个 Demo。状态核对日期：{data.meta.updated}。</p>
+            <p className="hand-note">对应 PPT 37-42</p>
+            <h2>从 Agent Builder 到 Copilot Studio</h2>
+            <p>先把知识角色创建、配置和测试跑稳。只有需要动作、系统、渠道与治理时，才升级到 Copilot Studio。口径核对日期：{data.meta.updated}。</p>
           </div>
           <div className="trend-grid">
             {data.trends.map((trend, index) => (
@@ -436,13 +436,16 @@ const CopilotDemo: React.FC<CopilotDemoProps> = ({ onHome }) => {
 
         <section className="take-home-section notebook-reveal">
           <p className="hand-note">把练习带回去</p>
-          <h2>页面、V4 素材、速查课件和七天行动卡都在这里</h2>
-          <p>不用把三段全部重做。选最贴近自己的一段，完整跑一遍，留下输入、结果、人工修改和一个仍待解决的问题。</p>
+          <h2>六个入口，现场和课后都找得到</h2>
+          <p>完整包只保留三段演示真正会用到的文件。也可以单独下载某一段、全部提示词或速查 PDF。</p>
           <div className="progress-copy" aria-live="polite">本机自检记录：{completedChecks}/{totalChecks}</div>
           <div className="take-home-actions">
-            <a href={data.downloads.all} download className="ink-button">下载完整包</a>
-            <a href={data.downloads.handout} target="_blank" rel="noreferrer" className="paper-button">打开打印课件</a>
+            <a href={data.downloads.all} download className="ink-button">下载精简演示包</a>
+            <a href={data.downloads.demo1} download className="paper-button">Demo 1</a>
+            <a href={data.downloads.demo2} download className="paper-button">Demo 2</a>
+            <a href={data.downloads.demo3} download className="paper-button">Demo 3</a>
             <a href={data.downloads.prompts} download className="paper-button">下载提示词</a>
+            <a href={data.downloads.handout} download className="paper-button">速查 PDF</a>
             <button onClick={resetChecks} className="paper-button">重置自检</button>
           </div>
         </section>
