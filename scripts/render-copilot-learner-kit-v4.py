@@ -32,9 +32,9 @@ ROOT = Path(__file__).resolve().parents[1]
 DATA_PATH = ROOT / "copilotdemo" / "course-data-v4.json"
 SOURCE_MATERIALS = ROOT / "copilotdemo" / "materials-v4"
 PUBLIC_ROOT = ROOT / "public" / "copilot-demo"
-PUBLIC_V4 = PUBLIC_ROOT / "v4"
-OUTPUT_PDF = ROOT / "output" / "pdf" / "CN-Print-Copilot-学员速查与行动卡-v4.pdf"
-KIT_ROOT = ROOT / "output" / "learner-kit-v5" / "CN-Print-Copilot-Demo-Kit-v5-Simple"
+PUBLIC_V6 = PUBLIC_ROOT / "v6"
+OUTPUT_PDF = ROOT / "output" / "pdf" / "CN-Print-Copilot-学员速查与行动卡-v6.pdf"
+KIT_ROOT = ROOT / "output" / "learner-kit-v6" / "CN-Print-Copilot-Demo-Kit-v6-Simple"
 
 INK = colors.HexColor("#201E1A")
 MUTED = colors.HexColor("#6D655A")
@@ -48,7 +48,7 @@ PALE_GOLD = colors.HexColor("#EEE2C8")
 def ensure_dirs() -> None:
     if KIT_ROOT.exists():
         shutil.rmtree(KIT_ROOT)
-    for path in (PUBLIC_ROOT, PUBLIC_V4, OUTPUT_PDF.parent, KIT_ROOT):
+    for path in (PUBLIC_ROOT, PUBLIC_V6, OUTPUT_PDF.parent, KIT_ROOT):
         path.mkdir(parents=True, exist_ok=True)
 
 
@@ -66,21 +66,42 @@ def sha256(path: Path) -> str:
 
 
 def copy_materials() -> None:
-    mapping = {
-        "Demo-2-M365-Copilot": "Demo-2-M365-Copilot",
-        "Demo-3-SharePoint-Agent": "Demo-3-SharePoint-Agent",
+    legacy_demo3_source = next(path for path in SOURCE_MATERIALS.iterdir() if path.name.startswith("Demo-3-") and path.is_dir())
+    mappings = {
+        SOURCE_MATERIALS / "Demo-2-M365-Copilot": (
+            "Demo-2-M365-Copilot",
+            [
+                ("01-PROJECT-EMAIL-THREAD.docx", "01-项目邮件线程.docx"),
+                ("02-PROJECT-MEETING-NOTES.docx", "02-项目会议纪要.docx"),
+                ("03-TEAMS-CHAT.txt", "03-Teams聊天记录.txt"),
+                ("04-PROJECT-STATUS.xlsx", "04-项目状态表.xlsx"),
+            ],
+        ),
+        legacy_demo3_source: (
+            "Demo-3-Agent-Builder",
+            [
+                ("01-PROJECT-OVERVIEW.docx", "01-项目概述-批准版.docx"),
+                ("02-ROLES-AND-ESCALATION.docx", "02-角色与升级路径-批准版.docx"),
+                ("03-COLLABORATION-PROCESS.docx", "03-协作流程-批准版.docx"),
+                ("04-FAQ.docx", "04-常见问题-批准版.docx"),
+            ],
+        ),
     }
-    for source_name, destination_name in mapping.items():
-        destination = PUBLIC_V4 / destination_name
+    for source_dir, (destination_dir, files) in mappings.items():
+        destination = PUBLIC_V6 / destination_dir
         destination.mkdir(parents=True, exist_ok=True)
-        for source in (SOURCE_MATERIALS / source_name).iterdir():
-            if source.is_file():
-                shutil.copy2(source, destination / source.name)
+        for source_name, destination_name in files:
+            source_path = source_dir / source_name
+            destination_path = destination / destination_name
+            if source_path.suffix.lower() == ".txt":
+                write_text(destination_path, source_path.read_text(encoding="utf-8"))
+            else:
+                shutil.copy2(source_path, destination_path)
 
 
 def all_prompts_text(data: dict) -> str:
     lines = [
-        "让 Copilot 真正上岗｜CN Print 提示词全集 V4",
+        "让 Copilot 真正上岗｜CN Print 提示词全集 V6",
         f"课程日期：{data['meta']['courseDate']}",
         f"公开页面：{data['meta']['publicUrl']}",
         "",
@@ -95,7 +116,7 @@ def all_prompts_text(data: dict) -> str:
 
 def task_text(demo: dict) -> str:
     lines = [
-        f"{demo['title']}｜学员任务卡 V4",
+        f"{demo['title']}｜学员任务卡 V6",
         f"对应：{demo['slide']}｜{demo['product']}｜{demo['duration']}",
         f"权限前提：{demo['access']}",
         "",
@@ -200,7 +221,7 @@ def start_html(data: dict, demo: dict | None = None) -> str:
         ]
     return f"""<!doctype html>
 <html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>{html.escape(title)}｜CN Print 学员课件 V4</title>
+<title>{html.escape(title)}｜CN Print 学员课件 V6</title>
 <style>
 body{{margin:0;background:#f7f3ea;color:#201e1a;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Microsoft YaHei',sans-serif;line-height:1.7}}
 main{{max-width:900px;margin:auto;padding:48px 24px 80px}}h1{{font-family:Georgia,'Songti SC',serif;font-size:52px;line-height:1.08;margin:12px 0;color:#201e1a}}h2{{margin-top:42px;border-top:1px solid #d9d0c1;padding-top:22px}}h3{{font-size:22px;margin:8px 0}}.eyebrow{{color:#9a6c21;font-size:12px;font-weight:700;letter-spacing:.12em}}.lead{{font-size:21px;color:#6d655a}}.callout,article{{border:1px solid #d9d0c1;background:#fffdf8;border-radius:18px;padding:20px;margin:18px 0}}.grid{{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}}pre{{white-space:pre-wrap;background:#f2ece0;border-radius:12px;padding:16px;overflow:auto}}a{{color:#7c5318;font-weight:700}}li{{margin:8px 0}}@media(max-width:700px){{h1{{font-size:40px}}.grid{{grid-template-columns:1fr}}main{{padding-top:28px}}}}
@@ -209,9 +230,9 @@ main{{max-width:900px;margin:auto;padding:48px 24px 80px}}h1{{font-family:Georgi
 
 def build_text_and_html(data: dict) -> None:
     demo_dirs = [
-        PUBLIC_V4 / "Demo-1-Copilot-Chat",
-        PUBLIC_V4 / "Demo-2-M365-Copilot",
-        PUBLIC_V4 / "Demo-3-SharePoint-Agent",
+        PUBLIC_V6 / "Demo-1-Copilot-Chat",
+        PUBLIC_V6 / "Demo-2-M365-Copilot",
+        PUBLIC_V6 / "Demo-3-Agent-Builder",
     ]
     for directory in demo_dirs:
         directory.mkdir(parents=True, exist_ok=True)
@@ -228,7 +249,7 @@ def build_text_and_html(data: dict) -> None:
 7. 未知日期找 Project Lead Jia；保修冲突找 Policy Owner Alex。
 8. 任何未知信息都不能由 AI 自行补齐。
 """
-    write_text(demo_dirs[0] / "01-PROJECT-BACKGROUND.txt", demo1_background)
+    write_text(demo_dirs[0] / "01-项目背景.txt", demo1_background)
 
     for demo, directory in zip(data["demos"], demo_dirs):
         write_text(directory / "00-TASK-CARD.txt", task_text(demo))
@@ -237,8 +258,7 @@ def build_text_and_html(data: dict) -> None:
         write_text(directory / "OBSERVATION-AND-FALLBACK.txt", "观察路径\n" + "\n".join(f"- {item}" for item in demo["observe"]) + "\n\n失败兜底\n" + "\n".join(f"- {item}" for item in demo["fallbacks"]))
 
     prompts = all_prompts_text(data)
-    write_text(PUBLIC_ROOT / "CN-Print-Copilot-提示词全集-v4.txt", prompts)
-    write_text(PUBLIC_ROOT / "CN-Print-Copilot-All-Prompts-v5.txt", prompts)
+    write_text(PUBLIC_ROOT / "CN-Print-Copilot-All-Prompts-v6.txt", prompts)
     write_text(KIT_ROOT / "01-ALL-PROMPTS.txt", prompts)
     write_text(KIT_ROOT / "00-START-HERE.html", simple_kit_start_html(data))
 
@@ -268,7 +288,7 @@ def page_background(canvas, doc):
     canvas.line(18 * mm, 15 * mm, width - 18 * mm, 15 * mm)
     canvas.setFont("CourseCN", 7.5)
     canvas.setFillColor(MUTED)
-    canvas.drawString(18 * mm, 9.5 * mm, "让 Copilot 真正上岗｜CN Print 学员课件 V4")
+    canvas.drawString(18 * mm, 9.5 * mm, "让 Copilot 真正上岗｜CN Print 学员课件 V6")
     canvas.drawRightString(width - 18 * mm, 9.5 * mm, f"{doc.page} / 8  ·  dailycosmos.net/copilot-demo")
     canvas.restoreState()
 
@@ -306,10 +326,10 @@ def card_table(cards, styles):
 
 def build_pdf(data: dict) -> None:
     styles = make_styles()
-    doc = SimpleDocTemplate(str(OUTPUT_PDF), pagesize=A4, rightMargin=18 * mm, leftMargin=18 * mm, topMargin=18 * mm, bottomMargin=21 * mm, title="让 Copilot 真正上岗｜CN Print 学员速查与行动卡 V4", author="Da Lei")
+    doc = SimpleDocTemplate(str(OUTPUT_PDF), pagesize=A4, rightMargin=18 * mm, leftMargin=18 * mm, topMargin=18 * mm, bottomMargin=21 * mm, title="让 Copilot 真正上岗｜CN Print 学员速查与行动卡 V6", author="Da Lei")
     story = []
 
-    story += [Spacer(1, 18 * mm), Paragraph("CN PRINT · COPILOT SHARE · LEARNER KIT V4", styles["subtitle"]), Paragraph(data["meta"]["title"], styles["cover"]), Paragraph(data["meta"]["subtitle"], styles["subtitle"]), Spacer(1, 9 * mm)]
+    story += [Spacer(1, 18 * mm), Paragraph("CN PRINT · COPILOT SHARE · LEARNER KIT V6", styles["subtitle"]), Paragraph(data["meta"]["title"], styles["cover"]), Paragraph(data["meta"]["subtitle"], styles["subtitle"]), Spacer(1, 9 * mm)]
     story += [card_table([
         ("01 任务说清", "把模糊请求补成 Goal、Context、Expectations、Source。"),
         ("02 事实查准", "先分开已确认、冲突、缺失和行动项，再形成表达。"),
@@ -350,7 +370,7 @@ def build_pdf(data: dict) -> None:
     action.setStyle(TableStyle([("BACKGROUND", (0, 0), (0, -1), PALE_GOLD), ("GRID", (0, 0), (-1, -1), 0.6, LINE), ("VALIGN", (0, 0), (-1, -1), "TOP"), ("LEFTPADDING", (0, 0), (-1, -1), 7), ("RIGHTPADDING", (0, 0), (-1, -1), 7), ("TOPPADDING", (0, 0), (-1, -1), 7)]))
     story += [action, PageBreak()]
 
-    story += [Paragraph("Leader 落地卡 + 能力状态卡", styles["h1"]), Paragraph("先定责任与证据，再决定是否扩大范围。", styles["body"]), Paragraph("Leader 需要决定的五件事", styles["h2"]), bullet_rows(data["leaderChecks"], styles), Spacer(1, 5 * mm), Paragraph("三个新信号的状态", styles["h2"])]
+    story += [Paragraph("Leader 落地卡 + Agent 创建与升级", styles["h1"]), Paragraph("先定责任与证据，再决定是否扩大范围。", styles["body"]), Paragraph("Leader 需要决定的五件事", styles["h2"]), bullet_rows(data["leaderChecks"], styles), Spacer(1, 5 * mm), Paragraph("Agent Builder 到 Copilot Studio", styles["h2"])]
     trend_rows = [[Paragraph("能力", styles["body"]), Paragraph("当前课堂状态", styles["body"]), Paragraph("必须说明的边界", styles["body"])]]
     for trend in data["trends"]:
         trend_rows.append([Paragraph(trend["title"], styles["body"]), Paragraph(trend["status"], styles["small"]), Paragraph(trend["caution"], styles["small"])])
@@ -378,14 +398,14 @@ def build_kit(data: dict) -> None:
         KIT_ROOT / "Demo-3-Agent-Builder",
     ]
     public_demo_sources = [
-        PUBLIC_V4 / "Demo-1-Copilot-Chat",
-        PUBLIC_V4 / "Demo-2-M365-Copilot",
-        PUBLIC_V4 / "Demo-3-SharePoint-Agent",
+        PUBLIC_V6 / "Demo-1-Copilot-Chat",
+        PUBLIC_V6 / "Demo-2-M365-Copilot",
+        PUBLIC_V6 / "Demo-3-Agent-Builder",
     ]
     material_names = [
-        ["01-PROJECT-BACKGROUND.txt"],
-        ["01-PROJECT-EMAIL-THREAD.docx", "02-PROJECT-MEETING-NOTES.docx", "03-TEAMS-CHAT.txt", "04-PROJECT-STATUS.xlsx"],
-        ["01-PROJECT-OVERVIEW.docx", "02-ROLES-AND-ESCALATION.docx", "03-COLLABORATION-PROCESS.docx", "04-FAQ.docx"],
+        ["01-项目背景.txt"],
+        ["01-项目邮件线程.docx", "02-项目会议纪要.docx", "03-Teams聊天记录.txt", "04-项目状态表.xlsx"],
+        ["01-项目概述-批准版.docx", "02-角色与升级路径-批准版.docx", "03-协作流程-批准版.docx", "04-常见问题-批准版.docx"],
     ]
     for index, (demo, source, destination, names) in enumerate(zip(data["demos"], public_demo_sources, demo_destinations, material_names), 1):
         destination.mkdir(parents=True, exist_ok=True)
@@ -412,9 +432,9 @@ def build_kit(data: dict) -> None:
         },
     }
     zip_targets = [
-        (PUBLIC_ROOT / "CN-Print-Copilot-Demo1-v5-Simple.zip", demo_destinations[0]),
-        (PUBLIC_ROOT / "CN-Print-Copilot-Demo2-v5-Simple.zip", demo_destinations[1]),
-        (PUBLIC_ROOT / "CN-Print-Copilot-Demo3-v5-Simple.zip", demo_destinations[2]),
+        (PUBLIC_ROOT / "CN-Print-Copilot-Demo1-v6-Simple.zip", demo_destinations[0]),
+        (PUBLIC_ROOT / "CN-Print-Copilot-Demo2-v6-Simple.zip", demo_destinations[1]),
+        (PUBLIC_ROOT / "CN-Print-Copilot-Demo3-Agent-Builder-v6-Simple.zip", demo_destinations[2]),
     ]
     for zip_path, source_dir in zip_targets:
         with zipfile.ZipFile(zip_path, "w", zipfile.ZIP_DEFLATED) as archive:
@@ -422,7 +442,7 @@ def build_kit(data: dict) -> None:
                 if path.is_file():
                     archive.write(path, f"{source_dir.name}/{path.relative_to(source_dir).as_posix()}")
 
-    full_zip = PUBLIC_ROOT / "CN-Print-Copilot-Demo-Kit-v5-Simple.zip"
+    full_zip = PUBLIC_ROOT / "CN-Print-Copilot-Demo-Kit-v6-Simple.zip"
     with zipfile.ZipFile(full_zip, "w", zipfile.ZIP_DEFLATED) as archive:
         for path in sorted(KIT_ROOT.rglob("*")):
             if path.is_file():
@@ -438,9 +458,9 @@ def build_kit(data: dict) -> None:
     shutil.copy2(full_zip, PUBLIC_ROOT / "CN-Print-Copilot-Learner-Kit-v4-20260811.zip")
 
     shutil.copy2(OUTPUT_PDF, PUBLIC_ROOT / OUTPUT_PDF.name)
-    write_text(PUBLIC_ROOT / "course-manifest-v4.json", json.dumps(manifest, ensure_ascii=False, indent=2))
-    public_files = ["CN-Print-Copilot-All-Prompts-v5.txt"] + [path.name for path, _ in zip_targets] + [full_zip.name]
-    write_text(PUBLIC_ROOT / "SHA256SUMS-v5.txt", "\n".join(f"{sha256(PUBLIC_ROOT / name)}  {name}" for name in public_files))
+    write_text(PUBLIC_ROOT / "course-manifest-v6.json", json.dumps(manifest, ensure_ascii=False, indent=2))
+    public_files = ["CN-Print-Copilot-All-Prompts-v6.txt", OUTPUT_PDF.name] + [path.name for path, _ in zip_targets] + [full_zip.name]
+    write_text(PUBLIC_ROOT / "SHA256SUMS-v6.txt", "\n".join(f"{sha256(PUBLIC_ROOT / name)}  {name}" for name in public_files))
 
 
 def main() -> None:
@@ -452,7 +472,7 @@ def main() -> None:
     build_kit(data)
     print(json.dumps({
         "pdf": str(OUTPUT_PDF),
-        "kit": str(PUBLIC_ROOT / "CN-Print-Copilot-Demo-Kit-v5-Simple.zip"),
+        "kit": str(PUBLIC_ROOT / "CN-Print-Copilot-Demo-Kit-v6-Simple.zip"),
         "pages": len(PdfReader(str(OUTPUT_PDF)).pages),
     }, ensure_ascii=False, indent=2))
 
