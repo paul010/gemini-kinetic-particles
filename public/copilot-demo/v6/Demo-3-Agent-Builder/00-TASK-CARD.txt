@@ -56,7 +56,7 @@ FAQ 的保修期限是多少？
 [ ] 越界请求拒绝执行并给出人工升级角色。
 
 失败兜底
-- 看不到 Agent Builder 入口：打开下载包的 00-RUN-DEMO.txt，按概述、源、行为、代理预览完成观察。
+- 看不到 Agent Builder 入口：打开下载包的 00-RUN-DEMO.txt，按 Describe、Configure、Try it 完成观察。
 - 知识源无法连接：先核对文件访问权限、文件版本和租户中的 Agent Builder 能力。
 - 索引未完成：使用页面参考响应继续观察，不在现场等待或排障。
 
