@@ -1,6 +1,6 @@
-d5421930556358d773e0942a19e80794ebcd19f64d2911ac00cf1aae973bc8e1  CN-Print-Copilot-All-Prompts-v6.txt
-fbe9144a6b693ce100959010f9f952364774d161e93c5ab11761a1f346d3457f  CN-Print-Copilot-学员速查与行动卡-v6.pdf
-cc07490ee5acc3f8fb458300d468b0c04e04652aebedee6c246e3ff921b2afa3  CN-Print-Copilot-Demo1-v6-Simple.zip
-818e3fcd26e993593cbfdfaef0b66decdb0bf7332034293a4c62770bf791130d  CN-Print-Copilot-Demo2-v6-Simple.zip
-d3f056b33958262179a77f5df5e7bf5b46044b11f8535143af805baf80087099  CN-Print-Copilot-Demo3-Agent-Builder-v6-Simple.zip
-2bce15e0185b286fd09097ff6dd9cbcdd9c1aeae419edf326442ade25acefa16  CN-Print-Copilot-Demo-Kit-v6-Simple.zip
+a2b893be828b00ed98ca50a3bb5c296fbe3b5a09a996d69e5edee823ed78d560  CN-Print-Copilot-All-Prompts-v6.txt
+2b15c82651ebac452f98ed5c28c60b7f2b4a875ad3013b4b7b44d03b4a96c275  CN-Print-Copilot-学员速查与行动卡-v6.pdf
+461ed1f1e4baf703f906dc4ab8214babd1eecbf6811c52a3afd948ce1f99b6f8  CN-Print-Copilot-Demo1-v6-Simple.zip
+a2739e5b01935e897dc02c509efc78fe4a9e1151f3843c17b3f7d9ca331031aa  CN-Print-Copilot-Demo2-v6-Simple.zip
+248146e34119b69c4f01ef1024c9f2aa3fba142369f43dd284be13e14ac79aa9  CN-Print-Copilot-Demo3-Agent-Builder-v6-Simple.zip
+22d4d95fb875178389e1b12391879e7414b3724b7c7e6f2c3510c45f0d5cffd8  CN-Print-Copilot-Demo-Kit-v6-Simple.zip

@@ -143,9 +143,10 @@ def task_text(demo: dict) -> str:
 
 
 def run_demo_text(demo: dict, index: int) -> str:
+    slide_ref = {1: "PPT 09", 2: "PPT 16", 3: "PPT 28"}[index]
     lines = [
         f"Demo {index}｜{demo['title']}",
-        f"工具：{demo['product']}｜建议时间：{demo['duration']}",
+        f"对应课件：{slide_ref}｜工具：{demo['product']}｜建议时间：{demo['duration']}",
         "",
         "怎么演示",
     ]
