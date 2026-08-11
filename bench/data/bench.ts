@@ -140,7 +140,68 @@ export const TESTS: BenchTest[] = [
       en: 'Chinese text accuracy, native desktop hierarchy, exact object counts, alignment, dark-mode consistency, and artifact control.',
       zh: '中文准确性、原生桌面层级、对象数量、对齐、深色系统一致性和瑕疵控制。',
     },
-    results: MODELS.map((model) => ({ modelId: model.id, kind: 'pending' })),
+    results: [
+      {
+        modelId: 'claude',
+        kind: 'image',
+        image: '/bench/macos-claude-sim.webp',
+        simulated: true,
+        note: {
+          en: 'Simulated showcase, not a recorded Claude run. Warm editorial graphite with generous spacing.',
+          zh: '模拟展示，并非 Claude 真实跑测结果。采用温暖编辑感石墨色与宽松留白。',
+        },
+      },
+      {
+        modelId: 'gpt',
+        kind: 'image',
+        image: '/bench/macos-gpt-sim.webp',
+        simulated: true,
+        note: {
+          en: 'Simulated showcase, not a recorded ChatGPT run. A crisp, systematic productivity layout.',
+          zh: '模拟展示，并非 ChatGPT 真实跑测结果。采用清晰、系统化的生产力布局。',
+        },
+      },
+      {
+        modelId: 'gemini',
+        kind: 'image',
+        image: '/bench/macos-gemini-sim.webp',
+        simulated: true,
+        note: {
+          en: 'Simulated showcase, not a recorded Gemini run. Airy translucent layers with a precise inspector.',
+          zh: '模拟展示，并非 Gemini 真实跑测结果。采用轻盈半透明层次与精确详情面板。',
+        },
+      },
+      {
+        modelId: 'grok',
+        kind: 'image',
+        image: '/bench/macos-grok-sim.webp',
+        simulated: true,
+        note: {
+          en: 'Simulated showcase, not a recorded Grok run. Direct near-monochrome treatment with minimal amber.',
+          zh: '模拟展示，并非 Grok 真实跑测结果。采用直接的近黑白界面与少量琥珀色。',
+        },
+      },
+      {
+        modelId: 'deepseek',
+        kind: 'image',
+        image: '/bench/macos-deepseek-sim.webp',
+        simulated: true,
+        note: {
+          en: 'Simulated showcase, not a recorded DeepSeek run. Dense technical hierarchy and rigorous alignment.',
+          zh: '模拟展示，并非 DeepSeek 真实跑测结果。采用紧凑技术层级与严谨对齐。',
+        },
+      },
+      {
+        modelId: 'qwen',
+        kind: 'image',
+        image: '/bench/macos-qwen-sim.webp',
+        simulated: true,
+        note: {
+          en: 'Simulated showcase, not a recorded Qwen run. Polished soft surfaces and balanced rounded geometry.',
+          zh: '模拟展示，并非 Qwen 真实跑测结果。采用精致柔和表面与均衡圆角几何。',
+        },
+      },
+    ],
   },
   {
     id: 'pelican-bike',
