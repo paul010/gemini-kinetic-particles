@@ -38,7 +38,7 @@ export interface Result {
 export interface BenchTest {
   id: string;
   title: LocalizedText;
-  category: 'svg' | 'webpage' | 'landing' | 'logic' | 'design' | '3d';
+  category: 'svg' | 'webpage' | 'landing' | 'logic' | 'design' | '3d' | 'image';
   prompt: string; // the fixed test prompt — kept verbatim across languages
   whatItTests: LocalizedText;
   results: Result[];
@@ -113,6 +113,35 @@ const REF_BUTTERFLY = `<svg viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/
 </svg>`;
 
 export const TESTS: BenchTest[] = [
+  {
+    id: 'macos-dayline-image',
+    title: { en: 'macOS native task app image', zh: 'macOS 原生任务应用图片' },
+    category: 'image',
+    prompt: `你是一名资深产品视觉设计师。请生成一张「macOS 原生任务管理应用 Dayline」的高保真产品截图，用于评测图像模型的界面结构、文字准确性、对齐和细节稳定性。
+
+画面要求：
+1. 输出一张 16:10 横图，画面是一张平视、无透视变形的应用截图，不要出现电脑、键盘、手、桌面摄影场景或设备外框。
+2. 应用窗口使用克制、现代的 macOS 原生视觉语言。包含半透明标题栏、左上角红黄绿三个窗口控制点、左侧边栏、主内容区和右侧详情面板。不要出现 Apple 标志或其他品牌标志。
+3. 左侧边栏从上到下准确显示以下中文：收集箱、今天、计划、已完成。每项配一个简洁单色图标，其中「今天」为选中状态。
+4. 主内容区标题准确显示「今天」，副标题准确显示「8 月 11 日，星期二」。下面显示 4 条任务：
+   - 完成客户方案初稿
+   - 整理图片生成评测
+   - 预订周四会议室
+   - 晚上跑步 5 公里
+5. 每条任务都必须有圆形勾选框、任务标题、时间或分类标签。第一条任务处于选中状态，其他任务保持未完成。
+6. 右侧详情面板准确显示选中任务标题「完成客户方案初稿」，并包含「备注」「截止时间」「标签」三个字段。字段结构清楚，文字不能重叠、乱码或缺字。
+7. 顶部工具栏包含搜索、添加任务、视图切换三个图标按钮。图标风格一致，对齐准确，不要添加多余按钮。
+8. 采用深色模式，背景为石墨灰，文本为柔和浅灰，唯一强调色为低饱和琥珀色。禁止紫色渐变、霓虹外发光和大面积高亮。
+9. 所有面板边界、8px 间距节奏、圆角、阴影和分隔线必须统一。窗口内容完整落在画面内，不得裁切。
+10. 重点保证中文文字可读、拼写准确、层级合理。不要添加题目中未指定的品牌名、评分、营销文案、水印或伪造通知。
+
+验收标准：一眼能识别为完整的 macOS 桌面任务应用；三栏结构正确；指定中文逐字可读；4 条任务数量正确；选中状态、字段、工具栏和深色视觉系统一致；没有乱码、重叠、重复控件或设备外框。只生成图片，不要解释。`,
+    whatItTests: {
+      en: 'Chinese text accuracy, native desktop hierarchy, exact object counts, alignment, dark-mode consistency, and artifact control.',
+      zh: '中文准确性、原生桌面层级、对象数量、对齐、深色系统一致性和瑕疵控制。',
+    },
+    results: MODELS.map((model) => ({ modelId: model.id, kind: 'pending' })),
+  },
   {
     id: 'pelican-bike',
     title: { en: 'Pelican riding a bicycle (SVG)', zh: '鹈鹕骑自行车 SVG' },

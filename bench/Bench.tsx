@@ -46,6 +46,7 @@ const CATS: { key: string; label: LocalizedText }[] = [
   { key: 'landing', label: { en: 'Landing', zh: '落地页' } },
   { key: 'webpage', label: { en: 'Webpage', zh: '网页' } },
   { key: '3d', label: { en: '3D', zh: '3D' } },
+  { key: 'image', label: { en: 'Image Gen', zh: '图片生成' } },
   { key: 'design', label: { en: 'Design', zh: '设计' } },
   { key: 'logic', label: { en: 'Logic', zh: '逻辑' } },
 ];
