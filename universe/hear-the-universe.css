@@ -230,6 +230,12 @@
 .htu-output > span { display: block; margin-bottom: 30px; color: var(--htu-cyan); font: 800 10px/1 ui-monospace, monospace; letter-spacing: .14em; }
 .htu-output strong { display: block; overflow-wrap: anywhere; color: var(--htu-green); font: 850 clamp(25px, 3vw, 44px)/1.12 ui-monospace, monospace; }
 .htu-output p { margin-top: 20px; color: var(--htu-muted); line-height: 1.6; }
+.htu-signal-card { display: grid; gap: 10px; margin: 0 20px 18px; padding: 18px; background: #10243c; border: 2px solid var(--htu-cyan); }
+.htu-signal-card.is-success { border-color: var(--htu-green); }
+.htu-signal-card.is-retry { border-color: var(--htu-gold); }
+.htu-signal-card span { color: var(--htu-gold); font: 850 11px/1 ui-monospace, monospace; letter-spacing: .12em; }
+.htu-signal-card p { margin: 0; color: var(--htu-text); font-size: 17px; line-height: 1.6; }
+.htu-signal-card button { justify-self: start; padding: 10px 14px; color: var(--htu-text); background: #07101f; border: 1px solid currentColor; cursor: pointer; font-weight: 850; }
 .htu-input-request { display: grid; gap: 10px; margin: 0 20px 18px; padding: 18px; background: #132b45; border-left: 5px solid var(--htu-gold); }
 .htu-input-request label { font-weight: 850; }
 .htu-input-request input { width: 100%; padding: 12px; color: var(--htu-text); background: #030812; border: 1px solid var(--htu-cyan); }

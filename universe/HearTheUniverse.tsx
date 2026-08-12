@@ -20,6 +20,7 @@ type ClassroomState = 'listen' | 'work' | 'close';
 type SeatState = 'ready' | 'help' | 'paused' | 'tech';
 
 type Mission = {
+  id: 'wake' | 'name' | 'repair' | 'input' | 'distance';
   number: string;
   title: string;
   concept: string;
@@ -52,10 +53,11 @@ type ClassroomChapter = {
 
 const MISSIONS: Mission[] = [
   {
+    id: 'wake',
     number: '01',
     title: '唤醒沉睡的星站',
     concept: '输出 output',
-    timeSlot: '10-18 分钟',
+    timeSlot: '20-32 分钟',
     stage: '通讯星站',
     brief: '宇宙突然失去了声音。写下第一句呼唤，让沉睡的星站重新回应。',
     starter: 'output "你好，宇宙"',
@@ -65,13 +67,14 @@ const MISSIONS: Mission[] = [
     successEvidence: '学员修改双引号中的广播，自己运行，并听到新结果。',
     voiceIntro: '第一关，唤醒沉睡的星站。请修改双引号里的宇宙广播，然后运行程序。我们正在等待你的第一个信号。',
     voiceRetry: '星站收到了信号，但还没有听清。请检查 output 后的空格和英文双引号，一次只改一处。',
-    voiceSuccess: '星站已经醒来。你写下的第一句话，正在宇宙中回响。',
+    voiceSuccess: '第一座星站醒来了。它听见了你的声音。下一步，我们要为一颗无名星命名。',
   },
   {
+    id: 'name',
     number: '02',
     title: '为无名星点亮名字',
     concept: '文本变量 text',
-    timeSlot: '18-28 分钟',
+    timeSlot: '32-42 分钟',
     stage: '通讯星站',
     brief: '星站找到一颗没有名字的星星。为它命名，再让程序把这个名字传向宇宙。',
     starter: 'text starName = "北极星"\noutput starName',
@@ -81,45 +84,14 @@ const MISSIONS: Mission[] = [
     successEvidence: '学员至少修改一次星星名称，并听到变量的新内容。',
     voiceIntro: '第二关，为无名星点亮名字。请找到双引号中的星星名称，换成你想起的名字，再运行。',
     voiceRetry: '名字还没有传出去。请检查第一行的 starName，以及第二行的 output starName。',
-    voiceSuccess: '命名完成。这颗星星从现在起有了名字，宇宙也记住了它。',
+    voiceSuccess: '宇宙记住了这颗星，也记住了你的选择。下一步，去修复声音灯塔。',
   },
   {
+    id: 'repair',
     number: '03',
-    title: '接收来自远方的密令',
-    concept: '键盘输入 input',
-    timeSlot: '28-34 分钟',
-    stage: '航行参数站',
-    brief: '一段很弱的信号正在等待回答。让程序询问你的任务代号，输入密令后按回车。',
-    starter: 'text missionCode = input("请输入任务代号")\noutput missionCode',
-    hint: 'input 的问题要放在括号和双引号里，下一行输出 missionCode。',
-    teacherCue: '提醒大家：程序暂停不是坏掉了，它正在等待人的输入。',
-    assistantCue: '读屏宣布“等待输入”后，让学员自己键入代号并按回车。',
-    successEvidence: '学员听见输入请求，自主输入任务代号并提交。',
-    voiceIntro: '第三关，接收来自远方的密令。运行后程序会暂停，这不是故障，它正在等你输入任务代号。',
-    voiceRetry: '密令通道还没有完全打开。请检查 input 的括号和双引号，然后再运行。',
-    voiceSuccess: '密令已确认。远方的信号认出了你，下一段航路已经打开。',
-  },
-  {
-    number: '04',
-    title: '穿越八十四光年',
-    concept: '整数与运算',
-    timeSlot: '34-40 分钟',
-    stage: '航行参数站',
-    brief: '求救信号来自两段星路之外。补上缺少的数字，让飞船算出 84 光年的航程。',
-    starter: 'integer distance = 42\noutput distance * __',
-    hint: '找到第二行末尾的两个下划线，把它们替换成数字 2。',
-    teacherCue: '只让学员改一个数值，听到 84 就算成功，不扩展复杂公式。',
-    assistantCue: '可提示“第二行最后”，不要替学员移动光标或删除字符。',
-    successEvidence: '学员先预测、再替换一个数值，最后听到 84。',
-    voiceIntro: '第四关，穿越八十四光年。请找到第二行最后的两个下划线，换成一个数字，让计算结果变成八十四。',
-    voiceRetry: '飞船已经起飞，但航程还不是八十四光年。请只检查第二行最后的乘数。',
-    voiceSuccess: '航程锁定，八十四光年。飞船正在穿越星海，声音灯塔就在前方。',
-  },
-  {
-    number: '05',
     title: '修复最后一座声音灯塔',
     concept: '条件判断与调试',
-    timeSlot: '40-50 分钟',
+    timeSlot: '42-51 分钟',
     stage: '安全判断站',
     brief: '声音灯塔的程序少了一个符号。听完错误线索，只修好一处，让整个宇宙再次发声。',
     starter: 'integer signal = 75\nif signal >= 60\n  output "信号已锁定\nelse\n  output "继续搜索"\nend',
@@ -127,69 +99,117 @@ const MISSIONS: Mission[] = [
     teacherCue: '把错误当作线索：先听反馈，再只改一个地方，然后重试。',
     assistantCue: '先复述错误类型，等待 5 到 8 秒；仍卡住再提示所在行。',
     successEvidence: '学员根据错误信息定位一处问题，修正后再次运行。',
-    voiceIntro: '第五关，修复最后一座声音灯塔。程序里只少了一个英文双引号。先听错误，只修一处，然后重新运行。',
+    voiceIntro: '第三关，修复最后一座声音灯塔。程序里只少了一个英文双引号。先听错误，只修一处，然后重新运行。',
     voiceRetry: '灯塔发出了一条错误线索。请检查“信号已锁定”这一行的结尾，文字开头和结尾都需要双引号。',
-    voiceSuccess: '灯塔已点亮。星站、航线和灯塔重新连接。你修好了最后的信号，宇宙又有声音了。',
+    voiceSuccess: '灯塔重新亮起。你完成了一次真正的调试。宇宙广播即将开始。',
+  },
+  {
+    id: 'input',
+    number: '加餐 A',
+    title: '接收来自远方的密令',
+    concept: '键盘输入 input',
+    timeSlot: '课后安静加餐',
+    stage: '可选航行站',
+    brief: '主线完成且时间允许时，让程序询问任务代号，输入密令后按回车。51 分钟后课堂不再开启。',
+    starter: 'text missionCode = input("请输入任务代号")\noutput missionCode',
+    hint: 'input 的问题要放在括号和双引号里，下一行输出 missionCode。',
+    teacherCue: '只在主线提前完成时开放；程序暂停是在等待人的输入。',
+    assistantCue: '读屏宣布“等待输入”后，让学员自己键入代号并按回车。',
+    successEvidence: '学员听见输入请求，自主输入任务代号并提交。',
+    voiceIntro: '安静加餐，接收远方密令。运行后程序会暂停，这不是故障，它正在等你输入任务代号。',
+    voiceRetry: '密令通道还没有完全打开。请检查 input 的括号和双引号，然后再运行。',
+    voiceSuccess: '密令已确认。远方的信号认出了你。',
+  },
+  {
+    id: 'distance',
+    number: '加餐 B',
+    title: '穿越八十四光年',
+    concept: '整数与运算',
+    timeSlot: '课后安静加餐',
+    stage: '可选航行站',
+    brief: '主线完成且时间允许时，补上一个数字，让飞船算出 84 光年的航程。51 分钟后课堂不再开启。',
+    starter: 'integer distance = 42\noutput distance * __',
+    hint: '找到第二行末尾的两个下划线，把它们替换成数字 2。',
+    teacherCue: '只让学员改一个数值，听到 84 就算成功，不扩展复杂公式。',
+    assistantCue: '可提示“第二行最后”，不要替学员移动光标或删除字符。',
+    successEvidence: '学员先预测、再替换一个数值，最后听到 84。',
+    voiceIntro: '安静加餐，穿越八十四光年。请找到第二行最后的两个下划线，换成一个数字。',
+    voiceRetry: '飞船已经起飞，但航程还不是八十四光年。请只检查第二行最后的乘数。',
+    voiceSuccess: '航程锁定，八十四光年。你完成了可选航行任务。',
   },
 ];
 
 const CLASSROOM_CHAPTERS: ClassroomChapter[] = [
   {
-    id: 'arrival', time: '00-05', eyebrow: 'PRE-FLIGHT', title: '入场与设备定位',
+    id: 'arrival', time: '00-07', eyebrow: 'PRE-FLIGHT', title: '入场与设备定位',
     body: '先让每位学员知道房间、座位、耳机、退出方式和当前焦点，再开始教代码。',
     lecturer: '口头说明教室方位，统一确认读屏、耳机、Tab 顺序和 F2。',
     support: '固定座位与陪护；活动中不移动键盘、线缆和个人物品。',
-    tags: ['4-5 名全盲青年', '1 主讲 + 5 陪护 + 1 技术', '固定座位'], accent: '#70E1FF', action: '进入指令热身',
+    tags: ['10 位视障同学', '1 主讲 + 10 固定陪护 + 1 技术', '固定座位'], accent: '#70E1FF', action: '进入代码一小时介绍',
   },
   {
-    id: 'warmup', time: '05-10', eyebrow: 'PROLOGUE', title: '宇宙为什么失去了声音？',
+    id: 'hour-code', time: '07-12', eyebrow: 'HOUR OF CODE', title: '代码一小时：让计算机回答一次',
+    body: '代码一小时不是考试。今天只体验一次完整闭环：听任务、改一处、自己运行、听见结果、错误时再修一次。',
+    lecturer: '主持三道有奖声音问题：代码一定很难吗？程序出错等于失败吗？今天谁来按运行键？不抢答，参与即有机会。',
+    support: '允许口头回答或按空格表示同意；记录参与，不比较速度和音量。',
+    tags: ['3 道有奖问题', '不抢答不淘汰', '口头或按键回答'], accent: '#FFD166', action: '进入宇宙故事',
+  },
+  {
+    id: 'prologue', time: '12-16', eyebrow: 'PROLOGUE', title: '宇宙为什么失去了声音？',
     body: '一场宇宙风暴让星站、航线和声音灯塔全部沉默。今天，我们要用代码把声音一段一段找回来。',
-    lecturer: '只建立“输入、运行、听结果”一个闭环，不提前讲语法细节。',
-    support: '让学员复述一个生活算法，用学员选择的节奏继续。',
-    tags: ['听清任务', '自己输入', '运行后听结果'], accent: '#70E58B', action: '唤醒第一座星站', taskIndex: 0,
+    lecturer: '播放开场视频，然后只说三条规则：听清、改一处、自己运行。每句后停 5 秒。',
+    support: '请学员复述“我要让一个星站回应”；不要补充第二套故事。',
+    tags: ['播放 01 开场视频', '三条规则', '一句一动作'], accent: '#70E58B', action: '进入运行热身',
   },
   {
-    id: 'communication', time: '10-28', eyebrow: 'CHAPTER 01', title: '星站醒来了',
-    body: '发出第一句呼唤，再为一颗无名星点亮名字。宇宙中出现了第一个回应。',
-    lecturer: '任务 1 与 2 各只增加一个新概念，演示后留出 5-8 秒安静操作时间。',
-    support: '只读提示、描述焦点、记录成功证据；不代打、不抓手。',
-    tags: ['任务 1-2', 'output', 'text 变量'], accent: '#FFD166', action: '从任务 1 开始', taskIndex: 0,
+    id: 'warmup', time: '16-20', eyebrow: 'WARM-UP', title: '先练一次运行，不计入通关',
+    body: '使用预填代码，只练习找到编辑区、按运行键、听完程序回答，再回到编辑区。',
+    lecturer: '全班一起完成一次原样运行；明确这是设备热身，不是学习成功证据。',
+    support: '只报告焦点与按键；若 60 秒仍不稳定，交给技术支持并切本地任务卡。',
+    tags: ['预填代码', '运行一次', 'Go / No-Go'], accent: '#70E1FF', action: '开始第一章', taskIndex: 0,
   },
   {
-    id: 'navigation', time: '28-40', eyebrow: 'CHAPTER 02', title: '远方传来了密令',
-    body: '接收任务代号，再计算穿越星海的距离。程序开始与我们对话。',
-    lecturer: '强调程序暂停是在等待输入；每次改动前先请学员预测结果。',
-    support: '报出当前焦点和可选动作，学员决定键入什么。',
-    tags: ['任务 3-4', 'input', '整数与运算'], accent: '#70E1FF', action: '继续当前任务', taskIndex: 2,
+    id: 'wake', time: '20-32', eyebrow: 'CHAPTER 01', title: '写下第一句广播，唤醒星站',
+    body: '修改双引号中的一句话，自己运行，再完整听一次星站的回答。',
+    lecturer: '播放第 03 段串场视频，只讲 output；示范一次后安静等待 5-8 秒。',
+    support: '只读提示、描述焦点、记录“修改、运行、听见”三项证据。',
+    tags: ['任务 1', 'output', '12 分钟'], accent: '#FFD166', action: '进入唤醒星站', taskIndex: 0,
   },
   {
-    id: 'safety', time: '40-50', eyebrow: 'CHAPTER 03', title: '点亮声音灯塔',
-    body: '最后一座灯塔出现故障。听错误、找线索、修好一处，宇宙的声音就会重新连成一片。',
-    lecturer: '把“错了”改成“程序给了我们一条线索”，先听、再改一处、然后重试。',
-    support: '先复述错误类型并等待 5-8 秒，必要时只提示行号。',
-    tags: ['任务 5', '条件判断', '完成一次调试'], accent: '#FF6FA8', action: '进入调试任务', taskIndex: 4,
+    id: 'name', time: '32-42', eyebrow: 'CHAPTER 02', title: '给无名星一个名字',
+    body: '只修改引号里的名字，再次运行，听见宇宙记住自己的选择。',
+    lecturer: '播放第 04 段串场视频；用“有标签的收纳盒”解释变量，不扩展术语。',
+    support: '只确认变量名和双引号；不直接说完整答案。',
+    tags: ['任务 2', 'text 变量', '10 分钟'], accent: '#70E1FF', action: '进入命名星星', taskIndex: 1,
   },
   {
-    id: 'bonus', time: '50-56', eyebrow: 'OPTIONAL', title: '可选声波航道',
-    body: '只有在读屏、耳机和键盘路径已提前实测通过时，才开启浏览器语音或提示音。',
-    lecturer: '设备路径不稳定时，直接回到文本任务：修改星星名或任务代号。',
-    support: '技术支持负责设备问题，固定陪护不中断学员的操作节奏。',
-    tags: ['通过设备实测才开启', '可随时降级', '不临场冒险'], accent: '#70E1FF', action: '返回任务台',
+    id: 'repair', time: '42-51', eyebrow: 'CHAPTER 03', title: '错误是线索，修复声音灯塔',
+    body: '先完整听一次错误，只定位一处，再运行一次。灯塔亮起就完成核心调试。',
+    lecturer: '播放第 05 段串场视频；不说“你错了”，统一说“程序给了一条线索”。',
+    support: '先复述错误类型并等待 5-8 秒，仍卡住才提示所在行。',
+    tags: ['任务 3', '只改一处', '51 分钟停止新任务'], accent: '#FF6FA8', action: '进入修复灯塔', taskIndex: 2,
   },
   {
-    id: 'return', time: '56-60', eyebrow: 'EPILOGUE', title: '宇宙重新有了声音',
-    body: '每人发出一句自己的宇宙广播：我唤醒了什么，或者我修好了什么。',
-    lecturer: '不排名、不比较速度；给每位学员发放完成证明和奖品。',
-    support: '可以帮学员复述完成的行动，不要代替学员评价自己。',
-    tags: ['一句话分享', '人人完成', '无排名'], accent: '#FFD166', action: '前往任务台完成任务',
+    id: 'broadcast', time: '51-57', eyebrow: 'BROADCAST', title: '十个声音坐标一起广播',
+    body: '每人选择一种完成方式：播放程序、说一句感受，或由陪护复述后本人确认。',
+    lecturer: '播放第 06 段串场视频；不逐一点评，不强迫发言，参与奖在此发放。',
+    support: '帮助学员选择表达方式，不替学员评价自己。',
+    tags: ['三种表达方式', '不强迫发言', '发放参与奖'], accent: '#FFD166', action: '进入返航',
+  },
+  {
+    id: 'return', time: '57-60', eyebrow: 'EPILOGUE', title: '宇宙重新听见了我们',
+    body: '保存作品，播放返航视频，用统一口令结束，不再追加新教学内容。',
+    lecturer: '播放第 07 段；最终口令：宇宙重新听见了我们。任务完成，欢迎返航。',
+    support: '先保存作品，再协助摘耳机和离座；奖品不与完成关数绑定。',
+    tags: ['准时结束', '保存作品', '欢迎返航'], accent: '#70E58B', action: '回到任务台',
   },
 ];
 
 const normalizeQuotes = (value: string) => value.replace(/[“”]/g, '"').replace(/[‘’]/g, "'");
 const normalizeCode = (value: string) => normalizeQuotes(value).replace(/\s+/g, ' ').trim();
 const clamp = (value: number, minimum = 0, maximum = 1) => Math.min(maximum, Math.max(minimum, value));
-const MISSION_CHAPTER_INDEX = [2, 2, 3, 3, 4];
-const MISSION_TYPES = ['核心创作', '核心创作', '可选挑战', '可选挑战', '核心调试'] as const;
+const MISSION_CHAPTER_INDEX = [4, 5, 6, 6, 6];
+const MISSION_TYPES = ['核心创作', '核心创作', '核心调试', '可选加餐', '可选加餐'] as const;
 const CLASSROOM_STATE_COPY: Record<ClassroomState, { label: string; phrase: string }> = {
   listen: { label: '统一听讲', phrase: '请先停下键盘，我们只听这一句。' },
   work: { label: '安静操作', phrase: '现在请自己修改一处，运行后听完程序的回答。' },
@@ -199,13 +219,14 @@ const SEAT_STATE_COPY: Record<SeatState, string> = { ready: '在操作', help: '
 const NEXT_SEAT_STATE: Record<SeatState, SeatState> = { ready: 'help', help: 'paused', paused: 'tech', tech: 'ready' };
 
 const validateMission = (missionIndex: number, rawCode: string): RunResult => {
+  const missionId = MISSIONS[missionIndex]?.id;
   const code = normalizeQuotes(rawCode).trim();
 
   if (!code) {
     return { ok: false, output: '没有可运行的代码。', feedback: '请先在代码编辑区输入内容。' };
   }
 
-  if (missionIndex === 0) {
+  if (missionId === 'wake') {
     const match = code.match(/^\s*output\s+"([^"]+)"\s*$/im);
     if (!match) return { ok: false, output: '语法检查未通过。', feedback: '请检查 output、空格和英文双引号。' };
     if (!match[1].includes('宇宙')) return { ok: false, output: match[1], feedback: '程序运行了。再试一次，让输出中包含“宇宙”。' };
@@ -215,7 +236,7 @@ const validateMission = (missionIndex: number, rawCode: string): RunResult => {
     return { ok: true, output: match[1], feedback: '通讯成功。你让计算机输出了自己的宇宙广播。' };
   }
 
-  if (missionIndex === 1) {
+  if (missionId === 'name') {
     const variable = code.match(/text\s+starName\s*=\s*"([^"]+)"/i);
     const output = /output\s+starName\b/i.test(code);
     if (!variable) return { ok: false, output: '没有找到 starName 的文本内容。', feedback: '请检查 text、starName、等号和双引号。' };
@@ -226,7 +247,7 @@ const validateMission = (missionIndex: number, rawCode: string): RunResult => {
     return { ok: true, output: variable[1], feedback: `命名成功。控制台读到了${variable[1]}。` };
   }
 
-  if (missionIndex === 2) {
+  if (missionId === 'input') {
     const hasInput = /text\s+missionCode\s*=\s*input\s*\(\s*"[^"]+"\s*\)/i.test(code);
     const hasOutput = /output\s+missionCode\b/i.test(code);
     if (!hasInput || !hasOutput) {
@@ -235,7 +256,7 @@ const validateMission = (missionIndex: number, rawCode: string): RunResult => {
     return { ok: false, output: '程序正在等待输入。', feedback: '焦点已移动到任务代号输入框，请输入代号并按回车。', needsInput: true };
   }
 
-  if (missionIndex === 3) {
+  if (missionId === 'distance') {
     const distance = code.match(/integer\s+distance\s*=\s*(-?\d+)/i);
     const multiplier = code.match(/output\s+distance\s*\*\s*(-?\d+)/i);
     if (!distance) return { ok: false, output: '没有找到整数 distance。', feedback: '请检查第一行的 integer distance。' };
@@ -270,6 +291,7 @@ const HearTheUniverse: React.FC<HearTheUniverseProps> = ({ onHome }) => {
   const [completed, setCompleted] = useState<boolean[]>(() => MISSIONS.map(() => false));
   const [consoleText, setConsoleText] = useState('系统就绪。任务 1：启动宇宙通讯。');
   const [feedback, setFeedback] = useState('请阅读任务说明，然后在编辑区运行代码。');
+  const [lastSignal, setLastSignal] = useState<{ kind: FeedbackKind; text: string } | null>(null);
   const [announcement, setAnnouncement] = useState('听见宇宙已打开。');
   const [waitingForInput, setWaitingForInput] = useState(false);
   const [missionCode, setMissionCode] = useState('');
@@ -282,7 +304,7 @@ const HearTheUniverse: React.FC<HearTheUniverseProps> = ({ onHome }) => {
   const [classroomState, setClassroomState] = useState<ClassroomState>('listen');
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
   const [timerRunning, setTimerRunning] = useState(false);
-  const [seatStates, setSeatStates] = useState<SeatState[]>(['ready', 'ready', 'ready', 'ready', 'ready']);
+  const [seatStates, setSeatStates] = useState<SeatState[]>(() => Array.from({ length: 10 }, () => 'ready'));
   const [activeChapter, setActiveChapter] = useState(0);
   const [journeyProgress, setJourneyProgress] = useState(0);
   const [motionReduced, setMotionReduced] = useState(false);
@@ -297,12 +319,13 @@ const HearTheUniverse: React.FC<HearTheUniverseProps> = ({ onHome }) => {
   const helpButtonRef = useRef<HTMLButtonElement>(null);
   const helpCloseRef = useRef<HTMLButtonElement>(null);
   const helpDialogRef = useRef<HTMLElement>(null);
+  const speechTimerRef = useRef<number | null>(null);
   const helpWasOpenRef = useRef(false);
   const currentMission = MISSIONS[current];
   const classroomChapter = CLASSROOM_CHAPTERS[MISSION_CHAPTER_INDEX[current]];
   const completedCount = completed.filter(Boolean).length;
   const firstSignalRecovered = completed[0] || completed[1];
-  const coreExperienceComplete = firstSignalRecovered && completed[4];
+  const coreExperienceComplete = firstSignalRecovered && completed[2];
 
   const playEffect = useCallback((kind: Exclude<FeedbackKind, 'info'>) => {
     if (!effectsEnabled) return;
@@ -348,9 +371,10 @@ const HearTheUniverse: React.FC<HearTheUniverseProps> = ({ onHome }) => {
 
   const speak = useCallback((text: string, kind: FeedbackKind = 'info') => {
     if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+    if (speechTimerRef.current !== null) window.clearTimeout(speechTimerRef.current);
     if (kind !== 'info') playEffect(kind);
     const delay = effectsEnabled && kind !== 'info' ? (kind === 'success' ? 620 : kind === 'retry' ? 380 : 240) : 0;
-    window.setTimeout(() => {
+    speechTimerRef.current = window.setTimeout(() => {
       if (soundMode === 'screen-reader') {
         setAnnouncement('');
         window.requestAnimationFrame(() => setAnnouncement(text));
@@ -367,6 +391,7 @@ const HearTheUniverse: React.FC<HearTheUniverseProps> = ({ onHome }) => {
         utterance.volume = 0.92;
         window.speechSynthesis.speak(utterance);
       }
+      speechTimerRef.current = null;
     }, delay);
   }, [effectsEnabled, playEffect, soundMode]);
 
@@ -393,6 +418,9 @@ const HearTheUniverse: React.FC<HearTheUniverseProps> = ({ onHome }) => {
     if (result.ok) {
       setCompleted((previous) => previous.map((value, index) => index === current ? true : value));
       setCelebration((value) => value + 1);
+      setLastSignal({ kind: 'success', text: currentMission.voiceSuccess });
+    } else if (!result.warmup) {
+      setLastSignal({ kind: 'retry', text: currentMission.voiceRetry });
     }
     if (result.warmup) {
       speak(`热身成功。${result.feedback}`, 'run');
@@ -417,6 +445,7 @@ const HearTheUniverse: React.FC<HearTheUniverseProps> = ({ onHome }) => {
     setWaitingForInput(false);
     setCompleted((previous) => previous.map((value, index) => index === current ? true : value));
     setCelebration((value) => value + 1);
+    setLastSignal({ kind: 'success', text: currentMission.voiceSuccess });
     speak(`成功。程序输出${trimmed}。${currentMission.voiceSuccess}`, 'success');
   }, [current, currentMission, missionCode, speak]);
 
@@ -706,7 +735,7 @@ const HearTheUniverse: React.FC<HearTheUniverseProps> = ({ onHome }) => {
     <main className={`htu-page ${motionReduced ? 'is-reduced-motion' : ''}`} data-testid="hear-the-universe" data-view-mode={viewMode} data-print-view={printView ?? undefined}>
       <canvas ref={canvasRef} className="htu-stars" aria-hidden="true" />
       <div className="htu-world-stage" aria-hidden="true">
-        <img src="/hear-the-universe-world.webp" alt="" style={worldImageStyle} />
+        <img src="/hear-universe-clay-map.webp" alt="" style={worldImageStyle} />
         <div className="htu-world-shade" />
       </div>
       {viewMode === 'instructor' && <a className="htu-skip" href="#classroom-story">跳到 60 分钟课堂路线</a>}
@@ -773,7 +802,7 @@ const HearTheUniverse: React.FC<HearTheUniverseProps> = ({ onHome }) => {
             ))}
           </div>
           <div className="htu-instructor-quick-actions">
-            <button type="button" onClick={() => openTaskLab(4)}>直达调试任务</button>
+            <button type="button" onClick={() => openTaskLab(2)}>直达调试任务</button>
             <button type="button" onClick={() => openTaskLab(0)}>回到核心任务</button>
           </div>
         </div>
@@ -783,7 +812,7 @@ const HearTheUniverse: React.FC<HearTheUniverseProps> = ({ onHome }) => {
         <div className="htu-hero-copy">
           <span className="htu-kicker">中文 · 键盘优先 · 读屏友好</span>
           <h2 id="htu-hero-title" className="htu-handwritten">宇宙失去了声音。<br />你能把它找回来吗？</h2>
-          <p>用五段简单代码，唤醒星站、接收密令、穿越星海，最后点亮声音灯塔。</p>
+          <p>用三段简单代码，唤醒星站、命名星星、修复声音灯塔。完成主线后还有两段安静加餐。</p>
           <div className="htu-hero-actions">
             <button type="button" className="htu-primary" onClick={() => openTaskLab(0)}>开始找回声音</button>
             <button type="button" onClick={() => scrollToChapter(0)}>听完整个故事</button>
@@ -905,7 +934,7 @@ const HearTheUniverse: React.FC<HearTheUniverseProps> = ({ onHome }) => {
         <aside className="htu-missions" aria-labelledby="mission-list-title">
           <div className="htu-panel-heading">
             <span>MISSION MAP</span>
-            <h2 id="mission-list-title">五个宇宙任务</h2>
+            <h2 id="mission-list-title">三段主线与两段加餐</h2>
           </div>
           <ol>
             {MISSIONS.map((mission, index) => {
@@ -926,7 +955,7 @@ const HearTheUniverse: React.FC<HearTheUniverseProps> = ({ onHome }) => {
             })}
           </ol>
           <button type="button" className="htu-location" onClick={announceLocation}>F2 · 我在哪里？</button>
-          <p className="htu-mission-note">可以跳过可选挑战。建议至少完成一个核心创作和最后的调试。</p>
+          <p className="htu-mission-note">先完成唤醒、命名、修复三段主线。两段加餐不决定活动完成，51 分钟后不再开启。</p>
         </aside>
 
         <section className="htu-workspace" aria-labelledby="current-mission-title">
@@ -979,6 +1008,14 @@ const HearTheUniverse: React.FC<HearTheUniverseProps> = ({ onHome }) => {
                 <p>{feedback}</p>
               </div>
 
+              {lastSignal && (
+                <section className={`htu-signal-card is-${lastSignal.kind}`} role="status" aria-label="本关语音信号">
+                  <span>{lastSignal.kind === 'success' ? '成功信号' : '错误线索'}</span>
+                  <p>{lastSignal.text}</p>
+                  <button type="button" onClick={() => speak(lastSignal.text, lastSignal.kind)}>重播本关语音</button>
+                </section>
+              )}
+
               {waitingForInput && (
                 <form className="htu-input-request" onSubmit={(event) => { event.preventDefault(); submitMissionCode(); }}>
                   <label htmlFor="mission-code">程序询问：请输入任务代号</label>
@@ -1000,7 +1037,7 @@ const HearTheUniverse: React.FC<HearTheUniverseProps> = ({ onHome }) => {
             {current < MISSIONS.length - 1 ? (
               <button type="button" className="htu-next" onClick={() => changeMission(current + 1)}>选择下一个任务</button>
             ) : (
-              <span>{completed[current] ? '调试成功，声音灯塔已点亮' : '听错误、只修一处、再次运行'}</span>
+              <span>{completed[current] ? '可选加餐完成' : '加餐不影响活动完成'}</span>
             )}
           </div>
         </section>
@@ -1015,7 +1052,7 @@ const HearTheUniverse: React.FC<HearTheUniverseProps> = ({ onHome }) => {
             <h2 id="complete-title" className="htu-handwritten">{coreExperienceComplete ? '核心任务已完成' : '你找回了第一段声音'}</h2>
             <p>{coreExperienceComplete ? '你完成了自己的创作，也听线索修好了一处错误。可选挑战不影响活动完成。' : '你亲手修改了代码，程序已经回答你。接下来可以进入最后的调试任务。'}</p>
           </div>
-          {coreExperienceComplete ? <button type="button" onClick={() => printDocument('certificate')}>打印完成证明</button> : <button type="button" onClick={() => openTaskLab(4)}>进入调试任务</button>}
+          {coreExperienceComplete ? <button type="button" onClick={() => printDocument('certificate')}>打印完成证明</button> : <button type="button" onClick={() => openTaskLab(2)}>进入调试任务</button>}
         </section>
       )}
 
@@ -1072,7 +1109,7 @@ const HearTheUniverse: React.FC<HearTheUniverseProps> = ({ onHome }) => {
 
       <section className="htu-print-sheet htu-instructor-sheet" aria-label="听见宇宙讲师执行卡">
         <header><p>HP 代码一小时 · 视障青年场</p><h1>听见宇宙·60 分钟讲师执行卡</h1></header>
-        <p><strong>配置：</strong>4-5 名全盲青年；1 主讲 + 5 固定陪护 + 1 机动技术支持；能力差异不大，不分组。</p>
+        <p><strong>配置：</strong>10 位视障同学；主方案 1 主讲 + 10 固定陪护 + 1 机动技术支持；陪护不足时采用 5 个双人星站。</p>
         <table>
           <thead><tr><th>时间</th><th>课堂阶段</th><th>讲师动作</th><th>陪护与验收</th></tr></thead>
           <tbody>{CLASSROOM_CHAPTERS.map((chapter) => <tr key={chapter.id}><td>{chapter.time}</td><td>{chapter.title}</td><td>{chapter.lecturer}</td><td>{chapter.support}</td></tr>)}</tbody>
