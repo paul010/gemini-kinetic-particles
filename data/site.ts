@@ -65,113 +65,16 @@ export interface VideoItem {
   title: LocalizedText;
   date: string;
   duration: string;
+  publishedAt?: string;
 }
 
 export const youtubeWatch = (id: string) => `https://www.youtube.com/watch?v=${id}`;
 export const youtubeThumb = (id: string) => `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
 
-// Homepage picks are editorial, not a claim about the latest channel uploads.
-// Dates, durations and topics checked against the public episode notes.
-export const HOME_VIDEOS: (VideoItem & { summary: LocalizedText })[] = [
-  {
-    id: '3rC3yG3tVb4', date: '2026-04-09', duration: '7:26',
-    title: { en: 'Ghost Pepper: speak instead of typing', zh: 'Ghost Pepper：把语音变成可用的文字' },
-    summary: { en: 'A walkthrough of local voice input, from model setup to text cleanup.', zh: '从模型设置到文字整理，看看本地语音输入怎么用。' },
-  },
-  {
-    id: 'SX36VfssYCg', date: '2026-06-01', duration: '4:56',
-    title: { en: 'Testing DogRouter with a $5 budget', zh: '花 5 美元试试 DogRouter 能不能跑通' },
-    summary: { en: 'What I checked when switching models: cost, latency, and whether the requests work.', zh: '切换模型时，实际看看费用、延迟，以及请求能不能成功。' },
-  },
-  {
-    id: '37czL7hLLPM', date: '2026-04-07', duration: '3:16',
-    title: { en: 'Using AI to organize what you learn', zh: '用 AI 整理知识：从资料堆到能复用的笔记' },
-    summary: { en: 'An introduction to maintaining a useful knowledge base with AI.', zh: '聊聊 AI 怎样参与知识库的整理和维护。' },
-  },
-  {
-    id: 'dYTeo_qNX6E', date: '2025-12-04', duration: '1:04',
-    title: { en: 'A particle universe controlled by your hands', zh: '用双手控制 3D 粒子，看一段实际演示' },
-    summary: { en: 'A short demo of the interactive particle project on this site.', zh: '一分钟看看本站粒子项目的手势互动效果。' },
-  },
-];
-
 export const HOME_SPOTLIGHT_ID = 'hear-the-universe';
 export const HOME_PROJECT_ORDER = [
   'ai-coding-arsenal', 'markdown-studio', 'image-studio',
   'ai-benchmark', 'microsoft-cat-agent-skills', 'copilot-camp-cowork', 'kinetic-particles',
-];
-
-/**
- * The video index is kept in the dalei-youtube repo's README. We fetch it at
- * runtime and parse the latest episodes, so the homepage stays current without
- * code changes. Falls back to VIDEOS below.
- *
- * Source note: we fetch from raw.githubusercontent.com (CORS-enabled, ~5-min
- * edge cache) rather than jsDelivr. jsDelivr caches branch files for ~12h and
- * serves the stale copy with a 200, which would silently overwrite the list
- * with old episodes for hours after a README update.
- */
-export const VIDEOS_README_URL = 'https://raw.githubusercontent.com/paul010/dalei-youtube/master/README.md';
-
-/** Latest episodes - sourced from github.com/paul010/dalei-youtube.
- * This is the fallback/first-paint list; the homepage fetches the live README
- * at runtime and overrides it. Kept in sync with the newest episodes so the
- * curated bilingual titles are used even when the live parse succeeds. */
-export const VIDEOS: VideoItem[] = [
-  {
-    id: 'bzEinn6u7ag',
-    date: '2026-07-05',
-    duration: '7:09',
-    title: {
-      en: "Fable 5's inner monologue leaked - does AI secretly think in 'Claudenese'?",
-      zh: 'Fable 5 内心独白泄露！AI 竟用「克劳德语」秘密思考？',
-    },
-  },
-  {
-    id: 'VuYTg4ghlwI',
-    date: '2026-07-05',
-    duration: '8:11',
-    title: {
-      en: "The biggest secret of GPT-5.6: why it will 'dance in shackles'",
-      zh: 'GPT-5.6 最大秘密：为何它将「戴着镣铐跳舞」？',
-    },
-  },
-  {
-    id: 'DY585co5C2k',
-    date: '2026-07-04',
-    duration: '8:47',
-    title: {
-      en: "Claude Sonnet 5: Opus-level performance? But there's a huge pricing trap",
-      zh: 'Claude Sonnet 5：性能直逼 Opus？价格竟有大陷阱！',
-    },
-  },
-  {
-    id: 'GRfMMr9MvoM',
-    date: '2026-06-29',
-    duration: '9:30',
-    title: {
-      en: 'AI world explodes! Fable 5 appears, then vanishes? GPT-5 secrets leaked',
-      zh: 'AI 圈炸锅！Fable 5 现身又消失？GPT-5 秘密泄露',
-    },
-  },
-  {
-    id: 'YTVzy2fa3eg',
-    date: '2026-06-28',
-    duration: '9:05',
-    title: {
-      en: "99% of people are fooled! The truth about Sakana Fugu - it isn't even a model",
-      zh: '99% 的人都被骗了！深度揭秘 Sakana Fugu，它根本不是一个模型！',
-    },
-  },
-  {
-    id: 'od-h3z3IBvI',
-    date: '2026-06-23',
-    duration: '10:24',
-    title: {
-      en: 'AI model war! GPT-5, Sonnet 5 secrets exposed',
-      zh: 'AI 大模型巨头混战！GPT-5、Sonnet 5 秘密曝光',
-    },
-  },
 ];
 
 /**
@@ -1069,40 +972,6 @@ export const PROJECTS: Project[] = [
   },
 ];
 
-/** Bilingual title overrides for episodes we've curated; others fall back to
- * the (Chinese) title parsed from the README. */
-const CURATED_TITLES: Record<string, LocalizedText> = Object.fromEntries(
-  VIDEOS.map((v) => [v.id, v.title])
-);
-
-/** Parse the README's "视频索引" table rows into VideoItems (newest first). */
-export function parseVideosFromReadme(markdown: string, limit = 6): VideoItem[] {
-  const re =
-    /\|\s*(\d{2}-\d{2})\s*\|\s*\[([^\]]+)\]\(episodes\/(\d{4})-\d{2}\/([A-Za-z0-9_-]+)\.md\)\s*\|\s*([\d:]+)\s*\|/g;
-  const out: VideoItem[] = [];
-  let m: RegExpExecArray | null;
-  while ((m = re.exec(markdown)) !== null && out.length < limit) {
-    const [, mmdd, title, year, id, duration] = m;
-    out.push({
-      id,
-      date: `${year}-${mmdd}`,
-      duration,
-      title: CURATED_TITLES[id] ?? { en: title.trim(), zh: title.trim() },
-    });
-  }
-  return out;
-}
-
-/** Fetch the latest episodes from the dalei-youtube README. Throws on failure
- * so callers can fall back to the bundled VIDEOS list. */
-export async function fetchLatestVideos(limit = 6): Promise<VideoItem[]> {
-  const res = await fetch(VIDEOS_README_URL, { cache: 'no-store' });
-  if (!res.ok) throw new Error(`README fetch failed: ${res.status}`);
-  const parsed = parseVideosFromReadme(await res.text(), limit);
-  if (!parsed.length) throw new Error('No videos parsed from README');
-  return parsed;
-}
-
 export const COPY = {
   nav: {
     home: { en: 'Home', zh: '首页' },
@@ -1140,11 +1009,11 @@ export const COPY = {
     label: { en: 'On my channel', zh: '我的视频' },
     heading: { en: 'See how it works.', zh: '想看具体怎么做？' },
     sub: {
-      en: 'A few practical videos to start with: voice input, AI tools, knowledge workflows, and a particle experiment.',
-      zh: '先选几期实用的：语音输入、AI 工具实测、知识整理，还有一个手势粒子实验。',
+      en: 'The latest public episodes, newest first. Pick one and watch on YouTube.',
+      zh: '最近发布的公开节目，按时间倒序排列。挑一期感兴趣的，去 YouTube 看看。',
     },
     all: { en: 'More videos on YouTube', zh: '去 YouTube 看更多' },
-    new: { en: 'Selected video', zh: '精选视频' },
+    new: { en: 'Latest episode', zh: '最新节目' },
   },
   membership: {
     label: { en: 'Support the channel', zh: '支持创作' },

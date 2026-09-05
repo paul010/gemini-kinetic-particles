@@ -26,7 +26,6 @@ import {
   getEmail,
   ASSETS,
   CHANNEL,
-  HOME_VIDEOS,
   HOME_SPOTLIGHT_ID,
   HOME_PROJECT_ORDER,
   youtubeWatch,
@@ -35,6 +34,8 @@ import {
   LocalizedText,
   Project,
 } from './data/site';
+import { fetchLatestVideos, parseLatestVideos } from './data/latest-videos';
+import videoSnapshot from './data/video-snapshot.json';
 
 interface HomeProps {
   onNavigate: (path: string) => void;
@@ -513,9 +514,51 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
   const t = (txt: LocalizedText) =>
     lang === 'en' ? txt.en : lang === 'zhHant' ? (s2t ? s2t(txt.zh) : txt.zh) : txt.zh;
   const navSentinelRef = useRef<HTMLDivElement>(null);
-  const videos = HOME_VIDEOS;
+  const [videos, setVideos] = useState(() => parseLatestVideos(videoSnapshot));
+  const [videoStatus, setVideoStatus] = useState<'loading' | 'live' | 'cached'>('loading');
 
-  useReveal(`${workFilter}-${showAllProjects}`);
+  useReveal(`${workFilter}-${showAllProjects}-${videos.map(v => v.id).join(',')}`);
+
+  // Public feed + a current bundled snapshot. Refresh open tabs without making
+  // a visitor wait for GitHub, and never regress to an older edge-cache copy.
+  useEffect(() => {
+    let disposed = false;
+    let pending = false;
+    let lastAttempt = 0;
+    let controller: AbortController | undefined;
+    const refresh = async () => {
+      if (pending || document.hidden || Date.now() - lastAttempt < 5 * 60_000) return;
+      pending = true;
+      lastAttempt = Date.now();
+      controller = new AbortController();
+      const timeout = window.setTimeout(() => controller?.abort(), 8_000);
+      try {
+        const latest = await fetchLatestVideos(controller.signal);
+        if (!disposed) {
+          const newest = Date.parse(latest[0].publishedAt ?? latest[0].date);
+          const bundled = Date.parse(videoSnapshot.videos[0].publishedAt);
+          setVideos(current => newest >= Date.parse(current[0].publishedAt ?? current[0].date) ? latest : current);
+          setVideoStatus(newest >= bundled ? 'live' : 'cached');
+        }
+      } catch {
+        if (!disposed) setVideoStatus('cached');
+      } finally {
+        window.clearTimeout(timeout);
+        pending = false;
+      }
+    };
+    void refresh();
+    const interval = window.setInterval(refresh, 5 * 60_000);
+    document.addEventListener('visibilitychange', refresh);
+    window.addEventListener('online', refresh);
+    return () => {
+      disposed = true;
+      controller?.abort();
+      window.clearInterval(interval);
+      document.removeEventListener('visibilitychange', refresh);
+      window.removeEventListener('online', refresh);
+    };
+  }, []);
 
   // Keep the interaction out of first paint and respect live device preferences.
   useEffect(() => {
@@ -898,6 +941,13 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
               <p className="font-mono text-xs font-medium tracking-[0.08em] text-gold">{t(COPY.videos.label)}</p>
               <h2 className="mt-3 font-display text-3xl font-bold tracking-tight sm:text-4xl">{t(COPY.videos.heading)}</h2>
               <p className="mt-3 max-w-md text-sm text-ink/55">{t(COPY.videos.sub)}</p>
+              <p className="mt-2 text-xs text-ink/55" role="status">
+                {t(videoStatus === 'live'
+                  ? { en: 'Synced from the channel · Dates in Beijing time', zh: '已同步频道节目 · 日期按北京时间' }
+                  : videoStatus === 'cached'
+                    ? { en: 'Showing saved videos. Check YouTube for the latest.', zh: '暂时显示已保存的节目，最新内容可去 YouTube 查看。' }
+                    : { en: 'Checking for new episodes…', zh: '正在检查新节目…' })}
+              </p>
             </div>
             <a
               href={SOCIALS.youtube}
@@ -919,12 +969,12 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
               rel="noreferrer"
               className="video-card reveal group mb-6 flex flex-col overflow-hidden rounded-2xl border border-ink/10 bg-surface/50 backdrop-blur-sm transition-all hover:-translate-y-1 hover:border-gold/40 lg:flex-row"
             >
-              <div className="relative aspect-video overflow-hidden bg-surface lg:aspect-auto lg:w-[58%]">
+              <div className="relative aspect-video overflow-hidden bg-surface lg:w-[58%] lg:shrink-0">
                 <img
                   src={youtubeThumb(videos[0].id)}
                   alt={t(videos[0].title)}
                   loading="lazy"
-                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
                 />
                 <span className="absolute bottom-3 right-3 rounded bg-black/75 px-2 py-0.5 font-mono text-xs text-white">
                   {videos[0].duration}
@@ -937,13 +987,12 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
               </div>
               <div className="flex flex-1 flex-col justify-center p-6 sm:p-8 lg:p-9">
                 <p className="flex items-center gap-2.5 font-mono text-[11px] tracking-wide text-ink/45">
-                  <span className="rounded-full bg-gold px-2 py-0.5 font-semibold text-paper">{t(COPY.videos.new)}</span>
+                  <span className="rounded-full bg-gold px-2 py-0.5 font-semibold text-paper">{t(videoStatus === 'live' ? COPY.videos.new : { en: 'Recent episode', zh: '近期节目' })}</span>
                   {videos[0].date}
                 </p>
                 <h3 className="mt-3.5 font-display text-2xl font-semibold leading-snug tracking-tight text-ink/90 transition-colors group-hover:text-ink sm:text-3xl">
                   {t(videos[0].title)}
                 </h3>
-                <p className="mt-4 text-sm leading-relaxed text-ink/65">{t(videos[0].summary)}</p>
                 <span className="link-underline mt-6 inline-flex w-fit items-center gap-1.5 text-sm font-semibold text-accent">
                   {t({ en: 'Watch on YouTube', zh: '在 YouTube 观看' })}
                   <ArrowUpRight className="h-3.5 w-3.5" />
@@ -981,7 +1030,6 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
                 <h3 className="mt-3 line-clamp-2 text-sm font-semibold leading-snug text-ink/90 transition-colors group-hover:text-ink">
                   {t(v.title)}
                 </h3>
-                <p className="mt-2 text-sm leading-relaxed text-ink/60">{t(v.summary)}</p>
                 <p className="mt-1.5 font-mono text-[11px] tracking-wide text-ink/40">
                   {v.date} · {v.duration}
                 </p>

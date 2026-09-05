@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "channelId": "UCk9tu0mFtXj_rOEfIncxuJQ",
+  "source": "https://www.youtube.com/@dalei2025/videos",
+  "updatedAt": "2026-09-05T12:54:26+00:00",
+  "dateTimezone": "Asia/Shanghai",
+  "videos": [
+    {
+      "id": "vQuzOnBGhbw",
+      "title": "GPT-6 Astra在Terminal-Bench达57.9%  GPT-6 Astra Scores 57.9% on Terminal-Bench",
+      "publishedAt": "2026-09-05T04:14:01+00:00",
+      "date": "2026-09-05",
+      "duration": "7:18",
+      "url": "https://www.youtube.com/watch?v=vQuzOnBGhbw"
+    },
+    {
+      "id": "qqDh7xH6nP4",
+      "title": "DeepSeek V4 Pro发布：实测智能体编程与API阶梯计费机制 DeepSeek-V4-Pro Released: Testing Agent Coding and Tiered API",
+      "publishedAt": "2026-08-17T22:13:21+00:00",
+      "date": "2026-08-18",
+      "duration": "8:00",
+      "url": "https://www.youtube.com/watch?v=qqDh7xH6nP4"
+    },
+    {
+      "id": "WhczDDpxV8k",
+      "title": "Qwen3.8 27B模型离线部署不等于绝对私密：4-bit需13.5G显存与日志检查",
+      "publishedAt": "2026-08-16T13:46:01+00:00",
+      "date": "2026-08-16",
+      "duration": "6:42",
+      "url": "https://www.youtube.com/watch?v=WhczDDpxV8k"
+    },
+    {
+      "id": "f6WkS2qAdRY",
+      "title": "Gemini 3 7 Flash发布：三周迭代、价格减半，基准表现如何？Gemini 3.7 Flash: A Three-Week Upgrade, Half-Price Intro",
+      "publishedAt": "2026-08-15T04:21:36+00:00",
+      "date": "2026-08-15",
+      "duration": "7:44",
+      "url": "https://www.youtube.com/watch?v=f6WkS2qAdRY"
+    },
+    {
+      "id": "PrMqZRts3s8",
+      "title": "Meta重磅开源Muse Glimmer 30B本地Agent最强神仙模型来了 Meta Open-Sources Muse Glimmer 30B: The Ultimate Local Agent",
+      "publishedAt": "2026-08-14T21:57:16+00:00",
+      "date": "2026-08-15",
+      "duration": "8:22",
+      "url": "https://www.youtube.com/watch?v=PrMqZRts3s8"
+    },
+    {
+      "id": "_UqkjPAWWpY",
+      "title": "比GPT-6更可怕？OpenAI秘密模型Doug曝光，AI圈炸裂！Scarier Than GPT-6? OpenAI's Secret Model 'Doug' Leaked!",
+      "publishedAt": "2026-08-11T22:08:01+00:00",
+      "date": "2026-08-12",
+      "duration": "9:44",
+      "url": "https://www.youtube.com/watch?v=_UqkjPAWWpY"
+    }
+  ]
+}
