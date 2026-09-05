@@ -26,11 +26,11 @@ import {
   getEmail,
   ASSETS,
   CHANNEL,
-  VIDEOS,
-  fetchLatestVideos,
+  HOME_VIDEOS,
+  HOME_SPOTLIGHT_ID,
+  HOME_PROJECT_ORDER,
   youtubeWatch,
   youtubeThumb,
-  VideoItem,
   Lang,
   LocalizedText,
   Project,
@@ -209,11 +209,9 @@ const FeaturedCard: React.FC<{
     <div className="flex flex-1 flex-col justify-center p-7 sm:p-9 lg:p-10">
       <div className="mb-5 flex items-center justify-between gap-3">
         <div className="flex items-center gap-2">
-          {p.signature && (
             <span className="inline-flex items-center rounded-full border border-gold/40 bg-gold/10 px-2.5 py-0.5 font-mono text-[11px] tracking-[0.06em] text-gold">
               {t(COPY.work.signature)}
             </span>
-          )}
           {statusBadge(p.status, t)}
         </div>
         <span className="font-mono text-xs text-ink/40">{p.year}</span>
@@ -311,15 +309,10 @@ const ProjectCard: React.FC<{
           // Cover-less tiles (in-browser tools) get a consistent on-palette
           // header: a large, faded category word so the grid stays even.
           <div className="grid h-full w-full place-items-center bg-gradient-to-br from-surface to-paper">
-            <span className="px-4 text-center font-mono text-xl font-semibold tracking-[0.12em] text-ink/[0.13] sm:text-2xl">{p.tags[0] ?? 'Tool'}</span>
+            <span className="px-4 text-center font-display text-xl font-semibold text-gold/70 sm:text-2xl">{t(p.title)}</span>
           </div>
         )}
         <span className="pointer-events-none absolute inset-0 bg-gradient-to-t from-surface/35 to-transparent" />
-        {p.signature && (
-          <span className="absolute left-3 top-3 inline-flex items-center gap-1 rounded-full border border-gold/40 bg-paper/85 px-2 py-0.5 font-mono text-[10px] tracking-wide text-gold backdrop-blur-sm">
-            <span className="pulse-dot h-1 w-1 rounded-full bg-gold" /> {t(COPY.work.signature)}
-          </span>
-        )}
       </button>
       <div className={`flex flex-1 flex-col ${lg ? 'p-5 sm:p-7' : 'p-4 sm:p-5'}`}>
         <div className="flex items-center justify-between gap-2">
@@ -520,7 +513,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
   const t = (txt: LocalizedText) =>
     lang === 'en' ? txt.en : lang === 'zhHant' ? (s2t ? s2t(txt.zh) : txt.zh) : txt.zh;
   const navSentinelRef = useRef<HTMLDivElement>(null);
-  const [videos, setVideos] = useState<VideoItem[]>(VIDEOS);
+  const videos = HOME_VIDEOS;
 
   useReveal(`${workFilter}-${showAllProjects}`);
 
@@ -562,20 +555,6 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
     );
     sections.forEach((section) => io.observe(section));
     return () => io.disconnect();
-  }, []);
-
-  // Keep the videos list fresh from the dalei-youtube README; fall back silently
-  // to the bundled list if the fetch/parse fails.
-  useEffect(() => {
-    let alive = true;
-    fetchLatestVideos(6)
-      .then((v) => {
-        if (alive) setVideos(v);
-      })
-      .catch(() => {});
-    return () => {
-      alive = false;
-    };
   }, []);
 
   useEffect(() => {
@@ -626,20 +605,23 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
-  // One signature project is the big hero; everything else goes into a compact
-  // tile grid so the page stays short and scannable.
-  const signature = PROJECTS.find((p) => p.signature);
+  // Curate the first visit by usefulness. Category filters include every match.
+  const signature = workFilter === 'all' ? PROJECTS.find((p) => p.id === HOME_SPOTLIGHT_ID) : undefined;
+  const priority = (id: string) => {
+    const index = HOME_PROJECT_ORDER.indexOf(id);
+    return index < 0 ? HOME_PROJECT_ORDER.length : index;
+  };
   const allTiles = PROJECTS.filter((p) => p.id !== signature?.id)
-    .sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
+    .sort((a, b) => priority(a.id) - priority(b.id));
   const tiles = workFilter === 'all' ? allTiles : allTiles.filter((p) => p.category === workFilter);
   const visibleTiles = showAllProjects ? tiles : tiles.slice(0, 7);
 
   // Filter chips for the Work grid - counts come from the unfiltered set.
   const workFilters: { key: typeof workFilter; label: LocalizedText; count: number }[] = [
-    { key: 'all', label: COPY.work.filterAll, count: allTiles.length },
-    { key: 'ai', label: COPY.work.filterAi, count: allTiles.filter((p) => p.category === 'ai').length },
-    { key: 'creative', label: COPY.work.filterCreative, count: allTiles.filter((p) => p.category === 'creative').length },
-    { key: 'tool', label: COPY.work.filterTool, count: allTiles.filter((p) => p.category === 'tool').length },
+    { key: 'all', label: COPY.work.filterAll, count: PROJECTS.length },
+    { key: 'ai', label: COPY.work.filterAi, count: PROJECTS.filter((p) => p.category === 'ai').length },
+    { key: 'creative', label: COPY.work.filterCreative, count: PROJECTS.filter((p) => p.category === 'creative').length },
+    { key: 'tool', label: COPY.work.filterTool, count: PROJECTS.filter((p) => p.category === 'tool').length },
   ];
 
   return (
@@ -823,15 +805,13 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
                 </button>
               </Magnetic>
               <Magnetic strength={0.4}>
-                <a
-                  href={SOCIALS.youtube}
-                  target="_blank"
-                  rel="noreferrer"
+                <button
+                  onClick={() => goTo('videos')}
                   className="inline-flex items-center gap-2 rounded-full border border-ink/15 bg-ink/5 px-5 py-3 text-sm font-semibold text-ink/85 transition-colors hover:border-ink/30 hover:text-ink"
                 >
                   <YoutubeLogo className="h-4 w-4" weight="fill" />
                   {t(COPY.hero.ctaVideo)}
-                </a>
+                </button>
               </Magnetic>
             </div>
           </div>
@@ -858,7 +838,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
             )}
 
             <div className="reveal flex flex-col gap-4 border-t border-ink/10 pt-8 sm:flex-row sm:items-center sm:justify-between">
-              <h3 className="font-mono text-xs font-medium tracking-[0.08em] text-gold">{t({ en: 'All projects & tools', zh: '全部项目 & 工具' })}</h3>
+              <h3 className="font-mono text-xs font-medium tracking-[0.08em] text-gold">{t({ en: 'Browse by what you need', zh: '按你想做的事找' })}</h3>
               {/* Category filter - scan by interest instead of one long scroll */}
               <div className="flex flex-wrap gap-2" role="group" aria-label={t({ en: 'Filter projects', zh: '筛选项目' })}>
                 {workFilters.map((f) => (
@@ -902,7 +882,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
                   className="inline-flex items-center gap-2 rounded-full border border-ink/20 bg-ink/5 px-5 py-2.5 text-sm font-semibold text-ink/75 transition-colors hover:border-gold/50 hover:text-ink"
                 >
                   {showAllProjects
-                    ? t({ en: 'Show fewer projects', zh: '收起项目' })
+                    ? t({ en: 'Back to the short list', zh: '收起完整目录' })
                     : t({ en: `Show all ${tiles.length + (signature ? 1 : 0)} projects`, zh: `查看全部 ${tiles.length + (signature ? 1 : 0)} 个项目` })}
                   <span aria-hidden="true">{showAllProjects ? '↑' : '↓'}</span>
                 </button>
@@ -963,6 +943,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
                 <h3 className="mt-3.5 font-display text-2xl font-semibold leading-snug tracking-tight text-ink/90 transition-colors group-hover:text-ink sm:text-3xl">
                   {t(videos[0].title)}
                 </h3>
+                <p className="mt-4 text-sm leading-relaxed text-ink/65">{t(videos[0].summary)}</p>
                 <span className="link-underline mt-6 inline-flex w-fit items-center gap-1.5 text-sm font-semibold text-accent">
                   {t({ en: 'Watch on YouTube', zh: '在 YouTube 观看' })}
                   <ArrowUpRight className="h-3.5 w-3.5" />
@@ -1000,6 +981,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
                 <h3 className="mt-3 line-clamp-2 text-sm font-semibold leading-snug text-ink/90 transition-colors group-hover:text-ink">
                   {t(v.title)}
                 </h3>
+                <p className="mt-2 text-sm leading-relaxed text-ink/60">{t(v.summary)}</p>
                 <p className="mt-1.5 font-mono text-[11px] tracking-wide text-ink/40">
                   {v.date} · {v.duration}
                 </p>
@@ -1052,22 +1034,14 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
             </div>
           </div>
 
-          <dl className="about-stats reveal mt-16">
-            {[
-              { value: CHANNEL.subscribers, label: { en: 'YouTube subscribers', zh: 'YouTube 订阅' } as LocalizedText },
-              { value: CHANNEL.videos, label: { en: 'videos shipped', zh: '视频' } as LocalizedText },
-              { value: `${PROJECTS.length}`, label: { en: 'open-source projects', zh: '开源项目' } as LocalizedText },
-            ].map((s) => (
-              <div key={s.label.en} className="about-stat">
-                <dt className="font-display text-4xl font-semibold leading-none tracking-tight sm:text-5xl">
-                  {s.value}
-                </dt>
-                <dd className="mt-2.5 font-mono text-[10.5px] leading-tight tracking-wide text-ink/60">
-                  {t(s.label)}
-                </dd>
-              </div>
-            ))}
-          </dl>
+          <div className="reveal mt-12 flex flex-wrap gap-x-8 gap-y-4 border-t border-ink/10 pt-6">
+            <a href={SOCIALS.github} target="_blank" rel="noreferrer" className="link-underline inline-flex items-center gap-2 text-sm font-semibold text-gold">
+              {t({ en: 'Explore my GitHub', zh: '到 GitHub 看代码' })}<ArrowUpRight className="h-4 w-4" />
+            </a>
+            <a href={SOCIALS.resources} target="_blank" rel="noreferrer" className="link-underline inline-flex items-center gap-2 text-sm font-semibold text-gold">
+              {t({ en: 'Get the video notes & links', zh: '找视频配套资料' })}<ArrowUpRight className="h-4 w-4" />
+            </a>
+          </div>
         </section>
 
         {/* Now */}
@@ -1092,7 +1066,17 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
                     <span className={`h-3.5 w-3.5 rounded-full border ${i === 0 ? 'border-gold/50 bg-gold/15' : 'border-ink/20 bg-ink/5'}`} />
                     {i === 0 && <span className="pulse-dot absolute h-1.5 w-1.5 rounded-full bg-gold" />}
                   </span>
-                  <p className="text-base leading-relaxed text-ink/70">{t(item)}</p>
+                  <div>
+                    <h3 className="text-base font-semibold text-ink/90">{t(item.title)}</h3>
+                    <p className="mt-2 max-w-2xl text-sm leading-relaxed text-ink/65">{t(item.text)}</p>
+                    <a href={item.href} onClick={(event) => {
+                      event.preventDefault();
+                      if (item.href.startsWith('#')) goTo(item.href.slice(1));
+                      else onNavigate(item.href);
+                    }} className="link-underline mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-gold">
+                      {t(item.cta)}<ArrowRight className="h-3.5 w-3.5" />
+                    </a>
+                  </div>
                 </li>
               ))}
             </ul>
@@ -1153,8 +1137,8 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
               </div>
               <p className="mt-3 text-sm leading-relaxed text-ink/70">
                 {t({
-                  en: 'AI automation, creative coding, and the occasional run - everything here is open source.',
-                  zh: 'AI 自动化、创意编程，偶尔跑步 -- 这里的一切都是开源的。',
+                  en: 'Tools to try, lessons to follow, and notes from the process. Source links and credits live with each project.',
+                  zh: '工具可以试，课程可以跟着做。项目来源和相关资料，都放在各自的页面里。',
                 })}
               </p>
             </div>

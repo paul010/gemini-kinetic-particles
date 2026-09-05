@@ -859,6 +859,17 @@ p {
   font-family: "Avenir Next", Avenir, "SF Pro Display", "PingFang SC", system-ui, sans-serif;
 }
 
+/* Chinese display copy needs more breathing room than compact Latin type. */
+[lang^='zh'] .home-hero h1 {
+  font-size: clamp(1.875rem, 5.8vw, 3.25rem);
+  line-height: 1.18;
+  letter-spacing: -0.045em;
+}
+[lang^='zh'] #about h2 {
+  font-size: clamp(1.75rem, 4.3vw, 3rem);
+  line-height: 1.2;
+}
+
 .home-root .bg-aurora {
   background:
     radial-gradient(36% 30% at 78% 18%, rgb(var(--rgb-gold) / 0.08), transparent 72%),

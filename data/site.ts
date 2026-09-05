@@ -33,6 +33,7 @@ export interface Project {
 }
 
 export const SOCIALS = {
+  resources: 'https://github.com/paul010/dalei-youtube',
   github: 'https://github.com/paul010',
   youtube: 'https://www.youtube.com/@dalei2025',
   twitter: 'https://x.com/paul010318',
@@ -57,8 +58,6 @@ export const ASSETS = {
 export const CHANNEL = {
   name: { en: 'Da Lei · Good Morning', zh: '大雷早上好' } as LocalizedText,
   handle: '@dalei2025',
-  subscribers: '4K+',
-  videos: '400+',
 };
 
 export interface VideoItem {
@@ -70,6 +69,37 @@ export interface VideoItem {
 
 export const youtubeWatch = (id: string) => `https://www.youtube.com/watch?v=${id}`;
 export const youtubeThumb = (id: string) => `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
+
+// Homepage picks are editorial, not a claim about the latest channel uploads.
+// Dates, durations and topics checked against the public episode notes.
+export const HOME_VIDEOS: (VideoItem & { summary: LocalizedText })[] = [
+  {
+    id: '3rC3yG3tVb4', date: '2026-04-09', duration: '7:26',
+    title: { en: 'Ghost Pepper: speak instead of typing', zh: 'Ghost Pepper：把语音变成可用的文字' },
+    summary: { en: 'A walkthrough of local voice input, from model setup to text cleanup.', zh: '从模型设置到文字整理，看看本地语音输入怎么用。' },
+  },
+  {
+    id: 'SX36VfssYCg', date: '2026-06-01', duration: '4:56',
+    title: { en: 'Testing DogRouter with a $5 budget', zh: '花 5 美元试试 DogRouter 能不能跑通' },
+    summary: { en: 'What I checked when switching models: cost, latency, and whether the requests work.', zh: '切换模型时，实际看看费用、延迟，以及请求能不能成功。' },
+  },
+  {
+    id: '37czL7hLLPM', date: '2026-04-07', duration: '3:16',
+    title: { en: 'Using AI to organize what you learn', zh: '用 AI 整理知识：从资料堆到能复用的笔记' },
+    summary: { en: 'An introduction to maintaining a useful knowledge base with AI.', zh: '聊聊 AI 怎样参与知识库的整理和维护。' },
+  },
+  {
+    id: 'dYTeo_qNX6E', date: '2025-12-04', duration: '1:04',
+    title: { en: 'A particle universe controlled by your hands', zh: '用双手控制 3D 粒子，看一段实际演示' },
+    summary: { en: 'A short demo of the interactive particle project on this site.', zh: '一分钟看看本站粒子项目的手势互动效果。' },
+  },
+];
+
+export const HOME_SPOTLIGHT_ID = 'hear-the-universe';
+export const HOME_PROJECT_ORDER = [
+  'ai-coding-arsenal', 'markdown-studio', 'image-studio',
+  'ai-benchmark', 'microsoft-cat-agent-skills', 'copilot-camp-cowork', 'kinetic-particles',
+];
 
 /**
  * The video index is kept in the dalei-youtube repo's README. We fetch it at
@@ -178,8 +208,8 @@ export const PROJECTS: Project[] = [
     featured: true,
     cover: '/notebook-world-skill-cover.svg',
     tagline: {
-      en: 'Turn warm paper, ink, tape and doodles into a reusable interface system.',
-      zh: '把纸张、墨迹、胶带和涂鸦，变成一套可以反复调用的界面设计方法。',
+      en: "A reusable skill for building notebook-style learning pages.",
+      zh: "用一套可复用的设计 Skill，做手写笔记风格的学习页面。",
     },
     description: {
       en: 'An open Codex Skill and zero-build starter for learner pages, portfolios, project explainers and workshop companions. It turns content into a continuous notebook journey instead of another equal-card grid, while keeping responsive layouts, dark mode, keyboard access, reduced motion and production verification as hard delivery gates. The repository includes the Skill, design tokens, component anatomy, an original SVG illustration, copy-ready HTML/CSS/JS, and dependency-free copy and audit scripts.',
@@ -200,8 +230,8 @@ export const PROJECTS: Project[] = [
     featured: true,
     cover: '/kinetic-cover-1200.webp',
     tagline: {
-      en: 'A 3D particle universe you control with your hands - no API key, runs in the browser.',
-      zh: '用双手控制的 3D 粒子宇宙 -- 无需 API Key，浏览器即开即用。',
+      en: "Open the camera and use hand gestures to shape a 3D particle field.",
+      zh: "打开摄像头，用手势控制粒子的聚散和形状。",
     },
     description: {
       en: 'Open your palm and 12,000+ particles bloom outward; close your fist and the universe contracts. Built with React Three Fiber and on-device MediaPipe hand tracking, with a sci-fi HUD and a dozen morphing shapes.',
@@ -209,7 +239,7 @@ export const PROJECTS: Project[] = [
     },
     tags: ['React Three Fiber', 'Three.js', 'MediaPipe', 'WebGL'],
     links: [
-      { label: { en: 'Launch experience', zh: '立即体验' }, href: '/particles', kind: 'internal' },
+      { label: { en: "Open the particle experience", zh: "打开粒子体验" }, href: '/particles', kind: 'internal' },
       { label: { en: 'Watch demo', zh: '观看演示' }, href: 'https://www.youtube.com/watch?v=dYTeo_qNX6E', kind: 'youtube' },
       { label: { en: 'Source', zh: '源码' }, href: 'https://github.com/paul010/gemini-kinetic-particles', kind: 'github' },
     ],
@@ -223,8 +253,8 @@ export const PROJECTS: Project[] = [
     featured: true,
     cover: '/arsenal-cover-1200.webp',
     tagline: {
-      en: 'An open-source launchpad from an AI-coding idea to a running demo.',
-      zh: '从 AI Coding 灵感到可运行 Demo 的开源开工库。',
+      en: "Pick an idea, find a skill, and copy a prompt to start building.",
+      zh: "挑个项目灵感，配好 Skill，复制提示词就能开始动手。",
     },
     description: {
       en: 'A project radar + skill armory + recipe recommender + content workbench: see a project, judge if it’s worth doing, get the right Skills, copy a kick-off prompt for Codex / Claude Code, then turn it into content.',
@@ -232,7 +262,7 @@ export const PROJECTS: Project[] = [
     },
     tags: ['React', 'TypeScript', 'AI Coding', 'Skills'],
     links: [
-      { label: { en: 'Launch', zh: '立即体验' }, href: '/arsenal', kind: 'internal' },
+      { label: { en: "Find a project idea", zh: "找项目灵感" }, href: '/arsenal', kind: 'internal' },
       { label: { en: 'Watch demo', zh: '观看演示' }, href: SOCIALS.youtube, kind: 'youtube' },
     ],
   },
@@ -243,8 +273,8 @@ export const PROJECTS: Project[] = [
     year: '2026',
     status: 'live',
     tagline: {
-      en: 'From training notes to a classroom that 60 children can actually join.',
-      zh: '从 TTT 学习笔记，到 60 个孩子真正参与的代码课堂。',
+      en: "Plan an Hour of Code lesson with activities, timing, and teaching notes.",
+      zh: "准备一堂代码一小时：怎么分配时间、设计活动、带学员动手。",
     },
     description: {
       en: 'A presentation-ready workshop page about redesigning an Hour of Code class: learning goals, classroom rhythm, participation design, AI time compression, and the reusable dalei-hour-of-code skill.',
@@ -264,16 +294,16 @@ export const PROJECTS: Project[] = [
     featured: true,
     cover: '/hear-the-universe-world.webp',
     tagline: {
-      en: 'A Chinese, keyboard-first Hour of Code experience designed for blind learners.',
-      zh: '为视障学习者设计的中文、键盘优先“代码一小时”。',
+      en: "A first coding lesson guided by keyboard controls and sound.",
+      zh: "用键盘和声音，迈出编程的第一步。",
     },
     description: {
-      en: 'A scrollable 60-minute classroom world and five guided missions combine output, variables, input, arithmetic and conditional debugging with screen-reader announcements, a Where am I command, instructor cues, a printable run card and an anonymous completion certificate.',
-      zh: '七站滚动课堂世界对齐 60 分钟活动流程，五个任务依次练习输出、变量、输入、运算和条件调试；内置读屏播报、“我在哪里”、讲师提示、可打印执行卡与无姓名完成证明。',
+      en: 'A Chinese coding lesson designed for blind learners. Start by making the program say something, then try variables, input, and conditions. Learners get keyboard controls and spoken feedback; instructors get teaching notes and a printable run card.',
+      zh: '为视障学习者设计的中文互动课。从输出一句话开始，逐步练习变量、输入和判断。学员可以用键盘完成任务，讲师有配套提示和执行卡。',
     },
     tags: ['Accessibility', 'Hour of Code', 'Scroll World', 'Keyboard First'],
     links: [
-      { label: { en: 'Start the missions', zh: '开始任务' }, href: '/hear-the-universe', kind: 'internal' },
+      { label: { en: "Open the interactive lesson", zh: "进入互动课" }, href: '/hear-the-universe', kind: 'internal' },
       { label: { en: 'Learning reference', zh: '学习逻辑参考' }, href: 'https://quorumlanguage.com/hourofcode/astro1.html', kind: 'live' },
     ],
   },
@@ -287,16 +317,16 @@ export const PROJECTS: Project[] = [
     signature: true,
     cover: '/bench-cover-1200.webp',
     tagline: {
-      en: 'A fixed personal benchmark - the same prompts, every model, side by side.',
-      zh: '固定题目 + 统一规范,把各家模型的真实输出横向摆在一起对照。',
+      en: "Compare model examples, with recorded runs and simulated showcases clearly labeled.",
+      zh: "并排看模型案例，区分实测记录与模拟展示。",
     },
     description: {
-      en: 'My own scarce, repeatable AI evaluation: a fixed set of prompts (SVG pelican-on-a-bike, gradient butterfly, landing pages…) with each model’s real output - SVG/HTML/screenshots - rendered side by side. Open it on camera and the comparison is right there.',
-      zh: '我自己的稀缺、可复用的 AI 横评:一套固定 Prompt(鹈鹕骑车 SVG、渐变蝴蝶、落地页…),把 Claude / Gemini / ChatGPT 等各家的真实输出(SVG/HTML/截图)并排渲染。录视频时打开页面,对照一目了然 -- 个人唯一的对照价值。',
+      en: 'A gallery of fixed prompts and side-by-side model examples. Check each entry’s source label: recorded runs and simulated showcases are separate. Simulated images illustrate possibilities and do not establish a model’s measured performance.',
+      zh: '用固定题目并排展示模型案例。每项先看来源标注：实测记录与模拟展示分开呈现。模拟图用于展示可能的效果，不代表模型的真实能力评分。',
     },
     tags: ['Benchmark', 'LLM Eval', 'SVG', 'React'],
     links: [
-      { label: { en: 'Launch', zh: '立即体验' }, href: '/bench', kind: 'internal' },
+      { label: { en: "Explore the examples", zh: "查看案例" }, href: '/bench', kind: 'internal' },
       { label: { en: 'Watch demo', zh: '观看演示' }, href: SOCIALS.youtube, kind: 'youtube' },
     ],
   },
@@ -309,8 +339,8 @@ export const PROJECTS: Project[] = [
     featured: true,
     cover: '/fugu-cover.svg',
     tagline: {
-      en: 'Can a tiny linear router orchestrate a pool of LLMs to beat the best single model? I reproduced the claim on CPU.',
-      zh: '一个极小的线性路由器，真能编排一池大模型、打败最强单模型吗？我在 CPU 上把这个论文结论复现了一遍。',
+      en: "A CPU reproduction of routing logic and synthetic experiments, with code and limits.",
+      zh: "用 CPU 验证路由逻辑和合成实验，附代码、结果与适用边界。",
     },
     description: {
       en: 'A hands-on validation of Sakana AI’s Fugu (the TRINITY coordinator, arXiv:2512.04695), using the open-source openfugu reimplementation. Two independent checks run on CPU with only numpy: (1) I drive the real Coordinator loop with a scripted router - 6/6 control-flow behaviours match the paper; (2) I reproduce the central claim with a from-scratch sep-CMA-ES, training a linear router over a synthetic specialist pool. Across 8 seeds it lifts +79% over the best single worker and recovers 99.9% of the oracle, converging in ~2 generations. Full report + runnable script on the page.',
@@ -332,8 +362,8 @@ export const PROJECTS: Project[] = [
     featured: true,
     cover: 'https://cdn.jsdelivr.net/gh/paul010/dalei-youtube@master/whiteboard-dalei.png',
     tagline: {
-      en: 'One prompt, one photo → a whole hand-drawn whiteboard of who I am and how I work.',
-      zh: '一段提示词 + 一张照片 → 一整张手绘白板,讲清我是谁、我怎么工作。',
+      en: "A photo and a prompt turned into a whiteboard self-introduction.",
+      zh: "用一张照片和一段提示词，把自我介绍画成手绘白板。",
     },
     description: {
       en: 'A single-prompt personal infographic: Microsoft Copilot turns a headshot and my LinkedIn / Work IQ profile into a photoreal cartoon whiteboard - what I do, who I work with, my role, my values, my tools, and a day in my life. A fun, repeatable way to render your professional identity. Prompt below, result on the left.',
@@ -355,8 +385,8 @@ export const PROJECTS: Project[] = [
     featured: true,
     cover: '/ai-library-cover.svg',
     tagline: {
-      en: 'A curated, structured Notion library of the latest open-source, landing-ready AI solutions.',
-      zh: '一个结构化、持续更新的 Notion 库 -- 收录最新可落地的开源 AI 方案。',
+      en: "Browse the AI tools and open-source solutions I have collected.",
+      zh: "从我整理的 AI 工具和开源方案里，找一个适合你的起点。",
     },
     description: {
       en: 'The structured backbone of my AI content: a Notion database cataloging open-source / free AI solutions, each scored and tagged by use case (AI Agent, MCP, RAG, Deep Research…), category, maturity, cost, business value, target role, and a “personally tested” flag. Browse it as a gallery, table, board (by industry), or calendar (the AI daily). Free to use.',
@@ -377,8 +407,8 @@ export const PROJECTS: Project[] = [
     featured: true,
     cover: '/copilot-demo-cover.svg',
     tagline: {
-      en: 'One fictional project, three live upgrades: clarify the task, verify the facts, then build a bounded Agent.',
-      zh: '同一个虚构项目，三次现场升级：把任务说清楚、把事实找准确、再创建有边界的 Agent。',
+      en: "Practice defining a task, checking facts, and creating an agent with sample materials.",
+      zh: "用一套练习材料，体验说清任务、核对事实和创建 Agent。",
     },
     description: {
       en: 'A learner-facing practice companion for a two-hour, 100+ person Microsoft Copilot sharing session. It maps directly to the slide deck and turns three demos into clear tasks: clarify a request, verify facts across four fictional files, then create a bounded Agent. Colleagues with the right access can copy the same prompts and follow along; everyone else can observe the input, output, and change, then keep the kits for later practice.',
@@ -399,8 +429,8 @@ export const PROJECTS: Project[] = [
     featured: true,
     cover: '/copilot-cover.svg',
     tagline: {
-      en: 'The whole Copilot & Agent stack in three tiers - Use → No-code → Develop. My field note, as of June 2026.',
-      zh: '用三层架构看懂 Copilot 与 Agent 全家桶 -- 使用 → 无代码 → 开发。我的阶段性总结，截至 2026 年 6 月。',
+      en: "My June 2026 guide to Copilot products and agent-building options.",
+      zh: "我在 2026 年 6 月整理的 Copilot 产品与 Agent 开发方式速查。",
     },
     description: {
       en: 'A native, bilingual rebuild of my Microsoft Copilot / Agent product matrix: each product’s license, credit cost (with a usage meter), what it does, and who it’s for - across the Use (Copilot/Cowork), No-code (Agent Builder/Copilot Studio) and Develop (Foundry/dev stack) tiers, plus the employee→developer path. Rebuilt as real web content (not a screenshot), so it’s searchable and stays current.',
@@ -421,8 +451,8 @@ export const PROJECTS: Project[] = [
     featured: true,
     cover: '/videolab-cover.svg',
     tagline: {
-      en: 'Type a theme → a 6-shot script → keyframes → a cinematic short. My live experiment in end-to-end AI filmmaking.',
-      zh: '输入一个主题 → 6 镜脚本 → 关键帧 → 一部电影感短片。我做的端到端 AI 影片生成现场试验。',
+      en: "Explore a video-making experiment, from a topic to a script and keyframes.",
+      zh: "从主题到脚本、关键帧，看看 AI 短片制作的实验流程。",
     },
     description: {
       en: 'A hands-on lab that turns a theme into a cinematic short. An LLM breaks it into 6 shots (framing, action, timing); storyboards become photoreal keyframes; then image-to-video synthesizes and composites the segments with transitions and audio. Aspect ratios from 16:9 to 2.39:1, tunable duration and visual style (Kodak 2383, neon noir, Ghibli). Wires together Jimeng 3.0 / Doubao Seedream (image), Seedance 2.0 (video) and Claude Opus 4.7 / GPT-5 / DeepSeek (script) - built to show how far end-to-end AI filmmaking has come, and the cost gap vs a traditional shoot.',
@@ -443,8 +473,8 @@ export const PROJECTS: Project[] = [
     featured: true,
     cover: '/perler-cover.svg',
     tagline: {
-      en: 'A free 3D perler-beads web game - place beads, iron, and snap a photo with your pixel art. AI designers can compose it for you.',
-      zh: '免费的 3D 拼豆网页游戏 -- 一颗颗拼、烫、和作品合影。还能让 AI 设计师替你构图配色。',
+      en: "Make a bead design in 3D, try templates, and photograph the result.",
+      zh: "在 3D 网页里拼豆、套模板，再给自己的作品拍张照。",
     },
     description: {
       en: 'Arrange colorful beads on a virtual pegboard (square 14-40, circle, heart) with brush / bucket / line / eraser and a color picker, in a rotatable, zoomable 3D scene - then iron, export and photograph the result. Start from templates (Mario, Space Invaders, Pac-Man…), turn an image into a bead pattern, or free-create; an “AI 设计” mode has four AI designers compose and color it for you (bring your own key - Claude / OpenAI / DeepSeek / Kimi / 通义 / OpenRouter / local). One-click share to X / LinkedIn.',
@@ -464,8 +494,8 @@ export const PROJECTS: Project[] = [
     featured: true,
     cover: '/hpprompt-cover.svg',
     tagline: {
-      en: 'A prompt library for HP’s FY26 Digital Academy - “safe, practical, purposeful”, built around the Microsoft Copilot ecosystem.',
-      zh: 'HP FY26 数字学院的 AI 提示词库 --「安全、实用、有目的」，围绕 Microsoft Copilot 工具生态。',
+      en: "Find work-related prompt examples for the Microsoft Copilot ecosystem.",
+      zh: "按工作场景查找 Microsoft Copilot 提示词示例。",
     },
     description: {
       en: 'A prompt library I built for HP’s FY26 Digital Academy: organized, ready-to-use prompts under a “safe, practical, purposeful” principle, centered on the Microsoft Copilot ecosystem, to help employees pick up frontier productivity tools. A real internal-enablement asset - prompts by scenario, mapped to Copilot workflows across Word / Excel / Teams and beyond.',
@@ -485,8 +515,8 @@ export const PROJECTS: Project[] = [
     featured: true,
     cover: '/hpworkshop-cover.svg',
     tagline: {
-      en: 'A projector-first console for teaching a full-day AI workshop: the day’s agenda, nine Copilot scenarios, every prompt one click from the clipboard, acceptance tests, and the teaching notes - all offline.',
-      zh: '为全天 AI 工作坊而做的投屏讲解台：全天环节 + 9 个 Copilot 案例，提示词一键复制、验收测试成表、讲师要点随讲随翻 -- 全程离线可用。',
+      en: "Run a Copilot workshop with demo prompts, teaching notes, and checklists.",
+      zh: "讲 Copilot 工作坊时，随手查演示提示词、讲师笔记和检查清单。",
     },
     description: {
       en: 'Built to be projected while teaching, not read afterwards. The top bar carries the full-day agenda (opening → HTML mini-tools → lunch → AI imagery → agents + wrap-up) with a per-block countdown so the day stays on schedule; the rail holds nine scenarios grouped by part, each colour-coded. Every scenario opens on its prompt with one oversized Copy button - the instructor pastes straight into Copilot Web, Microsoft Designer or Copilot Studio without leaving the page - and carries three more tabs: the sample data / knowledge file (also copyable), the acceptance-test table (agent boundary tests at 90+ are flagged red), and teaching notes ending in a “failure to stage on purpose”. Driven entirely from the keyboard: ← → to move, 1-9 to jump, F fullscreen, T timer, H to hide the rail. Everything is inlined, so it works with no network in a training room. The nine scenarios follow the Microsoft Copilot starter-kit structure - a shift scheduler with real constraint rules, an expense splitter, a feedback classifier, a safety infographic, an event poster, a 30-second storyboard, and IT / HR / facilities agents. All sample data is classroom fiction; no real employee, customer or ticket data.',
@@ -508,8 +538,8 @@ export const PROJECTS: Project[] = [
     signature: true,
     cover: '/quyou-bus-cover.svg',
     tagline: {
-      en: 'A 3D browser remake of Chengdu’s real immersive party-bus night tour - a first-person three.js cabin that dances to a live-synthesised funk groove, an AI host「Green」, station games including beat-matching, and a tear-off ticket. Fully offline, right here on the site.',
-      zh: '把成都那辆沉浸式派对夜游巴士，在浏览器里 3D 复刻成站内一站：实时合成 funk 律动带着整个车厢跟拍起舞、AI 主理人「阿绿」、到站小游戏（含节奏拍点）、下车出联票。纯前端，无需后端跑完全程。',
+      en: "Step into a virtual Chengdu night bus with music and mini-games.",
+      zh: "坐进一辆虚拟成都夜游巴士，听音乐、玩到站小游戏。",
     },
     description: {
       en: 'Chengdu’s Quyou Bus wraps a graffiti city bus into a moving playground: a costumed host narrates the city while the bus rolls Chunxi Road → Taikoo Li → Hejiang Pavilion → 339 Tower, mixing culture talk with dialect games and open mic. This is that experience decomposed into a playable skeleton and rebuilt as an internal sub-project. The whole cabin runs on a live-synthesised funk/disco groove - kick, snare, hat, filtered bass and chord stabs sequenced in Web Audio with zero audio files, a different tempo and key at every station - and everything on board dances to it: the disco lights punch on the kick, seats and poles pulse, the passengers bob, the camera bounces, confetti bursts on a win. A first-person three.js cabin (seats, graffiti poles with swinging grab-handles, tinsel ceiling, string lights, disco ball, a hand-modeled host「Green」) drives past a procedurally generated night city - recycled buildings whose window grids are drawn on CanvasTexture, each lit differently, with low-frequency bus bumps so the still scene feels alive. A state-machine UI dressed as the bus itself (LED destination sign up top, a station-progress handrail below, a tear-off ticket at the end) runs the loop: the host announces each stop, narrates its culture, then throws a game - Sichuan-dialect guessing, old-song trivia (singer/era/where-featured, never lyrics), a beat-matching rhythm game scored against the live groove (perfect / good / off-beat), or an open mic that hypes and scores your input. All narration, questions and blessings ship as built-in offline banks so the ride always completes; an optional AI proxy could swap them for live generation. All 3D, copy and question banks are original - no affiliation with, or assets from, the real operator.',
@@ -530,8 +560,8 @@ export const PROJECTS: Project[] = [
     featured: true,
     cover: '/farmer-cover.svg',
     tagline: {
-      en: 'A 3D river-crossing logic game - an extended wolf-goat-cabbage puzzle with chained rules. Ferry apple/chicken/sheep/snake/tiger across; a built-in BFS solver powers Hint & Auto-solve. Optimal is 9 crossings.',
-      zh: '3D 过河逻辑小游戏 -- 狼羊菜的加强版，带连锁规则。把苹果/鸡/羊/蛇/老虎渡到对岸；内置 BFS 求解器提供「提示」与「自动演示最优解」。最优 9 次渡河。',
+      en: "Solve a 3D river-crossing puzzle, with hints when you get stuck.",
+      zh: "试着解开 3D 过河谜题，卡住了可以看提示和解法。",
     },
     description: {
       en: 'A playable Three.js game built from primitives (no external models). The boat carries the farmer plus one item; whenever the farmer is away from a bank the chained rules bite - tiger eats sheep unless a chicken is there, snake eats chicken unless a tiger is there, sheep eats apple unless a snake is there. Click an animal on the farmer’s bank to load it, then row across; get all five over to win. Orbit the low-poly scene (animated water, banks, boat, hand-modeled farmer/apple/chicken/sheep/snake/tiger), track crossings vs. the optimal 9, and lean on a real BFS solver for a next-move Hint or a full Auto-solve walkthrough. Bilingual, in the site’s warm-paper look. Inspired by a 农夫过河 animation seen in a course.',
@@ -552,8 +582,8 @@ export const PROJECTS: Project[] = [
     featured: true,
     cover: '/text2image-cover.svg',
     tagline: {
-      en: 'A workshop column for making good images with words: the 7-block prompt anatomy, an interactive builder, ready-to-use scenario templates, and how to lock a style for platform-level batches.',
-      zh: 'Workshop 专栏 · 用文字做好图：提示词七模块结构 + 交互搭建器 + 即用场景模板 + 平台级批量的「风格锁」。',
+      en: "Build an image prompt step by step, using reusable scene templates.",
+      zh: "逐步搭建生图提示词，挑一个场景模板接着改。",
     },
     description: {
       en: 'A hands-on teaching column for text-to-image prompting. It breaks a prompt into seven ordered blocks (subject, scene, style, composition/camera, light, quality, params) with a color-coded example; an interactive builder assembles a complete Chinese + English prompt live as you type a subject and tap chips; six ready-to-use scenario templates cover e-commerce hero shots, professional headshots, slide covers, event key visuals, icon sets and concept scenes - each with highlighted {slots} to fill and a practical tip. A platform-level section teaches how to lock a look for a whole batch (style prefix, negative prompt, reference image + seed, naming) with a reusable copyable "style-lock" template, plus a click-to-copy modifier cheat-sheet (style / light / camera / quality / mood). Prompts are model-agnostic - Midjourney, 即梦, 豆包, Nano Banana, DALL·E. All copy and templates are original.',
@@ -574,8 +604,8 @@ export const PROJECTS: Project[] = [
     featured: true,
     cover: '/aihtml-cover.svg',
     tagline: {
-      en: 'A workshop column: scenario + copyable prompt + a live self-contained demo (ECharts / SheetJS / CSS / Three.js). Hit 🎲 to spotlight a random effect.',
-      zh: 'Workshop 专栏：业务场景 + 可复制提示词 + 实时自包含效果（ECharts / SheetJS / CSS / Three.js）。点 🎲 随机弹一个上台演示。',
+      en: "Try small HTML tools and reuse the prompts behind them.",
+      zh: "先体验 HTML 小工具，再复制它背后的提示词自己做。",
     },
     description: {
       en: 'For a business audience, one clickable result beats an hour on how models work. This column collects prompt recipes that make AI produce something you can SEE - a sales dashboard (ECharts), a web spreadsheet cleaner (SheetJS), glassmorphism / flowing-gradient / flip-card CSS effects, a particle network and warp-speed starfield (Canvas), a spinning 3D cube (Three.js), plus mini tools (pomodoro, palette generator). Each card carries the business scenario, a copyable Chinese prompt, and a live demo that runs fully sandboxed in your browser - no external calls. A 🎲 “random demo” button spotlights one on stage, built for the 2026-07-28 workshop. Prompt-library format inspired by 归藏的提示词库; scenarios, prompts and demos are original.',
@@ -596,8 +626,8 @@ export const PROJECTS: Project[] = [
     featured: true,
     cover: '/notebooklm-cover.svg',
     tagline: {
-      en: 'Feed NotebookLM a short YAML style spec and it renders any topic as a consistent hand-drawn / line-art slide deck. Pick a look, copy, paste.',
-      zh: '给 NotebookLM 一段简短的 YAML 风格规格，它就把任意主题生成成风格统一的手绘线画幻灯片。选风格、复制、粘贴。',
+      en: "Choose a visual style and copy a prompt for illustrated slides.",
+      zh: "选一种线画风格，复制提示词去生成幻灯片。",
     },
     description: {
       en: 'A bilingual showcase of the “YAML style spec → hand-drawn slides in NotebookLM” technique (credited to しらき@パワポ図解). Four looks - minimal line art, crayon doodle, warm line, flat infographic - each with an original, copyable YAML template you tune (deck language, slide count, palette) and a live style thumbnail. Includes a three-step how-to and the rules that keep a deck visually consistent (one message per slide, one accent color, uniform line weight, generous white space). The YAML is an original template and the thumbnails are original renderings - the source post is credited and linked.',
@@ -618,8 +648,8 @@ export const PROJECTS: Project[] = [
     featured: true,
     cover: '/promptforge-cover.svg',
     tagline: {
-      en: 'Paste a rough ask → a rule engine decomposes it into CO-STAR / CRISPE / BROKE slots → a complete prompt, with verification clauses. No LLM call.',
-      zh: '贴一段大白话 → 规则引擎按 CO-STAR / CRISPE / BROKE 框架拆槽位 → 组装完整提示词，可注入验证条款。不调大模型。',
+      en: "Turn a plain-language request into a structured prompt, without an API call.",
+      zh: "把大白话整理成结构化提示词，无需调用模型。",
     },
     description: {
       en: 'A teaching tool for the workplace loop: write the prompt, verify the output, challenge the conclusion. Fully client-side and rule-based (transparent regex heuristics - no LLM): it detects role, audience, format, tone, constraints and examples from your rough description, slots them into six popular frameworks (a 2026 best-practice composite, CO-STAR, CRISPE, ICIO, BROKE, RTF), lets you refine each slot, and assembles the prompt in XML-tag or Markdown structure. One click adds verification clauses - reason first, admit uncertainty, evidence per claim, self-critique, clarify before assuming. Ends with a six-habit 2026 best-practice cheat sheet.',
@@ -640,8 +670,8 @@ export const PROJECTS: Project[] = [
     featured: true,
     cover: '/copilotcamp-cover.svg',
     tagline: {
-      en: 'Microsoft’s Copilot Cowork lab, rebuilt as a Khan-Academy-style course - units, progress, and a quiz per lesson.',
-      zh: '把微软的 Copilot Cowork 实验重建成可汗学院式课程 -- 单元、进度、每节随堂检测。',
+      en: "Work through guided Copilot lessons with quizzes and saved progress.",
+      zh: "跟着 Copilot 实验逐课练习，做随堂检测，保存学习进度。",
     },
     description: {
       en: 'A bilingual learning rebuild of Microsoft Copilot Camp’s lab "CWRK0 · Copilot Cowork setup and extensibility". Not a flat article - a real course: four units (understand Cowork → prepare your tenant → run your first delegated tasks → extend it with Skills & Plugins), a progress sidebar with persisted completion, copyable demo prompts, every official screenshot vendored into this repo, and a knowledge check after every lesson. Content & screenshots © Microsoft, used for study.',
@@ -649,7 +679,7 @@ export const PROJECTS: Project[] = [
     },
     tags: ['Microsoft Copilot', 'Cowork', 'Course', 'Learning'],
     links: [
-      { label: { en: 'Start the course', zh: '开始学习' }, href: '/copilotcamp', kind: 'internal' },
+      { label: { en: "Start a lesson", zh: "开始学习" }, href: '/copilotcamp', kind: 'internal' },
       { label: { en: 'Original lab', zh: '实验原文' }, href: 'https://microsoft.github.io/copilot-camp/pages/copilot-cowork/00-cowork-setup/', kind: 'live' },
     ],
   },
@@ -662,8 +692,8 @@ export const PROJECTS: Project[] = [
     featured: true,
     cover: '/agents-cover.svg',
     tagline: {
-      en: 'Ready-to-use agent templates by scenario - copy the system prompt, ship an agent.',
-      zh: '按场景分好的开箱即用 Agent 模板 -- 复制系统提示词,直接上手建 Agent。',
+      en: "Choose a task and adapt a system prompt for your agent.",
+      zh: "按任务挑选 Agent 系统提示词，复制后按自己的场景修改。",
     },
     description: {
       en: 'A gallery of agent templates across scenarios - Creator, Engineering, Marketing, Productivity, Product, Research. Each card carries a battle-tested, copyable system prompt plus suggested tool integrations and example tasks. Drop the prompt into Copilot Studio or any agent platform and go. Prompts are in English so they’re portable anywhere.',
@@ -684,8 +714,8 @@ export const PROJECTS: Project[] = [
     featured: true,
     cover: '/skills-cover.svg',
     tagline: {
-      en: 'Modular agent capabilities - search, render, fetch, compute, transact - by provider.',
-      zh: '可插拔的 Agent 能力 -- 搜索、生成、抓取、计算、交易 -- 按服务接入。',
+      en: "Browse agent skills by capability and follow their setup links.",
+      zh: "按用途查找 Agent 技能，跟着链接了解怎么接入。",
     },
     description: {
       en: 'If agents are the persona, skills are the powers. A library of ~27 modular capabilities, each backed by a provider/API (Tavily, ElevenLabs, Whisper, pgvector, Playwright, GitHub…), grouped by domain - Media, Research, Data, Commerce, Dev. Copy the skill brief into your agent’s tool definition; keys stay in your own environment. Companion to the Agent Templates.',
@@ -706,8 +736,8 @@ export const PROJECTS: Project[] = [
     featured: true,
     cover: '/cat-skills-cover.webp',
     tagline: {
-      en: 'A locally distributed catalog of Microsoft CAT community Skills for training and hands-on use.',
-      zh: '为培训与实战准备的 Microsoft CAT 社区 Skill 本地分发目录。',
+      en: "Search Microsoft CAT community skills and check source details before downloading.",
+      zh: "搜索微软 CAT 社区技能，核对来源后下载使用。",
     },
     description: {
       en: 'A full local distribution mirror of the Microsoft CAT Agent Skills gallery. The catalog vendors 76 published entries, their metadata, readable Markdown, and every available ZIP, JSON, or SKILL.md download. Search by name, author, platform, type, or tag; inspect provenance and fixed-commit source links before installing. A repeatable sync script keeps the mirror refreshable while preserving contributor attribution and the upstream MIT license.',
@@ -715,7 +745,7 @@ export const PROJECTS: Project[] = [
     },
     tags: ['Microsoft', 'Agent Skills', 'Copilot Studio', 'Training'],
     links: [
-      { label: { en: 'Open distribution catalog', zh: '打开分发目录' }, href: '/cat-skills', kind: 'internal' },
+      { label: { en: "Find a skill", zh: "查找技能" }, href: '/cat-skills', kind: 'internal' },
       { label: { en: 'Official gallery', zh: '微软官方图库' }, href: 'https://microsoft.github.io/cat-agent-skills/', kind: 'live' },
     ],
   },
@@ -728,8 +758,8 @@ export const PROJECTS: Project[] = [
     featured: true,
     cover: '/town-cover.svg',
     tagline: {
-      en: 'A tiny town where AI townsfolk live their day - coffee, work, an evening chat.',
-      zh: '一个小镇,AI 居民按日程过日子 -- 喝咖啡、上班、傍晚在广场闲聊。',
+      en: "Observe a virtual town to explore how generative agents are organized.",
+      zh: "看看虚拟小镇居民的日程与交流，了解生成式智能体的设计思路。",
     },
     description: {
       en: 'An interactive canvas homage to Stanford’s “Generative Agents: Interactive Simulacra of Human Behavior” (Park et al., 2023): eight townsfolk move between café, library, office, park and home on a simulated day-night clock, with status bubbles and a live activity log. Honest scope - the routines are scripted, not LLM-driven - a lightweight visual tribute that runs entirely in your browser.',
@@ -750,8 +780,8 @@ export const PROJECTS: Project[] = [
     featured: true,
     cover: '/patterns-cover.svg',
     tagline: {
-      en: 'The agent design patterns, organized along the agent loop - a coordinate system, not a checklist.',
-      zh: '把 Agent 设计模式沿「Agent 回路」排开 -- 是坐标系,不是平铺清单。',
+      en: "Find common patterns for planning, memory, tools, and agent collaboration.",
+      zh: "按规划、记忆、工具调用和协作，查找常见 Agent 设计模式。",
     },
     description: {
       en: 'A study map of how to architect an agent, structured after 黄佳’s “Agent 设计模式之美”. Instead of a flat list, the patterns sit on the seven layers of the agent loop - Perception, Memory, Reasoning, Action, Reflection, Collaboration, Governance - plus Composition, so you choose by where your problem actually sits. Bilingual, with a one-line summary for each of ~32 patterns.',
@@ -772,8 +802,8 @@ export const PROJECTS: Project[] = [
     featured: true,
     cover: '/prompts-cover.svg',
     tagline: {
-      en: '124 ready-to-use “act as …” role prompts - search, filter, copy.',
-      zh: '124 条「我希望你充当…」角色提示词 -- 搜索、筛选、一键复制。',
+      en: "Search role prompts, copy one, and adapt it to your task.",
+      zh: "搜索角色提示词，复制一条，再按自己的任务调整。",
     },
     description: {
       en: 'A base camp of prompt ammo for any model: 124 Chinese role prompts (translator, Linux terminal, interviewer, writing coach, and more) with full-text search and topic quick-filters, each one-click copyable. Sourced from PlexPt/awesome-chatgpt-prompts-zh (CC0); rebuilt as a searchable in-browser library, tri-lingual UI (繁體 converted on the fly).',
@@ -794,8 +824,8 @@ export const PROJECTS: Project[] = [
     featured: true,
     cover: '/lab3d-cover.svg',
     tagline: {
-      en: '63 Three.js scene prompts from petergpt - browse, copy, and watch them become live pages. Seven executed: balloons, misty pillars, the falls, fireflies, the ice city, the palace, the salmon run.',
-      zh: '63 条来自 petergpt 的 Three.js 场景提示词 -- 浏览、复制、看它们变成真实页面。已生成 7 个:热气球、雾中石林、大瀑布、萤火虫、冰城、紫禁城、鲑鱼洄游。',
+      en: "Browse 3D scene prompts and try the interactive examples already built.",
+      zh: "浏览 3D 场景提示词，打开已经做出来的互动示例。",
     },
     description: {
       en: 'A workbench that turns a prompt collection into living results. All 63 prompts from petergpt/3d-prompt-collection are vendored verbatim with credit - searchable by section (big worlds, playable scenes, natural spectacles…), each copyable in one click. The twist: prompts I actually execute become full-screen Three.js pages launched right from their card. Prompt #26 is live - 90 instanced hot-air balloons drifting over fairy chimneys at dawn, with a time-of-day slider, wind controls, and a ride-along basket camera. More prompts get executed on request; the workbench is the results index.',
@@ -817,8 +847,8 @@ export const PROJECTS: Project[] = [
     featured: true,
     cover: '/chengdu-cover.svg',
     tagline: {
-      en: 'A July business-trip field guide - interactive prep checklist, the Chengdu flavor cheat sheet, four evenings and one stolen morning.',
-      zh: '七月出差版实用指南 -- 可勾选的行前清单、成都特色速查、四个晚上加偷来的一个上午。',
+      en: "A personal Chengdu trip plan with places to visit and a packing checklist.",
+      zh: "一份个人成都出行笔记：行前清单、可逛的地方和路线安排。",
     },
     description: {
       en: 'A bilingual field guide to Chengdu built around one anchor: Chunxi Road station and Taikoo Li. An interactive prepare-ahead checklist with D-day offsets (the panda base opens booking 14 days out - the one you must not miss), ticks persisted in your browser; a Chengdu-flavor cheat sheet across eat / sip / watch / say (鸳鸯锅 etiquette, gaiwan tea, ear cleaning, face-changing, and how to use 巴适 correctly); and a business-trip itinerary that fits four evenings plus one stolen 7:30am panda morning. Deliberately free of personal itinerary details.',
@@ -839,8 +869,8 @@ export const PROJECTS: Project[] = [
     featured: true,
     cover: '/dino-cover.svg',
     tagline: {
-      en: 'A Minecraft-flavored FPS built with Fable 5 - gatling gun, grenades, wandering blocky dinosaurs.',
-      zh: '用 Fable 5 开发的 Minecraft 风格 FPS -- 手持加特林扫射游荡的恐龙,还能扔手雷炸它们。',
+      en: "Try a block-style first-person dinosaur game made with AI-assisted coding.",
+      zh: "体验一个用 AI 辅助编程做出的方块风格恐龙射击小游戏。",
     },
     description: {
       en: 'An arcade first-person shooter generated with Claude (Fable 5), zero assets: a voxel world built from instanced blocks, box-built T-rexes that wander the map and charge when you get close, a six-barrel gatling that has to spin up before it shreds, and grenades that arc, bounce and blow dinos into voxel confetti. Every sound is synthesized WebAudio; every model is boxes. Pointer-lock WASD+mouse on desktop, virtual joystick + fire/grenade buttons on mobile. Pure three.js in one file.',
@@ -861,8 +891,8 @@ export const PROJECTS: Project[] = [
     featured: true,
     cover: '/videogen-cover.svg',
     tagline: {
-      en: 'How Kiana Liang faked a World Cup: GPT Image 2 → Seedance 2.0, two API calls.',
-      zh: 'Kiana Liang 怎么「伪造」了一场世界杯:GPT Image 2 → Seedance 2.0,两次 API 调用。',
+      en: "Read a worked example of turning images into video with AI tools.",
+      zh: "跟着一个具体案例，了解 AI 生图到视频生成的过程。",
     },
     description: {
       en: 'A bilingual walkthrough of Kiana Liang (@Kiana_Liang0609)’s AI-video workflow - the one behind her “France vs Norway, 2026 World Cup” reel for a match that never happened. The trick is a nine-panel storyboard: GPT Image 2 draws all nine shots on one canvas (so the character can’t drift), then Seedance 2.0 animates it into a 15-second clip - with Nano Banana 2 for 4K keyframes, all through one Atlas Cloud key, and packaged as a Claude Code “drama-director” skill (two messages: the script and “confirm”). ~3-5 min, ~$1.5-2 a clip. Credit and links to the original video, write-up and code are hers.',
@@ -883,8 +913,8 @@ export const PROJECTS: Project[] = [
     featured: true,
     cover: '/designskill-cover.svg',
     tagline: {
-      en: 'Does adding a design Skill actually help? A bilingual read of 乔木’s 6-way comparison.',
-      zh: '装一个设计 Skill 到底有没有用?对乔木「六方横评」的双语解读。',
+      en: "Read bilingual notes on a comparison of design skills.",
+      zh: "一份设计 Skill 横向比较的双语阅读笔记。",
     },
     description: {
       en: '乔木 (Qiaomu, @vista8) ran a clean experiment: five frontend-design Claude Skills plus a no-skill control, the same 7 tasks under identical constraints, 42 generated pages read side by side. My bilingual field note distills it: the six variants (baseline, frontend-design, web-design-guidelines, ui-ux-pro-max, taste-skill, emil-design-eng) with strengths/weaknesses, a winner-by-task table, and the headline insight - a Skill’s job is prohibition, not teaching (ban purple gradients & centered layouts, don’t add tricks). All credit to 乔木; the full experiment and 42 live pages are on his site.',
@@ -905,8 +935,8 @@ export const PROJECTS: Project[] = [
     featured: true,
     cover: '/cici-cover.svg',
     tagline: {
-      en: 'Which cities are far less famous than their population implies? I built a skill and ran it - China and Japan.',
-      zh: '哪些城市远不如其人口规模所暗示的那样出名?我做了个 skill,跑了一遍 -- 中国和日本。',
+      en: "Explore a city comparison using population and public recognition.",
+      zh: "从人口与知名度两个角度，看看城市之间的差异。",
     },
     description: {
       en: 'A for-fun data project: the CICI (Comparatively-Insignificant City) method takes a city’s standardized household population and subtracts every source of fame - provincial-capital status, 5A scenery, brand HQs, history, cuisine, memes, even disasters (negative fame is still fame). The highest score wins: big by population, yet barely known. I encoded the method as a reusable Skill and ran it - first over China’s prefecture-level cities, then over Japan’s municipalities - with a country switcher and an itemized fame breakdown for each city. Subjective, AI-assisted, disagree kindly. Method popularized by @pretentiouswhat.',
@@ -925,8 +955,8 @@ export const PROJECTS: Project[] = [
     year: '2026',
     status: 'live',
     tagline: {
-      en: 'Write UML, render it live, and copy the actual diagram.',
-      zh: '写 UML 语法，实时渲染，并一键复制生成的实际图。',
+      en: "Write UML syntax, preview the diagram, and copy the image.",
+      zh: "写 UML 语法，预览关系图，再复制生成的图片。",
     },
     description: {
       en: 'A live PlantUML editor: type UML (sequence, class, activity, mindmap, gantt, use-case…), see it render instantly, then copy the real image (PNG to clipboard), copy the SVG, copy the URL, or download. Encoding is done in-browser (raw-DEFLATE) - no build step; the diagram is rendered by the public PlantUML server.',
@@ -945,8 +975,8 @@ export const PROJECTS: Project[] = [
     year: '2026',
     status: 'live',
     tagline: {
-      en: 'Markdown → WeChat article & YouTube description, in one place.',
-      zh: 'Markdown 一键转公众号排版 & YouTube 视频简介。',
+      en: "Turn Markdown into a WeChat article layout or a video description.",
+      zh: "把 Markdown 整理成公众号排版或视频简介。",
     },
     description: {
       en: 'A lightweight, in-browser Markdown toolbox with five converters: WeChat-article preview (one-click rich-text copy), YouTube description, X/Twitter thread splitter (≤280 chars, numbered), table-of-contents generator, and plain-text strip. All client-side; more get added over time.',
@@ -954,7 +984,7 @@ export const PROJECTS: Project[] = [
     },
     tags: ['React', 'marked', 'WeChat', 'YouTube', 'X'],
     links: [
-      { label: { en: 'Launch', zh: '立即体验' }, href: '/md', kind: 'internal' },
+      { label: { en: "Format an article", zh: "开始排版" }, href: '/md', kind: 'internal' },
       { label: { en: 'Inspiration', zh: '灵感来源' }, href: 'https://github.com/doocs/md', kind: 'github' },
     ],
   },
@@ -965,8 +995,8 @@ export const PROJECTS: Project[] = [
     year: '2026',
     status: 'live',
     tagline: {
-      en: 'Compress, resize & convert images - 100% in your browser, no upload.',
-      zh: '压缩、缩放、转格式 -- 全程浏览器本地处理,图片不上传。',
+      en: "Resize, compress, and convert images locally in your browser.",
+      zh: "压缩图片、改尺寸、转格式，文件在浏览器本地处理。",
     },
     description: {
       en: 'A zero-dependency, Canvas-based image tool: drop an image, resize to a max width, convert between JPG / WebP / PNG and tune quality, with a YouTube-thumbnail preset and live size-savings readout. Everything runs locally - nothing leaves your device.',
@@ -974,7 +1004,7 @@ export const PROJECTS: Project[] = [
     },
     tags: ['React', 'Canvas', 'Image', 'Privacy'],
     links: [
-      { label: { en: 'Launch', zh: '立即体验' }, href: '/img', kind: 'internal' },
+      { label: { en: "Edit an image", zh: "处理一张图片" }, href: '/img', kind: 'internal' },
     ],
   },
   {
@@ -984,8 +1014,8 @@ export const PROJECTS: Project[] = [
     year: '2026',
     status: 'wip',
     tagline: {
-      en: 'Drop a UI screenshot, get a self-contained HTML page (bring your own Gemini key).',
-      zh: '上传界面截图,生成自包含 HTML 页面(自带 Gemini Key,实验性)。',
+      en: "Try turning a screenshot into HTML. Requires your own Gemini API key.",
+      zh: "试着把界面截图转成 HTML；实验功能，需自备 Gemini API Key。",
     },
     description: {
       en: 'Upload a screenshot and Gemini reproduces it as a single Tailwind HTML file, with live preview and copy/download. Experimental & bring-your-own-key: your Gemini API key stays in your browser and calls Google directly - nothing is proxied or stored server-side.',
@@ -1004,12 +1034,12 @@ export const PROJECTS: Project[] = [
     year: '2026',
     status: 'live',
     tagline: {
-      en: 'A full-screen WebGL fluid you paint with your cursor.',
-      zh: '用鼠标/手指绘制的全屏 WebGL 流体。',
+      en: "Paint flowing colors with a mouse or a finger.",
+      zh: "移动鼠标或手指，画出流动的色彩。",
     },
     description: {
-      en: 'An interactive, full-screen fluid simulation - move your cursor (or touch) to paint glowing, swirling color. Built on Pavel Dobryakov’s WebGL-Fluid-Simulation (MIT); the homepage hero also carries a warm, toned-down version of it.',
-      zh: '全屏交互式流体模拟 -- 移动鼠标或触摸,绘制流动发光的色彩。基于 Pavel Dobryakov 的 WebGL-Fluid-Simulation(MIT);首页 hero 背景也用了它的暖色克制版。',
+      en: 'An interactive, full-screen fluid simulation. Move the cursor or touch the screen to paint flowing color. Built on Pavel Dobryakov’s WebGL-Fluid-Simulation (MIT).',
+      zh: '一个全屏流体实验。移动鼠标或触摸屏幕，就能画出流动的色彩。基于 Pavel Dobryakov 的 WebGL-Fluid-Simulation（MIT）。',
     },
     tags: ['WebGL', 'Fluid', 'Shaders', 'Interactive'],
     links: [
@@ -1024,8 +1054,8 @@ export const PROJECTS: Project[] = [
     year: '2026',
     status: 'live',
     tagline: {
-      en: 'Drag to orbit a sculpted, distorting 3D orb.',
-      zh: '拖拽环绕一个会形变的雕塑感 3D 物体。',
+      en: "Drag around a simple 3D scene and explore a starting point for your own.",
+      zh: "拖拽观察一个简单 3D 场景，作为自己动手的起点。",
     },
     description: {
       en: 'A minimal interactive 3D scene built with React Three Fiber and drei - a metallic, gently distorting orb with floating sparks you can orbit by dragging. A clean starting point for declarative 3D on the web.',
@@ -1076,155 +1106,137 @@ export async function fetchLatestVideos(limit = 6): Promise<VideoItem[]> {
 export const COPY = {
   nav: {
     home: { en: 'Home', zh: '首页' },
-    work: { en: 'Work', zh: '作品' },
+    work: { en: 'Projects & tools', zh: '作品与工具' },
     videos: { en: 'Videos', zh: '视频' },
-    about: { en: 'About', zh: '关于' },
-    now: { en: 'Now', zh: '近况' },
-    connect: { en: 'Connect', zh: '联系' },
+    about: { en: 'About me', zh: '关于我' },
+    now: { en: 'Updates', zh: '更新' },
+    connect: { en: 'Get in touch', zh: '联系' },
   },
   hero: {
-    eyebrow: { en: 'AI automation · Creative coding · Running', zh: 'AI 自动化 · 创意编程 · 跑步' },
-    greeting: { en: "Hey, I'm Da Lei.", zh: '嘿，我是大雷。' },
-    titleLine1: { en: 'I build useful AI tools.', zh: '用 AI，把想法做出来。' },
-    titleLine2: { en: 'I share what works.', zh: '把管用的方法公开。' },
+    greeting: { en: "Hi, I'm Da Lei.", zh: '你好，我是大雷。' },
+    titleLine1: { en: 'I put AI to work.', zh: '用 AI，做点实事。' },
+    titleLine2: { en: 'Then share how.', zh: '做完了，讲给你听。' },
     intro: {
-      en: 'I share hands-on AI workflows on YouTube and keep shipping open-source tools and creative coding experiments.',
-      zh: '我在 YouTube 分享 AI 实战，也持续发布开源工具和创意编程实验。',
+      en: 'I build tools, automate tasks, and design hands-on lessons with AI. Try a project here, or watch me walk through the process.',
+      zh: '我用 AI 做工具、搭工作流，也设计动手实践的课程。这里有可以直接试的作品，视频里有具体做法。',
     },
-    ctaWork: { en: 'View my work', zh: '看我的作品' },
-    ctaVideo: { en: 'Watch videos', zh: '看最新视频' },
-    ctaLaunch: { en: 'Launch Kinetic Particles', zh: '体验 Kinetic Particles' },
-    availability: { en: 'Open to collaborations', zh: '开放合作' },
+    ctaWork: { en: 'Try a project', zh: '找个作品试试' },
+    ctaVideo: { en: 'Watch a walkthrough', zh: '看实战视频' },
   },
   work: {
-    label: { en: 'Selected work', zh: '精选作品' },
-    heading: { en: 'Projects & experiments', zh: '项目与实验' },
+    label: { en: 'Start here', zh: '从这里开始' },
+    heading: { en: 'Find something you can use.', zh: '挑一个你用得上的。' },
     sub: {
-      en: 'Open-source things I build in the open. More on the way.',
-      zh: '我在公开构建的开源作品，更多正在路上。',
+      en: 'Format an article, start an AI project, or try an interactive lesson. These are a few useful places to begin.',
+      zh: '排一篇文章、开始一个 AI 项目，或体验一堂互动课。先挑了几个入口，完整目录也在下面。',
     },
-    tools: { en: 'Tools', zh: '小工具' },
-    toolsSub: {
-      en: 'Small, free, in-browser tools from my creator workflow.',
-      zh: '来自我创作流程的免费、纯浏览器小工具。',
-    },
-    signature: { en: 'Signature', zh: '招牌' },
-    filterAll: { en: 'All', zh: '全部' },
-    filterAi: { en: 'AI & Agents', zh: 'AI & 智能体' },
-    filterCreative: { en: 'Creative', zh: '创意互动' },
-    filterTool: { en: 'Tools', zh: '小工具' },
+    signature: { en: 'Featured project', zh: '推荐体验' },
+    filterAll: { en: 'All projects', zh: '全部作品' },
+    filterAi: { en: 'Learn & build with AI', zh: 'AI 学习与实践' },
+    filterCreative: { en: 'Interactive experiences', zh: '互动体验' },
+    filterTool: { en: 'Everyday tools', zh: '日常工具' },
   },
   videos: {
-    label: { en: 'From YouTube', zh: '来自 YouTube' },
-    heading: { en: 'Latest videos', zh: '最新视频' },
+    label: { en: 'On my channel', zh: '我的视频' },
+    heading: { en: 'See how it works.', zh: '想看具体怎么做？' },
     sub: {
-      en: 'Hands-on AI automation, tools, and AI news - new most weeks on 大雷早上好.',
-      zh: '每周更新的 AI 自动化实战、工具与 AI 资讯 --「大雷早上好」。',
+      en: 'A few practical videos to start with: voice input, AI tools, knowledge workflows, and a particle experiment.',
+      zh: '先选几期实用的：语音输入、AI 工具实测、知识整理，还有一个手势粒子实验。',
     },
-    all: { en: 'View all on YouTube', zh: '在 YouTube 查看全部' },
-    new: { en: 'New', zh: '最新' },
+    all: { en: 'More videos on YouTube', zh: '去 YouTube 看更多' },
+    new: { en: 'Selected video', zh: '精选视频' },
   },
   membership: {
-    label: { en: 'Membership', zh: '频道会员' },
-    heading: { en: 'Join the channel membership', zh: '加入频道会员' },
+    label: { en: 'Support the channel', zh: '支持创作' },
+    heading: { en: 'Finding this useful?', zh: '如果这些内容对你有帮助' },
     sub: {
-      en: 'Support the work and unlock member-only perks - and help keep it all open source.',
-      zh: '支持创作、解锁会员专属福利，也让这一切持续开源。',
+      en: 'You can support future videos through a channel membership. See the membership page for current benefits.',
+      zh: '欢迎通过频道会员支持我继续做下去。具体权益以 YouTube 会员页面为准。',
     },
-    cta: { en: 'Become a member', zh: '成为会员' },
+    cta: { en: 'See membership options', zh: '看看会员说明' },
   },
   about: {
-    label: { en: 'About', zh: '关于' },
-    heading: { en: 'An AI tinkerer who builds - and shares - in the open.', zh: '一个在公开构建、也公开分享的 AI 实践者。' },
-    // A confident two-line statement (line B carries the accent).
-    statementA: { en: 'I build with AI in the open -', zh: '我在公开处用 AI 构建 --' },
-    statementB: { en: 'and share what actually works.', zh: '并且分享真正管用的东西。' },
+    label: { en: 'About me', zh: '关于我' },
+    statementA: { en: 'I like figuring things out', zh: '我喜欢自己动手试，' },
+    statementB: { en: 'by making them.', zh: '也喜欢把过程讲清楚。' },
     body: {
-      en: "By day I dig into AI automation and AI-assisted coding - the practical workflows and tools that save real, everyday time - and break them down on YouTube as 大雷 (4K+ subscribers, 400+ videos). By night I make playful, open-source web experiments that blend 3D graphics, real-time interaction, and AI, like Kinetic Particles. I also run, a lot. Everything I build is open source - take it apart, learn from it, make your own.",
-      zh: '白天我钻研 AI 自动化与 AI 辅助编程 -- 那些能实打实省时间的工作流与工具 -- 并以「大雷」的身份在 YouTube 拆解它们（4000+ 订阅、400+ 视频）。晚上我做好玩的开源网页实验，融合 3D 图形、实时交互与 AI，比如 Kinetic Particles。我也很爱跑步。我做的一切都是开源的 -- 拆开它、从中学习、做出你自己的版本。',
+      en: 'I start with everyday questions: can article formatting take less time? Can AI handle a repetitive task? Can a coding lesson include more learners? I turn those questions into tools, experiments, and lessons, then share the process in videos and notes. Away from the screen, I like to run.',
+      zh: '公众号能不能排得省事一点？重复的任务能不能交给 AI？编程课能不能让更多人参与？我经常从这些具体问题出发，做工具、试方案，再把过程整理成视频和资料。离开屏幕，我也喜欢跑步。',
     },
     sceneModes: [
       {
         id: 'all',
-        label: { en: 'Whole scene', zh: '完整场景' },
-        heading: { en: 'One studio, three practices.', zh: '一个工作室，三种实践。' },
+        label: { en: 'All three', zh: '平时都在做' },
+        heading: { en: 'Tools, videos, and a run.', zh: '做工具，讲方法，出门跑跑。' },
         text: {
-          en: 'I build useful AI tools, explain the methods openly, and use running to keep the work grounded.',
-          zh: '我用 AI 做实用工具，公开讲清方法，也用跑步让自己保持清醒和持续行动。',
+          en: 'Most of my projects begin with a question from work or daily life.',
+          zh: '很多项目的起点，就是工作或生活里遇到的一个小问题。',
         },
       },
       {
         id: 'build',
-        label: { en: 'Build with AI', zh: '用 AI 构建' },
-        heading: { en: 'Turn workflows into tools.', zh: '把工作流做成真正能用的工具。' },
+        label: { en: 'Make things', zh: '动手做' },
+        heading: { en: 'Start with one small problem.', zh: '先解决一个小问题。' },
         text: {
-          en: 'I test agents and automation against real work, then ship the useful parts as open source.',
-          zh: '我把智能体和自动化放进真实工作里验证，再把真正有用的部分开源出来。',
+          en: 'Build a working version, try it in context, and improve it from there.',
+          zh: '先做出一个能用的版本，放到实际场景里试，再慢慢改。',
         },
       },
       {
         id: 'share',
-        label: { en: 'Share openly', zh: '公开分享' },
-        heading: { en: 'Explain what survives testing.', zh: '只分享经得起验证的方法。' },
+        label: { en: 'Share the process', zh: '讲过程' },
+        heading: { en: 'Leave enough detail to follow.', zh: '把做法和踩过的坑讲清楚。' },
         text: {
-          en: 'On YouTube, I break working methods into practical steps that other people can reuse.',
-          zh: '我在 YouTube 把跑通的方法拆成清晰步骤，让更多人可以直接复用。',
+          en: 'Videos and notes include the steps and links you need to try it yourself.',
+          zh: '视频讲步骤，配套资料放链接和提示词，方便你接着试。',
         },
       },
       {
         id: 'move',
-        label: { en: 'Keep moving', zh: '持续行动' },
-        heading: { en: 'Running brings better questions back.', zh: '跑步，让我带着更好的问题回来。' },
+        label: { en: 'Go for a run', zh: '去跑步' },
+        heading: { en: 'Some time away from the screen.', zh: '也给自己一点离开屏幕的时间。' },
         text: {
-          en: 'Time away from the screen creates space to think, reset, and return to the work with sharper questions.',
-          zh: '离开屏幕去跑一段，能让我重新思考、恢复节奏，再带着更清晰的问题回到创作。',
+          en: 'Running is the part of my day that does not need another browser tab.',
+          zh: '跑一段路，换换脑子，回来再接着做。',
         },
-      },
-    ],
-    pillars: [
-      {
-        title: { en: 'AI automation', zh: 'AI 自动化' },
-        text: { en: 'Hands-on workflows and automations that save real, everyday time.', zh: '实打实省时间的实战工作流与自动化。' },
-      },
-      {
-        title: { en: 'AI-assisted coding', zh: 'AI 辅助编程' },
-        text: { en: 'Building with agents & tools - Antigravity, OpenCode, Claude, Gemini.', zh: '用 AI 智能体与工具构建 -- Antigravity、OpenCode、Claude、Gemini。' },
-      },
-      {
-        title: { en: 'Open source', zh: '开源共享' },
-        text: { en: 'Interactive web experiments, built in the open and free to fork.', zh: '互动网页实验，公开构建，可自由 fork 与二次创作。' },
       },
     ],
   },
   now: {
-    label: { en: 'Now', zh: '近况' },
-    heading: { en: "What I'm up to right now", zh: '我最近在忙什么' },
-    updated: { en: 'Updated Jul 2026', zh: '更新于 2026 年 7 月' },
+    label: { en: 'Site updates', zh: '站内更新' },
+    heading: { en: 'A few things to catch up on.', zh: '这几处，可以顺路看看。' },
+    updated: { en: 'Reviewed September 5, 2026', zh: '整理于 2026 年 9 月 5 日' },
     items: [
       {
-        en: 'Turned Microsoft’s Copilot Camp lab into a Khan-Academy-style bilingual course - units, progress tracking, and a quiz after every lesson (/copilotcamp).',
-        zh: '把微软 Copilot Camp 实验做成了可汗学院式的双语学习课 -- 单元、进度追踪、每节随堂检测（/copilotcamp）。',
+        title: { en: 'A homepage you can play with', zh: '主页多了一点互动' },
+        text: { en: 'Move your mouse to draw a fading particle trail. The portrait follows your viewing angle.', zh: '移动鼠标会留下逐渐消散的粒子光带，人物卡片也会轻微跟随视角。' },
+        cta: { en: 'Try it at the top', zh: '回到首屏试试' },
+        href: '#home',
       },
       {
-        en: 'Executing the 3D Prompt Workbench one scene at a time - 7 live Three.js pages so far, from Cappadocia balloons to the Brooks Falls salmon run.',
-        zh: '3D 提示词工作台逐条执行中 -- 已上线 7 个全屏 Three.js 场景，从卡帕多奇亚热气球到布鲁克斯瀑布鲑鱼洄游。',
+        title: { en: 'Hear the Universe', zh: '听见宇宙：用键盘上一堂编程课' },
+        text: { en: 'Five guided coding missions, with keyboard controls, screen-reader announcements, and an instructor mode.', zh: '五个循序渐进的编程任务，配有键盘操作、读屏播报和讲师模式。' },
+        cta: { en: 'Open the lesson', zh: '打开课程' },
+        href: '/hear-the-universe',
       },
       {
-        en: 'Shipping hands-on AI-automation videos on YouTube as 大雷, and keeping up the running streak.',
-        zh: '在 YouTube 以「大雷」更新 AI 自动化实战，也在坚持跑步。',
+        title: { en: 'Explore the AI comparison gallery', zh: 'AI 评测台：先看来源，再看效果' },
+        text: { en: 'Browse side-by-side examples and check their labels. Recorded runs and simulated showcases are kept distinct.', zh: '并排看不同模型的案例，注意每项来源标注：实测记录与模拟展示分开看。' },
+        cta: { en: 'Explore the gallery', zh: '打开评测台' },
+        href: '/bench',
       },
     ],
   },
   connect: {
-    label: { en: 'Connect', zh: '联系' },
-    heading: { en: "Let's learn and run together.", zh: '一起学习，一起跑步。' },
+    label: { en: 'Get in touch', zh: '联系我' },
+    heading: { en: 'Have a problem worth exploring?', zh: '有个想用 AI 试试的问题？' },
     sub: {
-      en: 'Find me across the web - videos, code, AI tools, and the occasional run. Open to collaborations.',
-      zh: '在这些地方找到我 -- 视频、代码、AI 工具，偶尔还有跑步。开放合作。',
+      en: 'For a workshop, a project idea, or feedback on a tool, email me with the situation and what you hope to achieve.',
+      zh: '课程分享、项目交流，或工具使用中的反馈，都可以发邮件给我。说说你的场景，以及想做到什么程度。',
     },
   },
   footer: {
-    tagline: { en: 'Built with code & particles.', zh: '用代码与粒子构建。' },
+    tagline: { en: 'Made by Da Lei. Shared as I go.', zh: '大雷的实践与分享。' },
     backHome: { en: 'Back to home', zh: '返回首页' },
   },
 };
