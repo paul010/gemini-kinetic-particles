@@ -49,8 +49,8 @@ export const getEmail = () => EMAIL_PARTS.join('@');
 export const ASSETS = {
   avatar: '/avatar-480.webp',
   heroClay: {
-    small: '/hero-clay-480.webp',
-    large: '/hero-clay-960.webp',
+    small: '/hero-particles-480.webp',
+    large: '/hero-particles-960.webp',
   },
 };
 
@@ -1086,13 +1086,13 @@ export const COPY = {
     eyebrow: { en: 'AI automation · Creative coding · Running', zh: 'AI 自动化 · 创意编程 · 跑步' },
     greeting: { en: "Hey, I'm Da Lei.", zh: '嘿，我是大雷。' },
     titleLine1: { en: 'I build useful AI tools.', zh: '用 AI，把想法做出来。' },
-    titleLine2: { en: 'Then share what works.', zh: '把管用的方法公开分享。' },
+    titleLine2: { en: 'I share what works.', zh: '把管用的方法公开。' },
     intro: {
       en: 'I share hands-on AI workflows on YouTube and keep shipping open-source tools and creative coding experiments.',
       zh: '我在 YouTube 分享 AI 实战，也持续发布开源工具和创意编程实验。',
     },
-    ctaWork: { en: 'Browse selected work', zh: '浏览精选作品' },
-    ctaVideo: { en: 'Watch latest videos', zh: '观看最新视频' },
+    ctaWork: { en: 'View my work', zh: '看我的作品' },
+    ctaVideo: { en: 'Watch videos', zh: '看最新视频' },
     ctaLaunch: { en: 'Launch Kinetic Particles', zh: '体验 Kinetic Particles' },
     availability: { en: 'Open to collaborations', zh: '开放合作' },
   },
@@ -1210,8 +1210,8 @@ export const COPY = {
         zh: '3D 提示词工作台逐条执行中 -- 已上线 7 个全屏 Three.js 场景，从卡帕多奇亚热气球到布鲁克斯瀑布鲑鱼洄游。',
       },
       {
-        en: 'Shipping hands-on AI-automation videos on YouTube as 大雷, and keeping up the running streak. 🏃',
-        zh: '在 YouTube 以「大雷」更新 AI 自动化实战，也在坚持跑步。🏃',
+        en: 'Shipping hands-on AI-automation videos on YouTube as 大雷, and keeping up the running streak.',
+        zh: '在 YouTube 以「大雷」更新 AI 自动化实战，也在坚持跑步。',
       },
     ],
   },

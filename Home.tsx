@@ -1,13 +1,24 @@
 import React, { Suspense, useEffect, useRef, useState } from 'react';
+import { ArrowRight } from '@phosphor-icons/react/ArrowRight';
+import { ArrowUpRight } from '@phosphor-icons/react/ArrowUpRight';
+import { EnvelopeSimple } from '@phosphor-icons/react/EnvelopeSimple';
+import { GithubLogo } from '@phosphor-icons/react/GithubLogo';
+import { List } from '@phosphor-icons/react/List';
+import { MagnifyingGlass } from '@phosphor-icons/react/MagnifyingGlass';
+import { Moon } from '@phosphor-icons/react/Moon';
+import { NotionLogo } from '@phosphor-icons/react/NotionLogo';
+import { Play } from '@phosphor-icons/react/Play';
+import { Sparkle } from '@phosphor-icons/react/Sparkle';
+import { Sun } from '@phosphor-icons/react/Sun';
+import { X } from '@phosphor-icons/react/X';
+import { XLogo } from '@phosphor-icons/react/XLogo';
+import { YoutubeLogo } from '@phosphor-icons/react/YoutubeLogo';
 
 // The ⌘K palette ships as its own chunk, fetched on first open - it never
 // blocks the homepage's first paint.
 const SearchPalette = React.lazy(() => import('./components/SearchPalette'));
-// The ambient WebGL fluid is decorative. Keep it out of the initial bundle and
-// only load it after a desktop visitor starts interacting with the page.
-const FluidBackground = React.lazy(() =>
-  import('./components/FluidBackground').then((module) => ({ default: module.FluidBackground }))
-);
+// Load the decorative perspective trail only after a desktop pointer moves.
+const PointerTrail = React.lazy(() => import('./components/PointerTrail'));
 import {
   COPY,
   PROJECTS,
@@ -70,70 +81,6 @@ const prefersReduced = () =>
   typeof window !== 'undefined' &&
   window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-/* ---------- Icons ---------- */
-
-const GitHubIcon = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
-    <path d="M12 .5C5.73.5.5 5.74.5 12.02c0 5.1 3.29 9.41 7.86 10.94.58.11.79-.25.79-.56 0-.28-.01-1.02-.02-2-3.2.7-3.88-1.54-3.88-1.54-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.2 1.77 1.2 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.23-1.28-5.23-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.1 11.1 0 0 1 2.9-.39c.98 0 1.97.13 2.9.39 2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.43-2.69 5.41-5.25 5.69.41.36.78 1.07.78 2.16 0 1.56-.01 2.82-.01 3.2 0 .31.21.68.8.56A11.53 11.53 0 0 0 23.5 12.02C23.5 5.74 18.27.5 12 .5Z" />
-  </svg>
-);
-
-const YouTubeIcon = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
-    <path d="M23.5 6.2a3.02 3.02 0 0 0-2.12-2.14C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.38.56A3.02 3.02 0 0 0 .5 6.2C0 8.07 0 12 0 12s0 3.93.5 5.8a3.02 3.02 0 0 0 2.12 2.14c1.88.56 9.38.56 9.38.56s7.5 0 9.38-.56a3.02 3.02 0 0 0 2.12-2.14C24 15.93 24 12 24 12s0-3.93-.5-5.8ZM9.6 15.5v-7l6.2 3.5-6.2 3.5Z" />
-  </svg>
-);
-
-const XIcon = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
-    <path d="M18.24 2.25h3.31l-7.23 8.26 8.5 11.24h-6.65l-5.21-6.82-5.97 6.82H1.68l7.73-8.83L1.25 2.25h6.82l4.71 6.23 5.46-6.23Zm-1.16 17.52h1.83L7.01 4.12H5.04l12.04 15.65Z" />
-  </svg>
-);
-
-const NotionIcon = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
-    <path d="M4.6 3.4 14.8 2.6c1.3-.1 1.6 0 2.4.6l2.7 1.9c.5.4.7.5.7 1v13c0 .9-.3 1.4-1.5 1.5l-11.8.7c-.8 0-1.2-.1-1.6-.6l-2-2.6c-.4-.6-.6-1-.6-1.6V4.8c0-.7.3-1.3 1.1-1.4Zm.5 1.5c-.2.2-.1.4.2.6l1.9 1.4c.4.3.5.3 1 .3l11-.7c.2 0 .4-.1.2-.4L19 4.9c-.3-.2-.5-.3-1-.3l-11.7.7c-.3 0-.4.1-.2.6Zm9.4 3.6-7.7.5c-.3 0-.4.2-.4.5v9.2c0 .3.2.4.5.4l1.3-.1v-7l.4.5 4 5.7 1.7-.1V9.2l-1.6.1.1 5.1-3.9-5.5 1.6-.1V8.5Z" />
-  </svg>
-);
-
-const MailIcon = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" {...props}>
-    <rect x="3" y="5" width="18" height="14" rx="2" />
-    <path d="m3 7 9 6 9-6" />
-  </svg>
-);
-
-const PlayIcon = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
-    <path d="M8 5v14l11-7z" />
-  </svg>
-);
-
-const StarIcon = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
-    <path d="M12 2.5l2.6 6.3 6.8.5-5.2 4.4 1.6 6.6L12 17.3 6.2 20.8l1.6-6.6L2.6 9.8l6.8-.5L12 2.5Z" />
-  </svg>
-);
-
-const ArrowIcon = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" {...props}>
-    <path d="M5 12h14M13 6l6 6-6 6" />
-  </svg>
-);
-
-const ArrowUpRight = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" {...props}>
-    <path d="M7 17 17 7M8 7h9v9" />
-  </svg>
-);
-
-const SearchIcon = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" {...props}>
-    <circle cx="11" cy="11" r="7" />
-    <path d="m20 20-3.5-3.5" />
-  </svg>
-);
-
 /* ---------- Reveal on scroll ---------- */
 
 const useReveal = (dep?: unknown) => {
@@ -162,52 +109,18 @@ const useReveal = (dep?: unknown) => {
   }, [dep]);
 };
 
-/* ---------- Magnetic wrapper (subtle pull toward cursor) ---------- */
+/* ---------- CTA wrapper ---------- */
 
 const Magnetic: React.FC<{ children: React.ReactNode; strength?: number; className?: string }> = ({
   children,
   strength = 0.3,
   className,
 }) => {
-  const ref = useRef<HTMLSpanElement>(null);
-
-  const onMove = (e: React.MouseEvent) => {
-    if (prefersReduced()) return;
-    const el = ref.current;
-    if (!el) return;
-    const r = el.getBoundingClientRect();
-    const x = (e.clientX - (r.left + r.width / 2)) * strength;
-    const y = (e.clientY - (r.top + r.height / 2)) * strength;
-    el.style.transform = `translate(${x}px, ${y}px)`;
-  };
-  const reset = () => {
-    if (ref.current) ref.current.style.transform = '';
-  };
-
   return (
-    <span ref={ref} className={`magnetic ${className ?? ''}`} onMouseMove={onMove} onMouseLeave={reset}>
+    <span className={`magnetic ${className ?? ''}`} data-strength={strength}>
       {children}
     </span>
   );
-};
-
-/* ---------- Pointer-driven 3D tilt ---------- */
-
-const useTilt = (max = 6) => {
-  const ref = useRef<HTMLDivElement>(null);
-  const onMove = (e: React.MouseEvent) => {
-    if (prefersReduced()) return;
-    const el = ref.current;
-    if (!el) return;
-    const r = el.getBoundingClientRect();
-    const px = (e.clientX - r.left) / r.width - 0.5;
-    const py = (e.clientY - r.top) / r.height - 0.5;
-    el.style.transform = `perspective(1100px) rotateX(${-py * max}deg) rotateY(${px * max}deg)`;
-  };
-  const reset = () => {
-    if (ref.current) ref.current.style.transform = '';
-  };
-  return { ref, onMouseMove: onMove, onMouseLeave: reset };
 };
 
 /* ---------- Small pieces ---------- */
@@ -220,8 +133,7 @@ const statusBadge = (status: Project['status'], t: (txt: LocalizedText) => strin
   } as const;
   const s = map[status];
   return (
-    <span className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 font-mono text-[11px] uppercase tracking-wider ${s.cls}`}>
-      <span className="h-1.5 w-1.5 rounded-full bg-current" />
+    <span className={`inline-flex items-center rounded-full border px-2.5 py-0.5 font-mono text-[11px] tracking-[0.06em] ${s.cls}`}>
       {t({ en: s.en, zh: s.zh })}
     </span>
   );
@@ -247,12 +159,10 @@ const FeaturedCard: React.FC<{
   t: (txt: LocalizedText) => string;
   onInternal: (href: string) => void;
 }> = ({ project: p, lang, t, onInternal }) => {
-  const tilt = useTilt(5);
   const [copied, setCopied] = useState(false);
   const [imgError, setImgError] = useState(false);
   const launchLink = p.links.find((l) => l.kind === 'internal');
   const externalLink = p.links.find((l) => l.kind !== 'internal');
-  const launchLabel = launchLink ? t(launchLink.label) : externalLink ? t(externalLink.label) : t(COPY.hero.ctaLaunch);
   // Cover click: open the internal route if any, else the external link, else no-op.
   const onCover = () => {
     if (launchLink) onInternal(launchLink.href);
@@ -266,12 +176,7 @@ const FeaturedCard: React.FC<{
     }).catch(() => {});
   };
   return (
-  <article
-    ref={tilt.ref}
-    onMouseMove={tilt.onMouseMove}
-    onMouseLeave={tilt.onMouseLeave}
-    className="project-card tilt reveal flex flex-col overflow-hidden rounded-3xl border border-ink/10 bg-surface/60 backdrop-blur-sm lg:flex-row"
-  >
+  <article className="project-card reveal flex flex-col overflow-hidden rounded-[1.25rem] border border-ink/10 bg-surface/60 lg:flex-row">
     {p.cover && (
       <button
         onClick={onCover}
@@ -283,8 +188,8 @@ const FeaturedCard: React.FC<{
           // tasteful placeholder instead of a broken image.
           <div className="grid h-64 w-full place-items-center bg-gradient-to-br from-surface to-paper sm:h-80 lg:h-full">
             <div className="flex flex-col items-center gap-2 text-ink/35">
-              <span className="font-display text-5xl">❝</span>
-              <span className="font-mono text-[11px] uppercase tracking-wider">{t(p.title)}</span>
+              <Sparkle className="h-8 w-8" aria-hidden="true" />
+              <span className="font-mono text-[11px] tracking-wide">{t(p.title)}</span>
             </div>
           </div>
         ) : (
@@ -297,11 +202,7 @@ const FeaturedCard: React.FC<{
             className="h-64 w-full object-cover transition-transform duration-700 group-hover:scale-[1.04] sm:h-80 lg:h-full"
           />
         )}
-        <span className="pointer-events-none absolute inset-0 bg-gradient-to-t from-surface/85 via-transparent to-transparent lg:bg-gradient-to-r" />
-        <span className="absolute bottom-4 left-4 inline-flex items-center gap-2 rounded-full border border-paper/25 bg-black/45 px-3.5 py-1.5 text-xs font-semibold text-paper/90 backdrop-blur-md transition-colors group-hover:border-paper/60 group-hover:text-paper">
-          {launchLabel}
-          <ArrowIcon className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
-        </span>
+        <span className="pointer-events-none absolute inset-0 bg-gradient-to-t from-surface/35 via-transparent to-transparent lg:bg-gradient-to-r" />
       </button>
     )}
 
@@ -309,8 +210,8 @@ const FeaturedCard: React.FC<{
       <div className="mb-5 flex items-center justify-between gap-3">
         <div className="flex items-center gap-2">
           {p.signature && (
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-gold/40 bg-gold/10 px-2.5 py-0.5 font-mono text-[11px] uppercase tracking-wider text-gold">
-              <span className="pulse-dot h-1.5 w-1.5 rounded-full bg-gold" /> {t(COPY.work.signature)}
+            <span className="inline-flex items-center rounded-full border border-gold/40 bg-gold/10 px-2.5 py-0.5 font-mono text-[11px] tracking-[0.06em] text-gold">
+              {t(COPY.work.signature)}
             </span>
           )}
           {statusBadge(p.status, t)}
@@ -324,9 +225,9 @@ const FeaturedCard: React.FC<{
 
       {p.prompt && (
         <details className="group/prompt mt-5 rounded-xl border border-ink/10 bg-ink/[0.03] px-4 py-3">
-          <summary className="flex cursor-pointer list-none items-center justify-between gap-3 font-mono text-[11px] uppercase tracking-wider text-ink/55 [&::-webkit-details-marker]:hidden">
+          <summary className="flex cursor-pointer list-none items-center justify-between gap-3 font-mono text-[11px] tracking-wide text-ink/55 [&::-webkit-details-marker]:hidden">
             <span className="inline-flex items-center gap-2">
-              <span className="text-gold">❝</span> {t({ en: 'The prompt', zh: '提示词' })}
+              <Sparkle className="h-3.5 w-3.5 text-gold" /> {t({ en: 'The prompt', zh: '提示词' })}
             </span>
             <span className="transition-transform group-open/prompt:rotate-180">▾</span>
           </summary>
@@ -335,7 +236,7 @@ const FeaturedCard: React.FC<{
             onClick={copyPrompt}
             className="mt-3 inline-flex items-center gap-1.5 rounded-full border border-ink/15 bg-paper px-3 py-1 font-mono text-[11px] text-ink/70 transition-colors hover:border-gold/40 hover:text-gold"
           >
-            {copied ? t({ en: 'Copied ✓', zh: '已复制 ✓' }) : t({ en: 'Copy', zh: '复制' })}
+            {copied ? t({ en: 'Copied', zh: '已复制' }) : t({ en: 'Copy', zh: '复制' })}
           </button>
         </details>
       )}
@@ -393,7 +294,7 @@ const ProjectCard: React.FC<{
     else if (externalLink) window.open(externalLink.href, '_blank', 'noopener');
   };
   return (
-    <article className="project-card reveal group flex flex-col overflow-hidden rounded-2xl border border-ink/10 bg-surface/50 backdrop-blur-sm transition-all hover:-translate-y-1 hover:border-gold/40">
+    <article className={`project-card reveal group flex flex-col overflow-hidden rounded-[1.25rem] border border-ink/10 bg-surface/50 transition-all hover:-translate-y-1 hover:border-gold/40 ${lg ? 'project-card--wide' : ''}`}>
       <button onClick={onCover} className={`relative block w-full overflow-hidden ${lg ? 'aspect-[16/9]' : 'aspect-[16/10]'}`} aria-label={t(p.title)}>
         {p.cover && !imgError ? (
           <img
@@ -410,12 +311,12 @@ const ProjectCard: React.FC<{
           // Cover-less tiles (in-browser tools) get a consistent on-palette
           // header: a large, faded category word so the grid stays even.
           <div className="grid h-full w-full place-items-center bg-gradient-to-br from-surface to-paper">
-            <span className="px-4 text-center font-mono text-xl font-semibold uppercase tracking-[0.18em] text-ink/[0.13] sm:text-2xl">{p.tags[0] ?? 'TOOL'}</span>
+            <span className="px-4 text-center font-mono text-xl font-semibold tracking-[0.12em] text-ink/[0.13] sm:text-2xl">{p.tags[0] ?? 'Tool'}</span>
           </div>
         )}
         <span className="pointer-events-none absolute inset-0 bg-gradient-to-t from-surface/35 to-transparent" />
         {p.signature && (
-          <span className="absolute left-3 top-3 inline-flex items-center gap-1 rounded-full border border-gold/40 bg-paper/85 px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider text-gold backdrop-blur-sm">
+          <span className="absolute left-3 top-3 inline-flex items-center gap-1 rounded-full border border-gold/40 bg-paper/85 px-2 py-0.5 font-mono text-[10px] tracking-wide text-gold backdrop-blur-sm">
             <span className="pulse-dot h-1 w-1 rounded-full bg-gold" /> {t(COPY.work.signature)}
           </span>
         )}
@@ -453,75 +354,47 @@ const ProjectCard: React.FC<{
   );
 };
 
-/* ---------- Hero portrait (editorial avatar plate) ---------- */
+/* ---------- Hero portrait ---------- */
 
 const HeroFigure: React.FC<{
   t: (txt: LocalizedText) => string;
   onOpen: () => void;
 }> = ({ t, onOpen }) => {
-  const plateRef = useRef<HTMLButtonElement>(null);
-
-  const onMove = (e: React.PointerEvent<HTMLButtonElement>) => {
-    if (e.pointerType === 'touch' || prefersReduced()) return;
-    const el = plateRef.current;
-    if (!el) return;
-    const r = el.getBoundingClientRect();
-    const x = (e.clientX - r.left) / r.width - 0.5;
-    const y = (e.clientY - r.top) / r.height - 0.5;
-    el.style.setProperty('--hero-rx', `${-y * 7}deg`);
-    el.style.setProperty('--hero-ry', `${x * 9}deg`);
-    el.style.setProperty('--hero-light-x', `${(x + 0.5) * 100}%`);
-    el.style.setProperty('--hero-light-y', `${(y + 0.5) * 100}%`);
-  };
-
-  const reset = () => {
-    const el = plateRef.current;
-    if (!el) return;
-    el.style.removeProperty('--hero-rx');
-    el.style.removeProperty('--hero-ry');
-    el.style.removeProperty('--hero-light-x');
-    el.style.removeProperty('--hero-light-y');
-  };
-
   return (
-    <figure className="hero-figure mx-auto w-full max-w-[12rem] sm:max-w-[18rem] lg:ml-auto lg:max-w-sm">
+    <figure className="hero-visual mx-auto w-full max-w-none sm:max-w-[21rem] lg:ml-auto lg:max-w-[26rem]">
       <button
         type="button"
-        ref={plateRef}
-        onPointerMove={onMove}
-        onPointerLeave={reset}
         onClick={onOpen}
         aria-label={t({
           en: `Open ${CHANNEL.name.en} on YouTube`,
           zh: `在 YouTube 打开${CHANNEL.name.zh}`,
         })}
-        className="clay-portrait group relative block aspect-[4/5] w-full cursor-pointer border-0 bg-transparent p-0 text-left"
+        className="hero-visual__button group relative block aspect-[16/10] w-full overflow-hidden rounded-[1.25rem] border border-ink/15 bg-surface p-0 text-left sm:aspect-[4/5]"
       >
-        <span className="clay-portrait__backing" aria-hidden="true" />
-        <span className="clay-portrait__frame">
-          <img
-            src={ASSETS.heroClay.large}
-            srcSet={`${ASSETS.heroClay.small} 480w, ${ASSETS.heroClay.large} 960w`}
-            sizes="(min-width: 1024px) 384px, (min-width: 640px) 288px, 168px"
-            alt={t({
-              en: 'Handmade clay portrait of Da Lei on a brick-red background with yellow stars',
-              zh: '砖红背景与黄色星星前的大雷手工粘土肖像',
-            })}
-            width="960"
-            height="1200"
-            decoding="async"
-            fetchPriority="high"
-          />
-          <span className="clay-portrait__light" aria-hidden="true" />
+        <img
+          src={ASSETS.heroClay.large}
+          srcSet={`${ASSETS.heroClay.small} 480w, ${ASSETS.heroClay.large} 960w`}
+          sizes="(min-width: 1024px) 464px, (min-width: 640px) 336px, 84vw"
+          alt={t({
+            en: 'Handmade clay portrait of Da Lei surrounded by kinetic blue and ivory particles',
+            zh: '蓝色与象牙白动态粒子环绕的大雷手工粘土肖像',
+          })}
+          width="960"
+          height="1200"
+          decoding="async"
+          fetchPriority="high"
+          className="h-full w-full object-cover object-[55%_36%] transition-transform duration-700 group-hover:scale-[1.018] sm:object-center"
+        />
+        <span className="hero-visual__wash" aria-hidden="true" />
+        <span className="hero-visual__action" aria-hidden="true">
+          <Play weight="fill" />
         </span>
-        <span className="clay-portrait__thumbprint" aria-hidden="true" />
       </button>
 
-      <figcaption className="hero-figure__caption mt-4 flex items-center justify-between gap-3">
-        <span className="whitespace-nowrap font-display text-base italic text-ink/80 sm:text-lg">大雷 · Da Lei</span>
-        <span className="inline-flex whitespace-nowrap items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.12em] text-ink/55">
-          <YouTubeIcon className="h-3.5 w-3.5 text-gold" />
-          {CHANNEL.handle}
+      <figcaption className="mt-4 flex items-center justify-between gap-4 text-sm text-ink/60">
+        <span className="font-semibold text-ink">大雷 / Da Lei</span>
+        <span className="inline-flex items-center gap-1.5 font-mono text-[11px] tracking-[0.08em]">
+          <YoutubeLogo className="h-3.5 w-3.5 text-gold" weight="fill" /> {CHANNEL.handle}
         </span>
       </figcaption>
     </figure>
@@ -630,7 +503,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
   const [searchOpen, setSearchOpen] = useState(false);
   const [workFilter, setWorkFilter] = useState<'all' | 'ai' | 'creative' | 'tool'>('all');
   const [showAllProjects, setShowAllProjects] = useState(false);
-  const [fluidReady, setFluidReady] = useState(false);
+  const [pointerReady, setPointerReady] = useState(false);
   // Theme is resolved pre-paint by the index.html boot script; this just mirrors it.
   const [theme, setTheme] = useState<'light' | 'dark'>(() =>
     typeof document !== 'undefined' && document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light'
@@ -651,19 +524,24 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
 
   useReveal(`${workFilter}-${showAllProjects}`);
 
-  // The WebGL background is an optional enhancement. It is not requested on
-  // mobile and only downloads after a desktop pointer interaction.
+  // Keep the interaction out of first paint and respect live device preferences.
   useEffect(() => {
-    if (
-      window.matchMedia('(max-width: 767px)').matches ||
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    ) {
-      return;
-    }
-    const revealFluid = () => setFluidReady(true);
-    window.addEventListener('pointermove', revealFluid, { once: true, passive: true });
+    const media = window.matchMedia('(min-width: 768px) and (any-pointer: fine) and (prefers-reduced-motion: no-preference)');
+    const revealTrail = (event: PointerEvent) => {
+      if (event.pointerType !== 'mouse' || !media.matches) return;
+      setPointerReady(true);
+      window.removeEventListener('pointermove', revealTrail);
+    };
+    const sync = () => {
+      window.removeEventListener('pointermove', revealTrail);
+      if (media.matches) window.addEventListener('pointermove', revealTrail, { passive: true });
+      else setPointerReady(false);
+    };
+    sync();
+    media.addEventListener('change', sync);
     return () => {
-      window.removeEventListener('pointermove', revealFluid);
+      media.removeEventListener('change', sync);
+      window.removeEventListener('pointermove', revealTrail);
     };
   }, []);
 
@@ -787,9 +665,9 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
           />
         </Suspense>
       )}
-      {fluidReady && (
+      {pointerReady && !searchOpen && !menuOpen && (
         <Suspense fallback={null}>
-          <FluidBackground />
+          <PointerTrail />
         </Suspense>
       )}
       <div className="bg-aurora" />
@@ -802,7 +680,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
           scrolled ? 'border-b border-ink/10 bg-paper/80 backdrop-blur-xl' : 'border-b border-transparent'
         }`}
       >
-        <nav className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4 sm:px-8">
+        <nav className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 sm:px-8">
           <button
             onClick={() => goTo('home')}
             className="group flex items-center gap-2.5 font-display text-base font-semibold tracking-tight"
@@ -832,7 +710,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
               aria-label={t({ en: 'Search (Ctrl+K)', zh: '搜索（Ctrl+K）' })}
               className="group hidden h-8 items-center gap-2 rounded-full border border-ink/15 bg-ink/5 px-2.5 text-ink/60 transition-colors hover:border-gold/50 hover:text-ink sm:flex"
             >
-              <SearchIcon className="h-[15px] w-[15px]" />
+              <MagnifyingGlass className="h-[15px] w-[15px]" />
               <kbd aria-hidden="true" className="hidden rounded border border-ink/15 bg-paper/60 px-1 font-mono text-[10px] text-ink/45 transition-colors group-hover:text-gold lg:inline">⌘K</kbd>
             </button>
             <button
@@ -840,7 +718,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
               aria-label={theme === 'light' ? '切换到深色模式 / Switch to dark mode' : '切换到浅色模式 / Switch to light mode'}
               className="hidden h-8 w-8 place-items-center rounded-full border border-ink/15 bg-ink/5 text-sm text-ink/70 transition-colors hover:border-gold/50 hover:text-ink sm:grid"
             >
-              <span aria-hidden="true">{theme === 'light' ? '☾' : '☀'}</span>
+              {theme === 'light' ? <Moon aria-hidden="true" /> : <Sun aria-hidden="true" />}
             </button>
             <div className="inline-flex items-center rounded-full border border-ink/15 bg-ink/5 p-0.5 font-mono text-xs" role="group" aria-label="Language">
               {([['en', 'EN'], ['zh', '简'], ['zhHant', '繁']] as [Lang, string][]).map(([code, label]) => (
@@ -862,7 +740,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
               rel="noreferrer"
               className="btn-sheen hidden h-8 items-center gap-1.5 rounded-full bg-gold px-3.5 text-xs font-semibold text-paper transition-transform hover:scale-[1.03] xl:inline-flex"
             >
-              <YouTubeIcon className="h-3.5 w-3.5" />
+              <YoutubeLogo className="h-3.5 w-3.5" weight="fill" />
               {t({ en: 'Subscribe', zh: '订阅' })}
             </a>
             <button
@@ -872,7 +750,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
               aria-expanded={menuOpen}
               aria-controls="mobile-nav"
             >
-              <span className="text-lg leading-none">{menuOpen ? '×' : '≡'}</span>
+              {menuOpen ? <X aria-hidden="true" /> : <List aria-hidden="true" />}
             </button>
           </div>
         </nav>
@@ -891,7 +769,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
                 }}
                 className="inline-flex flex-1 items-center justify-center gap-2 rounded-full border border-ink/15 bg-ink/5 px-4 py-2 text-sm text-ink/75"
               >
-                <SearchIcon className="h-4 w-4" />
+                <MagnifyingGlass className="h-4 w-4" />
                 {t({ en: 'Search', zh: '搜索' })}
               </button>
               <button
@@ -899,7 +777,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
                 onClick={toggleTheme}
                 className="inline-flex flex-1 items-center justify-center gap-2 rounded-full border border-ink/15 bg-ink/5 px-4 py-2 text-sm text-ink/75"
               >
-                <span aria-hidden="true">{theme === 'light' ? '☾' : '☀'}</span>
+                {theme === 'light' ? <Moon aria-hidden="true" /> : <Sun aria-hidden="true" />}
                 {t({ en: 'Theme', zh: '主题' })}
               </button>
             </div>
@@ -919,29 +797,29 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
         )}
       </header>
 
-      <main id="main-content" className="mx-auto max-w-5xl px-5 sm:px-8">
+      <main id="main-content" className="mx-auto max-w-7xl px-5 sm:px-8">
         {/* Hero */}
-        <section id="home" className="relative grid min-h-[100dvh] items-center gap-3 pb-10 pt-20 sm:gap-10 sm:pb-16 sm:pt-24 lg:grid-cols-[1.15fr_0.85fr] lg:gap-14">
-          <div className="flex flex-col">
-            <p className="hero-in font-mono text-sm text-gold" style={{ animationDelay: '0.1s' }}>{t(COPY.hero.greeting)}</p>
+        <section id="home" className="home-hero relative grid min-h-[100dvh] items-center gap-8 pb-8 pt-24 sm:gap-12 sm:pb-16 lg:grid-cols-[minmax(0,1.08fr)_minmax(22rem,0.92fr)] lg:gap-20">
+          <div className="flex max-w-3xl flex-col">
+            <p className="hero-in font-mono text-xs font-medium tracking-[0.12em] text-gold" style={{ animationDelay: '0.08s' }}>{t(COPY.hero.greeting)}</p>
 
-            <h1 className="hero-in mt-4 font-display text-[2.65rem] font-semibold leading-[1.06] tracking-[-0.01em] sm:text-6xl lg:text-[3.25rem]" style={{ animationDelay: '0.2s' }}>
+            <h1 className="hero-in mt-5 font-display text-[2.75rem] font-semibold leading-[0.98] tracking-[-0.05em] sm:text-[3.55rem] lg:text-[3.7rem] xl:text-[4.15rem]" style={{ animationDelay: '0.18s' }}>
               <span className="block">{t(COPY.hero.titleLine1)}</span>
-              <span className="block pb-1 italic leading-[1.1] text-gradient">{t(COPY.hero.titleLine2)}</span>
+              <span className="mt-2 block text-gold">{t(COPY.hero.titleLine2)}</span>
             </h1>
 
-            <p className="hero-in mt-6 max-w-lg text-base leading-relaxed text-ink/70 sm:text-lg" style={{ animationDelay: '0.35s' }}>
+            <p className="hero-in mt-7 max-w-xl text-base leading-relaxed text-ink/65 sm:text-lg" style={{ animationDelay: '0.3s' }}>
               {t(COPY.hero.intro)}
             </p>
 
-            <div className="hero-in mt-8 flex flex-wrap items-center gap-3" style={{ animationDelay: '0.5s' }}>
+            <div className="hero-in mt-8 flex flex-wrap items-center gap-2.5" style={{ animationDelay: '0.42s' }}>
               <Magnetic strength={0.4}>
                 <button
                   onClick={() => goTo('work')}
                   className="btn-sheen group inline-flex items-center gap-2 rounded-full bg-accent px-5 py-3 text-sm font-semibold text-paper transition-transform hover:scale-[1.03]"
                 >
                   {t(COPY.hero.ctaWork)}
-                  <ArrowIcon className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
                 </button>
               </Magnetic>
               <Magnetic strength={0.4}>
@@ -951,7 +829,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
                   rel="noreferrer"
                   className="inline-flex items-center gap-2 rounded-full border border-ink/15 bg-ink/5 px-5 py-3 text-sm font-semibold text-ink/85 transition-colors hover:border-ink/30 hover:text-ink"
                 >
-                  <YouTubeIcon className="h-4 w-4" />
+                  <YoutubeLogo className="h-4 w-4" weight="fill" />
                   {t(COPY.hero.ctaVideo)}
                 </a>
               </Magnetic>
@@ -980,7 +858,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
             )}
 
             <div className="reveal flex flex-col gap-4 border-t border-ink/10 pt-8 sm:flex-row sm:items-center sm:justify-between">
-              <h3 className="font-mono text-xs uppercase tracking-[0.2em] text-gold">{t({ en: 'All projects & tools', zh: '全部项目 & 工具' })}</h3>
+              <h3 className="font-mono text-xs font-medium tracking-[0.08em] text-gold">{t({ en: 'All projects & tools', zh: '全部项目 & 工具' })}</h3>
               {/* Category filter - scan by interest instead of one long scroll */}
               <div className="flex flex-wrap gap-2" role="group" aria-label={t({ en: 'Filter projects', zh: '筛选项目' })}>
                 {workFilters.map((f) => (
@@ -1003,18 +881,16 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
                 ))}
               </div>
             </div>
-            {/* Editors' picks - the first two of the (filtered) list get a wider,
-                larger card so the wall of tiles reads as headline → picks → index. */}
-            {visibleTiles.length > 0 && (
-              <div className="grid gap-3 sm:grid-cols-2 sm:gap-5">
-                {visibleTiles.slice(0, 2).map((p) => (
-                  <ProjectCard key={p.id} project={p} lang={lang} t={t} onInternal={onNavigate} size="lg" />
-                ))}
-              </div>
-            )}
-            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
-              {visibleTiles.slice(2).map((p) => (
-                <ProjectCard key={p.id} project={p} lang={lang} t={t} onInternal={onNavigate} />
+            <div className="project-wall">
+              {visibleTiles.map((p, i) => (
+                <ProjectCard
+                  key={p.id}
+                  project={p}
+                  lang={lang}
+                  t={t}
+                  onInternal={onNavigate}
+                  size={i === 0 || i === 6 ? 'lg' : 'md'}
+                />
               ))}
             </div>
             {tiles.length > 7 && (
@@ -1039,7 +915,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
         <section id="videos" className="relative scroll-mt-24 py-20">
           <div className="reveal mb-12 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              <p className="font-mono text-xs uppercase tracking-[0.2em] text-gold">{t(COPY.videos.label)}</p>
+              <p className="font-mono text-xs font-medium tracking-[0.08em] text-gold">{t(COPY.videos.label)}</p>
               <h2 className="mt-3 font-display text-3xl font-bold tracking-tight sm:text-4xl">{t(COPY.videos.heading)}</h2>
               <p className="mt-3 max-w-md text-sm text-ink/55">{t(COPY.videos.sub)}</p>
             </div>
@@ -1075,12 +951,12 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
                 </span>
                 <span className="absolute inset-0 grid place-items-center">
                   <span className="grid h-14 w-14 scale-90 place-items-center rounded-full bg-paper/90 text-ink opacity-0 shadow-lg transition-all duration-300 group-hover:scale-100 group-hover:opacity-100">
-                    <PlayIcon className="ml-0.5 h-6 w-6" />
+                    <Play className="ml-0.5 h-6 w-6" weight="fill" />
                   </span>
                 </span>
               </div>
               <div className="flex flex-1 flex-col justify-center p-6 sm:p-8 lg:p-9">
-                <p className="flex items-center gap-2.5 font-mono text-[11px] uppercase tracking-[0.18em] text-ink/45">
+                <p className="flex items-center gap-2.5 font-mono text-[11px] tracking-wide text-ink/45">
                   <span className="rounded-full bg-gold px-2 py-0.5 font-semibold text-paper">{t(COPY.videos.new)}</span>
                   {videos[0].date}
                 </p>
@@ -1095,15 +971,15 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
             </a>
           )}
 
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="video-rail -mx-5 flex snap-x snap-mandatory gap-5 overflow-x-auto px-5 pb-4 sm:-mx-8 sm:px-8">
             {videos.slice(1).map((v, i) => (
               <a
                 key={v.id}
                 href={youtubeWatch(v.id)}
                 target="_blank"
                 rel="noreferrer"
-                className="video-card reveal group flex flex-col"
-                style={{ transitionDelay: `${(i % 3) * 80}ms` }}
+                className="video-card reveal group flex w-[82vw] max-w-[23rem] shrink-0 snap-start flex-col sm:w-[21rem]"
+                style={{ transitionDelay: `${Math.min(i, 4) * 60}ms` }}
               >
                 <div className="relative aspect-video overflow-hidden rounded-xl border border-ink/10 bg-surface">
                   <img
@@ -1117,14 +993,14 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
                   </span>
                   <span className="absolute inset-0 grid place-items-center">
                     <span className="grid h-12 w-12 scale-90 place-items-center rounded-full bg-paper/90 text-ink opacity-0 shadow-lg transition-all duration-300 group-hover:scale-100 group-hover:opacity-100">
-                      <PlayIcon className="ml-0.5 h-5 w-5" />
+                      <Play className="ml-0.5 h-5 w-5" weight="fill" />
                     </span>
                   </span>
                 </div>
                 <h3 className="mt-3 line-clamp-2 text-sm font-semibold leading-snug text-ink/90 transition-colors group-hover:text-ink">
                   {t(v.title)}
                 </h3>
-                <p className="mt-1.5 font-mono text-[11px] uppercase tracking-wider text-ink/40">
+                <p className="mt-1.5 font-mono text-[11px] tracking-wide text-ink/40">
                   {v.date} · {v.duration}
                 </p>
               </a>
@@ -1135,10 +1011,10 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
           <div className="reveal mt-10 flex flex-col items-start justify-between gap-5 overflow-hidden rounded-2xl border border-gold/30 bg-gold/[0.06] p-7 sm:flex-row sm:items-center sm:p-8">
             <div className="flex items-start gap-4">
               <span className="mt-0.5 grid h-10 w-10 shrink-0 place-items-center rounded-full border border-gold/40 bg-gold/10 text-gold">
-                <StarIcon className="h-5 w-5" />
+                <Sparkle className="h-5 w-5" weight="fill" />
               </span>
               <div>
-                <p className="font-mono text-xs uppercase tracking-[0.2em] text-gold">{t(COPY.membership.label)}</p>
+                <p className="font-mono text-xs font-medium tracking-[0.08em] text-gold">{t(COPY.membership.label)}</p>
                 <h3 className="mt-1.5 font-display text-2xl font-semibold tracking-tight">{t(COPY.membership.heading)}</h3>
                 <p className="mt-1 max-w-md text-sm leading-relaxed text-ink/60">{t(COPY.membership.sub)}</p>
               </div>
@@ -1150,7 +1026,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
                 rel="noreferrer"
                 className="btn-sheen inline-flex shrink-0 items-center gap-2 rounded-full bg-gold px-5 py-3 text-sm font-semibold text-paper transition-transform hover:scale-[1.03]"
               >
-                <StarIcon className="h-4 w-4" />
+                <Sparkle className="h-4 w-4" weight="fill" />
                 {t(COPY.membership.cta)}
               </a>
             </Magnetic>
@@ -1161,7 +1037,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
         <section id="about" className="relative scroll-mt-24 py-24 sm:py-28">
           <div className="grid items-center gap-14 lg:grid-cols-12 lg:gap-10">
             <div className="reveal lg:col-span-7">
-              <p className="font-mono text-xs uppercase tracking-[0.2em] text-gold">{t(COPY.about.label)}</p>
+              <p className="font-mono text-xs font-medium tracking-[0.08em] text-gold">{t(COPY.about.label)}</p>
               <h2 className="mt-5 font-display text-[2.6rem] font-semibold leading-[1.06] tracking-[-0.01em] sm:text-6xl lg:text-[3.75rem]">
                 <span className="block">{t(COPY.about.statementA)}</span>
                 <span className="block pb-1 italic leading-[1.1] text-gradient">{t(COPY.about.statementB)}</span>
@@ -1186,7 +1062,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
                 <dt className="font-display text-4xl font-semibold leading-none tracking-tight sm:text-5xl">
                   {s.value}
                 </dt>
-                <dd className="mt-2.5 font-mono text-[10.5px] uppercase leading-tight tracking-wider text-ink/60">
+                <dd className="mt-2.5 font-mono text-[10.5px] leading-tight tracking-wide text-ink/60">
                   {t(s.label)}
                 </dd>
               </div>
@@ -1229,7 +1105,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
             <div className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-accent/10 blur-3xl" />
             <div className="pointer-events-none absolute -bottom-20 -left-10 h-56 w-56 rounded-full bg-accent2/10 blur-3xl" />
 
-            <p className="font-mono text-xs uppercase tracking-[0.2em] text-gold">{t(COPY.connect.label)}</p>
+            <p className="font-mono text-xs font-medium tracking-[0.08em] text-gold">{t(COPY.connect.label)}</p>
             <h2 className="mt-3 max-w-xl font-display text-3xl font-bold tracking-tight sm:text-5xl">
               {t(COPY.connect.heading)}
             </h2>
@@ -1237,11 +1113,11 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
 
             <div className="mt-9 grid gap-3 sm:grid-cols-2">
               {[
-                { icon: <GitHubIcon className="h-5 w-5" />, label: 'GitHub', handle: 'paul010', href: SOCIALS.github, external: true, mail: false },
-                { icon: <YouTubeIcon className="h-5 w-5" />, label: 'YouTube', handle: '@dalei2025', href: SOCIALS.youtube, external: true, mail: false },
-                { icon: <XIcon className="h-[18px] w-[18px]" />, label: 'X / Twitter', handle: '@paul010318', href: SOCIALS.twitter, external: true, mail: false },
-                { icon: <NotionIcon className="h-5 w-5" />, label: 'Notion', handle: 'AI Agent Club', href: SOCIALS.notion, external: true, mail: false },
-                { icon: <MailIcon className="h-5 w-5" />, label: 'Email', handle: getEmail(), href: `mailto:${getEmail()}`, external: false },
+                { icon: <GithubLogo className="h-5 w-5" weight="fill" />, label: 'GitHub', handle: 'paul010', href: SOCIALS.github, external: true, mail: false },
+                { icon: <YoutubeLogo className="h-5 w-5" weight="fill" />, label: 'YouTube', handle: '@dalei2025', href: SOCIALS.youtube, external: true, mail: false },
+                { icon: <XLogo className="h-[18px] w-[18px]" />, label: 'X / Twitter', handle: '@paul010318', href: SOCIALS.twitter, external: true, mail: false },
+                { icon: <NotionLogo className="h-5 w-5" />, label: 'Notion', handle: 'AI Agent Club', href: SOCIALS.notion, external: true, mail: false },
+                { icon: <EnvelopeSimple className="h-5 w-5" />, label: 'Email', handle: getEmail(), href: `mailto:${getEmail()}`, external: false },
               ].map((s, i) => (
                 <a
                   key={s.label}
@@ -1297,16 +1173,16 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
 
             <div className="flex items-center gap-4 text-ink/50">
               <a href={SOCIALS.github} target="_blank" rel="noreferrer" className="transition-colors hover:text-ink" aria-label="GitHub">
-                <GitHubIcon className="h-5 w-5" />
+                <GithubLogo className="h-5 w-5" weight="fill" />
               </a>
               <a href={SOCIALS.youtube} target="_blank" rel="noreferrer" className="transition-colors hover:text-ink" aria-label="YouTube">
-                <YouTubeIcon className="h-5 w-5" />
+                <YoutubeLogo className="h-5 w-5" weight="fill" />
               </a>
               <a href={SOCIALS.twitter} target="_blank" rel="noreferrer" className="transition-colors hover:text-ink" aria-label="X">
-                <XIcon className="h-[18px] w-[18px]" />
+                <XLogo className="h-[18px] w-[18px]" />
               </a>
               <a href={`mailto:${getEmail()}`} className="transition-colors hover:text-ink" aria-label="Email">
-                <MailIcon className="h-5 w-5" />
+                <EnvelopeSimple className="h-5 w-5" />
               </a>
             </div>
           </div>

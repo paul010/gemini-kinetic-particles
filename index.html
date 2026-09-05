@@ -9,8 +9,8 @@
     <meta name="author" content="Da Lei (大雷)" />
     <meta name="robots" content="index, follow" />
     <meta name="application-name" content="大雷 Da Lei" />
-    <meta name="theme-color" content="#f6f3ec" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#191714" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f0f5f4" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#081115" media="(prefers-color-scheme: dark)" />
     <!-- Resolve the theme before first paint: stored choice wins, else system -->
     <script>
       (function () {
@@ -28,6 +28,14 @@
     <link rel="icon" href="/favicon-192.png" sizes="192x192" type="image/png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
+    <link
+      rel="preload"
+      as="image"
+      href="/hero-particles-960.webp"
+      imagesrcset="/hero-particles-480.webp 480w, /hero-particles-960.webp 960w"
+      imagesizes="(min-width: 1024px) 464px, (min-width: 640px) 336px, 84vw"
+      fetchpriority="high"
+    />
 
     <!-- Open Graph / social -->
     <meta property="og:type" content="website" />
@@ -108,8 +116,8 @@
 
     <style>
       /* pre-stylesheet boot colors so neither mode flashes the other */
-      :root { --boot-bg: #f6f3ec; --boot-fg: #1c1a17; }
-      [data-theme='dark'] { --boot-bg: #191714; --boot-fg: #e9e3d8; }
+      :root { --boot-bg: #f0f5f4; --boot-fg: #0a1b1f; }
+      [data-theme='dark'] { --boot-bg: #081115; --boot-fg: #e4f0ed; }
       body { margin: 0; background-color: var(--boot-bg); color: var(--boot-fg); }
       canvas { display: block; }
     </style>
