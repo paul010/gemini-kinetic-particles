@@ -73,6 +73,7 @@ export const youtubeThumb = (id: string) => `https://i.ytimg.com/vi/${id}/hqdefa
 
 export const HOME_SPOTLIGHT_ID = 'hear-the-universe';
 export const HOME_PROJECT_ORDER = [
+  'kindle-dashboard',
   'ai-coding-arsenal', 'markdown-studio', 'image-studio',
   'ai-benchmark', 'microsoft-cat-agent-skills', 'copilot-camp-cowork', 'kinetic-particles',
 ];
@@ -82,6 +83,27 @@ export const HOME_PROJECT_ORDER = [
  * `status`: live | wip | soon · `featured` makes it the large hero card.
  */
 export const PROJECTS: Project[] = [
+  {
+    id: 'kindle-dashboard',
+    category: 'tool',
+    title: { en: 'Dalei’s Kindle Dashboard', zh: '大雷的 Kindle 小窗口' },
+    year: '2026',
+    status: 'live',
+    cover: '/kindle-dashboard-photo.jpg',
+    tagline: {
+      en: 'Weather, AI usage and three familiar cats on an old Kindle.',
+      zh: '旧 Kindle 的新工作：看天气、AI 用量，还有三只猫轮流陪伴。',
+    },
+    description: {
+      en: 'A real Kindle 8th-generation dashboard powered by a Mac: city weather, rotating running encouragement, Codex and Spark quotas, and token totals with a book-scale analogy. Guoqing, Beiguo and Diandian take turns in custom poses. Source code and setup instructions are available on GitHub.',
+      zh: '把 Kindle 第八代改成桌面看板：Mac 生成黑白图片，Kindle 通过局域网定时显示天气、晨跑鼓励、Codex / Spark 额度及累计 Token 的书本类比。国庆、贝果和点点大哥以专属动作轮流出场。项目包含实拍、源码、安装步骤与上游来源说明。',
+    },
+    tags: ['Kindle', 'Codex', 'E-Ink', 'Node.js'],
+    links: [
+      { label: { en: 'View project & source', zh: '查看项目与源码' }, href: 'https://github.com/paul010/kindledalei2025', kind: 'github' },
+      { label: { en: 'Setup guide', zh: '安装与运行' }, href: 'https://github.com/paul010/kindledalei2025#安装与运行', kind: 'github' },
+    ],
+  },
   {
     id: 'vibe-check',
     category: 'creative',
