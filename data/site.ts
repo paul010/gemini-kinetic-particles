@@ -71,7 +71,7 @@ export interface VideoItem {
 export const youtubeWatch = (id: string) => `https://www.youtube.com/watch?v=${id}`;
 export const youtubeThumb = (id: string) => `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
 
-export const HOME_SPOTLIGHT_ID = 'hear-the-universe';
+export const HOME_SPOTLIGHT_ID = 'kindle-dashboard';
 export const HOME_PROJECT_ORDER = [
   'kindle-dashboard',
   'ai-coding-arsenal', 'markdown-studio', 'image-studio',

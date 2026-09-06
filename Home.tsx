@@ -200,7 +200,9 @@ const FeaturedCard: React.FC<{
             loading="lazy"
             decoding="async"
             onError={() => setImgError(true)}
-            className="h-64 w-full object-cover transition-transform duration-700 group-hover:scale-[1.04] sm:h-80 lg:h-full"
+            className={p.id === 'kindle-dashboard'
+              ? "h-auto max-h-[640px] w-full object-contain bg-paper p-4 sm:p-6"
+              : "h-64 w-full object-cover transition-transform duration-700 group-hover:scale-[1.04] sm:h-80 lg:h-full"}
           />
         )}
         <span className="pointer-events-none absolute inset-0 bg-gradient-to-t from-surface/35 via-transparent to-transparent lg:bg-gradient-to-r" />
