@@ -2,12 +2,20 @@
   "schemaVersion": 1,
   "channelId": "UCk9tu0mFtXj_rOEfIncxuJQ",
   "source": "https://www.youtube.com/@dalei2025/videos",
-  "updatedAt": "2026-09-06T01:02:32+00:00",
+  "updatedAt": "2026-09-06T09:14:54+00:00",
   "dateTimezone": "Asia/Shanghai",
   "videos": [
     {
+      "id": "NetM3feZwMM",
+      "title": "Gemini 3 8 Flash编程与物理模拟实测 Gemini 3.8 Flash Tested on Coding and Physics Simulation",
+      "publishedAt": "2026-09-06T04:57:56+00:00",
+      "date": "2026-09-06",
+      "duration": "7:04",
+      "url": "https://www.youtube.com/watch?v=NetM3feZwMM"
+    },
+    {
       "id": "vQuzOnBGhbw",
-      "title": "GPT 6 Astra上线：支持异步调用和系统操作 GPT-6 Astra Launches with Asynchronous Tool Calling and System Operations",
+      "title": "GPT-6 Astra如何自主运行游戏原型 How GPT-6 Astra Autonomously Runs Game Prototypes",
       "publishedAt": "2026-09-05T04:14:01+00:00",
       "date": "2026-09-05",
       "duration": "7:18",
@@ -44,14 +52,6 @@
       "date": "2026-08-15",
       "duration": "8:22",
       "url": "https://www.youtube.com/watch?v=PrMqZRts3s8"
-    },
-    {
-      "id": "_UqkjPAWWpY",
-      "title": "比GPT-6更可怕？OpenAI秘密模型Doug曝光，AI圈炸裂！Scarier Than GPT-6? OpenAI's Secret Model 'Doug' Leaked!",
-      "publishedAt": "2026-08-11T22:08:01+00:00",
-      "date": "2026-08-12",
-      "duration": "9:44",
-      "url": "https://www.youtube.com/watch?v=_UqkjPAWWpY"
     }
   ]
 }

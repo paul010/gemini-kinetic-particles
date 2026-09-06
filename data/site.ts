@@ -73,7 +73,7 @@ export const youtubeThumb = (id: string) => `https://i.ytimg.com/vi/${id}/hqdefa
 
 export const HOME_SPOTLIGHT_ID = 'kindle-dashboard';
 export const HOME_PROJECT_ORDER = [
-  'kindle-dashboard',
+  'kindle-dashboard', 'lvshun-map',
   'ai-coding-arsenal', 'markdown-studio', 'image-studio',
   'ai-benchmark', 'microsoft-cat-agent-skills', 'copilot-camp-cowork', 'kinetic-particles',
 ];
@@ -102,6 +102,28 @@ export const PROJECTS: Project[] = [
     links: [
       { label: { en: 'View project & source', zh: '查看项目与源码' }, href: 'https://github.com/paul010/kindledalei2025', kind: 'github' },
       { label: { en: 'Setup guide', zh: '安装与运行' }, href: 'https://github.com/paul010/kindledalei2025#安装与运行', kind: 'github' },
+    ],
+  },
+  {
+    id: 'lvshun-map',
+    category: 'creative',
+    title: { en: 'Mountain & Sea: Lüshun', zh: '山海旅顺' },
+    year: '2026',
+    status: 'live',
+    featured: true,
+    cover: '/lvshun-cover-1200.webp',
+    tagline: {
+      en: 'A miniature 3D journey through Lüshun’s natural harbor, coastal hills and historic landmarks.',
+      zh: '一座可以旋转、缩放和飞行浏览的旅顺口三维沙盘。',
+    },
+    description: {
+      en: 'An interactive Three.js map shaped from real coastline references. Explore Baiyu Mountain, the harbor, Tiger Tail sandspit, 203 Hill, Taiyanggou and Laotie Mountain, then switch between daylight, sunset and night.',
+      zh: '参考真实海岸线和航拍地貌制作的 Three.js 互动地图。可浏览白玉山、旅顺军港、老虎尾沙嘴、203高地、太阳沟和老铁山，并切换昼景、日落与夜景。',
+    },
+    tags: ['Three.js', 'WebGL', 'Interactive Map', 'Creative Coding'],
+    links: [
+      { label: { en: 'Explore Lüshun', zh: '打开旅顺地图' }, href: '/lvshun', kind: 'internal' },
+      { label: { en: 'Source', zh: '查看源码' }, href: 'https://github.com/paul010/gemini-kinetic-particles/tree/main/lvshun', kind: 'github' },
     ],
   },
   {
