@@ -6,8 +6,12 @@ const CHANNEL_ID = 'UCk9tu0mFtXj_rOEfIncxuJQ';
 // Keep the source wording. Split only clear bilingual suffixes; a Chinese-only
 // title stays in Chinese instead of inventing an English translation.
 export function videoTitle(title: string): LocalizedText {
-  const split = title.match(/^(.*[\u3400-\u9fff？！%])\s*([A-Z][A-Za-z0-9][\s\S]+)$/);
-  return split ? { zh: split[1].trim(), en: split[2].trim() } : { zh: title, en: title };
+  const split = title.match(/^(.*[\u3400-\u9fff？！%])\s*([A-Z][A-Za-z0-9][^\u3400-\u9fff]*)$/);
+  // A product name inside a Chinese title is not an English translation.
+  // Require multiple English words and keep ambiguous titles intact.
+  return split && /[A-Za-z]{2,}\s+[A-Za-z]{2,}/.test(split[2])
+    ? { zh: split[1].trim(), en: split[2].trim() }
+    : { zh: title, en: title };
 }
 
 export function parseLatestVideos(data: unknown, limit = 6): VideoItem[] {

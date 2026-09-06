@@ -8,10 +8,14 @@ const { parseLatestVideos, videoTitle, fetchLatestVideos } = await import(`data:
 const snapshot = JSON.parse(await readFile(new URL('../data/video-snapshot.json', import.meta.url), 'utf8'));
 const parsed = parseLatestVideos(snapshot);
 assert.equal(parsed.length, 6);
-assert.equal(parsed[0].id, 'vQuzOnBGhbw');
+assert.equal(parsed[0].id, snapshot.videos[0].id);
 assert.deepEqual(parseLatestVideos({ ...snapshot, videos: [...snapshot.videos].reverse() }), parsed);
 assert.deepEqual(videoTitle('GPT-6 Astra在Terminal-Bench达57.9%  GPT-6 Astra Scores 57.9% on Terminal-Bench'), { zh: 'GPT-6 Astra在Terminal-Bench达57.9%', en: 'GPT-6 Astra Scores 57.9% on Terminal-Bench' });
 assert.deepEqual(videoTitle('中文节目'), { zh: '中文节目', en: '中文节目' });
+for (const title of ['用AI整理知识：从资料堆到能复用的笔记', '教你配置ChatGPT', '本地Agent实测']) {
+  assert.deepEqual(videoTitle(title), { zh: title, en: title });
+}
+assert.deepEqual(videoTitle('基准表现如何？Gemini Flash: Testing the Results'), { zh: '基准表现如何？', en: 'Gemini Flash: Testing the Results' });
 for (const bad of [null, {}, { ...snapshot, channelId: 'other' }, { ...snapshot, videos: [] },
   { ...snapshot, videos: [...snapshot.videos, snapshot.videos[0]] },
   ...['id', 'date', 'publishedAt', 'duration', 'title'].map(key => ({ ...snapshot, videos: [{ ...snapshot.videos[0], [key]: '' }, ...snapshot.videos.slice(1)] }))]) {

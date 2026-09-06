@@ -2,12 +2,12 @@
   "schemaVersion": 1,
   "channelId": "UCk9tu0mFtXj_rOEfIncxuJQ",
   "source": "https://www.youtube.com/@dalei2025/videos",
-  "updatedAt": "2026-09-05T12:54:26+00:00",
+  "updatedAt": "2026-09-06T01:02:32+00:00",
   "dateTimezone": "Asia/Shanghai",
   "videos": [
     {
       "id": "vQuzOnBGhbw",
-      "title": "GPT-6 Astra在Terminal-Bench达57.9%  GPT-6 Astra Scores 57.9% on Terminal-Bench",
+      "title": "GPT 6 Astra上线：支持异步调用和系统操作 GPT-6 Astra Launches with Asynchronous Tool Calling and System Operations",
       "publishedAt": "2026-09-05T04:14:01+00:00",
       "date": "2026-09-05",
       "duration": "7:18",
