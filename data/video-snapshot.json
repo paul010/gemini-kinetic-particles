@@ -2,12 +2,36 @@
   "schemaVersion": 1,
   "channelId": "UCk9tu0mFtXj_rOEfIncxuJQ",
   "source": "https://www.youtube.com/@dalei2025/videos",
-  "updatedAt": "2026-09-06T09:14:54+00:00",
+  "updatedAt": "2026-09-08T01:01:54+00:00",
   "dateTimezone": "Asia/Shanghai",
   "videos": [
     {
+      "id": "PfB3O2EQEj8",
+      "title": "GPT-6 Astra：从识别画面，到连续动手",
+      "publishedAt": "2026-09-07T11:58:52+00:00",
+      "date": "2026-09-07",
+      "duration": "1:06",
+      "url": "https://www.youtube.com/watch?v=PfB3O2EQEj8"
+    },
+    {
+      "id": "3RPnuK6-RWM",
+      "title": "Astra电脑操作靠谱吗？奥特曼的判断与仍需验证的问题 How Reliable Is Astra Computer Use? Altman’s View and Open Questions",
+      "publishedAt": "2026-09-07T10:47:56+00:00",
+      "date": "2026-09-07",
+      "duration": "10:29",
+      "url": "https://www.youtube.com/watch?v=3RPnuK6-RWM"
+    },
+    {
+      "id": "yMBkQ-TEXkA",
+      "title": "GPT 6 Astra 公开演示：游戏、3D和电脑操作 GPT-6 Astra demos: games, 3D and computer use—how far do the  go?",
+      "publishedAt": "2026-09-06T12:46:02+00:00",
+      "date": "2026-09-06",
+      "duration": "8:04",
+      "url": "https://www.youtube.com/watch?v=yMBkQ-TEXkA"
+    },
+    {
       "id": "NetM3feZwMM",
-      "title": "Gemini 3 8 Flash编程与物理模拟实测 Gemini 3.8 Flash Tested on Coding and Physics Simulation",
+      "title": "Gemini 3.8 Flash与Opus 5为何要看同任务复测 Why Gemini 3.8 Flash vs Opus 5 Needs Same-Task Retesting",
       "publishedAt": "2026-09-06T04:57:56+00:00",
       "date": "2026-09-06",
       "duration": "7:04",
@@ -15,7 +39,7 @@
     },
     {
       "id": "vQuzOnBGhbw",
-      "title": "GPT-6 Astra如何自主运行游戏原型 How GPT-6 Astra Autonomously Runs Game Prototypes",
+      "title": "GPT-6 Astra在Terminal-Bench达57.9%  GPT-6 Astra Scores 57.9% on Terminal-Bench",
       "publishedAt": "2026-09-05T04:14:01+00:00",
       "date": "2026-09-05",
       "duration": "7:18",
@@ -28,30 +52,6 @@
       "date": "2026-08-18",
       "duration": "8:00",
       "url": "https://www.youtube.com/watch?v=qqDh7xH6nP4"
-    },
-    {
-      "id": "WhczDDpxV8k",
-      "title": "Qwen3.8 27B模型离线部署不等于绝对私密：4-bit需13.5G显存与日志检查",
-      "publishedAt": "2026-08-16T13:46:01+00:00",
-      "date": "2026-08-16",
-      "duration": "6:42",
-      "url": "https://www.youtube.com/watch?v=WhczDDpxV8k"
-    },
-    {
-      "id": "f6WkS2qAdRY",
-      "title": "Gemini 3 7 Flash发布：三周迭代、价格减半，基准表现如何？Gemini 3.7 Flash: A Three-Week Upgrade, Half-Price Intro",
-      "publishedAt": "2026-08-15T04:21:36+00:00",
-      "date": "2026-08-15",
-      "duration": "7:44",
-      "url": "https://www.youtube.com/watch?v=f6WkS2qAdRY"
-    },
-    {
-      "id": "PrMqZRts3s8",
-      "title": "Meta重磅开源Muse Glimmer 30B本地Agent最强神仙模型来了 Meta Open-Sources Muse Glimmer 30B: The Ultimate Local Agent",
-      "publishedAt": "2026-08-14T21:57:16+00:00",
-      "date": "2026-08-15",
-      "duration": "8:22",
-      "url": "https://www.youtube.com/watch?v=PrMqZRts3s8"
     }
   ]
 }
