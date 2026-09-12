@@ -24,6 +24,8 @@ export interface Project {
   links: ProjectLink[];
   featured?: boolean;
   cover?: string;
+  /** Optional focal point for portrait photography displayed in landscape cards. */
+  coverFocus?: string;
   /** Coarse grouping for the Work-section filter chips. */
   category?: 'ai' | 'creative' | 'tool';
   /** Signature project - gets a highlighted eyebrow and sorts to the top. */
@@ -70,7 +72,7 @@ export const youtubeThumb = (id: string) => `https://i.ytimg.com/vi/${id}/hqdefa
 
 export const HOME_SPOTLIGHT_ID = 'kindle-dashboard';
 export const HOME_PROJECT_ORDER = [
-  'kindle-dashboard', 'lvshun-map',
+  'kindle-dashboard', 'ai-passport-2026', 'lvshun-map',
   'ai-coding-arsenal', 'markdown-studio', 'image-studio',
   'ai-benchmark', 'microsoft-cat-agent-skills', 'copilot-camp-cowork', 'kinetic-particles',
 ];
@@ -99,6 +101,29 @@ export const PROJECTS: Project[] = [
     links: [
       { label: { en: 'View project & source', zh: '查看项目与源码' }, href: 'https://github.com/paul010/kindledalei2025', kind: 'github' },
       { label: { en: 'Setup guide', zh: '安装与运行' }, href: 'https://github.com/paul010/kindledalei2025#安装与运行', kind: 'github' },
+    ],
+  },
+  {
+    id: 'ai-passport-2026',
+    category: 'tool',
+    title: { en: 'AI Passport 2026', zh: 'AI Passport 2026' },
+    year: '2026',
+    status: 'live',
+    featured: true,
+    cover: '/ai-passport-2026.webp',
+    coverFocus: 'center 27%',
+    tagline: {
+      en: 'A personal wearable identity page with an offline AB-731 practice app.',
+      zh: '把个人身份主页、日期时间和 AB-731 离线练习装进一张随身 AI Passport。',
+    },
+    description: {
+      en: 'My third open-source project. It opens on my portrait and creator profile, then lets me enter AB-731 practice, review explanations and revisit mistakes without signing in.',
+      zh: '我的第三个开源项目。开机先看到头像、创作者身份、日期时间和电量，再进入 AB-731 练习，随时答题、看解析和重练错题，全程无需登录。',
+    },
+    tags: ['Open Source', 'Wearable', 'Learning', 'AB-731'],
+    links: [
+      { label: { en: 'View project', zh: '查看项目' }, href: 'https://github.com/paul010/aipassword2026', kind: 'github' },
+      { label: { en: 'Download', zh: '下载固件' }, href: 'https://github.com/paul010/aipassword2026/releases/tag/v1.0.1-ai-passport-ab731', kind: 'live' },
     ],
   },
   {

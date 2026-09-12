@@ -200,6 +200,7 @@ const FeaturedCard: React.FC<{
             loading="lazy"
             decoding="async"
             onError={() => setImgError(true)}
+            style={p.coverFocus ? { objectPosition: p.coverFocus } : undefined}
             className={p.id === 'kindle-dashboard'
               ? "h-auto max-h-[640px] w-full object-contain bg-paper p-4 sm:p-6"
               : "h-64 w-full object-cover transition-transform duration-700 group-hover:scale-[1.04] sm:h-80 lg:h-full"}
@@ -307,6 +308,7 @@ const ProjectCard: React.FC<{
             loading="lazy"
             decoding="async"
             onError={() => setImgError(true)}
+            style={p.coverFocus ? { objectPosition: p.coverFocus } : undefined}
             className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.05]" />
         ) : (
           // Cover-less tiles (in-browser tools) get a consistent on-palette
