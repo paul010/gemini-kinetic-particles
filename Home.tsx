@@ -365,21 +365,19 @@ const HeroFigure: React.FC<{
           en: `Open ${CHANNEL.name.en} on YouTube`,
           zh: `在 YouTube 打开${CHANNEL.name.zh}`,
         })}
-        className="hero-visual__button group relative block aspect-[16/10] w-full overflow-hidden rounded-[1.25rem] border border-ink/15 bg-surface p-0 text-left sm:aspect-[4/5]"
+        className="hero-visual__button group relative block aspect-square w-full overflow-hidden rounded-[1.25rem] border border-ink/15 bg-surface p-0 text-left sm:aspect-[4/5]"
       >
         <img
-          src={ASSETS.heroClay.large}
-          srcSet={`${ASSETS.heroClay.small} 480w, ${ASSETS.heroClay.large} 960w`}
-          sizes="(min-width: 1024px) 464px, (min-width: 640px) 336px, 84vw"
+          src={ASSETS.heroPortrait}
           alt={t({
-            en: 'Handmade clay portrait of Da Lei surrounded by kinetic blue and ivory particles',
-            zh: '蓝色与象牙白动态粒子环绕的大雷手工粘土肖像',
+            en: 'Da Lei’s cartoon avatar with a red scarf and grey vest, against blue sky with pixel clouds and stars',
+            zh: '蓝天、像素云朵和星星背景下，戴红领巾、穿灰色背心的大雷卡通头像',
           })}
-          width="960"
-          height="1200"
+          width="1086"
+          height="1448"
           decoding="async"
           fetchPriority="high"
-          className="h-full w-full object-cover object-[55%_36%] transition-transform duration-700 group-hover:scale-[1.018] sm:object-center"
+          className="h-full w-full object-cover object-[50%_35%] transition-transform duration-700 group-hover:scale-[1.018] sm:object-center"
         />
         <span className="hero-visual__wash" aria-hidden="true" />
         <span className="hero-visual__action" aria-hidden="true">
