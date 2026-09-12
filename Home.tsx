@@ -1,6 +1,7 @@
 import React, { Suspense, useEffect, useRef, useState } from 'react';
 import { ArrowRight } from '@phosphor-icons/react/ArrowRight';
 import { ArrowUpRight } from '@phosphor-icons/react/ArrowUpRight';
+import { Coffee } from '@phosphor-icons/react/Coffee';
 import { EnvelopeSimple } from '@phosphor-icons/react/EnvelopeSimple';
 import { GithubLogo } from '@phosphor-icons/react/GithubLogo';
 import { List } from '@phosphor-icons/react/List';
@@ -1051,17 +1052,30 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
                 <p className="mt-1 max-w-md text-sm leading-relaxed text-ink/60">{t(COPY.membership.sub)}</p>
               </div>
             </div>
-            <Magnetic strength={0.35}>
-              <a
-                href={SOCIALS.membership}
-                target="_blank"
-                rel="noreferrer"
-                className="btn-sheen inline-flex shrink-0 items-center gap-2 rounded-full bg-gold px-5 py-3 text-sm font-semibold text-paper transition-transform hover:scale-[1.03]"
-              >
-                <Sparkle className="h-4 w-4" weight="fill" />
-                {t(COPY.membership.cta)}
-              </a>
-            </Magnetic>
+            <div className="flex flex-wrap gap-3 sm:justify-end">
+              <Magnetic strength={0.35}>
+                <a
+                  href={SOCIALS.coffee}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="btn-sheen inline-flex shrink-0 items-center gap-2 rounded-full bg-gold px-5 py-3 text-sm font-semibold text-paper transition-transform hover:scale-[1.03]"
+                >
+                  <Coffee className="h-4 w-4" weight="fill" />
+                  {t(COPY.membership.coffeeCta)}
+                </a>
+              </Magnetic>
+              <Magnetic strength={0.35}>
+                <a
+                  href={SOCIALS.membership}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex shrink-0 items-center gap-2 rounded-full border border-ink/20 bg-paper px-5 py-3 text-sm font-semibold text-ink transition-all hover:scale-[1.03] hover:border-red-500/60 hover:text-red-600"
+                >
+                  <YoutubeLogo className="h-4 w-4" weight="fill" />
+                  {t(COPY.membership.memberCta)}
+                </a>
+              </Magnetic>
+            </div>
           </div>
         </section>
 
@@ -1149,6 +1163,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
               {[
                 { icon: <GithubLogo className="h-5 w-5" weight="fill" />, label: 'GitHub', handle: 'paul010', href: SOCIALS.github, external: true, mail: false },
                 { icon: <YoutubeLogo className="h-5 w-5" weight="fill" />, label: 'YouTube', handle: '@dalei2025', href: SOCIALS.youtube, external: true, mail: false },
+                { icon: <Coffee className="h-5 w-5" weight="fill" />, label: 'Buy Me a Coffee', handle: '/dalei', href: SOCIALS.coffee, external: true, mail: false },
                 { icon: <XLogo className="h-[18px] w-[18px]" />, label: 'X / Twitter', handle: '@paul010318', href: SOCIALS.twitter, external: true, mail: false },
                 { icon: <NotionLogo className="h-5 w-5" />, label: 'Notion', handle: 'AI Agent Club', href: SOCIALS.notion, external: true, mail: false },
                 { icon: <EnvelopeSimple className="h-5 w-5" />, label: 'Email', handle: getEmail(), href: `mailto:${getEmail()}`, external: false },

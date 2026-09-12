@@ -39,6 +39,7 @@ export const SOCIALS = {
   github: 'https://github.com/paul010',
   youtube: 'https://www.youtube.com/@dalei2025',
   twitter: 'https://x.com/paul010318',
+  coffee: 'https://buymeacoffee.com/dalei',
   membership: 'https://www.youtube.com/channel/UCk9tu0mFtXj_rOEfIncxuJQ/join',
   notion: 'https://aiagentclub.notion.site/1e51f5ff8f8c80a4b849c9526278b791',
 };
@@ -1082,13 +1083,14 @@ export const COPY = {
     new: { en: 'Latest episode', zh: '最新节目' },
   },
   membership: {
-    label: { en: 'Support the channel', zh: '支持创作' },
-    heading: { en: 'Finding this useful?', zh: '如果这些内容对你有帮助' },
+    label: { en: 'Support the work', zh: '支持我的创作' },
+    heading: { en: 'Choose the support that fits you', zh: '选择适合你的支持方式' },
     sub: {
-      en: 'You can support future videos through a channel membership. See the membership page for current benefits.',
-      zh: '欢迎通过频道会员支持我继续做下去。具体权益以 YouTube 会员页面为准。',
+      en: 'Buy me a coffee for one-time support, or join the YouTube membership for ongoing support.',
+      zh: '可以请我喝杯咖啡做一次支持，也可以加入 YouTube 会员长期同行。',
     },
-    cta: { en: 'See membership options', zh: '看看会员说明' },
+    coffeeCta: { en: 'Buy me a coffee', zh: '请我喝杯咖啡' },
+    memberCta: { en: 'Join YouTube', zh: '加入 YouTube 会员' },
   },
   about: {
     label: { en: 'About me', zh: '关于我' },
