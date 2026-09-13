@@ -63,6 +63,34 @@ first featured project. The full particle experience lives at **`/particles`**.
 本仓库现在同时是 **大雷的个人主页**。首页 (`/`) 是一个展示开源项目的作品集，
 **Kinetic Particles** 是第一个精选项目；完整的粒子体验位于 **`/particles`**。
 
+### AI Passport 2026 · 第三个开源项目
+
+<table>
+  <tr>
+    <td width="50%" align="center">
+      <img src="public/ai-passport-2026.webp" alt="AI Passport 2026 最新充电实拍"><br>
+      <sub>个人身份首页与 AB-731 应用入口</sub>
+    </td>
+    <td width="50%" align="center">
+      <img src="public/ai-passport-2026-lanyard.webp" alt="AI Passport 2026 挂绳完整实拍"><br>
+      <sub>完整穿戴设备与挂绳</sub>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" align="center">
+      <img src="public/ai-passport-ab731-home-v18.webp" alt="AB-731 早期 18 题版本首页"><br>
+      <sub>早期 18 题版本，作为迭代记录保留</sub>
+    </td>
+    <td width="50%" align="center">
+      <img src="public/ai-passport-ab731-question-v18.webp" alt="AB-731 早期四选一答题界面"><br>
+      <sub>早期答题界面，不作为当前 100 题版本的真机证明</sub>
+    </td>
+  </tr>
+</table>
+
+当前源码包含 100 道原创 AB-731 学习题、即时解析、错题重练和离线进度保存。
+[查看 AI Passport 2026 项目与源码](https://github.com/paul010/aipassword2026)。
+
 - **Homepage / 首页** — bilingual (EN / 中文), animated cosmic background, project cards
 - **`/particles`** — the interactive hand-gesture particle app (below)
 - **`/copilot-demo`** — presenter-ready CN Print Copilot console with learner-facing downloadable practice kits

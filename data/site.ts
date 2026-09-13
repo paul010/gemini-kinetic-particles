@@ -118,8 +118,8 @@ export const PROJECTS: Project[] = [
       zh: '把个人身份主页、日期时间和 AB-731 离线练习装进一张随身 AI Passport。',
     },
     description: {
-      en: 'My third open-source project. It opens on my portrait and creator profile, then lets me enter AB-731 practice, review explanations and revisit mistakes without signing in.',
-      zh: '我的第三个开源项目。开机先看到头像、创作者身份、日期时间和电量，再进入 AB-731 练习，随时答题、看解析和重练错题，全程无需登录。',
+      en: 'My third open-source project. It opens on my portrait and creator profile, then offers 100 original AB-731 study questions with explanations, mistake review and offline progress—no sign-in required.',
+      zh: '我的第三个开源项目。开机先看到头像、创作者身份、日期时间和电量，再进入 100 道原创 AB-731 学习题，随时答题、看解析和重练错题，全程无需登录。',
     },
     tags: ['Open Source', 'Wearable', 'Learning', 'AB-731'],
     links: [
