@@ -68,12 +68,12 @@ first featured project. The full particle experience lives at **`/particles`**.
 <table>
   <tr>
     <td width="50%" align="center">
-      <img src="public/ai-passport-2026.webp" alt="AI Passport 2026 最新充电实拍"><br>
-      <sub>个人身份首页与 AB-731 应用入口</sub>
+      <img src="public/ai-passport-2026.webp" alt="AI Passport 2026 最新手持实拍"><br>
+      <sub>最新手持实拍：个人身份首页与 AB-731 应用入口</sub>
     </td>
     <td width="50%" align="center">
-      <img src="public/ai-passport-2026-lanyard.webp" alt="AI Passport 2026 挂绳完整实拍"><br>
-      <sub>完整穿戴设备与挂绳</sub>
+      <img src="public/ai-passport-2026-lanyard.webp" alt="AI Passport 2026 充电状态完整机身实拍"><br>
+      <sub>最新斜俯拍：充电状态与完整机身</sub>
     </td>
   </tr>
   <tr>
@@ -84,6 +84,12 @@ first featured project. The full particle experience lives at **`/particles`**.
     <td width="50%" align="center">
       <img src="public/ai-passport-ab731-question-v18.webp" alt="AB-731 早期四选一答题界面"><br>
       <sub>早期答题界面，不作为当前 100 题版本的真机证明</sub>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center">
+      <img src="public/ai-passport-ab731-result-v18.webp" width="50%" alt="AB-731 早期版本答题解析界面"><br>
+      <sub>早期答题解析实拍：提交后立即显示正确答案和说明</sub>
     </td>
   </tr>
 </table>
