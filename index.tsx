@@ -45,6 +45,7 @@ const Harbin = React.lazy(() => import('./lab3d/Harbin'));
 const ForbiddenCity = React.lazy(() => import('./lab3d/ForbiddenCity'));
 const BrooksFalls = React.lazy(() => import('./lab3d/BrooksFalls'));
 const VibeCheck = React.lazy(() => import('./vibecheck/VibeCheck'));
+const MapRouteBroll = React.lazy(() => import('./maproute/MapRouteBroll'));
 const LvshunMap = React.lazy(() => import('./lvshun/LvshunMap'));
 
 const Loader: React.FC<{ label: string }> = ({ label }) => (
@@ -59,11 +60,12 @@ const Loader: React.FC<{ label: string }> = ({ label }) => (
   </div>
 );
 
-type Route = 'home' | 'particles' | 'arsenal' | 'md' | 'img' | 's2c' | 'fluid' | 'r3f' | 'ttt-hour-of-code' | 'hear-the-universe' | 'bench' | 'fugu' | 'copilot' | 'copilotcamp' | 'copilot-demo' | 'promptforge' | 'notebooklm' | 'aihtml' | 'text2image' | 'farmer' | 'quyoubus' | 'hpworkshop' | 'agents' | 'skills' | 'cat-skills' | 'uml' | 'town' | 'patterns' | 'prompts' | 'cici' | 'designskill' | 'videogen' | 'dino' | 'chengdu' | 'lab3d' | 'cappadocia' | 'zhangjiajie' | 'niagara' | 'fireflies' | 'harbin' | 'forbiddencity' | 'brooksfalls' | 'vibe-check' | 'lvshun';
+type Route = 'home' | 'particles' | 'arsenal' | 'md' | 'img' | 's2c' | 'fluid' | 'r3f' | 'ttt-hour-of-code' | 'hear-the-universe' | 'bench' | 'fugu' | 'copilot' | 'copilotcamp' | 'copilot-demo' | 'promptforge' | 'notebooklm' | 'aihtml' | 'text2image' | 'farmer' | 'quyoubus' | 'hpworkshop' | 'agents' | 'skills' | 'cat-skills' | 'uml' | 'town' | 'patterns' | 'prompts' | 'cici' | 'designskill' | 'videogen' | 'dino' | 'chengdu' | 'lab3d' | 'cappadocia' | 'zhangjiajie' | 'niagara' | 'fireflies' | 'harbin' | 'forbiddencity' | 'brooksfalls' | 'vibe-check' | 'lvshun' | 'map-route-broll';
 
 const routeFromLocation = (): Route => {
   const { pathname, hash } = window.location;
   const p = pathname.replace(/\/+$/, '');
+  if (p.endsWith('/map-route-broll') || hash === '#/map-route-broll') return 'map-route-broll';
   if (p.endsWith('/particles') || hash === '#/particles') return 'particles';
   if (p.endsWith('/arsenal') || hash === '#/arsenal') return 'arsenal';
   if (p.endsWith('/md') || hash === '#/md') return 'md';
@@ -182,6 +184,7 @@ const Router: React.FC = () => {
       forbiddencity: '紫禁城初雪 · #9 已生成 · 大雷',
       brooksfalls: '布鲁克斯瀑布鲑鱼洄游 · #59 已生成 · 大雷',
       'vibe-check': '你的隐藏气质是什么？· 纯娱乐测试 · 大雷',
+      'map-route-broll': '微缩地图航线 B-roll Skill · 大雷',
       lvshun: '山海旅顺 · 3D 互动地图 · 大雷',
     };
     document.title = titles[route];
@@ -529,6 +532,10 @@ const Router: React.FC = () => {
         <VibeCheck onHome={() => navigate('/')} />
       </Suspense>
     );
+  }
+
+  if (route === 'map-route-broll') {
+    return <Suspense fallback={<Loader label="MAP ROUTE B-ROLL" />}><MapRouteBroll onHome={() => navigate('/')} /></Suspense>;
   }
 
   if (route === 'lvshun') {

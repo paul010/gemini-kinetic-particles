@@ -73,7 +73,7 @@ export const youtubeThumb = (id: string) => `https://i.ytimg.com/vi/${id}/hqdefa
 
 export const HOME_SPOTLIGHT_ID = 'kindle-dashboard';
 export const HOME_PROJECT_ORDER = [
-  'kindle-dashboard', 'ai-passport-2026', 'lvshun-map',
+  'map-route-broll', 'kindle-dashboard', 'ai-passport-2026', 'lvshun-map',
   'ai-coding-arsenal', 'markdown-studio', 'image-studio',
   'ai-benchmark', 'microsoft-cat-agent-skills', 'copilot-camp-cowork', 'kinetic-particles',
 ];
@@ -83,6 +83,20 @@ export const HOME_PROJECT_ORDER = [
  * `status`: live | wip | soon · `featured` makes it the large hero card.
  */
 export const PROJECTS: Project[] = [
+  {
+    id: 'map-route-broll', category: 'creative',
+    title: { en: 'Map Route B-roll Skill', zh: '微缩地图航线 Skill' },
+    year: '2026', status: 'live', featured: true,
+    cover: '/map-route-broll/cover.webp',
+    tagline: { en: 'Miniature cities, flight paths and a journey back home.', zh: '让飞机在微缩地图上逐站飞行，把行程做成一段视频。' },
+    description: { en: 'An open-source skill for direct flights, multi-city stopovers and return journeys. Watch two finished demos, download the skill, and reuse editable map, aircraft and route layers.', zh: '把双城直达、多城停留和闭环返程做成地图 B-roll。内含双城与四城成片、无字底图、可配置生成器及可编辑源码，下载后可继续替换城市和路线。' },
+    tags: ['Agent Skill', 'ImageGen', 'GSAP', 'Open Source'],
+    links: [
+      { label: { en: 'Watch & download', zh: '看演示与下载' }, href: '/map-route-broll', kind: 'internal' },
+      { label: { en: 'GitHub', zh: '公开 Skill 库' }, href: 'https://github.com/paul010/map-route-broll-skill', kind: 'github' },
+    ],
+  },
+
   {
     id: 'kindle-dashboard',
     category: 'tool',

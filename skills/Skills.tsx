@@ -47,10 +47,20 @@ interface Skill {
   oneLiner: LocalizedText;
   providers: string[];
   examples: LocalizedText[];
+  href?: string;
   brief: string; // English capability brief — paste into an agent's tool/skill definition
 }
 
 const SKILLS: Skill[] = [
+  {
+    id: 'map-route-broll', emoji: '🗺️', domain: 'media', providers: ['ImageGen', 'GSAP', 'HyperFrames'],
+    href: '/map-route-broll',
+    title: { en: 'Map Route B-roll', zh: '微缩地图航线 B-roll' },
+    oneLiner: { en: 'An installable open-source skill: miniature cities, animated flight paths and round trips.', zh: '已开源、可安装：微缩城市地图、飞机划线、多城市停站与闭环返程。' },
+    examples: [{ en: 'Lüshun → Beijing, an 8-second video', zh: '旅顺 → 北京，8 秒直达视频' }, { en: 'Four cities and a return home, 16 seconds', zh: '四座城市逐站停留，16 秒返回出发地' }],
+    brief: 'Use $map-route-broll to create a miniature map itinerary video, with separate background, city labels, airplane and route layers. Deliver a verified MP4 and editable source. Install from https://github.com/paul010/map-route-broll-skill first.',
+  },
+
   // ---- Media & Creation ----
   {
     id: 'yt-research', emoji: '🔎', domain: 'media', providers: ['SerpAPI', 'YouTube Data'],
@@ -340,6 +350,7 @@ const Skills: React.FC<Props> = ({ onHome }) => {
                 ))}
               </ul>
 
+              {sk.href && <a href={sk.href} className="mt-4 text-sm font-semibold underline underline-offset-4">{t({ en: 'Watch demos & install', zh: '看演示与安装' })} ↗</a>}
               <button onClick={() => copy(sk)}
                 className="mt-4 inline-flex items-center justify-center gap-1.5 rounded-full border border-ink/15 bg-paper px-3.5 py-1.5 font-mono text-xs text-ink/75 transition-colors hover:border-gold/50 hover:text-gold">
                 {copiedId === sk.id ? t({ en: 'Copied ✓', zh: '已复制 ✓' }) : t({ en: 'Copy skill brief', zh: '复制技能简介' })}
@@ -350,8 +361,8 @@ const Skills: React.FC<Props> = ({ onHome }) => {
 
         <p className="mt-10 text-xs leading-relaxed text-ink/45">
           {t({
-            en: 'Skills by 大雷 — capability references, not turnkey installs. Each needs its provider/API and credentials wired up; keys live in your own environment, never here. Keep a human in the loop for anything that sends, books, or spends.',
-            zh: '技能由大雷整理 —— 是能力参考，不是一键安装。每个都需要接好对应的服务/API 与凭证；密钥放在你自己的环境里，不在本站。凡是会「发送 / 预订 / 花钱」的动作请保留人工确认。',
+            en: 'Skills by 大雷 — most cards are capability references; cards with an install link include a downloadable skill. Each needs its provider/API and credentials wired up; keys live in your own environment, never here. Keep a human in the loop for anything that sends, books, or spends.',
+            zh: '技能由大雷整理 —— 多数卡片是能力参考；带安装入口的项目提供可下载 Skill。每个都需要接好对应的服务/API 与凭证；密钥放在你自己的环境里，不在本站。凡是会「发送 / 预订 / 花钱」的动作请保留人工确认。',
           })}
         </p>
       </main>
