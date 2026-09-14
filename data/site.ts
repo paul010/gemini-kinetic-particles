@@ -330,14 +330,13 @@ export const PROJECTS: Project[] = [
     year: '2026',
     status: 'live',
     featured: true,
-    cover: 'https://cdn.jsdelivr.net/gh/paul010/dalei-youtube@master/whiteboard-dalei.png',
     tagline: {
       en: "A photo and a prompt turned into a whiteboard self-introduction.",
       zh: "用一张照片和一段提示词，把自我介绍画成手绘白板。",
     },
     description: {
-      en: 'A single-prompt personal infographic: Microsoft Copilot turns a headshot and my LinkedIn / Work IQ profile into a photoreal cartoon whiteboard - what I do, who I work with, my role, my values, my tools, and a day in my life. A fun, repeatable way to render your professional identity. Prompt below, result on the left.',
-      zh: '一段提示词生成的个人信息图:用 Microsoft Copilot,把一张头像加上我的 LinkedIn / Work IQ 资料,变成一整张照片级卡通白板 -- 我做什么、和谁协作、我的角色、价值观、工具栈,还有「一天的生活」。一种好玩又可复用的「职业身份可视化」方式。提示词见下,结果在左侧。',
+      en: 'A single-prompt personal infographic: Microsoft Copilot turns a headshot and my LinkedIn / Work IQ profile into a photoreal cartoon whiteboard - what I do, who I work with, my role, my values, my tools, and a day in my life. A fun, repeatable way to render your professional identity. Copy the prompt below or open the LinkedIn post.',
+      zh: '一段提示词生成的个人信息图:用 Microsoft Copilot,把一张头像加上我的 LinkedIn / Work IQ 资料,变成一整张照片级卡通白板 -- 我做什么、和谁协作、我的角色、价值观、工具栈,还有「一天的生活」。一种好玩又可复用的「职业身份可视化」方式。可以复制下方提示词，或打开 LinkedIn 原帖。',
     },
     tags: ['Microsoft Copilot', 'AI Image', 'Infographic', 'Personal Brand'],
     prompt:
