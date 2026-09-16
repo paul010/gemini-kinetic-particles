@@ -2,9 +2,49 @@
   "schemaVersion": 1,
   "channelId": "UCk9tu0mFtXj_rOEfIncxuJQ",
   "source": "https://www.youtube.com/@dalei2025/videos",
-  "updatedAt": "2026-09-13T01:02:56+00:00",
+  "updatedAt": "2026-09-16T01:02:04+00:00",
   "dateTimezone": "Asia/Shanghai",
   "videos": [
+    {
+      "id": "brNygGxzJTU",
+      "title": "奥特曼预告本周大更新：GPT-6 Sol 会来吗？｜OpenAI Update Signals",
+      "publishedAt": "2026-09-16T00:53:00+00:00",
+      "date": "2026-09-16",
+      "duration": "6:36",
+      "url": "https://www.youtube.com/watch?v=brNygGxzJTU"
+    },
+    {
+      "id": "PXSVmJcW9cY",
+      "title": "Grok、Gemini、Claude一边狂飙一边踩刹车 | Full Speed, Brakes On",
+      "publishedAt": "2026-09-15T10:19:47+00:00",
+      "date": "2026-09-15",
+      "duration": "12:07",
+      "url": "https://www.youtube.com/watch?v=PXSVmJcW9cY"
+    },
+    {
+      "id": "j1Z2Z967sX4",
+      "title": "GPT-6 Sol 真来了？9分钟造出“死星”，身份却无法验证",
+      "publishedAt": "2026-09-14T16:00:06+00:00",
+      "date": "2026-09-15",
+      "duration": "7:31",
+      "url": "https://www.youtube.com/watch?v=j1Z2Z967sX4"
+    },
+    {
+      "id": "ITDNPWeHhvs",
+      "title": "Google DeepMind RSI传闻：证据到哪了？",
+      "publishedAt": "2026-09-14T03:57:06+00:00",
+      "date": "2026-09-14",
+      "duration": "6:44",
+      "url": "https://www.youtube.com/watch?v=ITDNPWeHhvs"
+    },
+    {
+      "id": "EXxxbuiZpOU",
+      "title": "我把考试练习装进了工牌｜AI Passport 实操与踩坑 · Open Source Build",
+      "publishedAt": "2026-09-14T00:42:06+00:00",
+      "date": "2026-09-14",
+      "duration": "5:07",
+      "url": "https://www.youtube.com/watch?v=EXxxbuiZpOU"
+    },
     {
       "id": "bedd5n61rUA",
       "title": "2026最新北京环球影城实游｜霸天虎刺激到腿软！和娜娜的纪念日旅行",
@@ -12,46 +52,6 @@
       "date": "2026-09-12",
       "duration": "8:12",
       "url": "https://www.youtube.com/watch?v=bedd5n61rUA"
-    },
-    {
-      "id": "-0X-BDl4PWw",
-      "title": "AI工具学了不少，怎么做出自己的第一个作品？",
-      "publishedAt": "2026-09-12T06:22:45+00:00",
-      "date": "2026-09-12",
-      "duration": "4:24",
-      "url": "https://www.youtube.com/watch?v=-0X-BDl4PWw"
-    },
-    {
-      "id": "E852kfkgt48",
-      "title": "都画出来了，却都没做对：DeepSeek 与 Gemini 的克莱因瓶测试Both Rendered It. Neither Got It Right: DeepSeek and Gemini",
-      "publishedAt": "2026-09-11T13:16:31+00:00",
-      "date": "2026-09-11",
-      "duration": "6:52",
-      "url": "https://www.youtube.com/watch?v=E852kfkgt48"
-    },
-    {
-      "id": "96kbkDWWuP0",
-      "title": "Noam Brown谈推理成本：Astra与o3的评测对照 Noam Brown on Inference Cost: Comparing Astra and o3 on a Benchmark",
-      "publishedAt": "2026-09-10T13:40:01+00:00",
-      "date": "2026-09-10",
-      "duration": "7:40",
-      "url": "https://www.youtube.com/watch?v=96kbkDWWuP0"
-    },
-    {
-      "id": "PfB3O2EQEj8",
-      "title": "GPT-6 Astra：从识别画面，到连续动手",
-      "publishedAt": "2026-09-07T11:58:52+00:00",
-      "date": "2026-09-07",
-      "duration": "1:06",
-      "url": "https://www.youtube.com/watch?v=PfB3O2EQEj8"
-    },
-    {
-      "id": "3RPnuK6-RWM",
-      "title": "OpenAI为什么可能推迟上市？奥特曼谈自我改进与安全 Why OpenAI Might Delay Its IPO: Altman on Self-Improvement and Safety",
-      "publishedAt": "2026-09-07T10:47:56+00:00",
-      "date": "2026-09-07",
-      "duration": "10:29",
-      "url": "https://www.youtube.com/watch?v=3RPnuK6-RWM"
     }
   ]
 }
