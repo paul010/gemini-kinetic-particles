@@ -12,6 +12,16 @@ assert.equal(parsed[0].id, snapshot.videos[0].id);
 assert.deepEqual(parseLatestVideos({ ...snapshot, videos: [...snapshot.videos].reverse() }), parsed);
 assert.deepEqual(videoTitle('GPT-6 Astra在Terminal-Bench达57.9%  GPT-6 Astra Scores 57.9% on Terminal-Bench'), { zh: 'GPT-6 Astra在Terminal-Bench达57.9%', en: 'GPT-6 Astra Scores 57.9% on Terminal-Bench' });
 assert.deepEqual(videoTitle('中文节目'), { zh: '中文节目', en: '中文节目' });
+for (const title of [
+  'Notebook LM 升级为 Gemini Notebook Notebook LM Upgrades to Gemini Notebook',
+  'Notebook LM 升级为 Gemini Notebook',
+  '今天试用 Microsoft Copilot Studio',
+]) {
+  assert.deepEqual(videoTitle(title), { zh: title, en: title });
+}
+assert.deepEqual(videoTitle('Notebook LM 升级为 Gemini Notebook | Notebook LM Upgrades to Gemini Notebook'), {
+  zh: 'Notebook LM 升级为 Gemini Notebook', en: 'Notebook LM Upgrades to Gemini Notebook',
+});
 for (const separator of [' | ', '｜']) {
   assert.deepEqual(videoTitle(`赫拉利谈AI：决定权还在你手里吗？${separator}Harari on AI: Who Is Really Deciding?`), {
     zh: '赫拉利谈AI：决定权还在你手里吗？', en: 'Harari on AI: Who Is Really Deciding?',
