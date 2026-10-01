@@ -63,6 +63,31 @@ first featured project. The full particle experience lives at **`/particles`**.
 本仓库现在同时是 **大雷的个人主页**。首页 (`/`) 是一个展示开源项目的作品集，
 **Kinetic Particles** 是第一个精选项目；完整的粒子体验位于 **`/particles`**。
 
+### Life Quest / 人生冒险 · 独立作品
+
+[Explore Life Quest / 打开产品展示](https://dailycosmos.net/life-quest)
+
+A personal time card, three real-world daily tasks, pixel monsters and XP.
+Missed days never deduct progress; mistaken check-ins can be undone. Maintained
+independently of AB-731, with a private firmware repository.
+
+把个人时间卡变成每日小冒险：现实完成学习、活动或休息、小作品后打卡，
+获得经验、击退小怪。漏一天不扣分，误打卡可撤销。独立于 AB-731 维护，
+固件仓库暂时私有；社区页只分发通过审核的版本。
+
+<p>
+  <img src="public/life-quest/real-home.webp" width="240" alt="人生冒险真机首页，生日已遮挡 / Physical home with birthday masked">
+  <img src="public/life-quest/real-quests.webp" width="240" alt="真机每日任务 / Physical daily tasks">
+  <img src="public/life-quest/real-life-tokens.webp" width="240" alt="真机生命词元 / Physical Life Tokens">
+</p>
+
+October 1 real-device photos, with birthdays masked and metadata removed.
+Visible values and task states are demonstration data. The separate cover is
+an AI gameplay illustration, not a runtime screenshot.
+
+10 月 1 日真机实拍，生日已遮挡并去除元数据；数字与任务状态仅作演示。
+封面另标为 AI 玩法示意图，不冒充设备截图。
+
 ### AI Passport 2026 · 第三个开源项目
 
 <table>

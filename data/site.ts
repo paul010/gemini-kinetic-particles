@@ -73,7 +73,7 @@ export const youtubeThumb = (id: string) => `https://i.ytimg.com/vi/${id}/hqdefa
 
 export const HOME_SPOTLIGHT_ID = 'kindle-dashboard';
 export const HOME_PROJECT_ORDER = [
-  'map-route-broll', 'kindle-dashboard', 'ai-passport-2026', 'lvshun-map',
+  'life-quest', 'map-route-broll', 'kindle-dashboard', 'ai-passport-2026', 'lvshun-map',
   'ai-coding-arsenal', 'markdown-studio', 'image-studio',
   'ai-benchmark', 'microsoft-cat-agent-skills', 'copilot-camp-cowork', 'kinetic-particles',
 ];
@@ -83,6 +83,16 @@ export const HOME_PROJECT_ORDER = [
  * `status`: live | wip | soon · `featured` makes it the large hero card.
  */
 export const PROJECTS: Project[] = [
+  {
+    id: 'life-quest', category: 'creative',
+    title: { en: 'Life Quest', zh: '人生冒险' },
+    year: '2026', status: 'live', featured: true,
+    cover: '/life-quest/real-home.webp', coverFocus: 'center 48%',
+    tagline: { en: 'Turn small real-world actions into a gentle daily adventure.', zh: '把人生时间卡，变成每天都能升级的小冒险。' },
+    description: { en: 'An independent AI Passport experience: a personal time card, daily tasks, pixel monsters and XP. See the real-device gallery, learn the three-button controls and explore custom Life Tokens. Missed days never deduct progress. Maintained separately from AB-731; firmware source is currently private.', zh: '独立的 AI Passport 玩法：完整头像与身份、每日任务、像素小怪和经验升级。看最新真机实拍，了解三键操作和生命词元；漏一天不扣分，误打卡可撤销。独立于 AB-731 维护，固件仓库暂时私有。' },
+    tags: ['AI Passport', 'Daily Quest', 'Real Device', 'Life Tokens'],
+    links: [{ label: { en: 'Explore Life Quest', zh: '看人生冒险' }, href: '/life-quest', kind: 'internal' }],
+  },
   {
     id: 'map-route-broll', category: 'creative',
     title: { en: 'Map Route B-roll Skill', zh: '微缩地图航线 Skill' },
