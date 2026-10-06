@@ -182,7 +182,7 @@ await check('Home round-trip restores metadata and leaves visible homepage/navig
   await page.screenshot({ path: output + '/home-desktop.png', fullPage: false });
   await page.goto(base + '/newsletter/demo');
   await waitFor(input());
-  await page.getByRole('link', { name: '返回大雷主站', exact: true }).click();
+  await page.locator('.nl-wordmark').click();
   await waitFor(page.locator('h1'));
   assert.deepEqual(await homeSignature(), before);
   await page.goBack();

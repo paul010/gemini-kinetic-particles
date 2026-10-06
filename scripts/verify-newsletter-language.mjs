@@ -35,7 +35,7 @@ async function newContext(blockStorage = false) {
 }
 const { page, context } = await newContext();
 const chooseHome = lang => page.locator('header [role="group"] button').filter({ hasText: ({ en: /^EN$/, zh: /^简$/, zhHant: /^繁$/ })[lang] }).click();
-const choosePage = lang => page.locator('.nl-language').getByRole('button', { name: ({ en: 'English', zh: '简体中文', zhHant: '繁體中文' })[lang], exact: true }).click();
+const choosePage = lang => page.locator('.nl-language').getByRole('button', { name: ({ en: 'EN · English', zh: '简体中文', zhHant: '繁體中文' })[lang], exact: true }).click();
 const check = async (name, fn) => {
   try { await fn(); results.push({ name, status: 'passed' }); }
   catch (error) { results.push({ name, status: 'failed', error: error.stack }); }
@@ -113,12 +113,12 @@ await check('Practice-card reading translation and clipboard payload match each 
   await page.goto(base + '/newsletter/first-ai-card'); await page.locator('.practice-card').waitFor();
   for (const lang of ['en', 'zh', 'zhHant']) {
     await choosePage(lang); await waitLanguage(lang, lang === 'zhHant' ? '三輪提示' : undefined);
-    await page.locator('.practice-card__button').first().click();
+    await page.locator('button.practice-card__button').first().click();
     const shownPrompts = (await page.locator('.practice-card__prompts pre').allTextContents());
     const copied = await page.evaluate(() => window.__copied);
     for (const text of shownPrompts) assert(copied.includes(text), `Clipboard mismatch for ${lang}`);
-    await page.locator('.practice-card__button').nth(1).click();
-    assert.equal(await page.evaluate(() => window.__copied), await page.locator('.practice-card__blank').innerText());
+    await page.locator('button.practice-card__button').nth(1).click();
+    assert.equal(await page.evaluate(() => window.__copied), await page.locator('.practice-card__blank').first().innerText());
     assert(!await page.locator('input,textarea,form').count());
     if (lang === 'en') assert(!/[\p{Script=Han}]/u.test(await page.locator('main').innerText()));
     if (lang === 'zh') {
@@ -126,7 +126,7 @@ await check('Practice-card reading translation and clipboard payload match each 
       assert(count >= 300 && count <= 500, String(count)); results.push({ name: 'Original first lesson Chinese character count', status: 'passed', chineseCharacters: count });
     }
   }
-  await page.evaluate(() => { window.__denyCopy = true; }); await page.locator('.practice-card__button').first().click();
+  await page.evaluate(() => { window.__denyCopy = true; }); await page.locator('button.practice-card__button').first().click();
   assert.match(await page.getByRole('status').innerText(), /瀏覽器未允許複製/);
   await choosePage('en'); assert.match(await page.getByRole('status').innerText(), /did not allow copying/);
 });
@@ -144,8 +144,8 @@ await check('Three languages × four routes × 320/390/768/1440px layouts never 
       if (route !== '/') await audit(page, `${route}-${lang}`, route.endsWith('first-ai-card') ? '.practice-card' : '.newsletter');
     }
   }
-  await page.locator('.nl-language button[aria-label="English"]').focus(); await page.keyboard.press('Enter');
-  await waitLanguage('en'); assert.equal(await page.locator('.nl-language button[aria-label="English"]').getAttribute('aria-pressed'), 'true');
+  await page.locator('.nl-language button[aria-label="EN · English"]').focus(); await page.keyboard.press('Enter');
+  await waitLanguage('en'); assert.equal(await page.locator('.nl-language button[aria-label="EN · English"]').getAttribute('aria-pressed'), 'true');
 });
 await check('Blocked localStorage keeps a same-tab selection across navigation and degrades safely on refresh', async () => {
   const { page: restricted } = await newContext(true);
@@ -154,7 +154,7 @@ await check('Blocked localStorage keeps a same-tab selection across navigation a
   await restricted.waitForFunction(() => document.querySelector('.home-newsletter__subscribe')?.textContent.includes('訂閱'));
   await restricted.locator('.home-newsletter__resource a').click(); await restricted.locator('.practice-card').waitFor();
   assert.equal(await restricted.locator('html').getAttribute('lang'), 'zh-Hant');
-  await restricted.locator('.nl-language button[aria-label="English"]').click();
+  await restricted.locator('.nl-language button[aria-label="EN · English"]').click();
   await restricted.locator('.practice-card__header a').first().click(); await restricted.locator('.home-newsletter').waitFor();
   assert.equal(await restricted.locator('html').getAttribute('lang'), 'en');
   await restricted.reload(); await restricted.locator('.home-newsletter').waitFor();

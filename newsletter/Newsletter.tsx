@@ -96,7 +96,7 @@ export default function Newsletter({ onHome, demo = false }: { onHome: () => voi
             event.preventDefault();
             onHome();
           }
-        }} aria-label={t("返回大雷主站")}>{t("大雷")}<span>DA LEI</span></a>
+        }} title={t("返回大雷主站")}>{t("大雷")}<span>DA LEI</span></a>
         <nav aria-label={t("实战信导航")}>
           <a href="#sample-letter">{t("读一封示例")}</a>
           <a href="https://www.youtube.com/@dalei2025" target="_blank" rel="noopener noreferrer">YouTube <ArrowUpRight aria-hidden="true" /></a>
