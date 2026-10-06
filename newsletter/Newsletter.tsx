@@ -6,12 +6,13 @@ import { EnvelopeSimple } from '@phosphor-icons/react/EnvelopeSimple';
 import { sampleLetter } from './content';
 import LetterPreview from './LetterPreview';
 import './newsletter.css';
+import KitSignup from './KitSignup';
 
 type Phase = 'idle' | 'submitting' | 'pending' | 'welcome' | 'error';
 type DemoOutcome = 'pending' | 'error';
 
-/** Deliberately demo-only: no endpoint, persistence, analytics or live-mode switch. */
-export default function Newsletter({ onHome }: { onHome: () => void }) {
+/** Actual Kit subscriptions and the explicit /newsletter/demo review route stay separate. */
+export default function Newsletter({ onHome, demo = false }: { onHome: () => void; demo?: boolean }) {
   const { lang, setLang, t, languageTag } = useNewsletterLanguage();
   const [phase, setPhase] = useState<Phase>('idle');
   const [email, setEmail] = useState('');
@@ -104,9 +105,9 @@ export default function Newsletter({ onHome }: { onHome: () => void }) {
       </header>
 
       <main id="newsletter-main" className="nl-wrap" tabIndex={-1}>
-        <div className="nl-demo-notice" role="note">
+        {demo && <div className="nl-demo-notice" role="note">
           <strong>{t("订阅体验演示")}</strong><span>{t("尚未开放订阅。本页不收集邮箱，也不会发送邮件。")}</span>
-        </div>
+        </div>}
         <p className="nl-language-note">{t(EDITORIAL_LANGUAGE_NOTE)}</p>
         <div className="nl-hero">
           <section className="nl-intro" aria-labelledby="newsletter-title">
@@ -121,7 +122,8 @@ export default function Newsletter({ onHome }: { onHome: () => void }) {
             <section className="nl-signup" aria-labelledby="signup-title">
               <h2 id="signup-title">{t("给早晨留一点新想法")}</h2>
               <p className="nl-promise">{t("每日一封 · 读者免费 · 有相关视频时推荐")}</p>
-              <form onSubmit={submit} noValidate aria-label={t("订阅流程演示")} aria-busy={phase === 'submitting'}>
+              {!demo && <KitSignup />}
+              {demo && <><form onSubmit={submit} noValidate aria-label={t("订阅流程演示")} aria-busy={phase === 'submitting'}>
                 <div hidden={phase !== 'idle' && phase !== 'submitting'}>
                   <label htmlFor="newsletter-email">{t("邮箱（仅演示）")}</label>
                   <div className="nl-input-row">
@@ -167,7 +169,9 @@ export default function Newsletter({ onHome }: { onHome: () => void }) {
                 </div>}
               </div>
 
-              <p className="nl-consent">{t("正式开放后，订阅将用于接收每日中文 AI 内容，有相关视频时附上推荐；需确认邮箱才生效。每封可退订。")}<a href="#newsletter-privacy">{t("查看隐私说明")}</a></p>
+              </>}
+              <p className="nl-consent">{t(demo ? "正式开放后，订阅将用于接收每日中文 AI 内容，有相关视频时附上推荐；需确认邮箱才生效。每封可退订。" : 'Kit 处理邮箱、确认和退订；仅确认后接收每日中文 AI 邮件及适当视频推荐。每封可退订。')}<a href="#newsletter-privacy">{t("查看隐私说明")}</a></p>
+              {demo &&
               <details className="nl-demo-options">
                 <summary>{t("演示状态选项")}</summary>
                 <label htmlFor="demo-outcome">{t("模拟结果")}</label>
@@ -176,7 +180,7 @@ export default function Newsletter({ onHome }: { onHome: () => void }) {
                   <option value="error">{t("故障：服务暂不可用")}</option>
                 </select>
                 <p className="nl-hint">{t("重复地址、未确认或退订再订阅，正式页面都使用通用反馈，不展示名单状态。")}</p>
-              </details>
+              </details>}
             </section>
           </section>
 
@@ -192,14 +196,15 @@ export default function Newsletter({ onHome }: { onHome: () => void }) {
           <h2 id="faq-title">{t("订阅前，先说清楚")}</h2>
           <details><summary>{t("读者需要付费吗？")}</summary><p>{t("读者免费。每日一封中文 AI 干货，包含练习和来源，有合适的相关公开视频时附上推荐；具体发送时间会在正式开放前确定。")}</p></details>
           <details><summary>{t("订阅 YouTube 就会收到邮件吗？")}</summary><p>{t("不会。频道订阅与邮件订阅是两个独立选择。只有主动留下邮箱并确认的人，才会进入邮件活跃名单。")}</p></details>
-          <details><summary>{t("如果没有收到确认邮件呢？")}</summary><p>{t("正式开放后，请检查垃圾箱，并按页面说明稍后重试。重复提交使用同样的通用提示，不公开邮箱是否在名单中。此演示没有发送任何邮件。")}</p></details>
-          <details><summary>{t("我可以随时退订吗？")}</summary><p>{t("可以。正式邮件由 Kit 提供退订入口并管理退订状态。退订后重新加入仍需重新确认，不会自动把你恢复为活跃订阅者。")}</p></details>
+          <details><summary>{t("如果没有收到确认邮件呢？")}</summary><p>{t(demo ? "正式开放后，请检查垃圾箱，并按页面说明稍后重试。重复提交使用同样的通用提示，不公开邮箱是否在名单中。此演示没有发送任何邮件。" : '请先检查垃圾箱和收件箱。重复点击不会加快送达；平台可能限制确认邮件的重发频率。提交不代表邮箱已确认，也不公开该地址的名单状态。')}</p></details>
+          <details><summary>{t("我可以随时退订吗？")}</summary><p>{t("可以。正式邮件由 Kit 提供退订入口并管理退订状态。重新提交不代表已恢复订阅；请按平台确认提示操作，最终状态以 Kit 为准。")}</p></details>
         </section>
 
         <section id="newsletter-privacy" className="nl-privacy" aria-labelledby="privacy-title">
           <h2 id="privacy-title">{t("你的邮箱，只用于这封信")}</h2>
-          <p>{t("正式开放后，Kit 将处理邮箱、订阅确认、发送和退订状态，用于每日中文 AI 邮件，并在有相关视频时附上推荐。名单不会放进公开仓库或公开文档；来源统计也不记录邮箱输入。")}</p>
-          <p>{t("当前页面仅为演示，邮箱只在页面内存中临时存在，提交演示、取消、离开或刷新后清空，不上传、不保存。正式服务的联系信息与完整隐私文本会在开放前补齐。")}</p>
+          <p>{t(demo ? "正式开放后，Kit 将处理邮箱、订阅确认、发送和退订状态，用于每日中文 AI 邮件，并在有相关视频时附上推荐。名单不会放进公开仓库或公开文档；来源统计也不记录邮箱输入。" : '邮箱通过官方表单直接提交给 Kit，用于确认、每日中文邮件及适当视频推荐。Kit 管理发送、退订和必要的表单访问记录；网站不另建名单库，不将邮箱写入 URL、分析日志或公开文档。')}</p>
+          <p>{t(demo ? "当前页面仅为演示，邮箱只在页面内存中临时存在，提交演示、取消、离开或刷新后清空，不上传、不保存。正式服务的联系信息与完整隐私文本会在开放前补齐。" : '你可以通过每封邮件的退订入口停止接收，或联系 support@dailycosmos.net 询问订阅及资料处理。平台的隐私政策可在 Kit 官网查看。')}</p>
+          {!demo && <a href="https://kit.com/privacy" target="_blank" rel="noopener noreferrer">{t('Kit 隐私政策')} ↗</a>}
         </section>
       </main>
       <footer className="nl-footer nl-wrap"><span>{t("大雷早上好 · AI 实战信")}</span><a href="https://dailycosmos.net" target="_blank" rel="noopener noreferrer">dailycosmos.net <ArrowUpRight aria-hidden="true" /></a></footer>

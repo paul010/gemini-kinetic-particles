@@ -41,7 +41,7 @@ export default function PracticeCard({ onNavigate }: { onNavigate: (path: string
         <LanguageSelector lang={lang} setLang={setLang} />
       </header>
       <main id="practice-card-main" className="practice-card__wrap">
-        <p className="practice-card__preview">{t("资源预览 · 原创 AI 实战卡 · 订阅入口筹备中")}</p>
+        <p className="practice-card__preview">{t("公开资源 · 原创 AI 实战卡")}</p>
         <p className="nl-language-note">{t(EDITORIAL_LANGUAGE_NOTE)}</p>
         <div className="practice-card__intro">
           <p className="practice-card__eyebrow">{t("大雷早上好·AI 实战信 / 第一课")}</p>
@@ -88,7 +88,7 @@ export default function PracticeCard({ onNavigate }: { onNavigate: (path: string
         <p className="practice-card__notice" role="status" aria-live="polite">{notice?.key === 'failed' ? t('当前浏览器未允许复制。请直接选中下方文字复制；内容仍可完整阅读。') : notice ? (lang === 'en' ? `Copied ${t(notice.name!)}. Paste it into your own notes.` : t('已复制') + t(notice.name!) + t('。可以粘贴到你自己的笔记中。')) : ''}</p>
       </main>
       <footer className="practice-card__footer practice-card__wrap">
-        <p>{t("大雷早上好·AI 实战信 · 订阅入口筹备中")}</p>
+        <p>{t("大雷早上好·AI 实战信 · 每日中文实践")}</p>
         <a href="https://www.youtube.com/@dalei2025" target="_blank" rel="noopener noreferrer">{t("继续看大雷的公开视频 ↗")}</a>
       </footer>
     </div>

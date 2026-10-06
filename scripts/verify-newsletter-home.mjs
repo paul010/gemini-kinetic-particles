@@ -1,3 +1,4 @@
+import { installKitMock, KIT_TEST } from './newsletter-qa-kit.mjs';
 import assert from 'node:assert/strict';
 import { mkdir, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
@@ -17,16 +18,18 @@ const browser = await playwright.chromium.launch({
 const context = await browser.newContext({ viewport: { width: 1440, height: 900 }, reducedMotion: 'reduce' });
 // These original editorial regression cases intentionally use the Chinese edition.
 await context.addInitScript(() => localStorage.setItem('dalei-lang-v2', 'zh'));
-await context.route('**/*', route => new URL(route.request().url()).origin === new URL(base).origin ? route.continue() : route.abort());
+const kitMock = await installKitMock(context, base);
 const requests = [], pageErrors = [], results = [], accessibility = [], contrast = [];
-context.on('request', request => requests.push({ url: request.url(), method: request.method(), body: request.postData() }));
+context.on('request', request => requests.push({ url: request.url(), method: request.method(), hasBody: Boolean(request.postData()) }));
 const page = await context.newPage();
 page.setDefaultTimeout(7000);
 page.on('pageerror', error => pageErrors.push(error.message));
 const promo = () => page.locator('.home-newsletter');
-const closed = () => promo().getByRole('button', { name: '订阅即将开放', exact: true });
+const signup = () => promo().locator('.kit-signup');
+const submit = () => signup().locator('[data-element="submit"]');
+const input = () => signup().locator('input[name="email_address"]');
 const preview = () => promo().getByRole('link', { name: '查看实战信预览' });
-const loadHome = async () => { await page.goto(base + '/'); await promo().waitFor(); await page.evaluate(() => document.fonts.ready); };
+const loadHome = async () => { await page.goto(base + '/'); await promo().waitFor(); await signup().filter({ has: page.locator('form') }).waitFor(); await page.locator('.home-newsletter .kit-signup[data-kit-load="ready"]').waitFor(); await page.evaluate(async () => { await document.fonts.ready; const avatar = document.querySelector('.home-newsletter__avatar'); if (avatar instanceof HTMLImageElement) await avatar.decode(); }); };
 const noOverflow = async () => assert(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), 'No horizontal overflow');
 const visibleInViewport = async locator => {
   const box = await locator.boundingBox();
@@ -59,7 +62,7 @@ const audit = async state => {
     const background = rgba(getComputedStyle(section).backgroundColor);
     return ['eyebrow', 'title', 'subtitle', 'resource', 'preview', 'status', 'status-label', 'visual-note'].flatMap(name => {
       const node = section.querySelector('.home-newsletter__' + name);
-      if (!node.getClientRects().length) return [];
+      if (!node || !node.getClientRects().length) return [];
       const style = getComputedStyle(node), foreground = rgba(style.color), alpha = foreground[3] ?? 1;
       const blended = foreground.slice(0, 3).map((value, i) => value * alpha + background[i] * (1 - alpha));
       const l1 = luminance(blended), l2 = luminance(background);
@@ -71,7 +74,7 @@ const audit = async state => {
   assert(colors.every(color => color.ratio >= color.minimum), JSON.stringify(colors.filter(color => color.ratio < color.minimum)));
 };
 
-await check('Desktop first screen uses approved copy, visible disabled CTA and explicit preview status', async () => {
+await check('Desktop first screen uses approved copy, the official accessible Kit form and explicit confirmation requirement', async () => {
   await loadHome();
   assert.equal(await promo().getAttribute('lang'), 'zh-CN');
   assert.match(await promo().getByRole('heading').innerText(), /把 AI 方法，\s*变成你能检查的小成果/);
@@ -79,49 +82,64 @@ await check('Desktop first screen uses approved copy, visible disabled CTA and e
   for (const copy of ['每天一封 300–500 字：一个结论、一个原理、一个判断，再动手练一次', '从《第一张 AI 实战卡》开始，内含原创样例、三轮提示、空白卡和检查方法']) {
     assert(await promo().getByText(copy, { exact: true }).isVisible());
   }
-  assert(await closed().isDisabled());
-  assert.match(await promo().locator('#home-newsletter-status').innerText(), /当前为预览，不收集邮箱/);
-  assert.match(await promo().locator('#home-newsletter-status').innerText(), /免费阅读.*确认订阅后领取.*随时退订/);
-  assert.equal(await promo().locator('input,form,iframe').count(), 0);
-  await visibleInViewport(closed()); await visibleInViewport(preview()); await noOverflow();
+  assert(!(await submit().isDisabled()));
+  assert.equal(await signup().locator('form').getAttribute('data-uid'), KIT_TEST.uid);
+  assert.equal(await signup().locator('form').getAttribute('action'), KIT_TEST.subscription);
+  assert.equal(await input().getAttribute('type'), 'email');
+  assert.match(await promo().locator('#home-newsletter-status').innerText(), /确认邮箱后才进入每日发送名单/);
+  assert.match(await signup().locator('.kit-signup__help').innerText(), /每日一封.*读者免费.*确认.*可退订/);
+  assert.equal(await signup().locator('input[name="email_address"]').count(), 1);
+  assert.equal(await signup().locator('iframe').count(), 0);
+  await visibleInViewport(submit()); await visibleInViewport(preview()); await noOverflow();
   await page.screenshot({ path: output + '/home-desktop-1440.png', fullPage: false });
   await audit('desktop-light');
 });
-await check('Disabled CTA ignores repeated clicks; preview link supports native new-tab semantics', async () => {
+await check('Submission suppresses repeated clicks; native preview new-tab semantics are preserved', async () => {
   const before = page.url();
-  await closed().evaluate(button => { button.click(); button.click(); button.click(); });
+  kitMock.state.response = 'deferred';
+  const attempts = kitMock.state.subscriptions.length;
+  await input().fill('reader@example.com');
+  await submit().evaluate(button => { button.click(); button.click(); button.click(); });
+  await page.waitForFunction(() => document.querySelector('.home-newsletter [data-element="submit"]')?.disabled);
+  assert.equal(kitMock.state.subscriptions.length, attempts + 1);
+  assert.equal(await signup().locator('[data-element="success"]').count(), 0);
+  kitMock.release();
+  await signup().locator('[data-element="success"]').waitFor();
+  assert.match(await signup().locator('[data-element="success"]').innerText(), /还差一步.*确认/);
   assert.equal(page.url(), before);
   assert.equal(await preview().getAttribute('href'), '/newsletter');
   const [tab] = await Promise.all([context.waitForEvent('page'), preview().click({ modifiers: ['Meta'] })]);
   await tab.waitForURL(base + '/newsletter');
-  await tab.getByLabel('邮箱（仅演示）', { exact: true }).waitFor();
+  await tab.locator('.kit-signup[data-kit-load="ready"] input[name="email_address"]').waitFor();
   assert.equal(page.url(), before);
   await tab.close();
 });
-await check('320px, 390px and tablet show the complete CTA within first screen without overflow', async () => {
+await check('320px, 390px and tablet show the email and primary CTA within first screen; secondary link geometry is recorded', async () => {
   for (const [width, height] of [[320, 740], [390, 844], [768, 1024]]) {
     await page.setViewportSize({ width, height }); await loadHome();
-    await noOverflow(); await visibleInViewport(closed()); await visibleInViewport(preview());
+    await noOverflow(); await visibleInViewport(input()); await visibleInViewport(submit());
+    const secondary = await preview().boundingBox();
+    results.push({ name: `Secondary preview link geometry ${width}px`, status: 'passed', geometry: secondary, inFirstViewport: secondary.y + secondary.height <= height, note: 'Secondary navigation may follow the full form consent; primary email/submit remain required above the fold.' });
     const box = await promo().getByRole('heading').boundingBox();
     assert(box.y >= 64, 'Headline clear of header');
     await page.screenshot({ path: output + `/home-${width}.png`, fullPage: false });
     if (width === 390) await audit('mobile-light');
   }
 });
-await check('Keyboard preview navigation, back, forward and direct refresh preserve demo disclosure', async () => {
+await check('Keyboard preview navigation, back, forward and direct refresh preserve live consent and confirmation requirement', async () => {
   await page.setViewportSize({ width: 1440, height: 900 }); await loadHome();
   await preview().focus();
   assert(await preview().evaluate(link => link === document.activeElement));
   assert.match(await preview().evaluate(link => getComputedStyle(link).outlineStyle), /solid/);
   await page.keyboard.press('Enter');
-  await page.getByLabel('邮箱（仅演示）', { exact: true }).waitFor();
+  await page.locator('.kit-signup[data-kit-load="ready"] input[name="email_address"]').waitFor();
   assert.match(page.url(), /\/newsletter$/);
-  assert(await page.getByText('尚未开放订阅。本页不收集邮箱，也不会发送邮件。').isVisible());
-  await page.goBack(); await promo().waitFor(); assert(await closed().isDisabled());
-  await page.goForward(); await page.getByLabel('邮箱（仅演示）', { exact: true }).waitFor();
-  await page.reload(); await page.getByLabel('邮箱（仅演示）', { exact: true }).waitFor();
+  assert.match(await page.locator('.kit-signup__help').innerText(), /提交后需点击中文确认邮件中的按钮/);
+  await page.goBack(); await promo().waitFor(); await page.locator('.home-newsletter .kit-signup[data-kit-load="ready"]').waitFor(); assert(!(await submit().isDisabled()));
+  await page.goForward(); await page.locator('.kit-signup[data-kit-load="ready"] input[name="email_address"]').waitFor();
+  await page.reload(); await page.locator('.kit-signup[data-kit-load="ready"] input[name="email_address"]').waitFor();
   await page.getByRole('link', { name: '返回大雷主站', exact: true }).click(); await promo().waitFor();
-  await page.reload(); await promo().waitFor(); await visibleInViewport(closed());
+  await page.reload(); await promo().waitFor(); await visibleInViewport(submit());
 });
 await check('Original hero and all original sections remain; desktop nav returns to Newsletter first screen', async () => {
   assert.equal(await page.locator('#creator-intro h1').count(), 1);
@@ -133,7 +151,7 @@ await check('Original hero and all original sections remain; desktop nav returns
   await page.waitForFunction(() => Math.abs(document.querySelector('#work').getBoundingClientRect().top - 96) < 4);
   await page.locator('header').getByRole('button', { name: '首页', exact: true }).click();
   await page.waitForFunction(() => Math.abs(document.querySelector('#home').getBoundingClientRect().top) < 4);
-  await visibleInViewport(closed());
+  await visibleInViewport(submit());
 });
 await check('Mobile menu, language switch and theme remain usable; promo follows the chosen language', async () => {
   await page.setViewportSize({ width: 390, height: 844 }); await loadHome();
@@ -155,17 +173,21 @@ await check('Mobile menu, language switch and theme remain usable; promo follows
   assert.equal(await promo().getAttribute('lang'), 'en');
   assert.match(await promo().locator('h2').innerText(), /small results you can verify/);
 });
-await check('With external requests unavailable, local preview works and performs no subscription traffic', async () => {
-  await loadHome(); assert(await closed().isDisabled());
-  await preview().click(); await page.getByLabel('邮箱（仅演示）', { exact: true }).waitFor();
-  assert(await page.getByText('尚未开放订阅。本页不收集邮箱，也不会发送邮件。').isVisible());
-  assert(!requests.some(request => /kit\.com|convertkit/.test(request.url)), 'No Kit request');
+await check('With the official embed unavailable, the homepage fails closed with a genuine Kit fallback and retry', async () => {
+  kitMock.state.script = 'embed-error';
+  await page.goto(base + '/'); await promo().waitFor();
+  await page.locator('.home-newsletter .kit-signup[data-kit-load="unavailable"]').waitFor();
+  assert(await signup().locator('.kit-signup__mount').isHidden());
+  assert.equal(await signup().locator(`.kit-signup__fallback a[href="${KIT_TEST.share}"]`).getAttribute('href'), KIT_TEST.share);
+  assert(await signup().getByRole('button', { name: '重新加载表单', exact: true }).isVisible());
   const ownRequests = requests.filter(request => new URL(request.url).origin === new URL(base).origin);
-  assert(ownRequests.every(request => !request.body && request.method === 'GET'), 'No same-origin submitted data');
-  assert(!requests.some(request => /example\.com|%40/i.test(request.url) || /example\.com|%40/i.test(request.body ?? '')), 'No email in request URLs or bodies');
+  assert(ownRequests.every(request => !request.hasBody && ['GET', 'HEAD'].includes(request.method)), 'No same-origin submitted data');
+  assert(!requests.some(request => /example\.com|%40/i.test(request.url)), 'No email in request URLs');
+  assert.equal(kitMock.report().liveWrites, 0);
   assert.equal(pageErrors.length, 0, 'No runtime page errors');
 });
-await writeFile(output + '/home-browser-results.json', JSON.stringify({ testedAt: new Date().toISOString(), base, browser: await browser.version(), results, pageErrors, notes: ['Fresh isolated headless browser; external requests blocked, including baseline analytics attempts. Same-origin reads and absence of email traffic are checked separately.', 'Real Kit form, confirmation and unsubscribe are outside this preview verification.'] }, null, 2) + '\n');
+
+await writeFile(output + '/home-browser-results.json', JSON.stringify({ testedAt: new Date().toISOString(), base, browser: await browser.version(), results, pageErrors, notes: ['Fresh isolated headless browser; external requests blocked, including baseline analytics attempts. Same-origin reads and absence of email traffic are checked separately.', 'Official Kit bytes execute; every service write is mocked. Real confirmation and unsubscribe remain separate owner tests.'] }, null, 2) + '\n');
 await writeFile(output + '/home-axe-results.json', JSON.stringify(accessibility, null, 2) + '\n');
 await writeFile(output + '/home-contrast-results.json', JSON.stringify(contrast, null, 2) + '\n');
 await context.close(); await browser.close();

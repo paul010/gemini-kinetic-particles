@@ -1,3 +1,4 @@
+import { installKitMock, KIT_TEST } from './newsletter-qa-kit.mjs';
 import assert from 'node:assert/strict';
 import { mkdir, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
@@ -10,7 +11,7 @@ await mkdir(output, { recursive: true });
 const modulePath = process.env.NEWSLETTER_PLAYWRIGHT_MODULE ?? '/tmp/dalei-newsletter-qa-20261005/isolated-qa/node_modules/playwright/index.mjs';
 const { chromium } = await import(pathToFileURL(resolve(modulePath)).href);
 const browser = await chromium.launch({ executablePath: process.env.NEWSLETTER_BROWSER_PATH ?? '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome', headless: true });
-const contexts = [], results = [], accessibility = [], errors = [], requests = [];
+const contexts = [], kitMocks = [], results = [], accessibility = [], errors = [], requests = [];
 async function newContext(blockStorage = false) {
   const context = await browser.newContext({ viewport: { width: 1440, height: 1000 }, reducedMotion: 'reduce' });
   contexts.push(context);
@@ -25,11 +26,12 @@ async function newContext(blockStorage = false) {
       Object.defineProperty(Storage.prototype, 'setItem', { value() { throw new DOMException('Storage disabled', 'SecurityError'); } });
     }
   }, { blockStorage });
-  await context.route('**/*', route => new URL(route.request().url()).origin === new URL(base).origin ? route.continue() : route.abort());
-  context.on('request', request => requests.push({ method: request.method(), url: request.url(), body: request.postData() }));
+  const kitMock = await installKitMock(context, base);
+  kitMocks.push(kitMock);
+  context.on('request', request => requests.push({ method: request.method(), url: request.url(), hasBody: Boolean(request.postData()) }));
   const page = await context.newPage();
   page.setDefaultTimeout(8000); page.on('pageerror', error => errors.push(error.message));
-  return { context, page };
+  return { context, page, kitMock };
 }
 const { page, context } = await newContext();
 const chooseHome = lang => page.locator('header [role="group"] button').filter({ hasText: ({ en: /^EN$/, zh: /^简$/, zhHant: /^繁$/ })[lang] }).click();
@@ -54,11 +56,14 @@ async function audit(page, name, root) {
   accessibility.push({ name, ...report });
   assert.equal(report.violations.length, 0, JSON.stringify(report.violations.map(({ id }) => id)));
 }
-await check('English remains default; first-screen copy, disabled CTA and document title agree', async () => {
+await check('English remains default; official form identity, labels and page title agree', async () => {
   await page.goto(base); await page.locator('.home-newsletter').waitFor();
   assert.equal(await page.locator('html').getAttribute('lang'), 'en');
   assert.match(await page.locator('.home-newsletter__title').innerText(), /small results you can verify/);
-  assert(await page.locator('.home-newsletter__subscribe').isDisabled());
+  await page.locator('.home-newsletter .kit-signup[data-kit-load="ready"]').waitFor();
+  assert.equal(await page.locator('.home-newsletter form').getAttribute('data-uid'), KIT_TEST.uid);
+  assert.equal(await page.locator('.home-newsletter form').getAttribute('action'), KIT_TEST.subscription);
+  assert(!(await page.locator('.home-newsletter [data-element="submit"]').isDisabled()));
   assert.match(await page.title(), /Practical AI/);
   assert(!/[\p{Script=Han}]/u.test(await page.locator('.home-newsletter').innerText()));
 });
@@ -66,16 +71,17 @@ await check('Home selector switches promo immediately in simplified and OpenCC t
   await chooseHome('zh'); await waitLanguage('zh');
   assert.match(await page.locator('.home-newsletter__title').innerText(), /检查/);
   await chooseHome('zhHant'); await waitLanguage('zhHant', '檢查');
-  assert.match(await page.locator('.home-newsletter__subscribe').innerText(), /訂閱/);
+  assert.match(await page.locator('.home-newsletter [data-element="submit"]').innerText(), /訂閱/);
   assert.match(await page.title(), /實戰/);
 });
 await check('Language persists through SPA navigation, standalone selection, browser back, refresh and home return', async () => {
   await page.locator('.home-newsletter__preview').click(); await page.locator('.newsletter').waitFor();
-  await waitLanguage('zhHant', '訂閱體驗演示');
+  await waitLanguage('zhHant'); await page.locator('.kit-signup[data-kit-load="ready"]').waitFor();
   assert.equal(await page.locator('.nl-language button[aria-pressed="true"]').innerText(), '繁');
-  await page.reload(); await page.locator('.newsletter').waitFor(); await waitLanguage('zhHant', '訂閱體驗演示');
+  await page.reload(); await page.locator('.newsletter').waitFor(); await waitLanguage('zhHant'); await page.locator('.kit-signup[data-kit-load="ready"]').waitFor();
   await choosePage('en'); await waitLanguage('en');
-  assert.match(await page.title(), /Subscription demo/);
+  assert.match(await page.title(), /AI Practice Letter/);
+  assert(!/Subscription demo/.test(await page.title()));
   assert(!/[\p{Script=Han}]/u.test(await page.locator('main').innerText()));
   await page.locator('.nl-wordmark').click(); await page.locator('.home-newsletter').waitFor();
   assert.match(await page.locator('.home-newsletter__title').innerText(), /verify/);
@@ -86,7 +92,7 @@ await check('Language persists through SPA navigation, standalone selection, bro
   assert.match(await page.locator('.home-newsletter__title').innerText(), /检查/);
 });
 await check('Sample letters remain marked as unsent and every translated state preserves the demo safety rules', async () => {
-  await page.goto(base + '/newsletter'); await page.locator('.newsletter').waitFor(); await choosePage('en');
+  await page.goto(base + '/newsletter/demo'); await page.locator('.newsletter').waitFor(); await choosePage('en');
   assert.match(await page.locator('.nl-letter-meta').innerText(), /Not sent/);
   await page.locator('#newsletter-email').fill('invalid'); await page.locator('.nl-input-row button').click();
   assert.match(await page.locator('#email-error').innerText(), /complete email/);
@@ -126,8 +132,8 @@ await check('Practice-card reading translation and clipboard payload match each 
   assert.match(await page.getByRole('status').innerText(), /瀏覽器未允許複製/);
   await choosePage('en'); assert.match(await page.getByRole('status').innerText(), /did not allow copying/);
 });
-await check('Three languages × three routes × 320/390/768/1440px layouts never overflow; selectors work by keyboard', async () => {
-  for (const route of ['/', '/newsletter', '/newsletter/first-ai-card']) {
+await check('Three languages × four routes × 320/390/768/1440px layouts never overflow; selectors work by keyboard', async () => {
+  for (const route of ['/', '/newsletter', '/newsletter/demo', '/newsletter/first-ai-card']) {
     await page.goto(base + route); await page.locator(route === '/' ? '.home-newsletter' : route.endsWith('first-ai-card') ? '.practice-card' : '.newsletter').waitFor();
     for (const lang of ['en', 'zh', 'zhHant']) {
       if (route === '/') await chooseHome(lang); else await choosePage(lang);
@@ -135,7 +141,7 @@ await check('Three languages × three routes × 320/390/768/1440px layouts never
       for (const width of [320, 390, 768, 1440]) {
         await page.setViewportSize({ width, height: width < 768 ? 844 : 1000 });
         assert(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), `${route}, ${lang}, ${width}`);
-        if ([390,1440].includes(width)) await page.screenshot({ path: output + '/' + ({ '/':'home', '/newsletter':'newsletter', '/newsletter/first-ai-card':'card' })[route] + '-' + lang + '-' + width + '.png', fullPage: route !== '/' });
+        if ([390,1440].includes(width)) await page.screenshot({ path: output + '/' + ({ '/':'home', '/newsletter':'newsletter', '/newsletter/demo':'demo', '/newsletter/first-ai-card':'card' })[route] + '-' + lang + '-' + width + '.png', fullPage: route !== '/' });
       }
       if (route !== '/') await audit(page, `${route}-${lang}`, route.endsWith('first-ai-card') ? '.practice-card' : '.newsletter');
     }
@@ -164,14 +170,15 @@ await check('Other tabs receive shared language changes, including clearing the 
   await second.waitForFunction(() => document.documentElement.lang === 'en');
   await second.close();
 });
-await check('No live POSTs, emails in URLs/persisted storage, hidden live forms or browser runtime errors', async () => {
-  assert.equal(requests.filter(request => request.method !== 'GET').length, 0);
+await check('No unmocked writes or email addresses in URLs/persistent storage; no browser runtime errors', async () => {
+  assert(requests.every(request => ['GET', 'HEAD', 'OPTIONS'].includes(request.method) || request.url === KIT_TEST.visit));
+  assert(kitMocks.every(mock => mock.report().subscriptionMocks === 0 && mock.report().liveWrites === 0));
   assert.equal(requests.filter(request => /reader%40|reader@|example\.com/.test(request.url) && new URL(request.url).origin === new URL(base).origin).length, 0);
   const values = await page.evaluate(() => ({ local: { ...localStorage }, session: { ...sessionStorage } }));
   assert(!JSON.stringify(values).includes('reader@'));
   assert.deepEqual(errors, []);
 });
 for (const context of contexts) await context.close(); await browser.close();
-await writeFile(output + '/language-results.json', JSON.stringify({ base, results, errors, requests: requests.map(({ method,url }) => ({ method,url })), status: results.some(x => x.status === 'failed') ? 'failed' : 'passed' }, null, 2));
+await writeFile(output + '/language-results.json', JSON.stringify({ base, results, errors, requests: requests.map(({ method,url }) => ({ method,url })), kitMocks: kitMocks.map(mock => mock.report()), status: results.some(x => x.status === 'failed') ? 'failed' : 'passed' }, null, 2));
 await writeFile(output + '/language-accessibility.json', JSON.stringify(accessibility, null, 2));
 if (results.some(result => result.status === 'failed')) process.exitCode = 1;

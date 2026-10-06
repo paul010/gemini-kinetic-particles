@@ -1,0 +1,22 @@
+.kit-signup { width: 100%; max-width: 530px; margin-top: 22px; color: var(--nl-ink, var(--ink)); font-size: 14px; line-height: 1.65; }
+.kit-signup__status:empty { display: none; }
+.kit-signup__status p { margin: 0 0 12px; }
+.kit-signup__mount[hidden] { display: none !important; }
+.kit-signup .kit-signup__mount form.formkit-form[data-uid="552003a794"] { width: 100%; max-width: none; margin: 0; }
+.kit-signup .kit-signup__mount form.formkit-form[data-uid="552003a794"] [data-style="clean"] { padding: 0; }
+.kit-signup .kit-signup__mount form.formkit-form[data-uid="552003a794"] .formkit-fields { gap: 12px; margin: 0; }
+.kit-signup .kit-signup__mount form.formkit-form[data-uid="552003a794"] .formkit-field { width: 100%; margin: 0; flex: 1 0 100%; }
+.kit-signup__mount label { display: block; margin-bottom: 6px; font-weight: 600; }
+.kit-signup .kit-signup__mount form.formkit-form[data-uid="552003a794"] .formkit-input { min-height: 48px; font-size: 16px; padding: 11px 14px; }
+.kit-signup .kit-signup__mount form.formkit-form[data-uid="552003a794"] .formkit-submit { min-height: 48px; flex: 1 0 100%; margin: 0; font-size: 14px; }
+.kit-signup .kit-signup__mount form.formkit-form[data-uid="552003a794"] .formkit-submit > span { padding: 12px 16px; }
+.kit-signup .kit-signup__mount form.formkit-form[data-uid="552003a794"] .formkit-powered-by-convertkit-container { margin-top: 9px; }
+.kit-signup .kit-signup__mount form.formkit-form[data-uid="552003a794"] .formkit-alert { margin: 0 0 12px; }
+.kit-signup .kit-signup__mount form.formkit-form[data-uid="552003a794"] .formkit-alert-success { color: #075236; }
+.kit-signup__help, .kit-signup__fallback { margin: 12px 0 0; font-size: 12px; color: var(--nl-muted, rgb(var(--rgb-ink) / .75)); }
+.kit-signup__fallback { display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: center; }
+.kit-signup__fallback a { color: inherit; text-decoration: underline; text-underline-offset: 4px; }
+.kit-signup__fallback button { background: transparent; border: 1px solid currentColor; border-radius: 5px; padding: 6px 10px; font: inherit; }
+.kit-signup__notice { margin: 10px 0; font-size: 13px; }
+.kit-signup :focus-visible { outline: 3px solid currentColor; outline-offset: 4px; }
+.kit-signup .kit-signup__mount form.formkit-form[data-uid="552003a794"] :focus-visible { outline: 3px solid var(--nl-ink, var(--ink)); outline-offset: 4px; }

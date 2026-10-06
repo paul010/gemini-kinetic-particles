@@ -65,11 +65,12 @@ const Loader: React.FC<{ label: string }> = ({ label }) => (
   </div>
 );
 
-type Route = 'home' | 'particles' | 'arsenal' | 'md' | 'img' | 's2c' | 'fluid' | 'r3f' | 'ttt-hour-of-code' | 'hear-the-universe' | 'bench' | 'fugu' | 'copilot' | 'copilotcamp' | 'copilot-demo' | 'promptforge' | 'notebooklm' | 'aihtml' | 'text2image' | 'farmer' | 'quyoubus' | 'hpworkshop' | 'agents' | 'skills' | 'cat-skills' | 'uml' | 'town' | 'patterns' | 'prompts' | 'cici' | 'designskill' | 'videogen' | 'dino' | 'chengdu' | 'lab3d' | 'cappadocia' | 'zhangjiajie' | 'niagara' | 'fireflies' | 'harbin' | 'forbiddencity' | 'brooksfalls' | 'vibe-check' | 'lvshun' | 'map-route-broll' | 'life-quest' | 'newsletter' | 'newsletter-card';
+type Route = 'home' | 'particles' | 'arsenal' | 'md' | 'img' | 's2c' | 'fluid' | 'r3f' | 'ttt-hour-of-code' | 'hear-the-universe' | 'bench' | 'fugu' | 'copilot' | 'copilotcamp' | 'copilot-demo' | 'promptforge' | 'notebooklm' | 'aihtml' | 'text2image' | 'farmer' | 'quyoubus' | 'hpworkshop' | 'agents' | 'skills' | 'cat-skills' | 'uml' | 'town' | 'patterns' | 'prompts' | 'cici' | 'designskill' | 'videogen' | 'dino' | 'chengdu' | 'lab3d' | 'cappadocia' | 'zhangjiajie' | 'niagara' | 'fireflies' | 'harbin' | 'forbiddencity' | 'brooksfalls' | 'vibe-check' | 'lvshun' | 'map-route-broll' | 'life-quest' | 'newsletter' | 'newsletter-demo' | 'newsletter-card';
 
 const routeFromLocation = (): Route => {
   const { pathname, hash } = window.location;
   const p = pathname.replace(/\/+$/, '');
+  if (p === '/newsletter/demo') return 'newsletter-demo';
   if (p === NEWSLETTER_CARD_PATH || hash === `#${NEWSLETTER_CARD_PATH}`) return 'newsletter-card';
   if (p === '/newsletter' || hash === '#/newsletter') return 'newsletter';
   if (p.endsWith('/life-quest') || hash === '#/life-quest') return 'life-quest';
@@ -152,7 +153,8 @@ const Router: React.FC = () => {
   useEffect(() => {
     const titles: Record<Route, string> = {
       'newsletter-card': siteText({ en: 'Your first AI practice card · Da Lei | Resource preview', zh: '第一张 AI 实战卡 · 大雷早上好 | 公开资源预览' }),
-      newsletter: siteText({ en: 'Good Morning, Da Lei · AI Practice Letter | Subscription demo', zh: '大雷早上好 · AI 实战信 | 订阅体验演示' }),
+      'newsletter-demo': siteText({ en: 'Good Morning, Da Lei · AI Practice Letter | Subscription demo', zh: '大雷早上好 · AI 实战信 | 订阅体验演示' }),
+      newsletter: siteText({ en: 'Good Morning, Da Lei · AI Practice Letter | Free daily newsletter', zh: '大雷早上好 · AI 实战信 | 免费每日邮件' }),
       home: siteText({ en: 'Da Lei | Practical AI, useful tools and interactive lessons', zh: '大雷 Da Lei | AI 实战、实用工具与互动课程' }),
       particles: 'Kinetic Particles · 大雷',
       arsenal: 'AI Coding Arsenal · 大雷 AI 编程装备库',
@@ -567,8 +569,11 @@ const Router: React.FC = () => {
     return <Suspense fallback={<Loader label="LOADING…" />}><PracticeCard onNavigate={navigate} /></Suspense>;
   }
 
+  if (route === 'newsletter-demo') {
+    return <Suspense fallback={<Loader label={siteText({ en: "Opening the subscription demo…", zh: "正在打开演示…" })} />}><Newsletter key="demo" demo onHome={() => navigate('/')} /></Suspense>;
+  }
   if (route === 'newsletter') {
-    return <Suspense fallback={<Loader label="正在打开实战信…" />}><Newsletter onHome={() => navigate('/')} /></Suspense>;
+    return <Suspense fallback={<Loader label={siteText({ en: "Opening the newsletter…", zh: "正在打开实战信…" })} />}><Newsletter key="live" onHome={() => navigate('/')} /></Suspense>;
   }
 
   return <Home onNavigate={navigate} />;

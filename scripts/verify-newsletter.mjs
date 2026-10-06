@@ -1,3 +1,4 @@
+import { installKitMock, KIT_TEST } from './newsletter-qa-kit.mjs';
 import assert from 'node:assert/strict';
 import { mkdir, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
@@ -22,13 +23,8 @@ const requests = [];
 const errors = [];
 const consoles = [];
 const results = [];
-await context.route('**/*', route => {
-  const url = new URL(route.request().url());
-  // Existing host-page external font/feed requests are blocked for repeatability.
-  if (url.origin !== new URL(base).origin) return route.abort();
-  return route.continue();
-});
-context.on('request', request => requests.push({ url: request.url(), method: request.method(), body: request.postData() }));
+const kitMock = await installKitMock(context, base);
+context.on('request', request => requests.push({ url: request.url(), method: request.method(), hasBody: Boolean(request.postData()) }));
 const page = await context.newPage();
 page.setDefaultTimeout(8000);
 page.on('pageerror', error => errors.push(error.message));
@@ -66,7 +62,7 @@ const auditAccessibility = async (state) => {
 };
 
 await check('Desktop layout, unconfigured disclosure and only one required input', async () => {
-  await page.goto(base + '/newsletter');
+  await page.goto(base + '/newsletter/demo');
   await waitFor(page.getByRole('heading', { name: /把 AI 新知/ }));
   assert(await page.getByText('尚未开放订阅。本页不收集邮箱，也不会发送邮件。').isVisible());
   assert(await page.getByText('每日一封 · 读者免费 · 有相关视频时推荐', { exact: true }).isVisible());
@@ -150,7 +146,7 @@ await check('Refresh and fake confirmation query cannot create a confirmed state
   await page.reload();
   await waitFor(input());
   assert.equal(await input().inputValue(), '');
-  await page.goto(base + '/newsletter?confirmed=true');
+  await page.goto(base + '/newsletter/demo?confirmed=true');
   await waitFor(input());
   assert.equal(await page.getByRole('heading', { name: '演示：确认后的欢迎内容' }).count(), 0);
 });
@@ -166,7 +162,7 @@ await check('FAQ and internal anchors work with keyboard and have valid targets'
 await check('390px and 320px mobile layouts, keyboard focus and readable sample', async () => {
   for (const width of [390, 320]) {
     await page.setViewportSize({ width, height: width === 390 ? 844 : 740 });
-    await page.goto(base + '/newsletter');
+    await page.goto(base + '/newsletter/demo');
     await waitFor(input());
     await assertNoOverflow();
     assert(await page.getByText('示例草稿 · 未发送', { exact: true }).isVisible());
@@ -184,7 +180,7 @@ await check('Home round-trip restores metadata and leaves visible homepage/navig
   await waitFor(page.locator('h1'));
   const before = await homeSignature();
   await page.screenshot({ path: output + '/home-desktop.png', fullPage: false });
-  await page.goto(base + '/newsletter');
+  await page.goto(base + '/newsletter/demo');
   await waitFor(input());
   await page.getByRole('link', { name: '返回大雷主站', exact: true }).click();
   await waitFor(page.locator('h1'));
@@ -207,8 +203,8 @@ await check('Existing Life Quest route still renders', async () => {
 await check('Inputs never appear in URLs, requests, console, persistent storage or cookies', async () => {
   assert(!JSON.stringify(requests).includes('reader@example'), 'No email in requests');
   assert(!JSON.stringify(consoles).includes('reader@example'), 'No email in console');
-  assert(requests.every(r => !r.body), 'No form request body');
-  assert(!requests.some(r => /kit\.com|convertkit/.test(r.url)), 'No Kit endpoint loaded');
+  assert(!requests.some(r => r.url === KIT_TEST.subscription), 'Demo sends no subscription request');
+  assert(!requests.some(r => r.url === KIT_TEST.subscription), 'Demo never submits to Kit');
   const storage = await page.evaluate(() => ({ local: { ...localStorage }, session: { ...sessionStorage }, cookies: document.cookie }));
   assert(!JSON.stringify(storage).includes('reader@example'), 'No email stored');
   assert(!page.url().includes('reader'), 'No email URL');

@@ -1,3 +1,4 @@
+import { installKitMock, KIT_TEST } from './newsletter-qa-kit.mjs';
 import assert from 'node:assert/strict';
 import { mkdir, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
@@ -21,9 +22,9 @@ await context.addInitScript(() => {
     window.__copied = text;
   } } });
 });
-await context.route('**/*', route => new URL(route.request().url()).origin === new URL(base).origin ? route.continue() : route.abort());
+const kitMock = await installKitMock(context, base);
 const requests = [], errors = [], results = [], accessibility = [];
-context.on('request', request => requests.push({ url: request.url(), method: request.method(), body: request.postData() }));
+context.on('request', request => requests.push({ url: request.url(), method: request.method(), hasBody: Boolean(request.postData()) }));
 const page = await context.newPage(); page.setDefaultTimeout(7000); page.on('pageerror', error => errors.push(error.message));
 const path = '/newsletter/first-ai-card';
 const load = async suffix => { await page.goto(base + path + (suffix ?? '')); await page.getByRole('heading', { name: '第一张 AI 实战卡', exact: true }).waitFor(); };
@@ -38,7 +39,7 @@ await check('Public candidate contains all five resources, original fictional sa
   await load();
   assert.equal(await page.locator('html').getAttribute('lang'), 'zh-CN');
   assert.equal(await page.locator('meta[name="robots"]').getAttribute('content'), 'noindex, nofollow');
-  assert.match(await page.locator('.practice-card__preview').innerText(), /资源预览.*订阅入口筹备中/);
+  assert.match(await page.locator('.practice-card__preview').innerText(), /公开资源.*原创 AI 实战卡/);
   assert.match(await page.locator('.practice-card__disclosure').innerText(), /访问本页不代表邮箱已确认或已订阅/);
   assert.equal(await page.locator('main section').count(), 5);
   assert.match(await page.locator('main').innerText(), /虚构练习材料，无真实个人或活动数据/);
@@ -105,15 +106,18 @@ await check('Dark theme remains readable, and printable PDF keeps preview label'
   await page.pdf({ path: output + '/first-ai-card-preview.pdf', format: 'A4', printBackground: true, margin: { top: '12mm', right: '12mm', bottom: '12mm', left: '12mm' } });
   await page.emulateMedia({ media: 'screen' });
 });
-await check('External-service outage is harmless; no Kit traffic, PII, request body or runtime error', async () => {
+await check('Public card never submits subscription data or claims confirmation, including after a homepage visit', async () => {
   await load(); assert(await page.locator('.practice-card__blank').isVisible());
-  assert(!requests.some(request => /kit\.com|convertkit|notion/.test(request.url)));
-  assert(requests.every(request => request.method === 'GET' && !request.body));
+  assert(!requests.some(request => request.url === KIT_TEST.subscription));
+  assert(requests.every(request => ['GET', 'HEAD', 'OPTIONS'].includes(request.method) || request.url === KIT_TEST.visit));
   const storage = await page.evaluate(() => ({ local: { ...localStorage }, session: { ...sessionStorage }, cookies: document.cookie }));
-  const { 'dalei-lang-v2': language, ...otherLocal } = storage.local;
+  const { 'dalei-lang-v2': language, ckid: anonymousKitId, ...otherLocal } = storage.local;
+  assert(anonymousKitId === undefined || /^[a-f0-9-]{36}$/.test(anonymousKitId), 'SDK may retain an anonymous visitor identifier');
   assert(language === undefined || ['en', 'zh', 'zhHant'].includes(language), 'Only existing host language preference allowed');
   assert.deepEqual(otherLocal, {}, 'Resource does not create persistent reader data');
   assert.deepEqual(storage.session, {}); assert.equal(storage.cookies, '');
+  assert.equal(kitMock.report().subscriptionMocks, 0);
+  assert.equal(kitMock.report().liveWrites, 0);
   assert.equal(errors.length, 0);
 });
 await writeFile(output + '/card-browser-results.json', JSON.stringify({ testedAt: new Date().toISOString(), browser: await browser.version(), base, results, pageErrors: errors, notes: ['Independent headless browser; external requests blocked.', 'Clipboard mocked in-page; real Mac clipboard untouched.', 'Public page does not establish or validate subscriber state.'] }, null, 2) + '\n');

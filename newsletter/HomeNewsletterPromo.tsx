@@ -1,9 +1,10 @@
 import { EDITORIAL_LANGUAGE_NOTE, useNewsletterLanguage } from './locale';
 import React from 'react';
 import { NEWSLETTER_CARD_PATH } from './paths';
+import KitSignup from './KitSignup';
 import './home-newsletter-promo.css';
 
-/** Preview entry only. Kit remains the future source of subscription state. */
+/** The published Kit form owns consent, confirmation and unsubscribe state. */
 export default function HomeNewsletterPromo({ onNavigate }: { onNavigate: (path: string) => void }) {
   const { t, languageTag } = useNewsletterLanguage();
   return (
@@ -23,9 +24,8 @@ export default function HomeNewsletterPromo({ onNavigate }: { onNavigate: (path:
               event.preventDefault(); onNavigate(NEWSLETTER_CARD_PATH);
             }
           }}>{t("《第一张 AI 实战卡》")}</a>{t("开始，内含原创样例、三轮提示、空白卡和检查方法")}</p>
+        <KitSignup />
         <div className="home-newsletter__actions">
-          <button type="button" className="home-newsletter__subscribe" disabled aria-describedby="home-newsletter-status">
-            {t("订阅即将开放")}</button>
           <a className="home-newsletter__preview" href="/newsletter" onClick={(event) => {
             if (!event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey && event.button === 0) {
               event.preventDefault();
@@ -36,8 +36,7 @@ export default function HomeNewsletterPromo({ onNavigate }: { onNavigate: (path:
           </a>
         </div>
         <p id="home-newsletter-status" className="home-newsletter__status">
-          <span className="home-newsletter__status-label">{t("筹备中")}</span>
-          {t("当前为预览，不收集邮箱。正式开放后免费阅读，确认订阅后领取，可随时退订。")}</p>
+          {t("确认邮箱后才进入每日发送名单。实战卡是公开资源，访问页面不代表已订阅。")}</p>
         <p className="home-newsletter__language-note">{t(EDITORIAL_LANGUAGE_NOTE)}</p>
       </div>
 
@@ -54,7 +53,7 @@ export default function HomeNewsletterPromo({ onNavigate }: { onNavigate: (path:
           </div>
           <div className="home-newsletter__card-bottom"><span>{t("样例 · 提示词 · 检查方法")}</span><span>＋</span></div>
         </div>
-        <p className="home-newsletter__visual-note">{t("资源概念示意 · 正式领取入口筹备中")}</p>
+        <p className="home-newsletter__visual-note">{t("原创资源 · 确认后从第一张卡开始")}</p>
       </div>
     </section>
   );
