@@ -86,7 +86,7 @@ await check('320px and 390px page, prompts and blank template never overflow', a
   }
 });
 await check('Home resource link, back, bookmark, refresh and fake confirmed query preserve candidate state', async () => {
-  await page.goto(base + '/'); await page.getByRole('link', { name: '查看第一张 AI 实战卡预览', exact: true }).click();
+  await page.goto(base + '/'); await page.getByRole('link', { name: '先看一张原创实战卡', exact: true }).click();
   await page.getByRole('heading', { name: '第一张 AI 实战卡', exact: true }).waitFor();
   assert.match(page.url(), /\/newsletter\/first-ai-card$/);
   await page.reload(); await page.getByRole('heading', { name: '第一张 AI 实战卡', exact: true }).waitFor();

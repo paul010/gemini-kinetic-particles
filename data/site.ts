@@ -1076,8 +1076,8 @@ export const COPY = {
     titleLine1: { en: 'I put AI to work.', zh: '用 AI，做点实事。' },
     titleLine2: { en: 'Then share how.', zh: '做完了，讲给你听。' },
     intro: {
-      en: 'I build tools, automate tasks, and design hands-on lessons with AI. Try a project here, or watch me walk through the process.',
-      zh: '我用 AI 做工具、搭工作流，也设计动手实践的课程。这里有可以直接试的作品，视频里有具体做法。',
+      en: 'See what AI changes mean for you, try something useful, and decide what deserves your time. My projects are here to explore, and the videos walk through how they work.',
+      zh: 'AI 又变了，和你有什么关系？一起看清变化、动手做出小成果，判断哪些值得花时间。作品能直接试，视频讲具体做法。',
     },
     ctaWork: { en: 'Try a project', zh: '找个作品试试' },
     ctaVideo: { en: 'Watch a walkthrough', zh: '看实战视频' },

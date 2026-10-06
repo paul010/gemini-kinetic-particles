@@ -37,9 +37,6 @@ async function fixture(options = {}) {
     const response = await page.goto(base + path); assert.equal(response.status(), 200);
     await signup().waitFor();
     if (state) await signup().and(page.locator(`[data-kit-load="${state}"]`)).waitFor();
-    if (path === '/' && state === 'ready') await page.evaluate(async () => {
-      const image = document.querySelector('.home-newsletter__avatar'); if (image instanceof HTMLImageElement) await image.decode();
-    });
   };
   const record = name => runs.push({ name, ...mock.report() });
   return { context, page, mock, signup, input, submit, load, record };
@@ -150,8 +147,10 @@ await check('Unavailable storage skips both official scripts, preserves interfac
   await f.page.locator('.nl-language button[aria-label="简体中文"]').click();
   await f.signup().getByText(/订阅表单暂时无法加载/).waitFor(); assert.equal(await f.page.locator('html').getAttribute('lang'), 'zh-CN');
   await f.page.locator('.nl-wordmark').click(); await f.page.locator('.home-newsletter').waitFor();
-  await f.signup().and(f.page.locator('[data-kit-load="unavailable"]')).waitFor();
+  assert.equal(await f.page.locator('.kit-signup').count(), 0);
   assert.equal(await f.page.locator('html').getAttribute('lang'), 'zh-CN'); assert.equal(f.mock.state.assets.length, 0);
+  await f.page.locator('.home-newsletter__subscribe').click();
+  await f.signup().and(f.page.locator('[data-kit-load="unavailable"]')).waitFor();
   await audit(f.page, 'storage-unavailable'); f.record('storage-unavailable');
 });
 await check('SDK timeout never exposes the uninitialized native form or permits keyboard submission', async () => {
@@ -176,55 +175,64 @@ await check('English, simplified and traditional labels, buttons, validation and
     await f.page.screenshot({ path: output + '/pending-' + language + '.png', fullPage: true }); f.record('localized-' + language);
   }
 });
-await check('320/390/1440px home and subscription routes remain usable; first-screen form geometry is recorded honestly', async () => {
+await check('320/390/1440px homepage invitation and subscription form remain usable; first-screen geometry is recorded', async () => {
   const f = await fixture({ language: 'zh' });
   const geometry = [];
   for (const path of ['/', '/newsletter']) for (const width of [320,390,1440]) {
-    await f.page.setViewportSize({ width, height: width === 320 ? 740 : width === 390 ? 844 : 1000 }); await f.load(path);
+    await f.page.setViewportSize({ width, height: width === 320 ? 740 : width === 390 ? 844 : 1000 });
+    let field = null, button;
+    if (path === '/') {
+      await f.page.goto(base + '/'); await f.page.locator('.home-newsletter__subscribe').waitFor();
+      assert.equal(await f.page.locator('.kit-signup,input[type="email"]').count(), 0);
+      button = await f.page.locator('.home-newsletter__subscribe').boundingBox();
+    } else {
+      await f.load(path); field = await f.input().boundingBox(); button = await f.submit().boundingBox();
+      assert(field && field.width > 100, 'Standalone email field remains operable');
+    }
     assert(await f.page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
-    const field = await f.input().boundingBox(), button = await f.submit().boundingBox();
-    assert(field && button && field.width > 100 && button.width > 100, 'Form remains visible and operable');
-    geometry.push({ path, width, height: f.page.viewportSize().height, field, button, fieldInFirstViewport: field.y >= 64 && field.y + field.height <= f.page.viewportSize().height, buttonInFirstViewport: button.y >= 64 && button.y + button.height <= f.page.viewportSize().height });
+    assert(button && button.width > 100);
+    geometry.push({ path, width, height: f.page.viewportSize().height, field, button, buttonInFirstViewport: button.y >= 64 && button.y + button.height <= f.page.viewportSize().height });
+    if (path === '/') assert(geometry.at(-1).buttonInFirstViewport, 'The sole invitation stays in the first viewport');
     await f.page.screenshot({ path: output + '/' + (path === '/' ? 'home' : 'newsletter') + '-zh-' + width + '.png', fullPage: false });
-    await writeFile(output + '/form-geometry.json', JSON.stringify(geometry,null,2));
-    if (path === '/') assert(field.y >= 64 && button.y + button.height <= f.page.viewportSize().height, 'Homepage primary form belongs in the first viewport: ' + JSON.stringify(geometry.at(-1)));
   }
   await writeFile(output + '/form-geometry.json', JSON.stringify(geometry,null,2)); f.record('responsive-form');
 });
-await check('Navigation and refresh clear unsent address input, while publicly visiting the card never creates confirmation state', async () => {
-  const f = await fixture(); await f.load('/'); await f.input().fill('reader@example.com');
+await check('Leaving for homepage or public card clears unsent addresses; returning and refresh create no confirmation state', async () => {
+  const f = await fixture(); await f.load(); await f.input().fill('reader@example.com');
+  await f.page.locator('.nl-wordmark').click(); await f.page.locator('.home-newsletter').waitFor();
+  assert.equal(await f.page.locator('.kit-signup').count(), 0);
   await f.page.locator('.home-newsletter__resource a').click(); await f.page.locator('.practice-card').waitFor();
   assert.equal(await f.page.locator('form,input,iframe').count(), 0);
   assert.match(await f.page.locator('.practice-card__disclosure').innerText(), /does not confirm an email|does not.*subscription/i);
-  await f.page.locator('.practice-card__header a[href="/"]').click(); await f.signup().and(f.page.locator('[data-kit-load="ready"]')).waitFor();
+  await f.page.locator('.practice-card__header a[href="/"]').click(); await f.page.locator('.home-newsletter__subscribe').click();
+  await f.signup().and(f.page.locator('[data-kit-load="ready"]')).waitFor();
   assert.equal(await f.input().inputValue(), ''); await f.input().fill('reader@example.com');
   await f.page.reload(); await f.signup().and(f.page.locator('[data-kit-load="ready"]')).waitFor(); assert.equal(await f.input().inputValue(), '');
   await noPersistentEmail(f.page); assert.equal(f.mock.state.subscriptions.length,0); f.record('navigation-privacy');
 });
-await check('An in-flight official request can finish after leaving without leaking its address or applying old pending state to a new widget', async () => {
+await check('An in-flight request cannot leak an address or apply its pending message to a fresh widget after leaving', async () => {
   for (const destination of ['/', '/newsletter/first-ai-card']) {
     const f = await fixture({ response: 'deferred' }); await f.load();
     await f.input().fill('reader@example.com'); await f.submit().click();
-    await f.submit().and(f.page.locator(':disabled')).waitFor();
-    assert.equal(f.mock.state.subscriptions.length, 1);
+    await f.submit().and(f.page.locator(':disabled')).waitFor(); assert.equal(f.mock.state.subscriptions.length, 1);
     await f.signup().locator('form').evaluate(form => {
       window.__previousKitForm = form; window.__previousKitCompleted = 0;
       form.addEventListener('ckjs:submission:complete', () => { window.__previousKitCompleted += 1; });
     });
     await f.page.locator('.nl-wordmark').click(); await f.page.locator('.home-newsletter').waitFor();
-    await f.signup().and(f.page.locator('[data-kit-load="ready"]')).waitFor();
-    if (destination !== '/') { await f.page.locator('.home-newsletter__resource a').click(); await f.page.locator('.practice-card').waitFor(); }
-    assert(await f.page.evaluate(() => !window.__previousKitForm.isConnected && window.__previousKitForm.querySelector('input[name="email_address"]').value === ''), 'Unmount clears the detached form’s address');
+    assert.equal(await f.page.locator('.kit-signup').count(), 0);
+    assert(await f.page.evaluate(() => !window.__previousKitForm.isConnected && window.__previousKitForm.querySelector('input[name="email_address"]').value === ''), 'Unmount clears the detached form address');
     if (destination === '/') {
+      await f.page.locator('.home-newsletter__subscribe').click(); await f.signup().and(f.page.locator('[data-kit-load="ready"]')).waitFor();
       assert.equal(await f.input().inputValue(), ''); assert.equal(await f.signup().locator('[data-element="success"]').count(), 0);
-    } else assert.equal(await f.page.locator('.kit-signup').count(), 0);
-    f.mock.release();
-    await f.page.waitForFunction(() => window.__previousKitCompleted === 1);
-    assert.equal(f.mock.state.subscriptions.length, 1, 'Leaving neither retries nor claims to cancel the server request');
+    } else { await f.page.locator('.home-newsletter__resource a').click(); await f.page.locator('.practice-card').waitFor(); }
+    f.mock.release(); await f.page.waitForFunction(() => window.__previousKitCompleted === 1);
+    assert.equal(f.mock.state.subscriptions.length, 1, 'Leaving does not retry or claim to cancel a submitted request');
     if (destination !== '/') {
       assert.equal(await f.page.locator('.kit-signup').count(), 0);
       assert.match(await f.page.locator('.practice-card__disclosure').innerText(), /does not confirm an email|does not.*subscription/i);
-      await f.page.locator('.practice-card__header a[href="/"]').click(); await f.signup().and(f.page.locator('[data-kit-load="ready"]')).waitFor();
+      await f.page.locator('.practice-card__header a[href="/"]').click(); await f.page.locator('.home-newsletter__subscribe').click();
+      await f.signup().and(f.page.locator('[data-kit-load="ready"]')).waitFor();
     }
     assert.equal(await f.input().inputValue(), ''); assert.equal(await f.signup().locator('[data-element="success"]').count(), 0);
     await noConfirmation(f.signup()); await noPersistentEmail(f.page); f.record('detached-request-' + destination);

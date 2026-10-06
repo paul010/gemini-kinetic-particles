@@ -19,37 +19,31 @@ const page = await context.newPage();
 page.setDefaultTimeout(12000);
 page.on('pageerror', e => errors.push(e.message));
 const test = async (name, fn) => { try { await fn(); checks.push({ name, status: 'passed' }); } catch (e) { checks.push({ name, status: 'failed', error: e.message }); } console.log(checks.at(-1)); };
-const home = async () => { const r = await page.goto(base + '/', { waitUntil: 'domcontentloaded' }); assert.equal(r.status(), 200); await page.locator('.home-newsletter').waitFor(); await page.locator('.home-newsletter .kit-signup[data-kit-load="ready"]').waitFor(); await page.locator('.home-newsletter__avatar').evaluate(image => image.decode()); };
+const home = async () => { const r = await page.goto(base + '/', { waitUntil: 'domcontentloaded' }); assert.equal(r.status(), 200); await page.locator('.home-newsletter').waitFor(); await page.locator('.home-newsletter__subscribe').waitFor(); await page.locator('.hero-visual__button img').evaluate(image => image.decode()); };
 const noOverflow = async () => assert(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
 const audit = async name => { await page.addScriptTag({ path: process.env.NEWSLETTER_AXE_PATH }); const r = await page.evaluate(async () => { const r = await window.axe.run(document.querySelector('.home-newsletter') ?? document.querySelector('main'), { runOnly: { type: 'tag', values: ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'] } }); return { violations: r.violations.map(v => ({ id: v.id, targets: v.nodes.map(n => n.target) })), incomplete: r.incomplete.map(v => v.id) }; }); accessibility.push({ name, ...r }); assert.equal(r.violations.length, 0); };
-await test('HTTPS home serves the verified brand, official Kit form and original sections', async () => {
+await test('HTTPS home restores the creator IP and one real Newsletter invitation, preserving original sections', async () => {
   await home();
-  assert.match(await page.locator('.home-newsletter__eyebrow').innerText(), /大雷早上好.*@dalei2025/s);
-  const avatar = page.locator('.home-newsletter__avatar');
-  await avatar.waitFor();
-  await page.waitForFunction(() => document.querySelector('.home-newsletter__avatar')?.naturalWidth > 0);
-  const bytes = await (await context.request.get(base + await avatar.getAttribute('src'))).body();
-  const crypto = await import('node:crypto');
-  assert.equal(crypto.createHash('sha256').update(bytes).digest('hex'), '1fbc7bc1c59ca10ac41b7a774186dd1b4a149a978007bff86c1ee66411bbdf19');
-  assert.equal(await page.locator('.home-newsletter form').getAttribute('data-uid'), KIT_TEST.uid);
-  assert.equal(await page.locator('.home-newsletter form').getAttribute('action'), KIT_TEST.subscription);
-  assert(!(await page.locator('.home-newsletter [data-element="submit"]').isDisabled()));
-  assert.equal(await page.locator('.home-newsletter input[name="email_address"]').count(), 1);
-  assert.equal(await page.locator('.home-newsletter iframe').count(), 0);
+  assert.match(await page.locator('#creator-intro').innerText(), /大雷早上好.*@dalei2025/s);
+  assert.match(await page.locator('#creator-intro h1').innerText(), /用 AI，做点实事。/);
+  await page.locator('.hero-visual__button img').evaluate(image => image.decode());
+  assert.equal(await page.locator('.hero-visual__button img').getAttribute('src'), '/hero-blue-cartoon-20260912.webp');
+  assert.equal(await page.locator('a[href="/newsletter"]').count(), 1);
+  assert.equal(await page.locator('form,input[type="email"],.kit-signup,iframe').count(), 0);
   for (const id of ['creator-intro', 'work', 'videos', 'about', 'now', 'connect']) assert.equal(await page.locator('section#' + id).count(), 1);
   await noOverflow(); await audit('home-desktop');
   await page.screenshot({ path: output + '/production-home-desktop.png', fullPage: false });
 });
-await test('320px and 390px mobile email field and submit button fit the first viewport', async () => {
+await test('320px and 390px mobile primary invitations fit the first viewport', async () => {
   for (const width of [320, 390]) {
     await page.setViewportSize({ width, height: width === 320 ? 740 : 844 }); await home(); await noOverflow();
-    for (const selector of ['.home-newsletter input[name="email_address"]', '.home-newsletter [data-element="submit"]']) { const b = await page.locator(selector).boundingBox(); assert(b && b.y >= 64 && b.y + b.height <= page.viewportSize().height); }
+    for (const selector of ['.home-newsletter__subscribe']) { const b = await page.locator(selector).boundingBox(); assert(b && b.y >= 64 && b.y + b.height <= page.viewportSize().height); }
     await page.screenshot({ path: output + '/production-home-mobile-' + width + '.png', fullPage: false });
   }
   await audit('home-mobile');
 });
 await test('Keyboard page navigation, back and direct refresh retain real consent and pending-confirmation rules', async () => {
-  await page.locator('.home-newsletter__preview').focus(); await page.keyboard.press('Enter');
+  await page.locator('.home-newsletter__subscribe').focus(); await page.keyboard.press('Enter');
   await page.locator('.kit-signup[data-kit-load="ready"] input[name="email_address"]').waitFor();
   assert.match(await page.locator('.kit-signup__help').innerText(), /提交后需点击中文确认邮件中的按钮/);
   await page.reload(); await page.locator('.kit-signup[data-kit-load="ready"] input[name="email_address"]').waitFor();
@@ -76,24 +70,25 @@ await test('Live English, simplified and traditional copy synchronizes across al
   p.setDefaultTimeout(12000);
   try {
     await p.goto(base + '/', { waitUntil: 'domcontentloaded' });
-    await p.locator('.home-newsletter .kit-signup[data-kit-load="ready"]').waitFor();
+    await p.locator('.home-newsletter__subscribe').waitFor();
     const locales = [
-      { tag: 'en', selector: 'EN', button: 'Subscribe free · Confirm to get your practice card', input: 'Email address', card: 'Your first AI practice card', note: /newsletter is in Chinese/ },
-      { tag: 'zh-CN', selector: '简', button: '免费订阅 · 确认后领实战卡', input: '邮箱', card: '第一张 AI 实战卡', note: /每日邮件内容为中文/ },
-      { tag: 'zh-Hant', selector: '繁', button: '免費訂閱 · 確認後領實戰卡', input: '郵箱', card: '第一張 AI 實戰卡', note: /每日郵件內容為中文/ },
+      { tag: 'en', selector: 'EN', button: 'Subscribe free · Confirm to get your practice card', input: 'Email address', card: 'Your first AI practice card', note: /in Chinese/ },
+      { tag: 'zh-CN', selector: '简', button: '免费订阅 · 确认后领实战卡', input: '邮箱', card: '第一张 AI 实战卡', note: /中文/ },
+      { tag: 'zh-Hant', selector: '繁', button: '免費訂閱 · 確認後領實戰卡', input: '郵箱', card: '第一張 AI 實戰卡', note: /中文/ },
     ];
     for (const locale of locales) {
       await p.goto(base + '/', { waitUntil: 'domcontentloaded' });
       await p.getByRole('button', { name: locale.selector, exact: true }).click();
-      await p.locator('.home-newsletter .kit-signup[data-kit-load="ready"]').waitFor();
-      assert(!(await p.getByRole('button', { name: locale.button, exact: true }).isDisabled()));
+      await p.locator('.home-newsletter__subscribe').waitFor();
+      assert.equal(await p.locator('.home-newsletter__subscribe').getAttribute('href'), '/newsletter');
       assert.equal(await p.locator('html').getAttribute('lang'), locale.tag);
-      assert.match(await p.locator('.home-newsletter__language-note').innerText(), locale.note);
+      assert.match(await p.locator('.home-newsletter__note').innerText(), locale.note);
       assert(await p.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
-      await p.locator('.home-newsletter__avatar').evaluate(image => image.decode());
+      await p.locator('.hero-visual__button img').evaluate(image => image.decode());
       await p.screenshot({ path: output + '/production-home-' + locale.tag + '-390.png', fullPage: false });
-      await p.locator('.home-newsletter__preview').click();
+      await p.locator('.home-newsletter__subscribe').click();
       await p.getByLabel(locale.input, { exact: true }).waitFor();
+      assert(!(await p.getByRole('button', { name: locale.button, exact: true }).isDisabled()));
       assert.equal(await p.locator('html').getAttribute('lang'), locale.tag);
       await p.reload(); await p.getByLabel(locale.input, { exact: true }).waitFor();
       await p.goto(base + '/newsletter/first-ai-card', { waitUntil: 'domcontentloaded' });

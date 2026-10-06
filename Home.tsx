@@ -726,7 +726,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
               className="btn-sheen hidden h-8 items-center gap-1.5 rounded-full bg-gold px-3.5 text-xs font-semibold text-paper transition-transform hover:scale-[1.03] xl:inline-flex"
             >
               <YoutubeLogo className="h-3.5 w-3.5" weight="fill" />
-              {t({ en: 'Subscribe', zh: '订阅' })}
+              {t({ en: 'Watch', zh: '看频道' })}
             </a>
             <button
               onClick={() => setMenuOpen((v) => !v)}
@@ -783,11 +783,11 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
       </header>
 
       <main id="main-content" className="mx-auto max-w-7xl px-5 sm:px-8">
-        <HomeNewsletterPromo onNavigate={onNavigate} />
         {/* Hero */}
+        <div id="home">
         <section id="creator-intro" className="home-hero relative grid min-h-[100dvh] items-center gap-8 pb-8 pt-24 sm:gap-12 sm:pb-16 lg:grid-cols-[minmax(0,1.08fr)_minmax(22rem,0.92fr)] lg:gap-20">
           <div className="flex max-w-3xl flex-col">
-            <p className="hero-in font-mono text-xs font-medium tracking-[0.12em] text-gold" style={{ animationDelay: '0.08s' }}>{t(COPY.hero.greeting)}</p>
+            <p className="hero-in font-mono text-xs font-medium tracking-[0.05em] text-gold" style={{ animationDelay: '0.08s' }}>{t(CHANNEL.name)} <span className="ml-2 tracking-normal">{CHANNEL.handle}</span></p>
 
             <h1 className="hero-in mt-5 font-display text-[2.75rem] font-semibold leading-[0.98] tracking-[-0.05em] sm:text-[3.55rem] lg:text-[3.7rem] xl:text-[4.15rem]" style={{ animationDelay: '0.18s' }}>
               <span className="block">{t(COPY.hero.titleLine1)}</span>
@@ -798,11 +798,13 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
               {t(COPY.hero.intro)}
             </p>
 
-            <div className="hero-in mt-8 flex flex-wrap items-center gap-2.5" style={{ animationDelay: '0.42s' }}>
+            <HomeNewsletterPromo onNavigate={onNavigate} />
+
+            <div className="hero-in mt-5 flex flex-wrap items-center gap-x-6 gap-y-3" style={{ animationDelay: '0.42s' }}>
               <Magnetic strength={0.4}>
                 <button
                   onClick={() => goTo('work')}
-                  className="btn-sheen group inline-flex items-center gap-2 rounded-full bg-accent px-5 py-3 text-sm font-semibold text-paper transition-transform hover:scale-[1.03]"
+                  className="link-underline group inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-ink/85 transition-colors hover:text-ink"
                 >
                   {t(COPY.hero.ctaWork)}
                   <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
@@ -811,7 +813,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
               <Magnetic strength={0.4}>
                 <button
                   onClick={() => goTo('videos')}
-                  className="inline-flex items-center gap-2 rounded-full border border-ink/15 bg-ink/5 px-5 py-3 text-sm font-semibold text-ink/85 transition-colors hover:border-ink/30 hover:text-ink"
+                  className="link-underline inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-ink/85 transition-colors hover:text-ink"
                 >
                   <YoutubeLogo className="h-4 w-4" weight="fill" />
                   {t(COPY.hero.ctaVideo)}
@@ -825,6 +827,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
           </div>
 
         </section>
+        </div>
 
         {/* Work */}
         <section id="work" className="relative scroll-mt-24 py-20">

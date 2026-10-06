@@ -56,26 +56,24 @@ async function audit(page, name, root) {
   accessibility.push({ name, ...report });
   assert.equal(report.violations.length, 0, JSON.stringify(report.violations.map(({ id }) => id)));
 }
-await check('English remains default; official form identity, labels and page title agree', async () => {
+await check('English remains default; creator invitation and page title agree without a homepage form', async () => {
   await page.goto(base); await page.locator('.home-newsletter').waitFor();
   assert.equal(await page.locator('html').getAttribute('lang'), 'en');
-  assert.match(await page.locator('.home-newsletter__title').innerText(), /small results you can verify/);
-  await page.locator('.home-newsletter .kit-signup[data-kit-load="ready"]').waitFor();
-  assert.equal(await page.locator('.home-newsletter form').getAttribute('data-uid'), KIT_TEST.uid);
-  assert.equal(await page.locator('.home-newsletter form').getAttribute('action'), KIT_TEST.subscription);
-  assert(!(await page.locator('.home-newsletter [data-element="submit"]').isDisabled()));
+  assert.match(await page.locator('.home-newsletter__subscribe').innerText(), /Get the free AI letter/);
+  assert.equal(await page.locator('.home-newsletter__subscribe').getAttribute('href'), '/newsletter');
+  assert.equal(await page.locator('.home-newsletter form,input,iframe').count(), 0);
   assert.match(await page.title(), /Practical AI/);
   assert(!/[\p{Script=Han}]/u.test(await page.locator('.home-newsletter').innerText()));
 });
 await check('Home selector switches promo immediately in simplified and OpenCC traditional Chinese', async () => {
   await chooseHome('zh'); await waitLanguage('zh');
-  assert.match(await page.locator('.home-newsletter__title').innerText(), /检查/);
-  await chooseHome('zhHant'); await waitLanguage('zhHant', '檢查');
-  assert.match(await page.locator('.home-newsletter [data-element="submit"]').innerText(), /訂閱/);
+  assert.match(await page.locator('.home-newsletter__subscribe').innerText(), /免费订阅/);
+  await chooseHome('zhHant'); await waitLanguage('zhHant', '免費訂閱');
+  assert.match(await page.locator('.home-newsletter__subscribe').innerText(), /訂閱/);
   assert.match(await page.title(), /實戰/);
 });
 await check('Language persists through SPA navigation, standalone selection, browser back, refresh and home return', async () => {
-  await page.locator('.home-newsletter__preview').click(); await page.locator('.newsletter').waitFor();
+  await page.locator('.home-newsletter__subscribe').click(); await page.locator('.newsletter').waitFor();
   await waitLanguage('zhHant'); await page.locator('.kit-signup[data-kit-load="ready"]').waitFor();
   assert.equal(await page.locator('.nl-language button[aria-pressed="true"]').innerText(), '繁');
   await page.reload(); await page.locator('.newsletter').waitFor(); await waitLanguage('zhHant'); await page.locator('.kit-signup[data-kit-load="ready"]').waitFor();
@@ -84,12 +82,12 @@ await check('Language persists through SPA navigation, standalone selection, bro
   assert(!/Subscription demo/.test(await page.title()));
   assert(!/[\p{Script=Han}]/u.test(await page.locator('main').innerText()));
   await page.locator('.nl-wordmark').click(); await page.locator('.home-newsletter').waitFor();
-  assert.match(await page.locator('.home-newsletter__title').innerText(), /verify/);
+  assert.match(await page.locator('.home-newsletter__subscribe').innerText(), /Get the free AI letter/);
   await page.locator('.home-newsletter__resource a').click(); await page.locator('.practice-card').waitFor();
   assert.match(await page.title(), /practice card/);
   await choosePage('zh'); await waitLanguage('zh');
   await page.goBack(); await page.locator('.home-newsletter').waitFor();
-  assert.match(await page.locator('.home-newsletter__title').innerText(), /检查/);
+  assert.match(await page.locator('.home-newsletter__subscribe').innerText(), /免费订阅/);
 });
 await check('Sample letters remain marked as unsent and every translated state preserves the demo safety rules', async () => {
   await page.goto(base + '/newsletter/demo'); await page.locator('.newsletter').waitFor(); await choosePage('en');
@@ -137,7 +135,7 @@ await check('Three languages × four routes × 320/390/768/1440px layouts never 
     await page.goto(base + route); await page.locator(route === '/' ? '.home-newsletter' : route.endsWith('first-ai-card') ? '.practice-card' : '.newsletter').waitFor();
     for (const lang of ['en', 'zh', 'zhHant']) {
       if (route === '/') await chooseHome(lang); else await choosePage(lang);
-      await waitLanguage(lang, route === '/' && lang === 'zhHant' ? '檢查' : undefined);
+      await waitLanguage(lang, route === '/' && lang === 'zhHant' ? '免費訂閱' : undefined);
       for (const width of [320, 390, 768, 1440]) {
         await page.setViewportSize({ width, height: width < 768 ? 844 : 1000 });
         assert(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), `${route}, ${lang}, ${width}`);
@@ -153,7 +151,7 @@ await check('Blocked localStorage keeps a same-tab selection across navigation a
   const { page: restricted } = await newContext(true);
   await restricted.goto(base); await restricted.locator('.home-newsletter').waitFor();
   await restricted.locator('header [role="group"] button').filter({ hasText: /^繁$/ }).click();
-  await restricted.waitForFunction(() => document.querySelector('.home-newsletter__title')?.textContent.includes('檢查'));
+  await restricted.waitForFunction(() => document.querySelector('.home-newsletter__subscribe')?.textContent.includes('訂閱'));
   await restricted.locator('.home-newsletter__resource a').click(); await restricted.locator('.practice-card').waitFor();
   assert.equal(await restricted.locator('html').getAttribute('lang'), 'zh-Hant');
   await restricted.locator('.nl-language button[aria-label="English"]').click();
