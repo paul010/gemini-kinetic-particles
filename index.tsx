@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useCallback, Suspense } from 'react';
 import ReactDOM from 'react-dom/client';
 import Home from './Home';
+import { NEWSLETTER_CARD_PATH } from './newsletter/paths';
 
 // Heavier routes load on demand so the homepage bundle stays small.
 const App = React.lazy(() => import('./App'));
@@ -48,6 +49,8 @@ const VibeCheck = React.lazy(() => import('./vibecheck/VibeCheck'));
 const MapRouteBroll = React.lazy(() => import('./maproute/MapRouteBroll'));
 const LvshunMap = React.lazy(() => import('./lvshun/LvshunMap'));
 const LifeQuest = React.lazy(() => import('./lifequest/LifeQuest'));
+const Newsletter = React.lazy(() => import('./newsletter/Newsletter'));
+const PracticeCard = React.lazy(() => import('./newsletter/PracticeCard'));
 
 const Loader: React.FC<{ label: string }> = ({ label }) => (
   <div
@@ -61,11 +64,13 @@ const Loader: React.FC<{ label: string }> = ({ label }) => (
   </div>
 );
 
-type Route = 'home' | 'particles' | 'arsenal' | 'md' | 'img' | 's2c' | 'fluid' | 'r3f' | 'ttt-hour-of-code' | 'hear-the-universe' | 'bench' | 'fugu' | 'copilot' | 'copilotcamp' | 'copilot-demo' | 'promptforge' | 'notebooklm' | 'aihtml' | 'text2image' | 'farmer' | 'quyoubus' | 'hpworkshop' | 'agents' | 'skills' | 'cat-skills' | 'uml' | 'town' | 'patterns' | 'prompts' | 'cici' | 'designskill' | 'videogen' | 'dino' | 'chengdu' | 'lab3d' | 'cappadocia' | 'zhangjiajie' | 'niagara' | 'fireflies' | 'harbin' | 'forbiddencity' | 'brooksfalls' | 'vibe-check' | 'lvshun' | 'map-route-broll' | 'life-quest';
+type Route = 'home' | 'particles' | 'arsenal' | 'md' | 'img' | 's2c' | 'fluid' | 'r3f' | 'ttt-hour-of-code' | 'hear-the-universe' | 'bench' | 'fugu' | 'copilot' | 'copilotcamp' | 'copilot-demo' | 'promptforge' | 'notebooklm' | 'aihtml' | 'text2image' | 'farmer' | 'quyoubus' | 'hpworkshop' | 'agents' | 'skills' | 'cat-skills' | 'uml' | 'town' | 'patterns' | 'prompts' | 'cici' | 'designskill' | 'videogen' | 'dino' | 'chengdu' | 'lab3d' | 'cappadocia' | 'zhangjiajie' | 'niagara' | 'fireflies' | 'harbin' | 'forbiddencity' | 'brooksfalls' | 'vibe-check' | 'lvshun' | 'map-route-broll' | 'life-quest' | 'newsletter' | 'newsletter-card';
 
 const routeFromLocation = (): Route => {
   const { pathname, hash } = window.location;
   const p = pathname.replace(/\/+$/, '');
+  if (p === NEWSLETTER_CARD_PATH || hash === `#${NEWSLETTER_CARD_PATH}`) return 'newsletter-card';
+  if (p === '/newsletter' || hash === '#/newsletter') return 'newsletter';
   if (p.endsWith('/life-quest') || hash === '#/life-quest') return 'life-quest';
   if (p.endsWith('/map-route-broll') || hash === '#/map-route-broll') return 'map-route-broll';
   if (p.endsWith('/particles') || hash === '#/particles') return 'particles';
@@ -143,6 +148,8 @@ const Router: React.FC = () => {
   // Per-route document title for SEO / sharing / browser history.
   useEffect(() => {
     const titles: Record<Route, string> = {
+      'newsletter-card': '第一张 AI 实战卡 · 大雷早上好 | 公开资源预览',
+      newsletter: '大雷早上好 · AI 实战信 | 订阅体验演示',
       home: '大雷 Da Lei | AI 实战、实用工具与互动课程',
       particles: 'Kinetic Particles · 大雷',
       arsenal: 'AI Coding Arsenal · 大雷 AI 编程装备库',
@@ -551,6 +558,14 @@ const Router: React.FC = () => {
         <LvshunMap onHome={() => navigate('/')} />
       </Suspense>
     );
+  }
+
+  if (route === 'newsletter-card') {
+    return <Suspense fallback={<Loader label="LOADING…" />}><PracticeCard onNavigate={navigate} /></Suspense>;
+  }
+
+  if (route === 'newsletter') {
+    return <Suspense fallback={<Loader label="正在打开实战信…" />}><Newsletter onHome={() => navigate('/')} /></Suspense>;
   }
 
   return <Home onNavigate={navigate} />;

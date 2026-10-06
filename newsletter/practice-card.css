@@ -1,0 +1,55 @@
+.practice-card { background: var(--paper); color: var(--ink); min-height: 100vh; font-family: 'Inter', 'Hiragino Sans GB', 'PingFang SC', system-ui, sans-serif; font-size: 15px; line-height: 1.85; }
+.practice-card__wrap { width: min(100% - 40px, 920px); margin-inline: auto; }
+.practice-card__header { display: flex; align-items: center; justify-content: space-between; min-height: 82px; gap: 20px; font-size: 13px; }
+.practice-card__header a { display: inline-flex; align-items: center; min-height: 44px; }
+.practice-card__header span { margin-left: 9px; font-size: 10px; letter-spacing: 0.1em; }
+.practice-card a { color: var(--ink); text-decoration: underline; text-underline-offset: 4px; }
+.practice-card__preview { margin: 0; padding: 10px 14px; border: 1px solid var(--line); border-radius: 8px; font-size: 12px; }
+.practice-card__intro { max-width: 750px; padding: 52px 0 40px; }
+.practice-card__eyebrow { color: var(--gold); font-size: 12px; font-weight: 600; margin: 0 0 16px; }
+.practice-card h1 { margin: 0; font-size: clamp(30px, 5vw, 48px); line-height: 1.25; letter-spacing: -0.03em; font-weight: 600; }
+.practice-card__lead { font-size: 20px; margin: 16px 0; font-weight: 500; }
+.practice-card__intro > p:not(.practice-card__eyebrow):not(.practice-card__lead) { margin: 12px 0 0; }
+.practice-card__disclosure, .practice-card__source { color: rgb(var(--rgb-ink) / 0.75); font-size: 12px; }
+.practice-card section { border-top: 1px solid var(--line); padding: 34px 0; }
+.practice-card__section-heading { margin-bottom: 20px; }
+.practice-card__section-heading > span { font-size: 11px; letter-spacing: 0.06em; color: var(--gold); }
+.practice-card h2 { margin: 7px 0 0; font-size: 24px; font-weight: 600; line-height: 1.5; }
+.practice-card h3 { margin: 0 0 10px; font-size: 15px; font-weight: 600; }
+.practice-card p { margin-block: 0 12px; }
+.practice-card__lesson-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px 36px; }
+.practice-card__lesson > .practice-card__source { margin: 18px 0 0; }
+.practice-card blockquote { margin: 20px 0; padding: 18px 20px; border-left: 3px solid var(--gold); background: rgb(var(--rgb-ink) / 0.04); border-radius: 0 8px 8px 0; }
+.practice-card__categories { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.practice-card__categories article { padding: 20px; border: 1px solid var(--line); border-radius: 10px; }
+.practice-card__categories article p:last-child { margin: 0; }
+.practice-card__button { display: inline-flex; align-items: center; min-height: 44px; padding: 10px 18px; background: var(--ink); color: var(--paper); border: 1px solid var(--ink); border-radius: 99px; font-size: 13px; font-weight: 500; cursor: pointer; }
+.practice-card__button:disabled { cursor: wait; opacity: 0.6; }
+.practice-card__prompts { display: grid; gap: 16px; margin-top: 24px; }
+.practice-card__prompts article { padding: 20px; border: 1px solid var(--line); border-radius: 10px; }
+.practice-card pre { margin: 0; font-family: inherit; white-space: pre-wrap; overflow-wrap: anywhere; line-height: 1.85; font-size: 14px; }
+.practice-card__blank { margin-top: 24px !important; padding: 24px; border: 1px dashed rgb(var(--rgb-ink) / 0.3); border-radius: 10px; }
+.practice-card__check ol { padding-left: 24px; margin: 0 0 20px; }
+.practice-card__check li { padding-left: 6px; margin-block: 8px; }
+.practice-card__notice { font-size: 13px; }
+.practice-card__notice:empty { display: none; }
+.practice-card__footer { display: flex; align-items: center; justify-content: space-between; gap: 16px; border-top: 1px solid var(--line); padding-block: 24px 40px; font-size: 12px; }
+.practice-card__footer p { margin: 0; }
+.practice-card__footer a { display: inline-flex; align-items: center; min-height: 44px; }
+.practice-card__skip { position: absolute; left: -9999px; top: 10px; }
+.practice-card__skip:focus { left: 20px; z-index: 10; padding: 10px; background: var(--paper); }
+@media (max-width: 600px) {
+  .practice-card__intro { padding-block: 34px 28px; }
+  .practice-card h2 { font-size: 21px; }
+  .practice-card__lesson-grid, .practice-card__categories { grid-template-columns: 1fr; }
+  .practice-card__categories article, .practice-card__prompts article { padding: 18px; }
+  .practice-card__footer { flex-direction: column; align-items: flex-start; gap: 3px; }
+}
+@media print {
+  .practice-card__header, .practice-card__button, .practice-card__notice, .practice-card__footer, .practice-card__skip { display: none; }
+  .practice-card { color: #1c1a17; background: white; font-size: 12px; }
+  .practice-card__wrap { width: 100%; }
+  .practice-card__intro { padding-block: 0 24px; }
+  .practice-card section { padding-block: 20px; }
+  .practice-card article, .practice-card__blank { break-inside: avoid; }
+}

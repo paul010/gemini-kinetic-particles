@@ -1,0 +1,127 @@
+.home-newsletter {
+  position: relative;
+  isolation: isolate;
+  background: var(--paper);
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.85fr);
+  align-items: center;
+  gap: clamp(2rem, 5vw, 5.5rem);
+  min-height: min(900px, 100svh);
+  padding: 112px 0 64px;
+  scroll-margin-top: 0;
+  font-family: 'Inter', 'Hiragino Sans GB', 'PingFang SC', system-ui, sans-serif;
+}
+.home-newsletter::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 100vw;
+  transform: translateX(-50%);
+  background: var(--paper);
+  z-index: -1;
+}
+.home-newsletter__copy { position: relative; z-index: 1; }
+.home-newsletter__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 24px;
+  color: var(--gold);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.025em;
+}
+.home-newsletter__avatar { width: 36px; height: 36px; flex: 0 0 36px; border-radius: 50%; object-fit: cover; }
+.home-newsletter__identity { display: flex; flex-direction: column; gap: 3px; }
+.home-newsletter__handle { color: rgb(var(--rgb-ink) / 0.72); font-size: 11px; letter-spacing: 0; }
+.home-newsletter__title {
+  max-width: 680px;
+  margin: 0;
+  color: var(--ink);
+  font-size: clamp(38px, 4.1vw, 57px);
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+.home-newsletter__subtitle {
+  max-width: 540px;
+  margin: 25px 0 0;
+  color: rgb(var(--rgb-ink) / 0.8);
+  font-size: 18px;
+  line-height: 1.85;
+}
+.home-newsletter__resource {
+  max-width: 530px;
+  margin: 14px 0 0;
+  color: rgb(var(--rgb-ink) / 0.72);
+  font-size: 14px;
+  line-height: 1.85;
+}
+.home-newsletter__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 22px; margin-top: 30px; }
+.home-newsletter__resource a { color: inherit; text-decoration: underline; text-underline-offset: 4px; }
+.home-newsletter__subscribe, .home-newsletter__preview {
+  min-height: 48px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 99px;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+.home-newsletter__subscribe {
+  border: 1px solid rgb(var(--rgb-ink) / 0.18);
+  background: rgb(var(--rgb-ink) / 0.06);
+  color: rgb(var(--rgb-ink) / 0.72);
+  padding: 12px 25px;
+  cursor: not-allowed;
+}
+.home-newsletter__preview { gap: 8px; padding: 10px 3px; color: var(--ink); text-decoration: underline; text-underline-offset: 5px; text-decoration-color: rgb(var(--rgb-ink) / 0.3); }
+.home-newsletter__preview:hover { text-decoration-color: var(--gold); }
+.home-newsletter__preview:focus-visible { outline: 2px solid var(--gold); outline-offset: 5px; }
+.home-newsletter__status { max-width: 500px; margin: 16px 0 0; color: rgb(var(--rgb-ink) / 0.72); font-size: 12px; line-height: 1.85; }
+.home-newsletter__status-label { margin-right: 7px; color: var(--gold); font-weight: 600; }
+.home-newsletter__visual { position: relative; width: 100%; max-width: 405px; justify-self: center; padding: 15px 12px 0; }
+.home-newsletter__card-back { position: absolute; inset: 3px 21px 60px 6px; border: 1px solid rgb(var(--rgb-gold) / 0.25); border-radius: 13px; transform: rotate(-5deg); background: rgb(var(--rgb-gold) / 0.07); }
+.home-newsletter__card { position: relative; border: 1px solid rgb(var(--rgb-gold) / 0.3); border-radius: 13px; padding: 25px 28px 22px; background: var(--paper); box-shadow: 0 20px 60px -35px rgb(var(--rgb-ink) / 0.3); }
+.home-newsletter__card-top { display: flex; justify-content: space-between; border-bottom: 1px solid var(--line); padding-bottom: 20px; color: var(--gold); font-size: 11px; letter-spacing: 0.06em; }
+.home-newsletter__card-kicker { margin: 27px 0 8px; color: rgb(var(--rgb-ink) / 0.72); font-size: 12px; }
+.home-newsletter__card-title { margin: 0; color: var(--ink); font-size: 38px; font-weight: 600; line-height: 1.25; letter-spacing: -0.03em; }
+.home-newsletter__card-rows { display: grid; gap: 12px; margin: 27px 0; }
+.home-newsletter__card-rows > div { display: flex; align-items: center; gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+.home-newsletter__card-rows span { color: var(--gold); font-size: 11px; }
+.home-newsletter__card-rows strong { color: var(--ink); font-size: 14px; font-weight: 500; }
+.home-newsletter__card-rows i { height: 3px; flex: 1; margin-left: 16px; background: rgb(var(--rgb-ink) / 0.1); border-radius: 4px; }
+.home-newsletter__card-rows > div:nth-child(2) i { margin-right: 25px; }
+.home-newsletter__card-rows > div:nth-child(3) i { margin-right: 50px; }
+.home-newsletter__card-bottom { display: flex; align-items: center; justify-content: space-between; color: rgb(var(--rgb-ink) / 0.72); font-size: 11px; }
+.home-newsletter__card-bottom > span:last-child { color: var(--gold); font-size: 25px; }
+.home-newsletter__visual-note { margin: 18px 0 0; text-align: center; color: rgb(var(--rgb-ink) / 0.65); font-size: 11px; }
+@media (max-width: 1000px) {
+  .home-newsletter { grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr); gap: 24px; }
+  .home-newsletter__title { font-size: 40px; }
+  .home-newsletter__card { padding: 20px; }
+  .home-newsletter__card-title { font-size: 32px; }
+}
+@media (max-width: 759px) {
+  .home-newsletter { grid-template-columns: 1fr; min-height: 100svh; padding: 102px 0 48px; align-items: center; }
+  .home-newsletter__eyebrow { margin-bottom: 22px; font-size: 12px; }
+  .home-newsletter__title { max-width: 540px; font-size: clamp(32px, 7.5vw, 44px); line-height: 1.28; }
+  .home-newsletter__subtitle { margin-top: 23px; font-size: 16px; line-height: 1.85; }
+  .home-newsletter__resource { margin-top: 14px; font-size: 13px; }
+  .home-newsletter__actions { margin-top: 25px; gap: 7px 17px; }
+  .home-newsletter__subscribe { padding-inline: 19px; }
+  .home-newsletter__preview { font-size: 13px; }
+  .home-newsletter__status { font-size: 11px; }
+  .home-newsletter__visual { display: none; }
+}
+@media (max-width: 359px) {
+  .home-newsletter { padding-top: 90px; }
+  .home-newsletter__title { font-size: 28px; }
+  .home-newsletter__actions { column-gap: 12px; }
+  .home-newsletter__subscribe { padding-inline: 15px; }
+  .home-newsletter__preview { font-size: 12px; }
+}

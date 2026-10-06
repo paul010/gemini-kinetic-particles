@@ -37,6 +37,7 @@ import {
 } from './data/site';
 import { fetchLatestVideos, parseLatestVideos } from './data/latest-videos';
 import videoSnapshot from './data/video-snapshot.json';
+import HomeNewsletterPromo from './newsletter/HomeNewsletterPromo';
 
 interface HomeProps {
   onNavigate: (path: string) => void;
@@ -826,8 +827,9 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
       </header>
 
       <main id="main-content" className="mx-auto max-w-7xl px-5 sm:px-8">
+        <HomeNewsletterPromo onNavigate={onNavigate} />
         {/* Hero */}
-        <section id="home" className="home-hero relative grid min-h-[100dvh] items-center gap-8 pb-8 pt-24 sm:gap-12 sm:pb-16 lg:grid-cols-[minmax(0,1.08fr)_minmax(22rem,0.92fr)] lg:gap-20">
+        <section id="creator-intro" className="home-hero relative grid min-h-[100dvh] items-center gap-8 pb-8 pt-24 sm:gap-12 sm:pb-16 lg:grid-cols-[minmax(0,1.08fr)_minmax(22rem,0.92fr)] lg:gap-20">
           <div className="flex max-w-3xl flex-col">
             <p className="hero-in font-mono text-xs font-medium tracking-[0.12em] text-gold" style={{ animationDelay: '0.08s' }}>{t(COPY.hero.greeting)}</p>
 

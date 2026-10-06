@@ -1,0 +1,121 @@
+/* Scoped editorial aesthetic, matching the existing paper/ink brand.
+ * DESIGN_VARIANCE 5 / MOTION_INTENSITY 2 / VISUAL_DENSITY 3. */
+.newsletter {
+  --nl-paper: #f6f3ec;
+  --nl-ink: #1c1a17;
+  --nl-muted: #625d53;
+  --nl-line: #cec8bc;
+  --nl-surface: #eeeadf;
+  min-height: 100dvh;
+  background: var(--nl-paper);
+  color: var(--nl-ink);
+  color-scheme: light;
+  font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  line-height: 1.65;
+}
+.newsletter * { box-sizing: border-box; }
+.nl-wrap { max-width: 1240px; margin-inline: auto; padding-inline: 48px; }
+.newsletter a { color: inherit; text-underline-offset: 4px; }
+.newsletter a:hover { text-decoration: underline; }
+.newsletter button, .newsletter input, .newsletter select { font: inherit; }
+.newsletter button { cursor: pointer; }
+.newsletter button:disabled { cursor: wait; opacity: .65; }
+.newsletter :focus-visible { outline: 3px solid var(--nl-ink); outline-offset: 4px; border-radius: 2px; }
+.nl-skip { position: absolute; left: 16px; top: -100px; background: var(--nl-ink); color: var(--nl-paper) !important; padding: 12px; z-index: 100; }
+.nl-skip:focus { top: 12px; }
+.nl-header { height: 80px; display: flex; justify-content: space-between; align-items: center; gap: 24px; border-bottom: 1px solid var(--nl-line); }
+.nl-wordmark { font-size: 24px; font-weight: 750; text-decoration: none; white-space: nowrap; }
+.nl-wordmark span { font-size: 12px; letter-spacing: .1em; margin-left: 8px; }
+.nl-header nav { display: flex; gap: 26px; align-items: center; font-size: 14px; }
+.nl-header nav a { display: inline-flex; align-items: center; gap: 4px; min-height: 44px; text-decoration: none; }
+.nl-demo-notice { margin-top: 24px; padding: 12px 16px; background: var(--nl-surface); font-size: 13px; display: flex; gap: 14px; flex-wrap: wrap; }
+.nl-demo-notice span { color: var(--nl-muted); }
+.nl-hero { display: grid; grid-template-columns: minmax(0, .92fr) minmax(0, 1.08fr); gap: 64px; padding-top: 46px; padding-bottom: 68px; align-items: start; }
+.nl-eyebrow { font-size: 15px; margin: 0 0 20px; color: var(--nl-muted); }
+.nl-intro h1 { font-size: clamp(36px, 4.15vw, 57px); line-height: 1.22; letter-spacing: -.045em; font-weight: 650; margin: 0; }
+.nl-lead { font-size: 19px; line-height: 1.75; color: var(--nl-muted); margin: 24px 0; }
+.nl-author { display: flex; align-items: center; gap: 12px; margin-top: 28px; }
+.nl-author img { border-radius: 50%; object-fit: cover; }
+.nl-author p { margin: 0; font-size: 14px; }
+.nl-author span { display: block; font-size: 12px; color: var(--nl-muted); }
+.nl-signup { margin-top: 40px; padding-top: 28px; border-top: 1px solid var(--nl-line); }
+.nl-signup h2 { font-size: 20px; font-weight: 600; margin: 0 0 6px; }
+.nl-promise { font-size: 13px; color: var(--nl-muted); margin: 0 0 20px; }
+.newsletter label { display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+.nl-input-row { display: grid; grid-template-columns: minmax(0, 1fr); gap: 10px; }
+.newsletter input, .newsletter select { width: 100%; min-height: 50px; background: #fffdf8; color: var(--nl-ink); border: 1px solid #898275; border-radius: 3px; padding: 12px 14px; min-width: 0; }
+.newsletter input::placeholder { color: var(--nl-muted); opacity: 1; }
+.newsletter input[aria-invalid='true'] { border-width: 2px; }
+.nl-primary { display: inline-flex; justify-content: center; align-items: center; min-height: 48px; border: 1px solid var(--nl-ink); border-radius: 3px; background: var(--nl-ink); color: var(--nl-paper); padding: 12px 20px; white-space: nowrap; font-size: 14px !important; font-weight: 600 !important; transition: background-color 120ms; }
+.nl-primary:hover { background: #3f3b34; }
+.nl-hint { font-size: 12px; color: var(--nl-muted); line-height: 1.7; margin: 10px 0; }
+.nl-error { margin: 10px 0; font-size: 13px; font-weight: 600; }
+.nl-consent { font-size: 12px; color: var(--nl-muted); line-height: 1.8; margin: 18px 0 0; }
+.nl-consent a { display: inline; margin-left: 4px; }
+.nl-status:empty { display: none; }
+.nl-result { border-left: 3px solid var(--nl-ink); padding: 2px 0 2px 20px; }
+.nl-result h3 { font-size: 19px; margin: 8px 0 12px; }
+.nl-result p { font-size: 14px; margin: 12px 0; }
+.nl-result .nl-hint { font-size: 12px; }
+.nl-result .nl-primary { width: 100%; margin-top: 6px; }
+.nl-text-button { border: 0; padding: 10px 0; min-height: 44px; background: transparent; color: var(--nl-ink); font-size: 13px !important; text-decoration: underline; text-underline-offset: 4px; display: block; }
+.nl-demo-options { margin-top: 20px; font-size: 12px; color: var(--nl-muted); }
+.nl-demo-options summary { min-height: 44px; cursor: pointer; display: list-item; padding-block: 10px; }
+.nl-demo-options label { margin-top: 8px; font-size: 13px; }
+.nl-demo-options select { font-size: 13px; }
+.nl-letter { background: #fffdf8; border: 1px solid var(--nl-line); border-radius: 3px; padding: 32px 36px; box-shadow: 0 5px 15px rgb(28 26 23 / .035); scroll-margin-top: 24px; }
+.nl-letter-meta { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; font-size: 12px; color: var(--nl-muted); padding-bottom: 18px; border-bottom: 1px solid var(--nl-line); }
+.nl-letter h2 { font-family: 'Songti SC', 'STSong', serif; font-size: 29px; line-height: 1.35; margin: 24px 0; font-weight: 600; letter-spacing: -.02em; }
+.nl-letter p { font-size: 14px; line-height: 1.95; margin: 10px 0 20px; }
+.nl-letter h3 { font-size: 13px; margin: 20px 0 0; font-weight: 700; }
+.nl-letter-greeting { color: var(--nl-muted); }
+.nl-evidence { border-top: 1px solid var(--nl-line); margin-top: 26px; padding-top: 2px; }
+.nl-evidence a { font-size: 13px; display: inline; line-height: 1.7; overflow-wrap: anywhere; }
+.nl-evidence svg { display: inline; margin-left: 4px; vertical-align: middle; }
+.nl-evidence p { font-size: 11px; color: var(--nl-muted); margin: 6px 0 0; line-height: 1.7; }
+.nl-signature { margin-top: 24px !important; margin-bottom: 0 !important; }
+.nl-signature strong { display: inline-block; margin-top: 8px; }
+.nl-about { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; border-top: 1px solid var(--nl-line); padding-block: 44px; }
+.nl-about h2, .nl-faq h2, .nl-privacy h2 { font-size: 26px; margin: 0 0 18px; font-weight: 600; }
+.nl-about p, .nl-privacy p { color: var(--nl-muted); font-size: 14px; line-height: 1.9; max-width: 60ch; margin: 0 0 12px; }
+.nl-faq { border-top: 1px solid var(--nl-line); padding-block: 44px; }
+.nl-faq details { margin: 0 0 12px; max-width: 800px; }
+.nl-faq summary { font-size: 16px; font-weight: 600; padding: 12px 0; cursor: pointer; }
+.nl-faq p { font-size: 14px; color: var(--nl-muted); margin: 2px 0 16px; padding-left: 18px; line-height: 1.9; }
+.nl-privacy { border-top: 1px solid var(--nl-line); padding-block: 44px 56px; scroll-margin-top: 24px; }
+.nl-privacy p { max-width: 85ch; }
+.nl-footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 14px; border-top: 1px solid var(--nl-line); padding-block: 24px; font-size: 12px; color: var(--nl-muted); }
+.nl-footer a { display: flex; align-items: center; gap: 4px; }
+@media (max-width: 1023px) {
+  .nl-wrap { padding-inline: 28px; }
+  .nl-hero { gap: 34px; }
+  .nl-letter { padding: 26px; }
+  .nl-intro h1 { font-size: 39px; }
+  .nl-lead { font-size: 17px; }
+  .nl-letter h2 { font-size: 25px; }
+}
+@media (max-width: 767px) {
+  .nl-wrap { padding-inline: 22px; }
+  .nl-header { height: 74px; gap: 12px; }
+  .nl-header nav { gap: 14px; font-size: 12px; }
+  .nl-wordmark { font-size: 21px; }
+  .nl-wordmark span { display: none; }
+  .nl-demo-notice { margin-top: 18px; padding: 12px; gap: 2px; font-size: 12px; }
+  .nl-demo-notice strong, .nl-demo-notice span { display: block; width: 100%; }
+  .nl-hero { grid-template-columns: 1fr; padding-top: 32px; padding-bottom: 40px; gap: 36px; }
+  .nl-eyebrow { font-size: 13px; margin-bottom: 18px; }
+  .nl-intro h1 { font-size: clamp(31px, 8.4vw, 43px); line-height: 1.3; }
+  .nl-lead { margin-top: 18px; font-size: 16px; }
+  .nl-desktop-break { display: none; }
+  .nl-author { margin-top: 20px; }
+  .nl-signup { margin-top: 26px; padding-top: 22px; }
+  .nl-signup h2 { font-size: 19px; }
+  .nl-promise { font-size: 12px; }
+  .nl-letter { padding: 24px 22px; }
+  .nl-about { grid-template-columns: 1fr; gap: 12px; padding-block: 32px; }
+  .nl-about h2, .nl-faq h2, .nl-privacy h2 { font-size: 23px; }
+  .nl-faq, .nl-privacy { padding-block: 32px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .newsletter *, .newsletter *::before, .newsletter *::after { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
+}
