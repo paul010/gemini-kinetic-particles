@@ -74,7 +74,7 @@ await test('Existing Life Quest, Skills and map-route pages render from direct U
 await test('No runtime errors or subscription-service attempts occurred; live forms never submitted', async () => {
   assert.deepEqual(errors, []);
   assert(!requests.some(r => /kit\.com|convertkit/.test(r.origin)));
-  assert(!requests.some(r => r.origin === base && (r.hasBody || !['GET', 'HEAD'].includes(r.method()))));
+  assert(!requests.some(r => r.origin === base && (r.hasBody || !['GET', 'HEAD'].includes(r.method))));
 });
 await writeFile(output + '/production-browser-results.json', JSON.stringify({ testedAt: new Date().toISOString(), base, browser: await browser.version(), checks, errors, requests, accessibility, limits: ['Fresh isolated context, same-origin GET/HEAD only; external requests blocked.', 'No real subscribe, confirmation, unsubscribe, analytics or email send tests.'] }, null, 2));
 await browser.close();
