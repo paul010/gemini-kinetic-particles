@@ -16,3 +16,5 @@ export const promptRounds = [
 
 export const allPrompts = promptRounds.map((round, index) => `第 ${index + 1} 轮｜${round.title}\n${round.text}`).join('\n\n');
 export const blankPracticeCard = `第一张 AI 实战卡\n日期：\n目标：\n原文或材料：\n\n事实（每项附原文证据）：\n猜测（谁的推断，依据是什么）：\n缺项（暂时不知道，需要核实什么）：\n我的判断：\n下一步亲自核实的一个问题：\n\n检查：数字能回到原文；猜测未写成事实；缺项未被补造；下一步由我确认。`;
+
+export const handoffCard = "八行交接卡 · 大雷原创练习 · 2026-10-06\n1. 问题与读者：\n2. 什么时候接，什么时候不接：\n3. 必要输入与缺失处理：\n4. 交付物、位置与完成状态：\n5. 最多四步；谁执行、核对、决定：\n6. 可以做什么；什么必须先确认：\n7. 停止条件；停后保存什么：\n8. 验收：数字有原文依据；猜测保留性质；缺项不补造；下一步由人确认。\n\n自测：材料齐全 / 缺件 / 越界。分别写继续什么、暂停什么、缺什么。\n纸面练习不等于权限拦截。不要上传真实客户资料。\n";

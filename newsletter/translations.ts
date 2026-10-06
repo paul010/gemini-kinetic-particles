@@ -189,3 +189,20 @@ export const newsletterEnglish: Record<string, string> = {
   [allPrompts]: englishPrompts.map((round, index) => `Round ${index + 1} | ${round.title}\n${round.text}`).join('\n\n'),
   [blankPracticeCard]: 'Your first AI practice card\nDate:\nGoal:\nSource or material:\n\nFacts (attach source evidence to each):\nAssumptions (who inferred this, and on what evidence):\nGaps (currently unknown; what needs verification):\nMy judgment:\nOne question to verify myself next:\n\nChecks: numbers trace back to the source; assumptions are not stated as facts; gaps are not invented; I confirm the next step.',
 };
+
+Object.assign(newsletterEnglish, {
+  "06 / 新人交接卡": "06 / Your handoff card",
+  "今天交给 AI 一个清楚的小任务，拿回能检查的结果": "Give AI one clear task today, and get a result you can check",
+  "读样例 → 填八行 → 检查再保存。纸笔或已有笔记即可，AI 可选。": "Read the example → Fill eight lines → Check and save. Paper or your existing notes are enough; AI is optional.",
+  "示意交接：只整理上方虚构活动原文，交一张事实、猜测和缺项分开的卡到自己的笔记，状态为待自己核对；不发布、不补造天气或场地。": "Example handoff: organize only the fictional workshop source above. Save a card separating facts, assumptions and gaps in your own notes, pending your review. Do not publish it or invent weather or venue details.",
+  "复制八行交接卡": "Copy the eight-line handoff card",
+  "下载新人练习包（Markdown）": "Download your starter pack (Markdown)",
+  "三个小测试：材料齐全只做草稿，接到待审；缺天气，整理已知信息并留下问题；要求直接发群，暂停发送并等待确认。请分别写出继续什么、暂停什么、缺什么。": "Three small tests: with complete inputs, prepare a draft pending review; with missing weather information, organize known facts and leave a question; when asked to post to a group, pause sending and request confirmation. Explain what continues, what pauses and what is missing.",
+  "这张卡是原创方法练习，不是模型效果证明。写下停止条件，也不代表软件已实现权限拦截。": "This original exercise does not establish model performance. Writing stop conditions does not mean software permission controls have been implemented.",
+  "八行交接卡": "Eight-line handoff card",
+  "欢迎你，先做出一个小成果": "Welcome. Start with one small result",
+  "确认后的欢迎内容在这里开始；访问此页本身不能证明邮箱已确认。先保存你的交接卡，日报随后按审核后的日历排期发送，不是从订阅当天自动补发七课。": "Your welcome content starts here after confirmation; visiting this page alone does not prove your email is confirmed. Save your handoff card first. Daily letters follow an approved calendar, rather than automatically replaying seven lessons from your signup date.",
+  "八行交接卡 · 大雷原创练习 · 2026-10-06\n1. 问题与读者：\n2. 什么时候接，什么时候不接：\n3. 必要输入与缺失处理：\n4. 交付物、位置与完成状态：\n5. 最多四步；谁执行、核对、决定：\n6. 可以做什么；什么必须先确认：\n7. 停止条件；停后保存什么：\n8. 验收：数字有原文依据；猜测保留性质；缺项不补造；下一步由人确认。\n\n自测：材料齐全 / 缺件 / 越界。分别写继续什么、暂停什么、缺什么。\n纸面练习不等于权限拦截。不要上传真实客户资料。\n": "Eight-line handoff card · Original Dalei exercise · 2026-10-06\n1. Problem and reader:\n2. When to accept or decline:\n3. Required inputs and missing-input handling:\n4. Deliverable, location and completion status:\n5. At most four steps; executor, reviewer and decision maker:\n6. Allowed actions and actions requiring confirmation:\n7. Stop conditions and what to retain:\n8. Acceptance: numbers trace to source; assumptions remain assumptions; gaps are not invented; a human confirms the next step.\n\nTest: complete inputs / missing inputs / out-of-scope request. State what continues, pauses and is missing.\nA paper exercise does not implement permission controls. Do not upload real customer data.\n"
+});
+
+Object.assign(newsletterEnglish, {"免费订阅 ↗": "Subscribe free ↗", "先拿走八行交接卡 ↓": "Get your eight-line handoff card ↓"});
