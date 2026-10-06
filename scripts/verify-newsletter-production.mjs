@@ -8,6 +8,8 @@ const output = resolve(process.env.NEWSLETTER_PRODUCTION_OUTPUT ?? 'output/newsl
 await mkdir(output, { recursive: true });
 const browser = await chromium.launch({ executablePath: process.env.NEWSLETTER_BROWSER_PATH ?? '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome', headless: true });
 const context = await browser.newContext({ viewport: { width: 1440, height: 900 }, reducedMotion: 'reduce' });
+// Preserve the original Chinese smoke assertions; separately check every locale below.
+await context.addInitScript(() => localStorage.setItem('dalei-lang-v2', 'zh'));
 const requests = [], errors = [], checks = [], accessibility = [];
 context.on('request', r => requests.push({ origin: new URL(r.url()).origin, path: new URL(r.url()).pathname, method: r.method(), hasBody: !!r.postData() }));
 await context.route('**/*', route => {
@@ -61,6 +63,46 @@ await test('Public card route and refresh contain all original resources without
   await noOverflow(); await audit('practice-card-mobile');
   await page.screenshot({ path: output + '/production-card-mobile.png', fullPage: true });
   await page.reload(); await page.getByRole('heading', { name: '第一张 AI 实战卡', exact: true }).waitFor();
+});
+await test('Live English, simplified and traditional copy synchronizes across all newsletter routes and refresh', async () => {
+  // This context has no forced language seed, so it also verifies the English default.
+  const localized = await browser.newContext({ viewport: { width: 390, height: 844 }, reducedMotion: 'reduce' });
+  await localized.route('**/*', route => {
+    const r = route.request();
+    return new URL(r.url()).origin === base && ['GET', 'HEAD'].includes(r.method()) ? route.continue() : route.abort();
+  });
+  localized.on('request', r => requests.push({ origin: new URL(r.url()).origin, path: new URL(r.url()).pathname, method: r.method(), hasBody: !!r.postData() }));
+  const p = await localized.newPage();
+  p.on('pageerror', error => errors.push(error.message));
+  p.setDefaultTimeout(12000);
+  try {
+    await p.goto(base + '/', { waitUntil: 'domcontentloaded' });
+    await p.getByRole('button', { name: 'Subscriptions opening soon', exact: true }).waitFor();
+    const locales = [
+      { tag: 'en', selector: 'EN', button: 'Subscriptions opening soon', input: 'Email (demo only)', card: 'Your first AI practice card', note: /newsletter is in Chinese/ },
+      { tag: 'zh-CN', selector: '简', button: '订阅即将开放', input: '邮箱（仅演示）', card: '第一张 AI 实战卡', note: /每日邮件内容为中文/ },
+      { tag: 'zh-Hant', selector: '繁', button: '訂閱即將開放', input: '郵箱（僅演示）', card: '第一張 AI 實戰卡', note: /每日郵件內容為中文/ },
+    ];
+    for (const locale of locales) {
+      await p.goto(base + '/', { waitUntil: 'domcontentloaded' });
+      await p.getByRole('button', { name: locale.selector, exact: true }).click();
+      assert(await p.getByRole('button', { name: locale.button, exact: true }).isDisabled());
+      assert.equal(await p.locator('html').getAttribute('lang'), locale.tag);
+      assert.match(await p.locator('.home-newsletter__language-note').innerText(), locale.note);
+      assert(await p.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
+      await p.screenshot({ path: output + '/production-home-' + locale.tag + '-390.png', fullPage: false });
+      await p.locator('.home-newsletter__preview').click();
+      await p.getByLabel(locale.input, { exact: true }).waitFor();
+      assert.equal(await p.locator('html').getAttribute('lang'), locale.tag);
+      await p.reload(); await p.getByLabel(locale.input, { exact: true }).waitFor();
+      await p.goto(base + '/newsletter/first-ai-card', { waitUntil: 'domcontentloaded' });
+      await p.getByRole('heading', { name: locale.card, exact: true }).waitFor();
+      assert.equal(await p.locator('html').getAttribute('lang'), locale.tag);
+      assert.match(await p.title(), new RegExp(locale.card));
+      await p.screenshot({ path: output + '/production-card-' + locale.tag + '-390.png', fullPage: true });
+      await p.reload(); await p.getByRole('heading', { name: locale.card, exact: true }).waitFor();
+    }
+  } finally { await localized.close(); }
 });
 await test('Existing Life Quest, Skills and map-route pages render from direct URLs', async () => {
   await page.setViewportSize({ width: 1440, height: 900 });

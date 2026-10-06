@@ -15,6 +15,8 @@ const browser = await playwright.chromium.launch({
   headless: true,
 });
 const context = await browser.newContext({ viewport: { width: 1440, height: 900 }, reducedMotion: 'reduce' });
+// These original editorial regression cases intentionally use the Chinese edition.
+await context.addInitScript(() => localStorage.setItem('dalei-lang-v2', 'zh'));
 await context.route('**/*', route => new URL(route.request().url()).origin === new URL(base).origin ? route.continue() : route.abort());
 const requests = [], pageErrors = [], results = [], accessibility = [], contrast = [];
 context.on('request', request => requests.push({ url: request.url(), method: request.method(), body: request.postData() }));
@@ -123,21 +125,21 @@ await check('Keyboard preview navigation, back, forward and direct refresh prese
 });
 await check('Original hero and all original sections remain; desktop nav returns to Newsletter first screen', async () => {
   assert.equal(await page.locator('#creator-intro h1').count(), 1);
-  assert(await page.locator('#creator-intro').getByRole('button', { name: 'Try a project', exact: true }).isVisible());
-  assert(await page.locator('#creator-intro').getByRole('button', { name: 'Watch a walkthrough', exact: true }).isVisible());
+  assert(await page.locator('#creator-intro').getByRole('button', { name: '找个作品试试', exact: true }).isVisible());
+  assert(await page.locator('#creator-intro').getByRole('button', { name: '看实战视频', exact: true }).isVisible());
   assert.equal(await page.locator('#home').count(), 1);
   for (const id of ['work', 'videos', 'about', 'now', 'connect']) assert.equal(await page.locator(`section#${id}`).count(), 1);
-  await page.locator('header').getByRole('button', { name: 'Projects & tools', exact: true }).click();
+  await page.locator('header').getByRole('button', { name: '作品与工具', exact: true }).click();
   await page.waitForFunction(() => Math.abs(document.querySelector('#work').getBoundingClientRect().top - 96) < 4);
-  await page.locator('header').getByRole('button', { name: 'Home', exact: true }).click();
+  await page.locator('header').getByRole('button', { name: '首页', exact: true }).click();
   await page.waitForFunction(() => Math.abs(document.querySelector('#home').getBoundingClientRect().top) < 4);
   await visibleInViewport(closed());
 });
-await check('Mobile menu, language switch and theme remain usable; promo stays clearly Chinese', async () => {
+await check('Mobile menu, language switch and theme remain usable; promo follows the chosen language', async () => {
   await page.setViewportSize({ width: 390, height: 844 }); await loadHome();
   const menu = page.getByRole('button', { name: 'Menu', exact: true });
   await menu.click(); assert.equal(await menu.getAttribute('aria-expanded'), 'true');
-  await page.locator('#mobile-nav').getByRole('button', { name: 'Home', exact: true }).click();
+  await page.locator('#mobile-nav').getByRole('button', { name: '首页', exact: true }).click();
   assert.equal(await menu.getAttribute('aria-expanded'), 'false');
   await page.getByRole('button', { name: '简', exact: true }).click();
   assert.equal(await page.getByRole('button', { name: '简', exact: true }).getAttribute('aria-pressed'), 'true');
@@ -150,6 +152,8 @@ await check('Mobile menu, language switch and theme remain usable; promo stays c
   await audit('desktop-dark'); await page.screenshot({ path: output + '/home-desktop-dark.png', fullPage: false });
   await page.getByRole('button', { name: '切换到浅色模式 / Switch to light mode', exact: true }).click();
   await page.getByRole('button', { name: 'EN', exact: true }).click();
+  assert.equal(await promo().getAttribute('lang'), 'en');
+  assert.match(await promo().locator('h2').innerText(), /small results you can verify/);
 });
 await check('With external requests unavailable, local preview works and performs no subscription traffic', async () => {
   await loadHome(); assert(await closed().isDisabled());

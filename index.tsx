@@ -1,3 +1,4 @@
+import { useSiteLanguage } from './newsletter/site-language';
 import React, { useEffect, useState, useCallback, Suspense } from 'react';
 import ReactDOM from 'react-dom/client';
 import Home from './Home';
@@ -122,6 +123,8 @@ const routeFromLocation = (): Route => {
 const Router: React.FC = () => {
   const [route, setRoute] = useState<Route>(routeFromLocation());
 
+  const { lang: siteLang, t: siteText } = useSiteLanguage({ documentLanguage: false });
+
   const navigate = useCallback((path: string) => {
     if (window.location.pathname !== path) {
       window.history.pushState({}, '', path);
@@ -148,9 +151,9 @@ const Router: React.FC = () => {
   // Per-route document title for SEO / sharing / browser history.
   useEffect(() => {
     const titles: Record<Route, string> = {
-      'newsletter-card': '第一张 AI 实战卡 · 大雷早上好 | 公开资源预览',
-      newsletter: '大雷早上好 · AI 实战信 | 订阅体验演示',
-      home: '大雷 Da Lei | AI 实战、实用工具与互动课程',
+      'newsletter-card': siteText({ en: 'Your first AI practice card · Da Lei | Resource preview', zh: '第一张 AI 实战卡 · 大雷早上好 | 公开资源预览' }),
+      newsletter: siteText({ en: 'Good Morning, Da Lei · AI Practice Letter | Subscription demo', zh: '大雷早上好 · AI 实战信 | 订阅体验演示' }),
+      home: siteText({ en: 'Da Lei | Practical AI, useful tools and interactive lessons', zh: '大雷 Da Lei | AI 实战、实用工具与互动课程' }),
       particles: 'Kinetic Particles · 大雷',
       arsenal: 'AI Coding Arsenal · 大雷 AI 编程装备库',
       md: 'Markdown 工具箱 · 大雷',
@@ -198,7 +201,7 @@ const Router: React.FC = () => {
       lvshun: '山海旅顺 · 3D 互动地图 · 大雷',
     };
     document.title = titles[route];
-  }, [route]);
+  }, [route, siteLang, siteText]);
 
   if (route === 'particles') {
     return (

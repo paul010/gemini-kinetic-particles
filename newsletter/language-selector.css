@@ -1,0 +1,11 @@
+.nl-language { display: inline-flex; align-items: center; gap: 2px; padding: 3px; border: 1px solid currentColor; border-radius: 99px; flex-shrink: 0; }
+.nl-language button { background: transparent; color: inherit; border: 0; border-radius: 99px; min-height: 36px; min-width: 38px; padding: 4px 8px; font: inherit; font-size: 12px; cursor: pointer; }
+.nl-language button[aria-pressed='true'] { background: var(--nl-ink, var(--ink)); color: var(--nl-paper, var(--paper)); }
+.nl-language button:focus-visible { outline: 3px solid currentColor; outline-offset: 3px; }
+.nl-language-note { font-size: 12px; line-height: 1.6; margin-top: 12px; color: var(--nl-muted, var(--ink)); }
+@media (max-width: 767px) {
+  .nl-header, .practice-card__header { flex-wrap: wrap; height: auto; padding-block: 12px; gap: 10px; }
+  .nl-header nav { flex-wrap: wrap; gap: 12px; }
+  .nl-header .nl-language, .practice-card__header .nl-language { margin-left: auto; }
+}
+@media print { .nl-language { display: none; } }

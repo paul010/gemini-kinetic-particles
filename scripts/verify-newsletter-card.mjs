@@ -9,6 +9,8 @@ await mkdir(output, { recursive: true });
 const playwright = await import(process.env.NEWSLETTER_PLAYWRIGHT_MODULE ? pathToFileURL(resolve(process.env.NEWSLETTER_PLAYWRIGHT_MODULE)).href : 'playwright');
 const browser = await playwright.chromium.launch({ executablePath: process.env.NEWSLETTER_BROWSER_PATH ?? '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome', headless: true });
 const context = await browser.newContext({ viewport: { width: 1440, height: 1000 }, reducedMotion: 'reduce' });
+// These original editorial regression cases intentionally use the Chinese edition.
+await context.addInitScript(() => localStorage.setItem('dalei-lang-v2', 'zh'));
 // Keep tests from changing the Mac clipboard shared with the user's browser.
 await context.addInitScript(() => {
   window.__copyCalls = 0; window.__copyMode = 'ok'; window.__copied = '';

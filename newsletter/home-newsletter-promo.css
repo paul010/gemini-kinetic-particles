@@ -125,3 +125,11 @@
   .home-newsletter__subscribe { padding-inline: 15px; }
   .home-newsletter__preview { font-size: 12px; }
 }
+.home-newsletter__language-note { margin: 10px 0 0; font-size: 11px; line-height: 1.65; color: rgb(var(--rgb-ink) / .75); }
+.home-newsletter[lang='en'] .home-newsletter__title { font-size: clamp(32px, 3.3vw, 47px); }
+.home-newsletter[lang='en'] .home-newsletter__identity { font-size: 11px; }
+@media (max-width: 767px) {
+  .home-newsletter[lang='en'] .home-newsletter__title { font-size: clamp(28px, 7.5vw, 37px); }
+  .home-newsletter[lang='en'] .home-newsletter__subscribe { font-size: 12px; padding-inline: 12px; }
+  .home-newsletter[lang='en'] .home-newsletter__preview { font-size: 12px; }
+}

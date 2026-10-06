@@ -16,6 +16,8 @@ const browser = await playwright.chromium.launch({
   headless: true,
 });
 const context = await browser.newContext({ viewport: { width: 1440, height: 1000 }, reducedMotion: 'reduce' });
+// These original editorial regression cases intentionally use the Chinese edition.
+await context.addInitScript(() => localStorage.setItem('dalei-lang-v2', 'zh'));
 const requests = [];
 const errors = [];
 const consoles = [];

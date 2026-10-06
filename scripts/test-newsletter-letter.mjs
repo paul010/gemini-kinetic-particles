@@ -7,27 +7,37 @@ import ts from 'typescript';
 const root = new URL('../', import.meta.url);
 const output = new URL('output/newsletter-letter-tests/', root);
 await mkdir(output, { recursive: true });
-const compile = async (sourceName, fileName) => {
-  const source = await readFile(new URL(sourceName, root), 'utf8');
+// Compile the actual locale dependency graph; do not mock the new translation hook.
+const sources = ['content.ts', 'practice-card-content.ts', 'site-language.ts', 'translations.ts', 'locale.ts', 'LetterPreview.tsx'];
+for (const name of sources) {
+  const source = await readFile(new URL('newsletter/' + name, root), 'utf8');
   const { outputText } = ts.transpileModule(source, {
     compilerOptions: { module: ts.ModuleKind.ESNext, target: ts.ScriptTarget.ES2022, jsx: ts.JsxEmit.ReactJSX },
   });
-  const target = new URL(fileName, output);
-  await writeFile(target, outputText);
-  return import(target.href);
-};
-const { sampleLetter } = await compile('newsletter/content.ts', 'content.mjs');
-const { default: LetterPreview } = await compile('newsletter/LetterPreview.tsx', 'preview.mjs');
+  const withExtensions = outputText.replace(/(['"])(\.\/[^'"]+)\1/g, (match, quote, path) => `${quote}${path}.mjs${quote}`);
+  await writeFile(new URL(name.replace(/\.(tsx|ts)$/, '.mjs'), output), withExtensions);
+}
+const { sampleLetter } = await import(new URL('content.mjs', output));
+const { newsletterEnglish } = await import(new URL('translations.mjs', output));
+const { default: LetterPreview } = await import(new URL('LetterPreview.mjs', output));
+assert.deepEqual(sampleLetter.sections.map(section => section.label), ['一个结论', '一个原理', '一个判断', '一个动手练习']);
+const count = [...sampleLetter.sections.map(section => section.text).join('').matchAll(/\p{Script=Han}/gu)].length;
+assert(count >= 300 && count <= 500, `Chinese original remains 300–500 characters: ${count}`);
 for (const video of [sampleLetter.video, undefined]) {
   const letter = { ...sampleLetter, video };
+  // Without a browser's explicit preference, rendering must follow the site's English default.
   const html = renderToStaticMarkup(React.createElement(LetterPreview, { letter }));
-  for (const section of ['一个结论', '一个原理', '一个判断', '一个动手练习']) {
-    assert.equal(html.split(section).length - 1, 1, `Exactly one ${section}`);
+  for (const section of sampleLetter.sections) {
+    const label = newsletterEnglish[section.label];
+    assert.equal(html.split(label).length - 1, 1, `Exactly one ${label}`);
+    assert(html.includes(newsletterEnglish[section.text]), 'Each section includes its reading translation');
   }
   assert(html.includes(sampleLetter.source.url), 'Evidence link remains available without video');
-  assert(html.includes(sampleLetter.title), 'Useful letter still renders without video');
-  assert.equal(html.includes('相关公开视频'), Boolean(video), 'Video block is optional');
+  assert(html.includes(newsletterEnglish[sampleLetter.title]), 'Useful letter still renders without video');
+  assert.equal(html.includes('Related public video'), Boolean(video), 'Video block is optional');
   assert.equal(html.includes(sampleLetter.video.url), Boolean(video), 'Only actual video links appear');
-  assert(!html.includes('待配视频'), 'No video placeholder blocks or distracts from the letter');
+  assert(html.includes('Sample draft'), 'Draft state is translated');
+  assert(html.includes('Not sent'), 'No translation claims actual delivery');
+  assert(!html.includes('待配视频'), 'No placeholder video distracts from the letter');
 }
-console.log('Newsletter letter: sourced content renders with or without a related video; optional video omitted cleanly.');
+console.log(`Newsletter letter: English default renders sourced content with or without a related video; Chinese original remains ${count} characters.`);

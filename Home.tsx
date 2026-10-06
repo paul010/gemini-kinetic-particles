@@ -38,47 +38,11 @@ import {
 import { fetchLatestVideos, parseLatestVideos } from './data/latest-videos';
 import videoSnapshot from './data/video-snapshot.json';
 import HomeNewsletterPromo from './newsletter/HomeNewsletterPromo';
+import { useSiteLanguage } from './newsletter/site-language';
 
 interface HomeProps {
   onNavigate: (path: string) => void;
 }
-
-// v2 key: ignores any auto-detected 'zh' stored by the earlier version so the
-// site always defaults to English unless the visitor explicitly picks 中文.
-const STORAGE_KEY = 'dalei-lang-v2';
-
-/** Always default to English; only switch if the visitor explicitly chose 简/繁. */
-const detectInitialLang = (): Lang => {
-  if (typeof window === 'undefined') return 'en';
-  const saved = window.localStorage.getItem(STORAGE_KEY);
-  return saved === 'zh' || saved === 'zhHant' ? saved : 'en';
-};
-
-/**
- * Simplified → Traditional via OpenCC, lazy-loaded only when 繁體 is chosen
- * (keeps it out of the default bundle). Returns the converter once ready.
- */
-let _s2t: ((s: string) => string) | null = null;
-const useS2T = (active: boolean) => {
-  const [conv, setConv] = useState<((s: string) => string) | null>(() => _s2t);
-  useEffect(() => {
-    if (!active || _s2t) {
-      if (_s2t && !conv) setConv(() => _s2t);
-      return;
-    }
-    let alive = true;
-    import('opencc-js')
-      .then((m) => {
-        _s2t = m.Converter({ from: 'cn', to: 'tw' });
-        if (alive) setConv(() => _s2t);
-      })
-      .catch(() => {});
-    return () => {
-      alive = false;
-    };
-  }, [active, conv]);
-  return conv;
-};
 
 const prefersReduced = () =>
   typeof window !== 'undefined' &&
@@ -494,7 +458,7 @@ const AboutScene: React.FC<{
 /* ---------- Main ---------- */
 
 const Home: React.FC<HomeProps> = ({ onNavigate }) => {
-  const [lang, setLang] = useState<Lang>(detectInitialLang);
+  const { lang, setLang, t } = useSiteLanguage();
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState('home');
@@ -514,9 +478,6 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
       return next;
     });
   };
-  const s2t = useS2T(lang === 'zhHant');
-  const t = (txt: LocalizedText) =>
-    lang === 'en' ? txt.en : lang === 'zhHant' ? (s2t ? s2t(txt.zh) : txt.zh) : txt.zh;
   const navSentinelRef = useRef<HTMLDivElement>(null);
   const [videos, setVideos] = useState(() => parseLatestVideos(videoSnapshot));
   const [videoStatus, setVideoStatus] = useState<'loading' | 'live' | 'cached'>('loading');
@@ -603,11 +564,6 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
     sections.forEach((section) => io.observe(section));
     return () => io.disconnect();
   }, []);
-
-  useEffect(() => {
-    document.documentElement.lang = lang === 'zh' ? 'zh-CN' : lang === 'zhHant' ? 'zh-Hant' : 'en';
-    window.localStorage.setItem(STORAGE_KEY, lang);
-  }, [lang]);
 
   useEffect(() => {
     const sentinel = navSentinelRef.current;
