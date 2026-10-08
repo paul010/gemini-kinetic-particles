@@ -1165,7 +1165,7 @@ export const COPY = {
   now: {
     label: { en: 'Site updates', zh: '站内更新' },
     heading: { en: 'A few things to catch up on.', zh: '这几处，可以顺路看看。' },
-    updated: { en: 'Reviewed September 5, 2026', zh: '整理于 2026 年 9 月 5 日' },
+    updated: { en: 'Highlights reviewed October 8, 2026', zh: '本区内容核验于 2026 年 10 月 8 日' },
     items: [
       {
         title: { en: 'A homepage you can play with', zh: '主页多了一点互动' },
