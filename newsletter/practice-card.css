@@ -53,3 +53,20 @@
   .practice-card section { padding-block: 20px; }
   .practice-card article, .practice-card__blank { break-inside: avoid; }
 }
+
+.practice-card__actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+.practice-card a.practice-card__button { color: var(--paper); text-decoration: none; }
+.practice-card__button--secondary { color: var(--ink); background: transparent; }
+.practice-card__steps { display: flex; flex-wrap: wrap; gap: 8px 20px; margin: 12px 0; }
+.practice-card__steps a { display: inline-flex; align-items: center; min-height: 44px; font-size: 13px; }
+.practice-card__delivery { font-size: 13px; margin-top: 12px; }
+.practice-card__delivery summary { min-height: 44px; cursor: pointer; padding: 8px 0; }
+.practice-card__delivery p { max-width: 700px; margin-top: 8px; }
+.practice-card :is(button, a, summary):focus-visible { outline: 3px solid var(--gold); outline-offset: 4px; }
+.practice-card [id] { scroll-margin-top: 24px; }
+@media (max-width: 600px) {
+ .practice-card__actions { display: grid; }
+ .practice-card__actions button { justify-content: center; }
+ .practice-card__steps { gap: 0 14px; }
+}
+@media print { .practice-card__steps, .practice-card__delivery { display: none; } }

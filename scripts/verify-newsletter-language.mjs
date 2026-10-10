@@ -113,11 +113,11 @@ await check('Practice-card reading translation and clipboard payload match each 
   await page.goto(base + '/newsletter/first-ai-card'); await page.locator('.practice-card').waitFor();
   for (const lang of ['en', 'zh', 'zhHant']) {
     await choosePage(lang); await waitLanguage(lang, lang === 'zhHant' ? '三輪提示' : undefined);
-    await page.locator('button.practice-card__button').first().click();
+    await page.locator('section[aria-labelledby="practice-prompts-title"] button').click();
     const shownPrompts = (await page.locator('.practice-card__prompts pre').allTextContents());
     const copied = await page.evaluate(() => window.__copied);
     for (const text of shownPrompts) assert(copied.includes(text), `Clipboard mismatch for ${lang}`);
-    await page.locator('button.practice-card__button').nth(1).click();
+    await page.locator('section[aria-labelledby="practice-blank-title"] button').click();
     assert.equal(await page.evaluate(() => window.__copied), await page.locator('.practice-card__blank').first().innerText());
     assert(!await page.locator('input,textarea,form').count());
     if (lang === 'en') assert(!/[\p{Script=Han}]/u.test(await page.locator('main').innerText()));
@@ -126,7 +126,7 @@ await check('Practice-card reading translation and clipboard payload match each 
       assert(count >= 300 && count <= 500, String(count)); results.push({ name: 'Original first lesson Chinese character count', status: 'passed', chineseCharacters: count });
     }
   }
-  await page.evaluate(() => { window.__denyCopy = true; }); await page.locator('button.practice-card__button').first().click();
+  await page.evaluate(() => { window.__denyCopy = true; }); await page.locator('section[aria-labelledby="practice-prompts-title"] button').click();
   assert.match(await page.getByRole('status').innerText(), /瀏覽器未允許複製/);
   await choosePage('en'); assert.match(await page.getByRole('status').innerText(), /did not allow copying/);
 });

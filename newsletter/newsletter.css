@@ -123,3 +123,5 @@
 @media (prefers-reduced-motion: reduce) {
   .newsletter *, .newsletter *::before, .newsletter *::after { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
 }
+
+.nl-starter-promise { padding: 12px 14px; border: 1px solid var(--nl-line); border-radius: 10px; font-size: 13px; line-height: 1.7; margin: 0 0 16px; }

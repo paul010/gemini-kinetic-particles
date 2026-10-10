@@ -122,7 +122,7 @@ export default function Newsletter({ onHome, demo = false }: { onHome: () => voi
             <section className="nl-signup" aria-labelledby="signup-title">
               <h2 id="signup-title">{t("给早晨留一点新想法")}</h2>
               <p className="nl-promise">{t("每日一封 · 读者免费 · 有相关视频时推荐")}</p>
-              {!demo && <KitSignup />}
+              {!demo && <><p className="nl-starter-promise">{t("确认后领取：八行交接卡、原创样例和检查清单。")}</p><KitSignup /></>}
               {demo && <><form onSubmit={submit} noValidate aria-label={t("订阅流程演示")} aria-busy={phase === 'submitting'}>
                 <div hidden={phase !== 'idle' && phase !== 'submitting'}>
                   <label htmlFor="newsletter-email">{t("邮箱（仅演示）")}</label>

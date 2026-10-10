@@ -206,3 +206,18 @@ Object.assign(newsletterEnglish, {
 });
 
 Object.assign(newsletterEnglish, {"免费订阅 ↗": "Subscribe free ↗", "先拿走八行交接卡 ↓": "Get your eight-line handoff card ↓"});
+
+Object.assign(newsletterEnglish, {
+  "原创虚构练习；不代表模型实测效果。": "Original fictional exercise; no measured model-performance claim.",
+  "原创样例": "Original example",
+  "检查方法": "Checklist",
+  "读一个样例，填八行交接卡，再检查结果。纸笔或已有笔记就能开始，AI 可选。": "Read an example, fill an eight-line handoff card, then check the result. Start with paper or your existing notes; AI is optional.",
+  "领取新人练习": "Get your starter exercise",
+  "三步开始": "Three steps to begin",
+  "1 · 读样例": "1 · Read the example",
+  "2 · 填交接卡": "2 · Fill the card",
+  "3 · 检查结果": "3 · Check the result",
+  "邮件与确认说明": "Email and confirmation details",
+  "下载未完成。请复制卡片或使用浏览器打印保存。": "The download did not finish. Copy the card or use your browser to print and save it.",
+  "确认后领取：八行交接卡、原创样例和检查清单。": "After confirming: get an eight-line handoff card, an original example and a checklist."
+});
