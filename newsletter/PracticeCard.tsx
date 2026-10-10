@@ -83,7 +83,14 @@ export default function PracticeCard({ onNavigate }: { onNavigate: (path: string
             <a href="#practice-check-title">{t("3 · 检查结果")}</a>
           </nav>
           <p className="practice-card__disclosure">{t("这是公开资源预览。访问本页不代表邮箱已确认或已订阅；本页不收集邮箱。")}</p>
-          <details className="practice-card__delivery"><summary>{t("邮件与确认说明")}</summary><p>{t("确认后的欢迎内容在这里开始；访问此页本身不能证明邮箱已确认。先保存你的交接卡，日报随后按审核后的日历排期发送，不是从订阅当天自动补发七课。")}</p></details>
+          <details className="practice-card__delivery">
+            <summary>{t("没收到邮件？查看确认与下一步")}</summary>
+            <p>{t("还没确认：在邮箱中搜索“大雷早上好”，检查垃圾箱和推广分类，再按确认邮件中的按钮操作。访问这张公开卡片不能替代邮箱确认，请勿连续重复提交。")}</p>
+            <p>{t("已经确认，但没有欢迎邮件：先在这里复制或下载练习包，就能开始。网页无法查询你的投递或订阅状态，也不承诺另有一封自动欢迎邮件。")}</p>
+            <p>{t("确认后的欢迎内容在这里开始；访问此页本身不能证明邮箱已确认。先保存你的交接卡，日报随后按审核后的日历排期发送，不是从订阅当天自动补发七课。")}</p>
+            <p>{t("仍有问题？可以联系支持，说明遇到的步骤和时间；不要提供密码、确认链接或其他人的邮箱。")}</p>
+            <a href="mailto:support@dailycosmos.net">{t("联系订阅支持")}</a>
+          </details>
         </div>
 
         <section className="practice-card__lesson" aria-labelledby="practice-lesson-title">

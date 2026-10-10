@@ -10,6 +10,11 @@ const englishPrompts = [
 
 /** Explicit UI translations, reviewed against the Chinese originals. */
 export const newsletterEnglish: Record<string, string> = {
+  "没收到邮件？查看确认与下一步": "No email yet? Check confirmation and next steps",
+  "还没确认：在邮箱中搜索“大雷早上好”，检查垃圾箱和推广分类，再按确认邮件中的按钮操作。访问这张公开卡片不能替代邮箱确认，请勿连续重复提交。": "Not confirmed yet? Search your email for “大雷早上好”, check spam and promotions folders, then use the button in the confirmation email. Visiting this public card does not confirm your email; avoid repeated submissions.",
+  "已经确认，但没有欢迎邮件：先在这里复制或下载练习包，就能开始。网页无法查询你的投递或订阅状态，也不承诺另有一封自动欢迎邮件。": "Already confirmed, but no welcome email? Copy or download the practice pack here to get started. This page cannot check your delivery or subscription status and does not promise a separate automated welcome email.",
+  "仍有问题？可以联系支持，说明遇到的步骤和时间；不要提供密码、确认链接或其他人的邮箱。": "Still need help? Contact support with the step and time of the issue. Do not include passwords, confirmation links or anyone else’s email address.",
+  "联系订阅支持": "Contact subscription support",
   "免费订阅 AI 实战信": "Subscribe to the free AI Practice Letter",
   "邮箱": "Email address",
   "你的邮箱": "Your email address",
