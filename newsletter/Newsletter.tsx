@@ -7,6 +7,7 @@ import { sampleLetter } from './content';
 import LetterPreview from './LetterPreview';
 import './newsletter.css';
 import KitSignup from './KitSignup';
+import { NEWSLETTER_CARD_PATH } from './paths';
 
 type Phase = 'idle' | 'submitting' | 'pending' | 'welcome' | 'error';
 type DemoOutcome = 'pending' | 'error';
@@ -117,6 +118,11 @@ export default function Newsletter({ onHome, demo = false }: { onHome: () => voi
             <div className="nl-author">
               <img src="/avatar-480.webp" alt="" width="44" height="44" />
               <p>{t("潘雷 · @dalei2025")}<span>{t("从公开视频到可实践的方法")}</span></p>
+            </div>
+
+            <div className="nl-starter-promise">
+              <a href={NEWSLETTER_CARD_PATH}>{t('先试一张免费实战卡')}</a>
+              <p className="nl-hint">{t('公开练习卡可直接试用，无需订阅；接收邮件仍需确认邮箱。')}</p>
             </div>
 
             <section className="nl-signup" aria-labelledby="signup-title">

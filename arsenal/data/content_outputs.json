@@ -35,12 +35,12 @@
   {
     "id": "content-browser-use",
     "projectId": "browser-use-agent",
-    "shortVideoTitle": "我让 AI 自己打开浏览器帮我干活",
-    "xThreadAngle": "浏览器是 Agent 最大的工具。browser-use 让它点击、填表、抓取。",
-    "linkedinAngle": "The browser is the universal API — agents that operate it unlock real workflows.",
-    "zsxqPostTitle": "实操：让 Agent 自动完成一次网页任务",
-    "wechatAngle": "会上网的 AI：浏览器智能体实测",
-    "demoShots": ["输入一句任务指令", "AI 自动操作页面", "提取并返回结果"],
+    "shortVideoTitle": "待验证演示：让 AI 搜索网页并核对结果",
+    "xThreadAngle": "Browser Use 演示方案待验证：先测试搜索、无结果与访问受限三个场景。",
+    "linkedinAngle": "Unverified Browser Use demo plan: evaluate search results, no matches, and access restrictions.",
+    "zsxqPostTitle": "待验证方案：让 Agent 完成一次公开网页搜索",
+    "wechatAngle": "会上网的 AI：浏览器智能体演示方案（待验证）",
+    "demoShots": ["待验证：搜索并核对来源", "待验证：无匹配结果", "待验证：访问受限时停止并报告"],
     "status": "draft"
   },
   {

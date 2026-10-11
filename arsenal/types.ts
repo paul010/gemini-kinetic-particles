@@ -69,6 +69,8 @@ export interface Project {
   daleiTake?: string;
   /** Da Lei's own reproduced version, live on this site (internal route). */
   liveUrl?: string;
+  /** Planned task checks, not evidence of completed reproduction. */
+  acceptanceCriteria?: string[];
   // Project checkup (体检) fields
   verdict: 'worth' | 'cautious' | 'skip';
   reason: string;

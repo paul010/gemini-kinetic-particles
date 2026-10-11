@@ -1,17 +1,17 @@
 import type { Project, Skill, Recipe } from '../types';
 
 /** Build the "kick-off" prompt a user can paste into Codex / Claude Code. */
-export function buildPrompt(project: Project, skills: Skill[], recipes: Recipe[]): string {
+export function buildPrompt(project: Project, skills: Skill[], recipes: Recipe[], translate: (text: string) => string = text => text): string {
   const skillLines = skills.length
     ? skills.map((s) => `- ${s.name}（${s.summary}）`).join('\n')
     : '- 根据项目实际需要自行选择合适的 Skill';
 
-  const criteria = recipes[0]?.acceptanceCriteria ?? [
+  const criteria = project.acceptanceCriteria ?? recipes[0]?.acceptanceCriteria ?? [
     '能跑出一个可展示的 demo',
     '关键流程可用、无明显报错',
     '说明清楚如何运行',
   ];
-  const criteriaLines = criteria.map((c) => `- ${c}`).join('\n');
+  const criteriaLines = criteria.map((c) => `- ${translate(c)}`).join('\n');
 
   return `你是 Codex / Claude Code，请帮我复现这个项目。
 
@@ -31,6 +31,6 @@ export function buildPrompt(project: Project, skills: Skill[], recipes: Recipe[]
 建议使用这些 Skill / 工具：
 ${skillLines}
 
-验收标准：
+${translate(project.acceptanceCriteria ? '验收方案（待验证，非实测结果）' : '验收标准')}：
 ${criteriaLines}`;
 }

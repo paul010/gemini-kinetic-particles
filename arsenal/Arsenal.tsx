@@ -8,6 +8,7 @@ import type { Project, Skill, Recipe, Source, ContentOutput } from './types';
 import { recommendSkills, recommendRecipes, projectsForSkill } from './lib/recommend';
 import { buildPrompt } from './lib/prompt';
 import { getCheckup, verdictLabel } from './lib/checkup';
+import { useArsenalReviewLanguage } from './locale';
 
 const PROJECTS = projectsData as unknown as Project[];
 const SKILLS = skillsData as unknown as Skill[];
@@ -109,7 +110,8 @@ const verdictTone = (v: Project['verdict']) =>
 
 const ProjectCard: React.FC<{ project: Project; onOpen: () => void; onNavigate: (path: string) => void; onTag: (tag: string) => void }> = ({ project: p, onOpen, onNavigate, onTag }) => {
   const skills = recommendSkills(p, SKILLS).slice(0, 3);
-  const prompt = buildPrompt(p, recommendSkills(p, SKILLS), recommendRecipes(p, RECIPES));
+  const reviewText = useArsenalReviewLanguage();
+  const prompt = buildPrompt(p, recommendSkills(p, SKILLS), recommendRecipes(p, RECIPES), reviewText);
   return (
     <article className={`flex flex-col rounded-2xl border bg-surface/50 p-5 transition-all hover:-translate-y-0.5 ${p.liveUrl ? 'border-gold/40 hover:border-gold/60' : 'border-ink/10 hover:border-gold/40'}`}>
       <div className="mb-2 flex items-center justify-between gap-2">
@@ -120,7 +122,7 @@ const ProjectCard: React.FC<{ project: Project; onOpen: () => void; onNavigate: 
           <span className="rounded-full border border-gold/40 bg-gold/10 px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider text-gold">大雷版已上线</span>
         ) : (
           <span className="rounded-full border border-ink/15 px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider text-ink/45">
-            {STATUS_LABEL[p.status]}
+            {p.id === 'browser-use-agent' ? reviewText(STATUS_LABEL[p.status]) : STATUS_LABEL[p.status]}
           </span>
         )}
       </div>
@@ -193,10 +195,11 @@ const DetailModal: React.FC<{ project: Project; onClose: () => void; onNavigate:
   onClose,
   onNavigate,
 }) => {
+  const reviewText = useArsenalReviewLanguage();
   const checkup = getCheckup(p);
   const skills = recommendSkills(p, SKILLS);
   const recipes = recommendRecipes(p, RECIPES);
-  const prompt = buildPrompt(p, skills, recipes);
+  const prompt = buildPrompt(p, skills, recipes, reviewText);
   const content = contentByProject.get(p.id);
   const source = SOURCES.find((s) => p.sourceIds.includes(s.id));
 
@@ -235,7 +238,7 @@ const DetailModal: React.FC<{ project: Project; onClose: () => void; onNavigate:
           <span className={`inline-flex items-center rounded-full border px-2.5 py-0.5 font-mono text-[11px] ${verdictTone(p.verdict)}`}>
             {checkup.verdictLabel}
           </span>
-          <span className="font-mono text-[11px] uppercase tracking-wider text-ink/45">{STATUS_LABEL[p.status]}</span>
+          <span className="font-mono text-[11px] uppercase tracking-wider text-ink/45">{p.id === 'browser-use-agent' ? reviewText(STATUS_LABEL[p.status]) : STATUS_LABEL[p.status]}</span>
         </div>
         <h2 className="mt-2 font-display text-3xl font-semibold tracking-tight">{p.title}</h2>
         {p.liveUrl && (
@@ -276,6 +279,13 @@ const DetailModal: React.FC<{ project: Project; onClose: () => void; onNavigate:
           <p className="text-sm text-ink/70">{checkup.nextStep}</p>
         </Section>
 
+        {p.acceptanceCriteria && <Section title={reviewText('验收方案（待验证，非实测结果）')}>
+          <p className="mb-2 text-sm text-ink/70">{reviewText('来源可信度不代表实测通过；本项目尚未验证，以下仅为演示与验收方案。')}</p>
+          <ol className="list-inside list-decimal space-y-2 text-sm text-ink/70">
+            {p.acceptanceCriteria.map(item => <li key={item}>{reviewText(item)}</li>)}
+          </ol>
+        </Section>}
+
         <Section title="推荐 Skill 组合">
           <div className="flex flex-wrap gap-2">
             {skills.map((s) => (
@@ -307,12 +317,12 @@ const DetailModal: React.FC<{ project: Project; onClose: () => void; onNavigate:
         {content && (
           <Section title="内容转化建议">
             <div className="grid gap-2 text-sm">
-              <ContentRow k="短视频标题" v={content.shortVideoTitle} />
-              <ContentRow k="X 长帖角度" v={content.xThreadAngle} />
-              <ContentRow k="LinkedIn" v={content.linkedinAngle} />
-              <ContentRow k="知识星球" v={content.zsxqPostTitle} />
-              <ContentRow k="公众号角度" v={content.wechatAngle} />
-              <ContentRow k="Demo 镜头" v={content.demoShots.join(' · ')} />
+              <ContentRow k="短视频标题" v={p.id === 'browser-use-agent' ? reviewText(content.shortVideoTitle) : content.shortVideoTitle} />
+              <ContentRow k="X 长帖角度" v={p.id === 'browser-use-agent' ? reviewText(content.xThreadAngle) : content.xThreadAngle} />
+              <ContentRow k="LinkedIn" v={p.id === 'browser-use-agent' ? reviewText(content.linkedinAngle) : content.linkedinAngle} />
+              <ContentRow k="知识星球" v={p.id === 'browser-use-agent' ? reviewText(content.zsxqPostTitle) : content.zsxqPostTitle} />
+              <ContentRow k="公众号角度" v={p.id === 'browser-use-agent' ? reviewText(content.wechatAngle) : content.wechatAngle} />
+              <ContentRow k="Demo 镜头" v={content.demoShots.map(item => p.id === 'browser-use-agent' ? reviewText(item) : item).join(' · ')} />
             </div>
           </Section>
         )}

@@ -10,6 +10,8 @@ const englishPrompts = [
 
 /** Explicit UI translations, reviewed against the Chinese originals. */
 export const newsletterEnglish: Record<string, string> = {
+  '先试一张免费实战卡': 'Try a free practice card first',
+  '公开练习卡可直接试用，无需订阅；接收邮件仍需确认邮箱。': 'Try the public practice card without subscribing. Receiving emails still requires email confirmation.',
   "没收到邮件？查看确认与下一步": "No email yet? Check confirmation and next steps",
   "还没确认：在邮箱中搜索“大雷早上好”，检查垃圾箱和推广分类，再按确认邮件中的按钮操作。访问这张公开卡片不能替代邮箱确认，请勿连续重复提交。": "Not confirmed yet? Search your email for “大雷早上好”, check spam and promotions folders, then use the button in the confirmation email. Visiting this public card does not confirm your email; avoid repeated submissions.",
   "已经确认，但没有欢迎邮件：先在这里复制或下载练习包，就能开始。网页无法查询你的投递或订阅状态，也不承诺另有一封自动欢迎邮件。": "Already confirmed, but no welcome email? Copy or download the practice pack here to get started. This page cannot check your delivery or subscription status and does not promise a separate automated welcome email.",
