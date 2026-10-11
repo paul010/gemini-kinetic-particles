@@ -194,16 +194,16 @@ export default function Newsletter({ onHome, demo = false }: { onHome: () => voi
 
         <section className="nl-faq" aria-labelledby="faq-title">
           <h2 id="faq-title">{t("订阅前，先说清楚")}</h2>
-          <details><summary>{t("读者需要付费吗？")}</summary><p>{t("读者免费。每日一封中文 AI 干货，包含练习和来源，有合适的相关公开视频时附上推荐；具体发送时间会在正式开放前确定。")}</p></details>
+          <details><summary>{t("读者需要付费吗？")}</summary><p>{t("读者免费。每日一封中文 AI 干货，包含练习和来源，有合适的相关公开视频时附上推荐；日报按审核后的日历排期发送。")}</p></details>
           <details><summary>{t("订阅 YouTube 就会收到邮件吗？")}</summary><p>{t("不会。频道订阅与邮件订阅是两个独立选择。只有主动留下邮箱并确认的人，才会进入邮件活跃名单。")}</p></details>
-          <details><summary>{t("如果没有收到确认邮件呢？")}</summary><p>{t(demo ? "正式开放后，请检查垃圾箱，并按页面说明稍后重试。重复提交使用同样的通用提示，不公开邮箱是否在名单中。此演示没有发送任何邮件。" : '请先检查垃圾箱和收件箱。重复点击不会加快送达；平台可能限制确认邮件的重发频率。提交不代表邮箱已确认，也不公开该地址的名单状态。')}</p></details>
+          <details><summary>{t("如果没有收到确认邮件呢？")}</summary><p>{t(demo ? "正式开放后，请检查垃圾箱，并按页面说明稍后重试。重复提交使用同样的通用提示，不公开邮箱是否在名单中。此演示没有发送任何邮件。" : '请先检查垃圾箱和收件箱。重复点击不会加快送达；平台可能限制确认邮件的重发频率。提交不代表邮箱已确认，也不公开该地址的名单状态。')}</p><p><a href="https://dailycosmos.net/newsletter/first-ai-card">{t('查看实战卡与邮件帮助')}</a>{' '}{t('实战卡是公开资源，不能代替邮箱确认。')}</p></details>
           <details><summary>{t("我可以随时退订吗？")}</summary><p>{t("可以。正式邮件由 Kit 提供退订入口并管理退订状态。重新提交不代表已恢复订阅；请按平台确认提示操作，最终状态以 Kit 为准。")}</p></details>
         </section>
 
         <section id="newsletter-privacy" className="nl-privacy" aria-labelledby="privacy-title">
           <h2 id="privacy-title">{t("你的邮箱，只用于这封信")}</h2>
           <p>{t(demo ? "正式开放后，Kit 将处理邮箱、订阅确认、发送和退订状态，用于每日中文 AI 邮件，并在有相关视频时附上推荐。名单不会放进公开仓库或公开文档；来源统计也不记录邮箱输入。" : '邮箱通过官方表单直接提交给 Kit，用于确认、每日中文邮件及适当视频推荐。Kit 管理发送、退订和必要的表单访问记录；网站不另建名单库，不将邮箱写入 URL、分析日志或公开文档。')}</p>
-          <p>{t(demo ? "当前页面仅为演示，邮箱只在页面内存中临时存在，提交演示、取消、离开或刷新后清空，不上传、不保存。正式服务的联系信息与完整隐私文本会在开放前补齐。" : '你可以通过每封邮件的退订入口停止接收，或联系 support@dailycosmos.net 询问订阅及资料处理。平台的隐私政策可在 Kit 官网查看。')}</p>
+          <p>{demo ? t("当前页面仅为演示，邮箱只在页面内存中临时存在，提交演示、取消、离开或刷新后清空，不上传、不保存。正式服务的联系信息与完整隐私文本会在开放前补齐。") : <>{t('你可以通过每封邮件的退订入口停止接收，或联系')}{' '}<a href="mailto:support@dailycosmos.net">support@dailycosmos.net</a>{' '}{t('询问订阅及资料处理。平台的隐私政策可在 Kit 官网查看。')}</>}</p>
           {!demo && <a href="https://kit.com/privacy" target="_blank" rel="noopener noreferrer">{t('Kit 隐私政策')} ↗</a>}
         </section>
       </main>
