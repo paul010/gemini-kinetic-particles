@@ -1,3 +1,16 @@
 {
-  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
+  "buildCommand": "npm run build",
+  "redirects": [
+    { "source": "/content", "destination": "/", "permanent": true },
+    { "source": "/content/", "destination": "/", "permanent": true }
+  ],
+  "rewrites": [
+    { "source": "/newsletter", "destination": "/newsletter-seo/newsletter.html" },
+    { "source": "/newsletter/", "destination": "/newsletter-seo/newsletter.html" },
+    { "source": "/newsletter/demo", "destination": "/newsletter-seo/newsletter-demo.html" },
+    { "source": "/newsletter/demo/", "destination": "/newsletter-seo/newsletter-demo.html" },
+    { "source": "/newsletter/first-ai-card", "destination": "/newsletter-seo/newsletter-card.html" },
+    { "source": "/newsletter/first-ai-card/", "destination": "/newsletter-seo/newsletter-card.html" },
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
 }

@@ -3,6 +3,7 @@ import React, { useEffect, useState, useCallback, Suspense } from 'react';
 import ReactDOM from 'react-dom/client';
 import Home from './Home';
 import { NEWSLETTER_CARD_PATH } from './newsletter/paths';
+import { newsletterSeo } from './newsletter/seo.mjs';
 
 // Heavier routes load on demand so the homepage bundle stays small.
 const App = React.lazy(() => import('./App'));
@@ -125,6 +126,15 @@ const Router: React.FC = () => {
   const [route, setRoute] = useState<Route>(routeFromLocation());
 
   const { lang: siteLang, t: siteText } = useSiteLanguage({ documentLanguage: false });
+
+  // Match the initial HTML after SPA navigation, back/forward and hash entry points.
+  useEffect(() => {
+    const paths = { newsletter: '/newsletter', 'newsletter-demo': '/newsletter/demo', 'newsletter-card': NEWSLETTER_CARD_PATH };
+    const seo = newsletterSeo[paths[route]] ?? { canonical: 'https://dailycosmos.net/', robots: 'index, follow' };
+    document.querySelector<HTMLLinkElement>('link[rel="canonical"]')?.setAttribute('href', seo.canonical);
+    document.querySelector<HTMLMetaElement>('meta[name="robots"]')?.setAttribute('content', seo.robots);
+    document.querySelector<HTMLMetaElement>('meta[property="og:url"]')?.setAttribute('content', seo.canonical);
+  }, [route]);
 
   const navigate = useCallback((path: string) => {
     if (window.location.pathname !== path) {

@@ -26,18 +26,9 @@ export default function Newsletter({ onHome, demo = false }: { onHome: () => voi
   const busyRef = useRef(false);
 
   useEffect(() => {
-    const existing = document.querySelector<HTMLMetaElement>('meta[name="robots"]');
-    const previous = existing?.getAttribute('content');
-    const robots = existing ?? document.createElement('meta');
-    robots.name = 'robots';
-    robots.content = 'noindex, nofollow';
-    if (!existing) document.head.appendChild(robots);
     return () => {
       if (timerRef.current !== null) clearTimeout(timerRef.current);
       busyRef.current = false;
-      if (!existing) robots.remove();
-      else if (previous === null) robots.removeAttribute('content');
-      else if (previous !== undefined) robots.content = previous;
     };
   }, []);
 

@@ -1,6 +1,6 @@
 import { EDITORIAL_LANGUAGE_NOTE, useNewsletterLanguage } from './locale';
 import LanguageSelector from './LanguageSelector';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { allPrompts, handoffCard, blankPracticeCard, fictionalSource, firstCardLesson, promptRounds } from './practice-card-content';
 import './practice-card.css';
 
@@ -8,18 +8,6 @@ export default function PracticeCard({ onNavigate }: { onNavigate: (path: string
   const { lang, setLang, t, languageTag } = useNewsletterLanguage();
   const [copying, setCopying] = useState<string | null>(null);
   const [notice, setNotice] = useState<{ key: 'copied' | 'failed' | 'download-failed'; name?: string } | null>(null);
-  useEffect(() => {
-    const existing = document.querySelector<HTMLMetaElement>('meta[name="robots"]');
-    const previous = existing?.getAttribute('content');
-    const robots = existing ?? document.createElement('meta');
-    robots.name = 'robots'; robots.content = 'noindex, nofollow';
-    if (!existing) document.head.appendChild(robots);
-    return () => {
-      if (!existing) robots.remove();
-      else if (previous === null) robots.removeAttribute('content');
-      else if (previous !== undefined) robots.content = previous;
-    };
-  }, []);
   const navigate = (event: React.MouseEvent<HTMLAnchorElement>, path: string) => {
     if (!event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey && event.button === 0) {
       event.preventDefault(); onNavigate(path);

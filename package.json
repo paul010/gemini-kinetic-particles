@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && node scripts/build-newsletter-seo.mjs",
     "preview": "vite preview",
     "test:life-quest": "node scripts/test-life-quest.mjs",
     "arsenal:next": "node arsenal/scripts/next.mjs",
