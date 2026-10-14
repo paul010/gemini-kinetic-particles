@@ -88,10 +88,13 @@ export const PROJECTS: Project[] = [
     title: { en: 'Life Quest', zh: '人生冒险' },
     year: '2026', status: 'live', featured: true,
     cover: '/life-quest/real-home.webp', coverFocus: 'center 48%',
-    tagline: { en: 'Turn small real-world actions into a gentle daily adventure.', zh: '把人生时间卡，变成每天都能升级的小冒险。' },
-    description: { en: 'An independent AI Passport experience: a personal time card, daily tasks, pixel monsters and XP. See the real-device gallery, learn the three-button controls and explore custom Life Tokens. Missed days never deduct progress. Maintained separately from AB-731; firmware source is currently private.', zh: '独立的 AI Passport 玩法：完整头像与身份、每日任务、像素小怪和经验升级。看最新真机实拍，了解三键操作和生命词元；漏一天不扣分，误打卡可撤销。独立于 AB-731 维护，固件仓库暂时私有。' },
+    tagline: { en: 'Open-source badge firmware: life countdowns, Life Tokens, daily quests, XP and pixel companions.', zh: '开源工牌固件：人生倒计时、时间代币、每日任务、XP 升级与像素伙伴。' },
+    description: { en: 'Open-source AI Passport firmware for life countdowns, minute-based Life Tokens, daily quests, XP and pixel companions. Maintained separately from AB-731. Version 1.3.1-life-quest-public passed host tests and an ESP-IDF build; this revision has not been flashed or verified on hardware. Explore the project or get the source on GitHub.', zh: '已开源的 AI Passport 工牌固件：人生倒计时、以分钟计的时间代币（Life Tokens）、每日任务、XP 升级和像素伙伴。独立于 AB-731 维护。1.3.1-life-quest-public 已通过主机测试与 ESP-IDF 构建，本次版本未刷入真机或完成实机验证。可查看项目介绍，或前往 GitHub 获取源码。' },
     tags: ['AI Passport', 'Daily Quest', 'Real Device', 'Life Tokens'],
-    links: [{ label: { en: 'Explore Life Quest', zh: '看人生冒险' }, href: '/life-quest', kind: 'internal' }],
+    links: [
+      { label: { en: 'Explore Life Quest', zh: '看人生冒险' }, href: '/life-quest', kind: 'internal' },
+      { label: { en: 'Firmware source', zh: '固件源码' }, href: 'https://github.com/paul010/ai-passport-life-countdown-open-source', kind: 'github' },
+    ],
   },
   {
     id: 'map-route-broll', category: 'creative',

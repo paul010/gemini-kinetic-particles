@@ -17,9 +17,13 @@ const project = PROJECTS.find(p => p.id === 'life-quest');
 assert.equal(HOME_PROJECT_ORDER[0], 'life-quest');
 assert.equal(HOME_SPOTLIGHT_ID, 'kindle-dashboard', 'preserve the existing spotlight');
 assert.equal(project.featured, true);
-assert.match(project.description.en, /private/);
+assert.match(project.description.en, /Open-source/);
+assert.doesNotMatch(project.description.en, /currently private/);
+assert.doesNotMatch(project.description.zh, /暂时私有/);
+assert.match(project.description.en, /has not been flashed or verified on hardware/);
 assert.deepEqual(project.links.map(({ href, kind }) => ({ href, kind })), [
   { href: '/life-quest', kind: 'internal' },
+  { href: 'https://github.com/paul010/ai-passport-life-countdown-open-source', kind: 'github' },
 ]);
 assert(PROJECTS.find(p => p.id === 'ai-passport-2026'), 'preserve the AB-731 project');
 const router = await read('index.tsx');

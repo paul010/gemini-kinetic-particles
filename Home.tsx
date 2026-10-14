@@ -257,6 +257,7 @@ const ProjectCard: React.FC<{
   const launchLink = p.links.find((l) => l.kind === 'internal');
   const externalLink = p.links.find((l) => l.kind !== 'internal');
   const primary = launchLink ?? externalLink;
+  const cardLinks = p.id === 'life-quest' ? p.links : primary ? [primary] : [];
   const onCover = () => {
     if (launchLink) onInternal(launchLink.href);
     else if (externalLink) window.open(externalLink.href, '_blank', 'noopener');
@@ -299,18 +300,21 @@ const ProjectCard: React.FC<{
             ))}
           </div>
         )}
-        {primary && (
-          <div className="mt-4 pt-1">
-            <a
-              href={primary.href}
-              onClick={(e) => { if (primary.kind === 'internal') { e.preventDefault(); onInternal(primary.href); } }}
-              target={primary.kind === 'internal' ? undefined : '_blank'}
-              rel={primary.kind === 'internal' ? undefined : 'noreferrer'}
-              className={`link-underline inline-flex items-center gap-1.5 text-sm font-semibold ${projectLinkColor(primary.kind)}`}
-            >
-              {t(primary.label)}
-              <ArrowUpRight className="h-3.5 w-3.5" />
-            </a>
+        {cardLinks.length > 0 && (
+          <div className={p.id === 'life-quest' ? 'mt-4 flex flex-wrap gap-x-5 gap-y-3 pt-1' : 'mt-4 pt-1'}>
+            {cardLinks.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                onClick={(e) => { if (link.kind === 'internal') { e.preventDefault(); onInternal(link.href); } }}
+                target={link.kind === 'internal' ? undefined : '_blank'}
+                rel={link.kind === 'internal' ? undefined : 'noreferrer'}
+                className={`link-underline inline-flex items-center gap-1.5 text-sm font-semibold ${projectLinkColor(link.kind)}`}
+              >
+                {t(link.label)}
+                <ArrowUpRight className="h-3.5 w-3.5" />
+              </a>
+            ))}
           </div>
         )}
       </div>
