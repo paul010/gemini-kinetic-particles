@@ -26,6 +26,8 @@ export interface Project {
   cover?: string;
   /** Optional focal point for portrait photography displayed in landscape cards. */
   coverFocus?: string;
+  /** User-supplied device photos, with localized controls and descriptive alt text. */
+  photos?: { src: string; label: LocalizedText; alt: LocalizedText }[];
   /** Coarse grouping for the Work-section filter chips. */
   category?: 'ai' | 'creative' | 'tool';
   /** Signature project - gets a highlighted eyebrow and sorts to the top. */
@@ -73,7 +75,7 @@ export const youtubeThumb = (id: string) => `https://i.ytimg.com/vi/${id}/hqdefa
 
 export const HOME_SPOTLIGHT_ID = 'ai-solutions-library';
 export const HOME_PROJECT_ORDER = [
-  'ai-solutions-library', 'life-quest', 'map-route-broll', 'kindle-dashboard', 'ai-passport-2026', 'lvshun-map',
+  'ai-solutions-library', 'pixforce-codex-dashboard', 'life-quest', 'map-route-broll', 'kindle-dashboard', 'ai-passport-2026', 'lvshun-map',
   'ai-coding-arsenal', 'markdown-studio', 'image-studio',
   'ai-benchmark', 'microsoft-cat-agent-skills', 'copilot-camp-cowork', 'kinetic-particles',
 ];
@@ -83,6 +85,34 @@ export const HOME_PROJECT_ORDER = [
  * `status`: live | wip | soon · `featured` makes it the large hero card.
  */
 export const PROJECTS: Project[] = [
+  {
+    id: 'pixforce-codex-dashboard',
+    category: 'tool',
+    title: { en: 'PixForce Codex Dashboard', zh: '旧像素时钟 · Codex 看板' },
+    year: '2026',
+    status: 'live',
+    cover: '/pixforce-cat-1280.webp',
+    coverFocus: '50% 0%',
+    tagline: {
+      en: 'An old pixel clock, a new job: Codex usage, lifetime tokens, 14 days of activity, and three animated cats.',
+      zh: '旧时钟的新工作：Codex 用量、累计 Token、近 14 天活动，还有三只像素猫。',
+    },
+    description: {
+      en: 'An MIT-licensed local service for a 32×8 display, with 19 scenes including Guoqing, Beiguo and Diandian. Try the browser demo without hardware first. Tested on one PixForce C1 with its original firmware; the computer must stay running to send frames. Hardware bridging has been verified on macOS.',
+      zh: 'MIT 开源的本地 32×8 看板服务，包含国庆、贝果、点点和火箭、代码雨等 19 种画面。没有硬件也能先运行浏览器演示。已在一台保留原固件的 PixForce C1 实测；需电脑持续运行并发送画面，实物桥接目前在 macOS 验证。',
+    },
+    tags: ['MIT Open Source', 'Codex', 'Pixel Cats', 'Node.js'],
+    links: [
+      { label: { en: 'Source · MIT', zh: '开源源码 · MIT' }, href: 'https://github.com/paul010/pixforce-codex-dashboard', kind: 'github' },
+      { label: { en: 'Watch the revival', zh: '看复活过程' }, href: 'https://www.youtube.com/shorts/801nwAmG5yk', kind: 'youtube' },
+    ],
+    photos: [
+      { src: '/pixforce-cat-1280.webp', label: { en: 'Pixel cat', zh: '像素猫' }, alt: { en: 'A pixel cat on the actual wood-top PixForce clock', zh: '木质顶盖的 PixForce 实物时钟正在显示像素猫' } },
+      { src: '/pixforce-clock-1280.webp', label: { en: 'Clock', zh: '时钟' }, alt: { en: 'The actual PixForce display showing 20:09 with blue pixels', zh: 'PixForce 实物屏幕用蓝色像素显示 20:09' } },
+      { src: '/pixforce-usage-1280.webp', label: { en: 'Usage', zh: '用量' }, alt: { en: 'The actual PixForce clock showing a usage percentage, icon and colored bar', zh: 'PixForce 实物时钟显示用量百分比、像素图标和彩色条' } },
+      { src: '/pixforce-digits-1280.webp', label: { en: 'Digits', zh: '数字' }, alt: { en: 'Blue pixel digits on the actual PixForce clock', zh: 'PixForce 实物时钟正在显示蓝色像素数字' } },
+    ],
+  },
   {
     id: 'life-quest', category: 'creative',
     title: { en: 'Life Quest', zh: '人生冒险' },

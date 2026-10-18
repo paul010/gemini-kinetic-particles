@@ -255,17 +255,36 @@ const ProjectCard: React.FC<{
   size?: 'md' | 'lg';
 }> = ({ project: p, lang, t, onInternal, size = 'md' }) => {
   const [imgError, setImgError] = useState(false);
+  const [photoIndex, setPhotoIndex] = useState(0);
+  const activePhoto = p.photos?.[photoIndex];
   const lg = size === 'lg';
   const launchLink = p.links.find((l) => l.kind === 'internal');
   const externalLink = p.links.find((l) => l.kind !== 'internal');
   const primary = launchLink ?? externalLink;
-  const cardLinks = p.id === 'life-quest' ? p.links : primary ? [primary] : [];
+  const cardLinks = p.photos || p.id === 'life-quest' ? p.links : primary ? [primary] : [];
   const onCover = () => {
     if (launchLink) onInternal(launchLink.href);
     else if (externalLink) window.open(externalLink.href, '_blank', 'noopener');
   };
   return (
-    <article className={`project-card reveal group flex flex-col overflow-hidden rounded-[1.25rem] border border-ink/10 bg-surface/50 transition-all hover:-translate-y-1 hover:border-gold/40 ${lg ? 'project-card--wide' : ''}`}>
+    <article id={p.id} className={`project-card reveal group flex scroll-mt-24 flex-col overflow-hidden rounded-[1.25rem] border border-ink/10 bg-surface/50 transition-all hover:-translate-y-1 hover:border-gold/40 ${lg ? 'project-card--wide' : ''}`}>
+      {activePhoto ? (
+        <figure>
+          <a id={`${p.id}-photo`} href={activePhoto.src} target="_blank" rel="noreferrer" className="block aspect-[16/7] overflow-hidden" aria-label={t({ en: `View full photo: ${activePhoto.label.en}`, zh: `查看完整实拍：${activePhoto.label.zh}` })}>
+            <img src={activePhoto.src} alt={t(activePhoto.alt)} width="1280" height="960" loading="lazy" decoding="async" className="h-full w-full object-cover object-top" />
+          </a>
+          <figcaption className="px-5 pt-4 sm:px-7">
+            <div className="flex flex-wrap gap-2" role="group" aria-label={t({ en: 'Device photos', zh: '设备实拍' })}>
+              {p.photos!.map((photo, index) => (
+                <button key={photo.src} type="button" onClick={() => setPhotoIndex(index)} aria-pressed={photoIndex === index} aria-controls={`${p.id}-photo`} className={`min-h-10 rounded-lg border px-3 py-2 text-xs font-medium transition-colors ${photoIndex === index ? 'border-gold/50 bg-gold/10 text-gold' : 'border-ink/15 text-ink/70 hover:border-gold/40'}`}>
+                  {t(photo.label)}
+                </button>
+              ))}
+            </div>
+            <p className="mt-2 text-xs leading-relaxed text-ink/60">{t({ en: 'Real device photos. Numbers reflect the moment each photo was taken.', zh: '设备实拍，数值为拍摄时画面。' })}</p>
+          </figcaption>
+        </figure>
+      ) : (
       <button onClick={onCover} className={`relative block w-full overflow-hidden ${lg ? 'aspect-[16/9]' : 'aspect-[16/10]'}`} aria-label={t(p.title)}>
         {p.cover && !imgError ? (
           <img
@@ -288,6 +307,7 @@ const ProjectCard: React.FC<{
         )}
         <span className="pointer-events-none absolute inset-0 bg-gradient-to-t from-surface/35 to-transparent" />
       </button>
+      )}
       <div className={`flex flex-1 flex-col ${lg ? 'p-5 sm:p-7' : 'p-4 sm:p-5'}`}>
         <div className="flex items-center justify-between gap-2">
           {statusBadge(p.status, t)}
@@ -295,6 +315,12 @@ const ProjectCard: React.FC<{
         </div>
         <h3 className={`mt-2.5 font-display font-semibold tracking-tight ${lg ? 'text-xl sm:text-2xl' : 'text-lg sm:text-xl'}`}>{t(p.title)}</h3>
         <p className={`mt-1.5 flex-1 leading-relaxed text-ink/60 ${lg ? 'line-clamp-3 text-sm sm:text-[15px]' : 'line-clamp-2 text-[13px] sm:text-sm'}`}>{t(p.tagline)}</p>
+        {p.photos && (
+          <details className="mt-3 text-sm text-ink/70">
+            <summary className="cursor-pointer font-medium text-ink/85">{t({ en: 'How it runs', zh: '项目说明与运行条件' })}</summary>
+            <p className="mt-2 leading-relaxed">{t(p.description)}</p>
+          </details>
+        )}
         {p.tags.length > 0 && (
           <div className="mt-3 flex flex-wrap gap-1.5">
             {p.tags.slice(0, lg ? 4 : 3).map((tag) => (
@@ -303,7 +329,7 @@ const ProjectCard: React.FC<{
           </div>
         )}
         {cardLinks.length > 0 && (
-          <div className={p.id === 'life-quest' ? 'mt-4 flex flex-wrap gap-x-5 gap-y-3 pt-1' : 'mt-4 pt-1'}>
+          <div className={cardLinks.length > 1 ? 'mt-4 flex flex-wrap gap-x-5 gap-y-3 pt-1' : 'mt-4 pt-1'}>
             {cardLinks.map((link) => (
               <a
                 key={link.href}
@@ -624,6 +650,13 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
     .sort((a, b) => priority(a.id) - priority(b.id));
   const tiles = workFilter === 'all' ? allTiles : allTiles.filter((p) => p.category === workFilter);
   const visibleTiles = showAllProjects ? tiles : tiles.slice(0, 7);
+
+  // The project anchor is created by React after the browser's initial hash jump.
+  useEffect(() => {
+    if (window.location.hash === '#pixforce-codex-dashboard') {
+      document.getElementById('pixforce-codex-dashboard')?.scrollIntoView({ behavior: 'instant', block: 'start' });
+    }
+  }, []);
 
   // Filter chips for the Work grid - counts come from the unfiltered set.
   const workFilters: { key: typeof workFilter; label: LocalizedText; count: number }[] = [
