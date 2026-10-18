@@ -804,7 +804,28 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
 
             <HomeNewsletterPromo onNavigate={onNavigate} />
 
-            <div className="hero-in mt-5 flex flex-wrap items-center gap-x-6 gap-y-3" style={{ animationDelay: '0.42s' }}>
+            <a
+              href={SOCIALS.notion}
+              target="_blank"
+              rel="noreferrer"
+              className="hero-in group mt-4 flex min-h-16 w-full max-w-[440px] items-center gap-3 rounded-2xl border border-ink/12 bg-surface/75 px-4 py-3 text-left shadow-sm transition-colors hover:border-gold/45 hover:bg-surface focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold"
+              style={{ animationDelay: '0.38s' }}
+            >
+              <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-gold/10 text-gold">
+                <NotionLogo className="h-5 w-5" aria-hidden="true" />
+              </span>
+              <span className="min-w-0 flex-1">
+                <span className="block text-sm font-semibold text-ink">
+                  {t({ en: 'Free AI solutions library', zh: '大雷免费 AI 方案库' })}
+                </span>
+                <span className="mt-0.5 block text-xs leading-relaxed text-ink/55">
+                  {t({ en: 'Browse by role, use case and maturity.', zh: '按岗位、应用场景与成熟度浏览方案。' })}
+                </span>
+              </span>
+              <ArrowUpRight className="h-4 w-4 shrink-0 text-ink/45 transition-colors group-hover:text-gold" aria-hidden="true" />
+            </a>
+
+            <div className="hero-in mt-5 flex flex-wrap items-center gap-x-6 gap-y-3" style={{ animationDelay: '0.46s' }}>
               <Magnetic strength={0.4}>
                 <button
                   onClick={() => goTo('work')}

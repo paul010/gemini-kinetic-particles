@@ -41,7 +41,7 @@ export const SOCIALS = {
   twitter: 'https://x.com/paul010318',
   coffee: 'https://buymeacoffee.com/dalei',
   membership: 'https://www.youtube.com/channel/UCk9tu0mFtXj_rOEfIncxuJQ/join',
-  notion: 'https://aiagentclub.notion.site/1e51f5ff8f8c80a4b849c9526278b791',
+  notion: 'https://aiagentclub.notion.site/1e51f5ff8f8c80a4b849c9526278b791?v=1e51f5ff8f8c810b8fb9000cdac404a8',
 };
 
 // Email is split into parts so the full address never appears as a source
@@ -73,7 +73,7 @@ export const youtubeThumb = (id: string) => `https://i.ytimg.com/vi/${id}/hqdefa
 
 export const HOME_SPOTLIGHT_ID = 'kindle-dashboard';
 export const HOME_PROJECT_ORDER = [
-  'life-quest', 'map-route-broll', 'kindle-dashboard', 'ai-passport-2026', 'lvshun-map',
+  'ai-solutions-library', 'life-quest', 'map-route-broll', 'kindle-dashboard', 'ai-passport-2026', 'lvshun-map',
   'ai-coding-arsenal', 'markdown-studio', 'image-studio',
   'ai-benchmark', 'microsoft-cat-agent-skills', 'copilot-camp-cowork', 'kinetic-particles',
 ];
@@ -381,12 +381,12 @@ export const PROJECTS: Project[] = [
     featured: true,
     cover: '/ai-library-cover.svg',
     tagline: {
-      en: "Browse the AI tools and open-source solutions I have collected.",
-      zh: "从我整理的 AI 工具和开源方案里，找一个适合你的起点。",
+      en: 'Browse AI tools and solutions by role, use case and maturity.',
+      zh: '按岗位、应用场景与成熟度，浏览 AI 工具和方案。',
     },
     description: {
-      en: 'The structured backbone of my AI content: a Notion database cataloging open-source / free AI solutions, each scored and tagged by use case (AI Agent, MCP, RAG, Deep Research…), category, maturity, cost, business value, target role, and a “personally tested” flag. Browse it as a gallery, table, board (by industry), or calendar (the AI daily). Free to use.',
-      zh: '我做 AI 内容的结构化底座:一个 Notion 数据库,收录开源/免费的 AI 方案,每条都按应用场景(AI Agent、MCP、RAG、Deep Research…)、分类、成熟度、成本、商业价值、适合人群打分标注,还有「是否亲测」标记。可按画廊、表格、看板(按行业)或日历(AI 日报)浏览。免费取用。',
+      en: 'A free-to-browse Notion database for AI tools and solutions. Entries include fields such as category, use case, maturity, cost, business value and target role; check each entry for its access terms and whether I have personally tested it.',
+      zh: '可免费浏览的 Notion 方案库，按分类、应用场景、成熟度、成本、商业价值与适合岗位等字段整理。每项的开源或收费情况、是否亲测，以对应条目标注为准。',
     },
     tags: ['Notion', 'AI Agent', 'Open Source', 'Knowledge Base'],
     links: [
