@@ -71,7 +71,7 @@ export interface VideoItem {
 export const youtubeWatch = (id: string) => `https://www.youtube.com/watch?v=${id}`;
 export const youtubeThumb = (id: string) => `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
 
-export const HOME_SPOTLIGHT_ID = 'kindle-dashboard';
+export const HOME_SPOTLIGHT_ID = 'ai-solutions-library';
 export const HOME_PROJECT_ORDER = [
   'ai-solutions-library', 'life-quest', 'map-route-broll', 'kindle-dashboard', 'ai-passport-2026', 'lvshun-map',
   'ai-coding-arsenal', 'markdown-studio', 'image-studio',
@@ -375,20 +375,20 @@ export const PROJECTS: Project[] = [
   {
     id: 'ai-solutions-library',
     category: 'ai',
-    title: { en: 'Free AI Solutions Library', zh: '大雷免费 AI 方案库' },
+    title: { en: 'AI Solutions Library', zh: '大雷 AI 方案库' },
     year: '2026',
     status: 'live',
     featured: true,
     cover: '/ai-library-cover.svg',
     tagline: {
-      en: 'Browse AI tools and solutions by role, use case and maturity.',
-      zh: '按岗位、应用场景与成熟度，浏览 AI 工具和方案。',
+      en: 'Browse by role and use case; check maturity, evidence and caveats.',
+      zh: '按岗位、场景浏览，查看成熟度、证据等级与风险提示。',
     },
     description: {
-      en: 'A free-to-browse Notion database for AI tools and solutions. Entries include fields such as category, use case, maturity, cost, business value and target role; check each entry for its access terms and whether I have personally tested it.',
-      zh: '可免费浏览的 Notion 方案库，按分类、应用场景、成熟度、成本、商业价值与适合岗位等字段整理。每项的开源或收费情况、是否亲测，以对应条目标注为准。',
+      en: 'A free-to-browse Notion catalog of AI tools and implementation ideas, filterable by role, use case and maturity. Entries have fields for cost, business value, evidence level, test status and caveats; check each page for licensing, pricing and availability. The cover is a layout illustration, not live data.',
+      zh: '可免费浏览的 Notion 方案库，收录 AI 工具和落地方案，可按岗位、场景与成熟度筛选。条目设有成本、商业价值、证据等级、亲测状态和风险提示等字段；开源许可、收费情况与可用性以对应条目为准。封面是版式示意图，不含实时数据。',
     },
-    tags: ['Notion', 'AI Agent', 'Open Source', 'Knowledge Base'],
+    tags: ['Notion', 'AI Tools', 'AI Solutions', 'Knowledge Base'],
     links: [
       { label: { en: 'Open the library', zh: '打开方案库' }, href: SOCIALS.notion, kind: 'live' },
       { label: { en: 'Watch on YouTube', zh: 'YouTube 频道' }, href: SOCIALS.youtube, kind: 'youtube' },

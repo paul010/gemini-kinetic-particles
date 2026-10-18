@@ -169,6 +169,8 @@ const FeaturedCard: React.FC<{
             style={p.coverFocus ? { objectPosition: p.coverFocus } : undefined}
             className={p.id === 'kindle-dashboard'
               ? "h-auto max-h-[640px] w-full object-contain bg-paper p-4 sm:p-6"
+              : p.id === 'ai-solutions-library'
+                ? "h-64 w-full bg-[#e9f8fa] object-contain sm:h-80 lg:h-full"
               : "h-64 w-full object-cover transition-transform duration-700 group-hover:scale-[1.04] sm:h-80 lg:h-full"}
           />
         )}
@@ -808,21 +810,21 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
               href={SOCIALS.notion}
               target="_blank"
               rel="noreferrer"
-              className="hero-in group mt-4 flex min-h-16 w-full max-w-[440px] items-center gap-3 rounded-2xl border border-ink/12 bg-surface/75 px-4 py-3 text-left shadow-sm transition-colors hover:border-gold/45 hover:bg-surface focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold"
+              className="hero-in group mt-4 flex min-h-16 w-full max-w-[440px] items-center gap-3 rounded-2xl border border-accent/35 bg-surface/80 px-4 py-3 text-left shadow-sm transition-colors hover:border-accent/60 hover:bg-accent/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
               style={{ animationDelay: '0.38s' }}
             >
-              <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-gold/10 text-gold">
+              <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-accent/10 text-accent">
                 <NotionLogo className="h-5 w-5" aria-hidden="true" />
               </span>
               <span className="min-w-0 flex-1">
                 <span className="block text-sm font-semibold text-ink">
-                  {t({ en: 'Free AI solutions library', zh: '大雷免费 AI 方案库' })}
+                  {t({ en: 'AI Solutions Library', zh: '大雷 AI 方案库' })}
                 </span>
                 <span className="mt-0.5 block text-xs leading-relaxed text-ink/55">
-                  {t({ en: 'Browse by role, use case and maturity.', zh: '按岗位、应用场景与成熟度浏览方案。' })}
+                  {t({ en: 'Free to browse. Filter by role, use case and maturity.', zh: '免费浏览，按岗位、场景与成熟度筛选。' })}
                 </span>
               </span>
-              <ArrowUpRight className="h-4 w-4 shrink-0 text-ink/45 transition-colors group-hover:text-gold" aria-hidden="true" />
+              <ArrowUpRight className="h-4 w-4 shrink-0 text-accent/60 transition-colors group-hover:text-accent" aria-hidden="true" />
             </a>
 
             <div className="hero-in mt-5 flex flex-wrap items-center gap-x-6 gap-y-3" style={{ animationDelay: '0.46s' }}>
