@@ -75,7 +75,7 @@ export const youtubeThumb = (id: string) => `https://i.ytimg.com/vi/${id}/hqdefa
 
 export const HOME_SPOTLIGHT_ID = 'ai-solutions-library';
 export const HOME_PROJECT_ORDER = [
-  'ai-solutions-library', 'pixforce-codex-dashboard', 'life-quest', 'map-route-broll', 'kindle-dashboard', 'ai-passport-2026', 'lvshun-map',
+  'ai-solutions-library', 'pixforce-codex-dashboard', 'life-quest', 'map-route-broll', 'kindle-dashboard', 'ai-passport-2026', 'dalei-tvhome', 'lvshun-map',
   'ai-coding-arsenal', 'markdown-studio', 'image-studio',
   'ai-benchmark', 'microsoft-cat-agent-skills', 'copilot-camp-cowork', 'kinetic-particles',
 ];
@@ -85,6 +85,21 @@ export const HOME_PROJECT_ORDER = [
  * `status`: live | wip | soon · `featured` makes it the large hero card.
  */
 export const PROJECTS: Project[] = [
+  {
+    id: 'dalei-tvhome', category: 'tool',
+    title: { en: 'DaLei TV Home', zh: 'DaLei TV Home' },
+    year: '2026', status: 'wip',
+    tagline: {
+      en: 'TV companion APK: video shortcuts and optional read-only Codex usage.',
+      zh: '旧电视的轻量 APK：遥控导航、视频入口与可配置的只读 Codex 用量。',
+    },
+    description: {
+      en: 'An original Android TV companion app with left-side navigation, local background customization, app/video shortcuts and optional native read-only usage summaries. An APK experiment, not firmware or a system upgrade. Version 0.5.1 has been checked on one LeTV Super4 Max70 running Android 5.0.2; broader Android TV compatibility is unverified. Voice commands, Home Assistant integration, trending-video rotation and cat animation are planned, not delivered. Quota display cannot execute Codex tasks.',
+      zh: '原创 Android TV 附加界面，提供左侧导航、本地背景设置、应用与视频快捷入口，以及可配置的原生只读用量摘要。APK 实验，不是刷机或系统升级。0.5.1 已在单台乐视超四 Max70（Android 5.0.2）验证，不承诺全部 Android TV 兼容。语音指令、Home Assistant 联动、热门视频轮播和猫咪动画尚在规划；额度展示不能执行 Codex 任务。',
+    },
+    tags: ['Android · API 21+', 'APK · v0.5.1', 'MIT'],
+    links: [{ label: { en: 'GitHub · source & limits', zh: 'GitHub · 源码与范围' }, href: 'https://github.com/paul010/dalei-tvhome', kind: 'github' }],
+  },
   {
     id: 'pixforce-codex-dashboard',
     category: 'tool',
