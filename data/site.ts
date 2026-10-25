@@ -75,6 +75,7 @@ export const youtubeThumb = (id: string) => `https://i.ytimg.com/vi/${id}/hqdefa
 
 export const HOME_SPOTLIGHT_ID = 'ai-solutions-library';
 export const HOME_PROJECT_ORDER = [
+  'copilot-agent-course',
   'ai-solutions-library', 'pixforce-codex-dashboard', 'life-quest', 'map-route-broll', 'kindle-dashboard', 'ai-passport-2026', 'dalei-tvhome', 'lvshun-map',
   'ai-coding-arsenal', 'markdown-studio', 'image-studio',
   'ai-benchmark', 'microsoft-cat-agent-skills', 'copilot-camp-cowork', 'kinetic-particles',
@@ -437,6 +438,20 @@ export const PROJECTS: Project[] = [
     links: [
       { label: { en: 'Open the library', zh: '打开方案库' }, href: SOCIALS.notion, kind: 'live' },
       { label: { en: 'Watch on YouTube', zh: 'YouTube 频道' }, href: SOCIALS.youtube, kind: 'youtube' },
+    ],
+  },
+  {
+    id: 'copilot-agent-course',
+    category: 'ai',
+    title: { en: 'Copilot Studio Agent · Five Practical Lessons', zh: 'Copilot Studio Agent · 五课案例实战' },
+    year: '2026', status: 'live', featured: true,
+    cover: '/copilot-agent-course-cover.svg',
+    tagline: { en: 'Build one useful result per lesson, from grounded answers to a verifiable handoff.', zh: '一课一个成果，从有依据的回答，走到流程写入与可核验的交付。' },
+    description: { en: 'A Chinese learner workbook with five recorded cases, copyable inputs, normal and edge tests, assignments and presentation mode. Uses fictional data; progress stays on your device.', zh: '办公指南、会议行动清单、一句话申请、待办查询与提醒、设备借用。配套实操视频、可复制输入、正常与异常测试、作业和大字投屏；虚构资料，进度仅存本机。' },
+    tags: ['Copilot Studio', 'Agent Builder', 'Power Automate', 'Workshop'],
+    links: [
+      { label: { en: 'Open the Chinese workbook', zh: '进入五课实战' }, href: '/copilot-agent-course', kind: 'internal' },
+      { label: { en: 'Download learner materials', zh: '下载五课学员包' }, href: '/copilot-agent-course/materials/copilot-agent-5-lessons.zip', kind: 'live' },
     ],
   },
   {

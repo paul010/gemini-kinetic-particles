@@ -1,0 +1,9 @@
+﻿内部名,类型,必填,说明
+Title,单行文本,是,申请标题
+Category,选择,是,Software / Equipment / Training
+Reason,多行文本,是,申请原因
+NeededBy,日期（仅日期）,是,yyyy-MM-dd
+Status,选择,是,Open / Pending / InProgress / Completed / Cancelled
+OwnerKey,单行文本,是,由后端固定或验证身份赋值，不从聊天填写
+RequestKey,单行文本，唯一值,是,同一次提交重试保持相同
+NotificationStatus,选择,是,NotRequested / Pending / AcceptedByService / Failed / ReceiverVerified

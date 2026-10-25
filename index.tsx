@@ -19,6 +19,7 @@ const Bench = React.lazy(() => import('./bench/Bench'));
 const Fugu = React.lazy(() => import('./fugu/Fugu'));
 const Copilot = React.lazy(() => import('./copilot/Copilot'));
 const CopilotCamp = React.lazy(() => import('./copilotcamp/CopilotCamp'));
+const AgentCourse = React.lazy(() => import('./agentcourse/AgentCourse'));
 const CopilotDemo = React.lazy(() => import('./copilotdemo/CopilotDemo'));
 const PromptForge = React.lazy(() => import('./promptforge/PromptForge'));
 const NotebookLM = React.lazy(() => import('./notebooklm/NotebookLM'));
@@ -66,7 +67,7 @@ const Loader: React.FC<{ label: string }> = ({ label }) => (
   </div>
 );
 
-type Route = 'home' | 'particles' | 'arsenal' | 'md' | 'img' | 's2c' | 'fluid' | 'r3f' | 'ttt-hour-of-code' | 'hear-the-universe' | 'bench' | 'fugu' | 'copilot' | 'copilotcamp' | 'copilot-demo' | 'promptforge' | 'notebooklm' | 'aihtml' | 'text2image' | 'farmer' | 'quyoubus' | 'hpworkshop' | 'agents' | 'skills' | 'cat-skills' | 'uml' | 'town' | 'patterns' | 'prompts' | 'cici' | 'designskill' | 'videogen' | 'dino' | 'chengdu' | 'lab3d' | 'cappadocia' | 'zhangjiajie' | 'niagara' | 'fireflies' | 'harbin' | 'forbiddencity' | 'brooksfalls' | 'vibe-check' | 'lvshun' | 'map-route-broll' | 'life-quest' | 'newsletter' | 'newsletter-demo' | 'newsletter-card';
+type Route = 'home' | 'particles' | 'arsenal' | 'md' | 'img' | 's2c' | 'fluid' | 'r3f' | 'ttt-hour-of-code' | 'hear-the-universe' | 'bench' | 'fugu' | 'copilot' | 'copilotcamp' | 'copilot-demo' | 'copilot-agent-course' | 'promptforge' | 'notebooklm' | 'aihtml' | 'text2image' | 'farmer' | 'quyoubus' | 'hpworkshop' | 'agents' | 'skills' | 'cat-skills' | 'uml' | 'town' | 'patterns' | 'prompts' | 'cici' | 'designskill' | 'videogen' | 'dino' | 'chengdu' | 'lab3d' | 'cappadocia' | 'zhangjiajie' | 'niagara' | 'fireflies' | 'harbin' | 'forbiddencity' | 'brooksfalls' | 'vibe-check' | 'lvshun' | 'map-route-broll' | 'life-quest' | 'newsletter' | 'newsletter-demo' | 'newsletter-card';
 
 const routeFromLocation = (): Route => {
   const { pathname, hash } = window.location;
@@ -88,6 +89,7 @@ const routeFromLocation = (): Route => {
   if (p.endsWith('/bench') || hash === '#/bench') return 'bench';
   if (p.endsWith('/fugu') || hash === '#/fugu') return 'fugu';
   if (p.endsWith('/copilotcamp') || hash === '#/copilotcamp') return 'copilotcamp';
+  if (p.endsWith('/copilot-agent-course') || hash === '#/copilot-agent-course') return 'copilot-agent-course';
   if (p.endsWith('/copilot-demo') || hash === '#/copilot-demo') return 'copilot-demo';
   if (p.endsWith('/promptforge') || hash === '#/promptforge') return 'promptforge';
   if (p.endsWith('/notebooklm') || hash === '#/notebooklm') return 'notebooklm';
@@ -130,14 +132,14 @@ const Router: React.FC = () => {
   // Match the initial HTML after SPA navigation, back/forward and hash entry points.
   useEffect(() => {
     const paths = { newsletter: '/newsletter', 'newsletter-demo': '/newsletter/demo', 'newsletter-card': NEWSLETTER_CARD_PATH };
-    const seo = newsletterSeo[paths[route]] ?? { canonical: 'https://dailycosmos.net/', robots: 'index, follow' };
+    const seo = route === 'copilot-agent-course' ? { canonical: 'https://dailycosmos.net/copilot-agent-course', robots: 'noindex, nofollow' } : newsletterSeo[paths[route]] ?? { canonical: 'https://dailycosmos.net/', robots: 'index, follow' };
     document.querySelector<HTMLLinkElement>('link[rel="canonical"]')?.setAttribute('href', seo.canonical);
     document.querySelector<HTMLMetaElement>('meta[name="robots"]')?.setAttribute('content', seo.robots);
     document.querySelector<HTMLMetaElement>('meta[property="og:url"]')?.setAttribute('content', seo.canonical);
   }, [route]);
 
   const navigate = useCallback((path: string) => {
-    if (window.location.pathname !== path) {
+    if (`${window.location.pathname}${window.location.search}${window.location.hash}` !== path) {
       window.history.pushState({}, '', path);
     }
     setRoute(routeFromLocation());
@@ -147,7 +149,8 @@ const Router: React.FC = () => {
   useEffect(() => {
     const onPop = () => setRoute(routeFromLocation());
     window.addEventListener('popstate', onPop);
-    return () => window.removeEventListener('popstate', onPop);
+    window.addEventListener('hashchange', onPop);
+    return () => { window.removeEventListener('popstate', onPop); window.removeEventListener('hashchange', onPop); };
   }, []);
 
   // The particle experience is a fixed full-screen canvas; other routes scroll.
@@ -179,6 +182,7 @@ const Router: React.FC = () => {
       fugu: 'Fugu / TRINITY 复现验证 · Da Lei Research',
       copilot: 'Microsoft Copilot / Agent 产品矩阵 · 大雷',
       copilotcamp: 'Copilot Camp · Cowork 设置与扩展学习课 · 大雷',
+      'copilot-agent-course': 'Copilot Studio Agent｜五课案例实战 · 大雷',
       'copilot-demo': '让 Copilot 真正上岗｜CN Print 随课实践页',
       promptforge: '提示词锻造台 · PromptForge · 大雷',
       notebooklm: 'NotebookLM 线画幻灯片提示词 · 大雷',
@@ -325,6 +329,10 @@ const Router: React.FC = () => {
         <CopilotCamp onHome={() => navigate('/')} />
       </Suspense>
     );
+  }
+
+  if (route === 'copilot-agent-course') {
+    return <Suspense fallback={<Loader label="正在打开五课实战…" />}><AgentCourse onHome={() => navigate('/')} /></Suspense>;
   }
 
   if (route === 'copilot-demo') {

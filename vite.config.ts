@@ -23,6 +23,7 @@ export default defineConfig(({ mode }) => {
         rollupOptions: {
           input: {
             main: path.resolve(__dirname, 'index.html'),
+            agentCourse: path.resolve(__dirname, 'copilot-agent-course/index.html'),
             copilotDemo: path.resolve(__dirname, 'copilot-demo/index.html'),
           },
         },

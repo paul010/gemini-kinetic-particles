@@ -217,6 +217,7 @@ const CopilotDemo: React.FC<CopilotDemoProps> = ({ onHome }) => {
             <a href="#demo-1">任务说清</a>
             <a href="#demo-2">事实查准</a>
             <a href="#demo-3">Agent 上岗</a>
+            <a href="/copilot-agent-course">五课案例实战 ↗</a>
           </nav>
           <a href={data.downloads.all} download className="ink-button ink-button-small">下载精简演示包</a>
         </div>

@@ -5,6 +5,8 @@
     { "source": "/content/", "destination": "/", "permanent": true }
   ],
   "rewrites": [
+    { "source": "/copilot-agent-course", "destination": "/copilot-agent-course/index.html" },
+    { "source": "/copilot-agent-course/", "destination": "/copilot-agent-course/index.html" },
     { "source": "/newsletter", "destination": "/newsletter-seo/newsletter.html" },
     { "source": "/newsletter/", "destination": "/newsletter-seo/newsletter.html" },
     { "source": "/newsletter/demo", "destination": "/newsletter-seo/newsletter-demo.html" },
