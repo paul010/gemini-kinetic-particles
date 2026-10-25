@@ -367,7 +367,7 @@ const FarmerRiver: React.FC<Props> = ({ onHome }) => {
         ents[e.id].position.lerp(target(e.id), 0.12);
         const selectable = st.status === 'playing' && !st.auto && st.pos[e.id] === st.farmer && st.cargo !== e.id;
         const ring = rings[e.id]; ring.visible = selectable || (st.cargo === e.id);
-        ring.material.color.setHex(st.cargo === e.id ? 0x4f9a4a : 0xf0b429);
+        (ring.material as THREE.MeshBasicMaterial).color.setHex(st.cargo === e.id ? 0x4f9a4a : 0xf0b429);
         ring.position.set(ents[e.id].position.x, 0.06, ents[e.id].position.z);
         (ring.material as THREE.MeshBasicMaterial).opacity = 0.5 + Math.sin(el * 4) * 0.25;
         (ring.material as THREE.MeshBasicMaterial).transparent = true;

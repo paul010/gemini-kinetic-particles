@@ -38,6 +38,7 @@ import {
 import { fetchLatestVideos, parseLatestVideos } from './data/latest-videos';
 import videoSnapshot from './data/video-snapshot.json';
 import HomeNewsletterPromo from './newsletter/HomeNewsletterPromo';
+import VideoProjectNote from './components/VideoProjectNote';
 import { useSiteLanguage } from './newsletter/site-language';
 
 interface HomeProps {
@@ -1060,6 +1061,8 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
               </a>
             ))}
           </div>
+
+          <VideoProjectNote videos={videos} t={t}/>
 
           {/* Membership CTA */}
           <div className="reveal mt-10 flex flex-col items-start justify-between gap-5 overflow-hidden rounded-2xl border border-gold/30 bg-gold/[0.06] p-7 sm:flex-row sm:items-center sm:p-8">
