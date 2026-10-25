@@ -1,5 +1,14 @@
 [
   {
+    "id": "2oqWZ539EqU",
+    "title": "Copilot Studio：Agent做好了，同事怎么接手？| From Agent to Team Workflow",
+    "date": "2026-10-25",
+    "publishedAt": "2026-10-25T08:22:56+00:00",
+    "duration": "10:27",
+    "notes": "https://github.com/paul010/dalei-youtube/blob/master/episodes/2026-10/2oqWZ539EqU.md",
+    "verifiedOn": "2026-10-25"
+  },
+  {
     "id": "VCFSe0UCi5M",
     "title": "微软 Skill Recorder：录一遍，AI就会了吗？| Record Once, Reuse a Skill?",
     "date": "2026-10-25",
@@ -186,6 +195,186 @@
     "publishedAt": "2026-10-22T03:51:14+00:00",
     "duration": "10:34",
     "notes": "https://github.com/paul010/dalei-youtube/blob/master/episodes/2026-10/KRxkcrDIUM4.md",
+    "verifiedOn": "2026-10-25"
+  },
+  {
+    "id": "TB2gJ4es47Y",
+    "title": "Gemini Carbon新线索，Qwen/Kimi在路上？| AI Model News",
+    "date": "2026-10-21",
+    "publishedAt": "2026-10-21T13:00:33+00:00",
+    "duration": "11:21",
+    "notes": "https://github.com/paul010/dalei-youtube/blob/master/episodes/2026-10/TB2gJ4es47Y.md",
+    "verifiedOn": "2026-10-25"
+  },
+  {
+    "id": "LPwEgCfJ8M4",
+    "title": "先砍token，AI真的更省钱？微软Model Router与Agent Optimizer | Cheaper AI Agents?",
+    "date": "2026-10-21",
+    "publishedAt": "2026-10-21T11:09:04+00:00",
+    "duration": "12:40",
+    "notes": "https://github.com/paul010/dalei-youtube/blob/master/episodes/2026-10/LPwEgCfJ8M4.md",
+    "verifiedOn": "2026-10-25"
+  },
+  {
+    "id": "M2LahYRwORo",
+    "title": "Meta 开放模型，真能干活？从画图到改坏文件 | Muse Spark Open",
+    "date": "2026-10-20",
+    "publishedAt": "2026-10-20T13:00:03+00:00",
+    "duration": "11:01",
+    "notes": "https://github.com/paul010/dalei-youtube/blob/master/episodes/2026-10/M2LahYRwORo.md",
+    "verifiedOn": "2026-10-25"
+  },
+  {
+    "id": "CBNO2KKGgV4",
+    "title": "MiniMax 新模型真省钱？先看城市、锦鲤池和账单 | AI News & Demos",
+    "date": "2026-10-20",
+    "publishedAt": "2026-10-20T09:30:41+00:00",
+    "duration": "9:43",
+    "notes": "https://github.com/paul010/dalei-youtube/blob/master/episodes/2026-10/CBNO2KKGgV4.md",
+    "verifiedOn": "2026-10-25"
+  },
+  {
+    "id": "4lDbhyM_9kY",
+    "title": "做给 AI 看，下次照着改？Copilot 录制技能与 Excel 规则 | Teach Copilot Once?",
+    "date": "2026-10-20",
+    "publishedAt": "2026-10-20T09:29:38+00:00",
+    "duration": "10:55",
+    "notes": "https://github.com/paul010/dalei-youtube/blob/master/episodes/2026-10/4lDbhyM_9kY.md",
+    "verifiedOn": "2026-10-25"
+  },
+  {
+    "id": "e-v67JBwNDE",
+    "title": "这段超人动画，作者说靠代码做成？ | Fable 5.5 Art in Motion",
+    "date": "2026-10-19",
+    "publishedAt": "2026-10-19T10:04:30+00:00",
+    "duration": "10:29",
+    "notes": "https://github.com/paul010/dalei-youtube/blob/master/episodes/2026-10/e-v67JBwNDE.md",
+    "verifiedOn": "2026-10-25"
+  },
+  {
+    "id": "IEoXwJG-wmg",
+    "title": "神秘Aurora先画了两只猫：新模型值不值得等？ | AI News",
+    "date": "2026-10-19",
+    "publishedAt": "2026-10-19T02:07:30+00:00",
+    "duration": "9:04",
+    "notes": "https://github.com/paul010/dalei-youtube/blob/master/episodes/2026-10/IEoXwJG-wmg.md",
+    "verifiedOn": "2026-10-25"
+  },
+  {
+    "id": "wVm5S0e7ZhI",
+    "title": "作者给我点了个赞｜《无路之路》The Pathless Path 阅读分享",
+    "date": "2026-10-18",
+    "publishedAt": "2026-10-18T13:12:40+00:00",
+    "duration": "5:23",
+    "notes": "https://github.com/paul010/dalei-youtube/blob/master/episodes/2026-10/wVm5S0e7ZhI.md",
+    "verifiedOn": "2026-10-25"
+  },
+  {
+    "id": "0n_IkA0Pri8",
+    "title": "DeepSeek 1017：小店做活了，游戏能玩吗？| Beautiful Scenes, Playable Games?",
+    "date": "2026-10-18",
+    "publishedAt": "2026-10-18T12:54:39+00:00",
+    "duration": "9:09",
+    "notes": "https://github.com/paul010/dalei-youtube/blob/master/episodes/2026-10/0n_IkA0Pri8.md",
+    "verifiedOn": "2026-10-25"
+  },
+  {
+    "id": "EV800XzL7MI",
+    "title": "作者花5美元做出方块城堡？DeepSeek Flash1017 与同题作品 | A $5 Voxel Castle?",
+    "date": "2026-10-18",
+    "publishedAt": "2026-10-18T01:29:12+00:00",
+    "duration": "9:12",
+    "notes": "https://github.com/paul010/dalei-youtube/blob/master/episodes/2026-10/EV800XzL7MI.md",
+    "verifiedOn": "2026-10-25"
+  },
+  {
+    "id": "i6T1CaeEaOE",
+    "title": "Copilot 六项更新：操作录成技能，下次还要重来吗？ | Six Updates, Less Starting Over",
+    "date": "2026-10-18",
+    "publishedAt": "2026-10-18T00:19:52+00:00",
+    "duration": "10:44",
+    "notes": "https://github.com/paul010/dalei-youtube/blob/master/episodes/2026-10/i6T1CaeEaOE.md",
+    "verifiedOn": "2026-10-25"
+  },
+  {
+    "id": "lVCL6eQ3YVM",
+    "title": "Muse Spark Open 游戏做出来了，真能玩吗？ | Can You Play It?",
+    "date": "2026-10-17",
+    "publishedAt": "2026-10-17T01:56:39+00:00",
+    "duration": "9:20",
+    "notes": "https://github.com/paul010/dalei-youtube/blob/master/episodes/2026-10/lVCL6eQ3YVM.md",
+    "verifiedOn": "2026-10-25"
+  },
+  {
+    "id": "IZ5qzZtKheQ",
+    "title": "马斯克的飞天 Roadster：真的离地，能上路吗？",
+    "date": "2026-10-17",
+    "publishedAt": "2026-10-16T23:02:49+00:00",
+    "duration": "12:04",
+    "notes": "https://github.com/paul010/dalei-youtube/blob/master/episodes/2026-10/IZ5qzZtKheQ.md",
+    "verifiedOn": "2026-10-25"
+  },
+  {
+    "id": "ysLr-Zmrf2s",
+    "title": "AI 做完第一版，后面的活怎么接？｜Claude Code 新变化 | After the First Draft",
+    "date": "2026-10-16",
+    "publishedAt": "2026-10-16T03:27:41+00:00",
+    "duration": "9:26",
+    "notes": "https://github.com/paul010/dalei-youtube/blob/master/episodes/2026-10/ysLr-Zmrf2s.md",
+    "verifiedOn": "2026-10-25"
+  },
+  {
+    "id": "n7O2cYGwxMI",
+    "title": "Meta Muse Wonder：分数很猛，作品能用到哪一步？ | Beyond the Scores",
+    "date": "2026-10-14",
+    "publishedAt": "2026-10-14T09:12:43+00:00",
+    "duration": "10:14",
+    "notes": "https://github.com/paul010/dalei-youtube/blob/master/episodes/2026-10/n7O2cYGwxMI.md",
+    "verifiedOn": "2026-10-25"
+  },
+  {
+    "id": "4kf8vxHBAoc",
+    "title": "微软AI找到漏洞，接下来谁拍板？ | Microsoft Perception: Who Approves the Next Step?",
+    "date": "2026-10-13",
+    "publishedAt": "2026-10-13T11:51:00+00:00",
+    "duration": "9:10",
+    "notes": "https://github.com/paul010/dalei-youtube/blob/master/episodes/2026-10/4kf8vxHBAoc.md",
+    "verifiedOn": "2026-10-25"
+  },
+  {
+    "id": "AJyU61pmmDY",
+    "title": "代码拍片到哪一步了？从作者短片到亲手操作3D作品 | How Far Can Code Filmmaking Go? From Demos to Interactive 3D",
+    "date": "2026-10-13",
+    "publishedAt": "2026-10-12T22:19:30+00:00",
+    "duration": "10:18",
+    "notes": "https://github.com/paul010/dalei-youtube/blob/master/episodes/2026-10/AJyU61pmmDY.md",
+    "verifiedOn": "2026-10-25"
+  },
+  {
+    "id": "0sFuXGft0Z0",
+    "title": "AI作品已经很好看，接着怎么改？从企鹅到动作镜头 | Beautiful AI Work—What Would You Change Next?",
+    "date": "2026-10-12",
+    "publishedAt": "2026-10-12T11:00:12+00:00",
+    "duration": "8:55",
+    "notes": "https://github.com/paul010/dalei-youtube/blob/master/episodes/2026-10/0sFuXGft0Z0.md",
+    "verifiedOn": "2026-10-25"
+  },
+  {
+    "id": "yguIUSgQdFc",
+    "title": "Codex 会猜你下一句，AI 作品你选谁？｜AI Updates & Demos",
+    "date": "2026-10-12",
+    "publishedAt": "2026-10-11T23:30:58+00:00",
+    "duration": "10:09",
+    "notes": "https://github.com/paul010/dalei-youtube/blob/master/episodes/2026-10/yguIUSgQdFc.md",
+    "verifiedOn": "2026-10-25"
+  },
+  {
+    "id": "tVW_ipHTqkc",
+    "title": "Copilot写完第一版，同事怎么接着改？ | Office in Copilot: What Happens After the First Draft?",
+    "date": "2026-10-11",
+    "publishedAt": "2026-10-11T07:24:58+00:00",
+    "duration": "2:59",
+    "notes": "https://github.com/paul010/dalei-youtube/blob/master/episodes/2026-10/tVW_ipHTqkc.md",
     "verifiedOn": "2026-10-25"
   },
   {

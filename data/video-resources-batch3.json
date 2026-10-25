@@ -1,0 +1,259 @@
+[
+  {
+    "id": "TB2gJ4es47Y",
+    "summary": {
+      "zh": "对照模型发布入口、代号线索和作者作品截图，判断消息是否足以改变工具选择。",
+      "en": "Compare model announcements, code-name reports and creator screenshots before changing tools."
+    },
+    "scope": {
+      "zh": "未核验到本期花园、靶场或城堡作品的公开源码。代号与价格线索保留报道归属，不把静态截图当作可运行项目，也不据此确认未发布型号。",
+      "en": "Public source for the garden, shooting-range or castle demos has not been verified. Code names and prices remain attributed reports; screenshots are not runnable projects or proof of an unreleased model."
+    },
+    "reference": false
+  },
+  {
+    "id": "LPwEgCfJ8M4",
+    "summary": {
+      "zh": "跟着微软演示比较模型路由、优化候选、任务评分与实际调用成本。",
+      "en": "Follow Microsoft’s demo of model routing, optimization candidates, task scores and call costs."
+    },
+    "scope": {
+      "zh": "未核验到录制演示的完整 Agent 配置与配套源码。官方文档介绍托管服务，不等于开源实现；片中假设用量、预估费用和历史运行需分开，评分不是节费保证。",
+      "en": "The full recorded agent configuration and source have not been verified. Hosted-service documentation is not an open implementation. Separate hypothetical usage, estimates and historical runs; demo scores do not guarantee savings."
+    },
+    "reference": false
+  },
+  {
+    "id": "M2LahYRwORo",
+    "summary": {
+      "zh": "从图像、网站、工具重试和文件修改案例，看开放权重模型能完成哪些步骤。",
+      "en": "Review images, websites, tool retries and file edits to see what an open-weight model accomplishes."
+    },
+    "scope": {
+      "zh": "官方资料可核对 Muse Spark Open 的权重与许可，但未核验到本期网站、游戏和定向修改测试的完整源码。权重开放不等于训练数据、服务与作品代码全部公开；作者调用次数不是本轮实测。",
+      "en": "Official documentation describes Muse Spark Open weights and licensing, but source for the recorded sites, game and edit tests has not been verified. Open weights do not disclose all training data, service or demo code. Author call counts were not retested here."
+    },
+    "reference": false
+  },
+  {
+    "id": "CBNO2KKGgV4",
+    "summary": {
+      "zh": "把像素城市、落地页和锦鲤池的效果，与作者账单、等待和返工放在一起看。",
+      "en": "Compare pixel cities, landing pages and koi ponds alongside creator costs, waiting and rework."
+    },
+    "scope": {
+      "zh": "未核验到这些演示作品的公开配套源码。作者单次费用、当时免费入口、官方单价与片中假设算例分别说明，不作为当前报价、可复制账单或模型排名。",
+      "en": "Public source for the demonstrated works has not been verified. Creator costs, then-available free access, listed prices and the hypothetical calculation are distinct; none is a current quote, reproducible bill or model ranking."
+    },
+    "reference": false
+  },
+  {
+    "id": "4lDbhyM_9kY",
+    "summary": {
+      "zh": "回看 PowerPoint 录制技能、Excel 规则与文件恢复，检查下一次是否保留关键要求。",
+      "en": "Review recorded PowerPoint skills, Excel rules and file recovery for reuse that preserves requirements."
+    },
+    "scope": {
+      "zh": "未核验到本期模板、技能文件或恢复流程的公开源码；PowerPoint 内置录制技能不能当作 Microsoft Skill Recorder 仓库的演示。文件数量差异不推定原因，功能以账号、语言和开放范围为准。",
+      "en": "Source for the templates, skill files and restore flow has not been verified. PowerPoint’s built-in recording is not a demo of the Microsoft Skill Recorder repository. Do not infer the cause of differing file counts; access and language support vary."
+    },
+    "reference": false
+  },
+  {
+    "id": "e-v67JBwNDE",
+    "summary": {
+      "zh": "从 Python / Blender 动画、园林与配置演示，追问具体修改能否保持作品连续。",
+      "en": "Use Python/Blender animation, garden and configuration demos to ask whether a focused edit preserves continuity."
+    },
+    "scope": {
+      "zh": "未核验到超人动画、园林或城市作品的配套源码；简介未给出可确认对应的 Ultra Config 仓库，不拿同名配置项目补位。Fable 型号与制作方式保留作者归属，配置回执不代表性能提升。",
+      "en": "Source for the Superman animation, garden or cities has not been verified. The description does not identify a matching Ultra Config repository, so no namesake is substituted. Model/workflow claims remain attributed; a configuration receipt is not a performance result."
+    },
+    "reference": false
+  },
+  {
+    "id": "IEoXwJG-wmg",
+    "summary": {
+      "zh": "从猫头像和图片局部修改，看生成效果、用途与待确认的模型代号。",
+      "en": "Examine cat portraits and focused image edits while separating usefulness from unconfirmed model names."
+    },
+    "scope": {
+      "zh": "未核验到 Aurora 演示、模型或图片编辑流程的公开源码。测试代号与静态作品不等于正式发布；节目中的旧官方样例和等待时间说明也不构成本轮复测。",
+      "en": "Public source for the Aurora demos, model or image-editing flow has not been verified. Arena code names and still images do not establish a release. Earlier official samples and latency reports were not retested here."
+    },
+    "reference": false
+  },
+  {
+    "id": "wVm5S0e7ZhI",
+    "summary": {
+      "zh": "《无路之路》阅读记录：从默认路径、现实责任到先完成一个小作品。",
+      "en": "A reading reflection on The Pathless Path, responsibilities and finishing a small piece of work."
+    },
+    "scope": {
+      "zh": "这是阅读与个人创作分享，不是软件项目；未核验到配套代码。资料页保留书籍作者入口与节目背景，不以通用读书应用或书籍扫描件充当源码。",
+      "en": "This is a reading and creative-work reflection, not a software project; accompanying code has not been verified. Notes retain the author’s book link and episode context, without substituting a generic app or book scan."
+    },
+    "reference": false
+  },
+  {
+    "id": "i6T1CaeEaOE",
+    "summary": {
+      "zh": "看 Copilot 偏好、文件找回、评论修改和技能复用，检查第二次工作如何接续。",
+      "en": "Review Copilot preferences, file retrieval, comment-driven edits and skill reuse on the next task."
+    },
+    "scope": {
+      "zh": "未核验到各段演示的完整技能与文件源码。PowerPoint 内置技能与新一期独立 Skill Recorder 项目分开；两位作者的演示不合并成一次实测，也不保证所有许可和账号均可用。",
+      "en": "Complete skill/file source for these demos has not been verified. Built-in PowerPoint skills are distinct from the separate Skill Recorder project. The two creators’ demonstrations are not one independent test or a guarantee for every account/license."
+    },
+    "reference": false
+  },
+  {
+    "id": "EV800XzL7MI",
+    "summary": {
+      "zh": "把方块城堡和同题作品的动作、费用、等待与未完成功能一起比较。",
+      "en": "Compare voxel-castle and same-prompt demos by actions, costs, waiting and unfinished features."
+    },
+    "scope": {
+      "zh": "未核验到城堡、角色或对照游戏的公开源码；模型卡与推理代码不能代替作品工程。五美元与耗时属于作者当次记录，不能作为当前报价、通用成本或本人复测。",
+      "en": "Public source for the castle, character or comparison games has not been verified; a model card or inference runtime is not the demo project. The five-dollar cost and timings belong to the creator’s attempt, not a current quote or a retest."
+    },
+    "reference": false
+  },
+  {
+    "id": "0n_IkA0Pri8",
+    "summary": {
+      "zh": "从雨夜小店到角色、跑酷和方块世界，区分能看的场景与能完成的操作。",
+      "en": "Separate attractive scenes from completed interactions across a rainy store, characters, parkour and voxel worlds."
+    },
+    "scope": {
+      "zh": "未核验到本期各作品的公开配套源码；DeepSeek 模型权重或社区部署脚本不等于这些作品。不同作者的费用与未完成项分别归属，Blender 室内图不据此认定为 1017 版本。",
+      "en": "Public source for the shown works has not been verified; DeepSeek weights or community deployment scripts are not those projects. Costs and unfinished work belong to separate creators; the Blender interior is not confirmed as the 1017 version."
+    },
+    "reference": false
+  },
+  {
+    "id": "lVCL6eQ3YVM",
+    "summary": {
+      "zh": "跟着游戏、本地运行与模拟账单调查，看模型能否完成完整任务。",
+      "en": "Review game, local-model and fictional billing-investigation demos for task completion."
+    },
+    "scope": {
+      "zh": "未核验到本期游戏与账单调查的完整源码。Muse Spark Open 权重、MLX 运行记录和 NVIDIA 演示分别列来源；模拟账单不是实际客户事故，作者运行数据未在本轮复现。",
+      "en": "Complete source for the games and billing investigation has not been verified. Muse Spark Open weights, MLX records and the NVIDIA demo have separate sources. The fictional bill is not a real customer incident; author measurements were not reproduced here."
+    },
+    "reference": false
+  },
+  {
+    "id": "IZ5qzZtKheQ",
+    "summary": {
+      "zh": "拆开 Roadster 演示中的下压力、推进与计时条件，区分展示动作和未来目标。",
+      "en": "Separate downforce, thrust, timing conditions and future targets in the Roadster demonstration."
+    },
+    "scope": {
+      "zh": "这是车辆技术解读，未核验到演示控制系统的公开源码。官方展示、性能声明、预订款和投产目标分别看待，不以 Tesla 的其他开源仓库代替本期系统，也不声称做过独立车辆测试。",
+      "en": "This vehicle commentary has no verified public source for the demonstrated control system. Keep official demonstrations, performance claims, deposits and production targets separate. Other Tesla repositories are not this system; no vehicle test was performed here."
+    },
+    "reference": false
+  },
+  {
+    "id": "ysLr-Zmrf2s",
+    "summary": {
+      "zh": "连接手机的 Agent 工具：iPhone 通过 Mac 镜像，Android 通过 adb 读取与操作。",
+      "en": "A phone-control tool for agents, using Mac mirroring for iPhone and adb for Android."
+    },
+    "scope": {
+      "zh": "链接是 08:28 起提到的 Phone Harness 上游源码，不能代表 Claude Code、Claude Platform 或开头视觉作品全部开源。iPhone 需配对与系统权限，Android 需调试连接；本轮未安装、连接手机或执行任务。",
+      "en": "This is upstream Phone Harness source mentioned from 08:28, not source for Claude Code, Claude Platform or the opening visual works. iPhone needs pairing/system permissions and Android needs debugging access; not installed, connected or run here."
+    },
+    "reference": false,
+    "project": {
+      "name": "Phone Harness",
+      "url": "https://github.com/ShawnPana/phone-harness",
+      "kind": "source"
+    }
+  },
+  {
+    "id": "n7O2cYGwxMI",
+    "summary": {
+      "zh": "把 Muse Wonder 作品效果、可操作演示与各自基准条件分开比较。",
+      "en": "Compare Muse Wonder’s visuals, interactive demos and benchmarks within their own conditions."
+    },
+    "scope": {
+      "zh": "未核验到桌面、城堡、动画与助理作品的公开源码。模型卡、API 入口和社区接入插件不等于模型实现或作品工程；不同基准和推理设置不拼成统一排名，本轮未跑分。",
+      "en": "Public source for the desktop, castle, animation and assistant demos has not been verified. Model cards, APIs and community integrations are not model implementations or demo projects. Different benchmarks/settings are not a single ranking; no benchmark was run here."
+    },
+    "reference": false
+  },
+  {
+    "id": "AJyU61pmmDY",
+    "summary": {
+      "zh": "沿镜头组织、3D 状态到岛屿和棋盘的连续操作，检查现成作品能做什么。",
+      "en": "Follow shot design, 3D states and consecutive island/chess interactions in existing works."
+    },
+    "scope": {
+      "zh": "未核验到短片、岛屿和棋盘的公开工程源码。原片记录的是作者现成页面的操作链，没有要求 AI 改代码或验收第二稿；本轮只核对资料，未重新操作作品。",
+      "en": "Source projects for the films, island and chessboard have not been verified. The original episode records interactions with existing creator pages, not an AI code edit or acceptance of a second draft. This review checked sources without replaying those interactions."
+    },
+    "reference": false
+  },
+  {
+    "id": "4kf8vxHBAoc",
+    "summary": {
+      "zh": "看 Project Perception 怎样在发现、修复与人工批准之间留下可检查的状态。",
+      "en": "Review Project Perception’s visible states between discovery, remediation and human approval."
+    },
+    "scope": {
+      "zh": "未核验到演示应用、检测规则与代理编排的完整源码；官方文档仍说明有限公开预览。片中 PR 等待审阅不等于生产修复已上线，本轮没有扫描、漏洞利用或安全任务执行。",
+      "en": "Complete source for the demo app, detection rules and agent orchestration has not been verified; official documentation describes a limited public preview. A PR awaiting review is not a live production fix. No scan, exploit or security task was run here."
+    },
+    "reference": false
+  },
+  {
+    "id": "yguIUSgQdFc",
+    "summary": {
+      "zh": "从 Codex 下一句建议、快速决策模型到创作者作品，区分官方更新与作者展示。",
+      "en": "Separate official Codex/decision-model updates from creators’ visual and interactive demos."
+    },
+    "scope": {
+      "zh": "未核验到下一句建议功能、Decision-1 服务及本期作品的完整对应源码。通用 Codex CLI 仓库不等于这些功能与网页作品；作者记录不是本轮性能测试，不把代号或转述当作新模型已发布。",
+      "en": "Matching source for composer predictions, the Decision-1 service and these demos has not been verified. The general Codex CLI repository is not source for all these features or web works. Creator reports are not benchmarks performed here or proof of a new release."
+    },
+    "reference": false
+  },
+  {
+    "id": "0sFuXGft0Z0",
+    "summary": {
+      "zh": "从企鹅控件、动作镜头与产品动画，提出下一轮能核对的具体修改。",
+      "en": "Identify checkable next edits in penguin controls, action shots and product animation."
+    },
+    "scope": {
+      "zh": "未核验到企鹅、摩托镜头与动画作品的公开源码。原片操作现有控件，不等于复现生成或完成代码修改；耳机案例修改投入不同，制作时间与次数保留作者归属。",
+      "en": "Public source for the penguins, motorcycle shot and animations has not been verified. Using existing controls is not reproducing generation or editing code. Earbud examples have different revision budgets; production times/counts remain attributed to creators."
+    },
+    "reference": false
+  },
+  {
+    "id": "tVW_ipHTqkc",
+    "summary": {
+      "zh": "从 Word 共享、同事评论与修订痕迹，查看第一稿后的协作修改过程。",
+      "en": "Follow Word sharing, colleague comments and tracked changes after the first draft."
+    },
+    "scope": {
+      "zh": "未核验到本期文档样例或 Copilot 服务的公开源码；产品公告不等于可导入工程。原演示提示未上传 Microsoft 365，不能认定 OneDrive 保存已验收；收入图表也未按原始资料复算。",
+      "en": "Public source for the document sample or Copilot service has not been verified; an announcement is not an importable project. The demo’s not-uploaded notice does not establish a verified OneDrive save, and the revenue chart was not recalculated from raw data."
+    },
+    "reference": false
+  },
+  {
+    "id": "2oqWZ539EqU",
+    "summary": {
+      "zh": "沿采购演示查看材料检查、样本评估、人工审核与同事接手的位置。",
+      "en": "Follow a procurement demo through material checks, evaluation, human review and team handoff."
+    },
+    "scope": {
+      "zh": "未核验到完整采购应用、工作流与代理配置的公开源码。官方 hooks 文档属于预览；失败或超时可能继续运行，不能作为唯一关键防护。片中 89% 只对应作者 18 个案例，本轮未重跑或验收生产流程。",
+      "en": "Public source for the complete procurement app, workflows and agent configuration has not been verified. Preview hooks can continue after failures/timeouts and must not be the sole critical safeguard. The demo’s 89% applies to its author’s 18 cases; no production workflow was rerun or accepted here."
+    },
+    "reference": false
+  }
+]
