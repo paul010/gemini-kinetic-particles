@@ -38,7 +38,8 @@ import {
 import { fetchLatestVideos, parseLatestVideos } from './data/latest-videos';
 import videoSnapshot from './data/video-snapshot.json';
 import HomeNewsletterPromo from './newsletter/HomeNewsletterPromo';
-import VideoProjectNote from './components/VideoProjectNote';
+import VideoResources from './components/VideoResources';
+import VideoArchive from './components/VideoArchive';
 import { useSiteLanguage } from './newsletter/site-language';
 
 interface HomeProps {
@@ -988,7 +989,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
           {/* Latest episode - a full-width split feature, magazine-style; the
               rest stay in the compact grid below. */}
           {videos[0] && (
-            <a
+            <article className="video-feature"><a
               href={youtubeWatch(videos[0].id)}
               target="_blank"
               rel="noreferrer"
@@ -1023,18 +1024,20 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
                   <ArrowUpRight className="h-3.5 w-3.5" />
                 </span>
               </div>
-            </a>
+            </a><VideoResources video={videos[0]} t={t}/></article>
           )}
 
           <div className="video-rail -mx-5 flex snap-x snap-mandatory gap-5 overflow-x-auto px-5 pb-4 sm:-mx-8 sm:px-8">
             {videos.slice(1).map((v, i) => (
-              <a
+              <article
                 key={v.id}
+                className="video-card reveal flex w-[82vw] max-w-[23rem] shrink-0 snap-start flex-col sm:w-[21rem]"
+                style={{ transitionDelay: `${Math.min(i, 4) * 60}ms` }}
+              ><a
                 href={youtubeWatch(v.id)}
                 target="_blank"
                 rel="noreferrer"
-                className="video-card reveal group flex w-[82vw] max-w-[23rem] shrink-0 snap-start flex-col sm:w-[21rem]"
-                style={{ transitionDelay: `${Math.min(i, 4) * 60}ms` }}
+                className="group flex flex-col"
               >
                 <div className="relative aspect-video overflow-hidden rounded-xl border border-ink/10 bg-surface">
                   <img
@@ -1058,11 +1061,11 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
                 <p className="mt-1.5 font-mono text-[11px] tracking-wide text-ink/40">
                   {v.date} · {v.duration}
                 </p>
-              </a>
+              </a><VideoResources video={v} t={t}/></article>
             ))}
           </div>
 
-          <VideoProjectNote videos={videos} t={t}/>
+          <VideoArchive videos={videos} t={t}/>
 
           {/* Membership CTA */}
           <div className="reveal mt-10 flex flex-col items-start justify-between gap-5 overflow-hidden rounded-2xl border border-gold/30 bg-gold/[0.06] p-7 sm:flex-row sm:items-center sm:p-8">

@@ -1,0 +1,16 @@
+.hd-video-resources {margin:8px 0 16px;min-width:0;font-size:14px;line-height:1.8;color:var(--hd-text,var(--ink,#173a49));overflow-wrap:anywhere;}
+.hd-video-resources p {margin:6px 0 10px;font-size:14px;}
+.hd-video-resources .hd-resource-link,.video-archive .hd-resource-link {display:inline-flex;align-items:center;gap:6px;min-height:44px;min-width:44px;max-width:100%;color:var(--hd-accent,var(--ink,#173a49));text-decoration:underline;text-underline-offset:4px;font-weight:650;}
+.hd-video-resources summary,.video-archive>details>summary {display:list-item;cursor:pointer;min-height:44px;padding:8px 0;font-weight:600;}
+.hd-video-resources :is(a,summary):focus-visible,.video-archive :is(a,summary,select,button):focus-visible {outline:3px solid currentColor;outline-offset:3px;border-radius:3px;}
+.video-archive {margin:30px 0;padding:24px 0;border-top:1px solid var(--hd-line,var(--line,#cbdfe6));color:var(--hd-text,var(--ink,#173a49));overflow-wrap:anywhere;}
+.video-archive h3 {font-size:20px;font-weight:700;line-height:1.6;margin:0 0 10px;}
+.video-archive p {font-size:15px;line-height:1.8;margin:6px 0 14px;}
+.video-archive-filter {display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:12px 0;}
+.video-archive select,.video-archive button {min-height:44px;min-width:44px;font-size:16px;color:inherit;background:var(--hd-bg,var(--paper,#fff));border:1px solid var(--hd-line,var(--line,#cbdfe6));border-radius:6px;padding:8px 12px;max-width:100%;}
+.video-archive-list {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px 32px;}
+.video-archive-item {min-width:0;padding:12px 0;border-top:1px solid var(--hd-line,var(--line,#cbdfe6));}
+.video-archive-item h4 {font-size:16px;line-height:1.8;margin:0;}
+.video-archive-item .hd-video-resources {padding-left:0;}
+.video-archive button {display:block;margin:12px 0;}
+@media(max-width:767px){.hd-video-resources p {font-size:15px;}.video-archive-list {grid-template-columns:1fr;}.video-archive-filter {display:block;}.video-archive select {display:block;width:100%;margin-top:6px;}}

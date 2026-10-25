@@ -1,0 +1,12 @@
+import assert from 'node:assert/strict';
+import {existsSync} from 'node:fs';
+import {mkdir} from 'node:fs/promises';
+import {build} from 'esbuild';
+const home=existsSync('home/Home.tsx')?'./home/Home':'./Home';
+const out=new URL('../output/video-home/',import.meta.url);await mkdir(out,{recursive:true});
+await build({stdin:{contents:"import React from 'react';import {renderToStaticMarkup} from 'react-dom/server';import Home from '"+home+"';export const html=renderToStaticMarkup(React.createElement(Home,{onNavigate:()=>{}}));",resolveDir:process.cwd(),loader:'tsx'},bundle:true,platform:'node',format:'esm',outfile:new URL('home.mjs',out).pathname,external:['react','react-dom/server'],plugins:[{name:'omit-css',setup(api){api.onLoad({filter:/\.css$/},()=>({contents:'',loader:'js'}));}}],logLevel:'silent'});
+const {html}=await import(new URL('home.mjs',out));
+assert(html.includes('id="video-archive"'));
+assert.equal((html.match(/data-video-resource="/g)||[]).length+(html.match(/<aside id="video-project-dalei-tvhome"/g)||[]).length,6);
+let depth=0;for(const tag of html.match(/<\/?a\b[^>]*>/g)||[]){if(tag.startsWith('</')){assert.equal(depth,1);depth--;}else{assert.equal(depth,0,'Real homepage must not nest video and GitHub links');depth++;}}assert.equal(depth,0);
+console.log('Actual homepage: six independent video/resource pairs, archive entry and non-nested anchors passed.');

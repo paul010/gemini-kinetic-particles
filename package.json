@@ -8,6 +8,7 @@
     "build": "vite build && node scripts/build-newsletter-seo.mjs",
     "preview": "vite preview",
     "test:video-project-note": "node scripts/test-video-project-note.mjs",
+    "test:video-archive": "node scripts/test-video-archive.mjs",
     "test:life-quest": "node scripts/test-life-quest.mjs",
     "arsenal:next": "node arsenal/scripts/next.mjs",
     "sync:cat-skills": "node scripts/sync-cat-agent-skills.mjs"
