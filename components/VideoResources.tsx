@@ -8,7 +8,7 @@ export default function VideoResources({video,t}: {video:Pick<VideoItem,'id'>;t:
   if(video.id===TV_EPISODE_ID) return <VideoProjectNote videos={[video]} t={t}/>;
   const resource=episodeResource(video.id);
   const project=resource?.project;
-  const label=project ? project.kind==='materials'?{zh:'GitHub · 课程练习材料',en:'GitHub · lesson materials'}:project.kind==='reference'?{zh:'GitHub · 节目提到的项目',en:'GitHub · project mentioned'}:{zh:'GitHub · 公开项目源码',en:'GitHub · public project source'} : resource?{zh:'GitHub · 本期资料',en:'GitHub · episode notes'}:{zh:'GitHub · 节目资料索引',en:'GitHub · episode index'};
+  const label=project ? project.kind==='materials'?{zh:'GitHub · 课程练习材料',en:'GitHub · lesson materials'}:project.kind==='reference'?{zh:'GitHub · 相关参考资料',en:'GitHub · related reference'}:{zh:'GitHub · 公开项目源码',en:'GitHub · public project source'} : resource?{zh:'GitHub · 本期资料',en:'GitHub · episode notes'}:{zh:'GitHub · 节目资料索引',en:'GitHub · episode index'};
   return <div className="hd-video-resources" data-video-resource={video.id}>
     <a className="hd-resource-link" href={project?.url??episodeNotes(video.id)}>{t(label)}{project&&' · '+project.name} <span aria-hidden="true">↗</span></a>
     <p>{t(resource?.summary??{zh:'这期的项目链接与说明尚未整理；可先查看公开节目索引。',en:'Project links and notes for this episode are not yet curated. Browse the public episode index.'})}</p>

@@ -1,5 +1,14 @@
 [
   {
+    "id": "VCFSe0UCi5M",
+    "title": "微软 Skill Recorder：录一遍，AI就会了吗？| Record Once, Reuse a Skill?",
+    "date": "2026-10-25",
+    "publishedAt": "2026-10-25T07:06:49+00:00",
+    "duration": "10:05",
+    "notes": "https://github.com/paul010/dalei-youtube/blob/master/episodes/2026-10/VCFSe0UCi5M.md",
+    "verifiedOn": "2026-10-25"
+  },
+  {
     "id": "1K3fVbbBeQg",
     "title": "没刷机也没升级：我用 AI 给安卓5老电视换了个首页",
     "publishedAt": "2026-10-25T01:56:41+00:00",
@@ -198,6 +207,51 @@
     "verifiedOn": "2026-10-25"
   },
   {
+    "id": "TVq3PGyzkHo",
+    "title": "Gemini CLI 支持Agent Skills，开发者必看！Gemini CLI Adds Agent Skills — A Must for Developers!",
+    "date": "2026-01-12",
+    "publishedAt": "2026-01-12T00:08:56+00:00",
+    "duration": "7:27",
+    "notes": "https://github.com/paul010/dalei-youtube/blob/master/episodes/2026-01/TVq3PGyzkHo.md",
+    "verifiedOn": "2026-10-25"
+  },
+  {
+    "id": "X8sirgASO1U",
+    "title": "免费AI助手！Gemini CLI让你的终端聪明10倍 Free AI Assistant! Gemini CLI Makes Your Terminal 10x Smarter",
+    "date": "2025-11-28",
+    "publishedAt": "2025-11-28T10:19:52+00:00",
+    "duration": "6:48",
+    "notes": "https://github.com/paul010/dalei-youtube/blob/master/episodes/2025-11/X8sirgASO1U.md",
+    "verifiedOn": "2026-10-25"
+  },
+  {
+    "id": "HRhZAt5oMv4",
+    "title": "世界最强网页API？Firecrawl V2 5实测 World's Best Web API? Firecrawl V2.5 Hands-on Test",
+    "date": "2025-11-22",
+    "publishedAt": "2025-11-22T14:33:35+00:00",
+    "duration": "6:15",
+    "notes": "https://github.com/paul010/dalei-youtube/blob/master/episodes/2025-11/HRhZAt5oMv4.md",
+    "verifiedOn": "2026-10-25"
+  },
+  {
+    "id": "JQVM-fXTxxQ",
+    "title": "Gemini CLI 免费又强大：取消 Warp 的5个理由 Gemini CLI Is Free and Powerful: 5 Reasons to Cancel Warp",
+    "date": "2025-10-19",
+    "publishedAt": "2025-10-19T07:31:16+00:00",
+    "duration": "6:50",
+    "notes": "https://github.com/paul010/dalei-youtube/blob/master/episodes/2025-10/JQVM-fXTxxQ.md",
+    "verifiedOn": "2026-10-25"
+  },
+  {
+    "id": "n9OcjwW_yLU",
+    "title": "Open Agent Builder vs AgentKit vs n8n：哪个更强？ Open Agent Builder vs AgentKit vs n8n: Which Is Better?",
+    "date": "2025-10-17",
+    "publishedAt": "2025-10-17T15:13:59+00:00",
+    "duration": "7:02",
+    "notes": "https://github.com/paul010/dalei-youtube/blob/master/episodes/2025-10/n9OcjwW_yLU.md",
+    "verifiedOn": "2026-10-25"
+  },
+  {
     "id": "NexwdkKrcUU",
     "title": "OpenSpec：让AI按规范写代码的革命工具 OpenSpec: The Revolutionary Tool That Makes AI Write Spec-Driven Code",
     "date": "2025-10-12",
@@ -207,12 +261,57 @@
     "verifiedOn": "2026-10-25"
   },
   {
+    "id": "AaqTzJwwqpE",
+    "title": "Gemini CLI重磅升级：免费用上Gemini 2 5 Pro Gemini CLI Major Upgrade: Use Gemini 2.5 Pro for Free",
+    "date": "2025-10-10",
+    "publishedAt": "2025-10-10T06:13:59+00:00",
+    "duration": "7:28",
+    "notes": "https://github.com/paul010/dalei-youtube/blob/master/episodes/2025-10/AaqTzJwwqpE.md",
+    "verifiedOn": "2026-10-25"
+  },
+  {
+    "id": "RwgPxMWz0WQ",
+    "title": "OpenAI的AgentKit：5个你必须知道的限制 OpenAI's AgentKit: 5 Limitations You Must Know",
+    "date": "2025-10-07",
+    "publishedAt": "2025-10-07T12:11:01+00:00",
+    "duration": "7:50",
+    "notes": "https://github.com/paul010/dalei-youtube/blob/master/episodes/2025-10/RwgPxMWz0WQ.md",
+    "verifiedOn": "2026-10-25"
+  },
+  {
     "id": "5wRNqwJxTQw",
     "title": "Kestra：开源本地编排神器，秒建自动化流程 Kestra: Open-source Local Orchestration — Build Automations Fast",
     "date": "2025-10-05",
     "publishedAt": "2025-10-05T11:52:58+00:00",
     "duration": "8:01",
     "notes": "https://github.com/paul010/dalei-youtube/blob/master/episodes/2025-10/5wRNqwJxTQw.md",
+    "verifiedOn": "2026-10-25"
+  },
+  {
+    "id": "LM05tO7xdNM",
+    "title": "CWM：Meta如何让AI真正懂代码 CWM: How Meta Makes AI Truly Understand Code",
+    "date": "2025-09-27",
+    "publishedAt": "2025-09-27T13:58:40+00:00",
+    "duration": "9:07",
+    "notes": "https://github.com/paul010/dalei-youtube/blob/master/episodes/2025-09/LM05tO7xdNM.md",
+    "verifiedOn": "2026-10-25"
+  },
+  {
+    "id": "ED60Or1kzcg",
+    "title": "柠檬AI：免费开源的可本地部署通用智能体 Lemon AI: Free, Open-Source, Fully Local Deployable Agent",
+    "date": "2025-09-27",
+    "publishedAt": "2025-09-27T03:57:32+00:00",
+    "duration": "8:08",
+    "notes": "https://github.com/paul010/dalei-youtube/blob/master/episodes/2025-09/ED60Or1kzcg.md",
+    "verifiedOn": "2026-10-25"
+  },
+  {
+    "id": "RByntb59B8Y",
+    "title": "CodeRabbit CLI实测：AI写的代码还能放心吗？CodeRabbit CLI Tested: Can You Trust AI-Generated Code?",
+    "date": "2025-09-19",
+    "publishedAt": "2025-09-19T08:04:02+00:00",
+    "duration": "7:54",
+    "notes": "https://github.com/paul010/dalei-youtube/blob/master/episodes/2025-09/RByntb59B8Y.md",
     "verifiedOn": "2026-10-25"
   },
   {
@@ -243,12 +342,102 @@
     "verifiedOn": "2026-10-25"
   },
   {
+    "id": "Nij92dSF0F4",
+    "title": "别再把数据传云端！EmbeddingGemma可离线运行 Stop Sending Data to the Cloud! EmbeddingGemma Works Offline",
+    "date": "2025-09-06",
+    "publishedAt": "2025-09-06T00:00:35+00:00",
+    "duration": "8:27",
+    "notes": "https://github.com/paul010/dalei-youtube/blob/master/episodes/2025-09/Nij92dSF0F4.md",
+    "verifiedOn": "2026-10-25"
+  },
+  {
     "id": "tj305q4kiUA",
     "title": "Bytebot实战演示：自动下载、阅读并生成报告 Bytebot Demo: Auto-download, Read PDFs and Generate Reports",
     "date": "2025-09-04",
     "publishedAt": "2025-09-04T00:06:29+00:00",
     "duration": "8:36",
     "notes": "https://github.com/paul010/dalei-youtube/blob/master/episodes/2025-09/tj305q4kiUA.md",
+    "verifiedOn": "2026-10-25"
+  },
+  {
+    "id": "Uk845AeUBEM",
+    "title": "Sim AI：零代码本地部署，秒变你的自动化管家 Sim AI: No-Code Local Deployment Turns It Into Your Automation Butler",
+    "date": "2025-08-31",
+    "publishedAt": "2025-08-30T21:52:49+00:00",
+    "duration": "8:03",
+    "notes": "https://github.com/paul010/dalei-youtube/blob/master/episodes/2025-08/Uk845AeUBEM.md",
+    "verifiedOn": "2026-10-25"
+  },
+  {
+    "id": "-y0KHgOqZf8",
+    "title": "Archon OS：首个AI编码操作系统！开源安装教程，彻底改变你的AI编程工作流",
+    "date": "2025-08-15",
+    "publishedAt": "2025-08-15T09:07:06+00:00",
+    "duration": "4:01",
+    "notes": "https://github.com/paul010/dalei-youtube/blob/master/episodes/2025-08/-y0KHgOqZf8.md",
+    "verifiedOn": "2026-10-25"
+  },
+  {
+    "id": "8yxWXZAcBQg",
+    "title": "Qwen Code评测：我因此放弃了Claude Code！每天2000次免费调用，性能堪比Claude 3.5！",
+    "date": "2025-08-13",
+    "publishedAt": "2025-08-13T10:00:06+00:00",
+    "duration": "3:53",
+    "notes": "https://github.com/paul010/dalei-youtube/blob/master/episodes/2025-08/8yxWXZAcBQg.md",
+    "verifiedOn": "2026-10-25"
+  },
+  {
+    "id": "sfbQLtmkW9M",
+    "title": "OpenAI GPT-OSS 深度评测：120B模型性能媲美GPT-4 Mini？本地运行完全指南！",
+    "date": "2025-08-06",
+    "publishedAt": "2025-08-06T14:03:31+00:00",
+    "duration": "5:45",
+    "notes": "https://github.com/paul010/dalei-youtube/blob/master/episodes/2025-08/sfbQLtmkW9M.md",
+    "verifiedOn": "2026-10-25"
+  },
+  {
+    "id": "bkTgfDqVGYE",
+    "title": "Claude Flow评测：革命性AI蜂群智能框架，30秒构建企业级应用，彻底颠覆开发工作流！",
+    "date": "2025-08-06",
+    "publishedAt": "2025-08-05T16:00:06+00:00",
+    "duration": "4:01",
+    "notes": "https://github.com/paul010/dalei-youtube/blob/master/episodes/2025-08/bkTgfDqVGYE.md",
+    "verifiedOn": "2026-10-25"
+  },
+  {
+    "id": "DQJV2BKWwcA",
+    "title": "谷歌LangExtract深度解析：告别BERT，用Gemini API革新NLP任务",
+    "date": "2025-08-05",
+    "publishedAt": "2025-08-05T05:23:20+00:00",
+    "duration": "5:06",
+    "notes": "https://github.com/paul010/dalei-youtube/blob/master/episodes/2025-08/DQJV2BKWwcA.md",
+    "verifiedOn": "2026-10-25"
+  },
+  {
+    "id": "lfxyKXVnaII",
+    "title": "谷歌A2A协议深度解析：AI智能体协作新纪元与未来生态展望 | NEXT 2025",
+    "date": "2025-08-03",
+    "publishedAt": "2025-08-02T16:01:20+00:00",
+    "duration": "3:54",
+    "notes": "https://github.com/paul010/dalei-youtube/blob/master/episodes/2025-08/lfxyKXVnaII.md",
+    "verifiedOn": "2026-10-25"
+  },
+  {
+    "id": "QpmeaE0PA6w",
+    "title": "NVIDIA Parakeet V2：AI语音识别新标杆，极速英文转录挑战Whisper！",
+    "date": "2025-08-03",
+    "publishedAt": "2025-08-02T16:00:41+00:00",
+    "duration": "3:41",
+    "notes": "https://github.com/paul010/dalei-youtube/blob/master/episodes/2025-08/QpmeaE0PA6w.md",
+    "verifiedOn": "2026-10-25"
+  },
+  {
+    "id": "0YLtbgol25c",
+    "title": "本地LLM部署新革命：Open WebUI + Docker Model Runner 一步到位安装指南 | 大雷早上好",
+    "date": "2025-07-31",
+    "publishedAt": "2025-07-31T13:00:55+00:00",
+    "duration": "3:28",
+    "notes": "https://github.com/paul010/dalei-youtube/blob/master/episodes/2025-07/0YLtbgol25c.md",
     "verifiedOn": "2026-10-25"
   },
   {

@@ -1,0 +1,354 @@
+[
+  {
+    "id": "-y0KHgOqZf8",
+    "summary": {
+      "zh": "AI 编程工作流工具，现行仓库以 YAML 组织智能体、脚本与人工决策。",
+      "en": "An AI coding workflow tool whose current repository organizes agents, scripts and human decisions with YAML."
+    },
+    "scope": {
+      "zh": "视频是早期知识与任务管理界面，现行 README 已转向工作流与 SDLC；不能把旧录制界面当作当前版本。它不替换操作系统，需配置模型、环境与权限，本轮未运行。",
+      "en": "The video shows an earlier knowledge/task interface; the current README focuses on workflows and SDLC. It does not replace an operating system. Configure models, environment and permissions; not run here."
+    },
+    "reference": false,
+    "project": {
+      "name": "Archon",
+      "url": "https://github.com/coleam00/Archon",
+      "kind": "source"
+    }
+  },
+  {
+    "id": "Uk845AeUBEM",
+    "summary": {
+      "zh": "可视化搭建、运行和管理 AI Agent 与工作流的项目。",
+      "en": "A project for visually building, running and managing AI agents and workflows."
+    },
+    "scope": {
+      "zh": "链接为现行上游源码，视频里的具体流程未核验到独立仓库。自部署仍需运行环境、模型与连接凭据；云服务及第三方调用的费用与权限按当前条件确认，本轮未部署。",
+      "en": "This is current upstream source, not a separate repository for the recorded flow. Self-hosting needs a runtime, models and connection credentials; check current cloud/service costs and permissions. Not deployed here."
+    },
+    "reference": false,
+    "project": {
+      "name": "Sim",
+      "url": "https://github.com/simstudioai/sim",
+      "kind": "source"
+    }
+  },
+  {
+    "id": "ED60Or1kzcg",
+    "summary": {
+      "zh": "带浏览、研究、文档处理和代码沙箱的通用 Agent 项目。",
+      "en": "A general agent project with browsing, research, document handling and a code sandbox."
+    },
+    "scope": {
+      "zh": "可配置本地或云模型；部署在本机不保证没有网络请求、日志或数据外传。需检查模型、Docker 沙箱与实际工具访问范围，旧标题中的免费与隐私描述不作为当前保证；本轮未运行。",
+      "en": "It supports local or cloud models. Local deployment does not guarantee zero network traffic, logging or data transfer. Review models, the Docker sandbox and tool access; old free/privacy claims are not current guarantees. Not run here."
+    },
+    "reference": false,
+    "project": {
+      "name": "Lemon AI",
+      "url": "https://github.com/hexdocom/lemonai",
+      "kind": "source"
+    }
+  },
+  {
+    "id": "AaqTzJwwqpE",
+    "summary": {
+      "zh": "录制版 Gemini CLI 的扩展集成与终端编程演示。",
+      "en": "A recorded demonstration of Gemini CLI extensions and terminal coding."
+    },
+    "scope": {
+      "zh": "现行 README 提醒免费层和 Google One 用户已转向 Antigravity CLI。模型、认证、命令与额度需按现行说明核对；视频中的 Gemini 2.5 与免费条件不能直接套用，本轮未安装运行。",
+      "en": "The current README notes the transition of unpaid-tier and Google One users to Antigravity CLI. Check current models, authentication, commands and quotas; the recorded Gemini 2.5/free terms are not current guarantees. Not installed or run here."
+    },
+    "reference": false,
+    "project": {
+      "name": "Gemini CLI",
+      "url": "https://github.com/google-gemini/gemini-cli",
+      "kind": "source"
+    }
+  },
+  {
+    "id": "TVq3PGyzkHo",
+    "summary": {
+      "zh": "录制版 Agent Skills 与 Conductor 的上下文驱动开发用法。",
+      "en": "Recorded Agent Skills and Conductor workflows for context-driven development."
+    },
+    "scope": {
+      "zh": "视频为 v0.23 预览功能；现行 CLI 和 Conductor 插件已变化。原文中的 Conductor 仓库另列在节目笔记，不能保证仍按旧配置安装，也不承诺旧免费额度；本轮未执行技能。",
+      "en": "The video covers v0.23 preview features; the current CLI and Conductor plugin have changed. The notes link Conductor separately. Old setup steps and free quotas are not guaranteed; no skill was executed here."
+    },
+    "reference": false,
+    "project": {
+      "name": "Gemini CLI · Skills",
+      "url": "https://github.com/google-gemini/gemini-cli",
+      "kind": "source"
+    }
+  },
+  {
+    "id": "X8sirgASO1U",
+    "summary": {
+      "zh": "从终端提出编程任务、读取项目上下文并生成与修改代码。",
+      "en": "Use terminal prompts and project context to generate and modify code."
+    },
+    "scope": {
+      "zh": "现行 README 提醒相关免费用户转向 Antigravity CLI，当前命令与模型支持需另查。旧标题中的免费和效率倍数属于录制时表达，不代表当前费用或实测效果，本轮未重新运行。",
+      "en": "The current README notes the transition for relevant unpaid users to Antigravity CLI. Recheck commands and model support. The old title’s free/efficiency claims are not current pricing or test results. Not rerun here."
+    },
+    "reference": false,
+    "project": {
+      "name": "Gemini CLI",
+      "url": "https://github.com/google-gemini/gemini-cli",
+      "kind": "source"
+    }
+  },
+  {
+    "id": "DQJV2BKWwcA",
+    "summary": {
+      "zh": "按指令从非结构化文字提取结构化信息，并对应原文位置。",
+      "en": "Extract structured information from text under instructions, with grounding to source locations."
+    },
+    "scope": {
+      "zh": "需配置模型提供方或本地模型，并核对提取结果与原文。示例不代表所有文档准确，也不自动保证更省费用；本期 Colab 成果未核验到独立公开仓库，本轮未执行。",
+      "en": "Configure a model provider or local model and check extractions against the source. Examples do not establish universal accuracy or lower cost. A separate public repository for the recorded Colab work was not verified. Not executed here."
+    },
+    "reference": false,
+    "project": {
+      "name": "LangExtract",
+      "url": "https://github.com/google/langextract",
+      "kind": "source"
+    }
+  },
+  {
+    "id": "lfxyKXVnaII",
+    "summary": {
+      "zh": "定义不同 Agent 之间发现能力、交换任务与协作的协议。",
+      "en": "A protocol for agents to discover capabilities, exchange tasks and collaborate."
+    },
+    "scope": {
+      "zh": "这是协议规范及配套代码，不是已部署的企业工作流。对端身份、授权、数据边界和异常处理仍要实现和测试，不能把协议支持当作业务完成证据；本轮未接入 Agent。",
+      "en": "This is a protocol and supporting code, not a deployed enterprise workflow. Implement and test peer identity, authorization, data boundaries and failures; protocol support is not proof of business completion. No agent connection was made here."
+    },
+    "reference": false,
+    "project": {
+      "name": "A2A",
+      "url": "https://github.com/a2aproject/A2A",
+      "kind": "source"
+    }
+  },
+  {
+    "id": "sfbQLtmkW9M",
+    "summary": {
+      "zh": "开放权重模型的参考推理实现、格式说明与运行示例。",
+      "en": "Reference inference implementations, format guidance and examples for open-weight models."
+    },
+    "scope": {
+      "zh": "仓库提供参考代码，模型权重需另行获取；不包含完整预训练数据与训练过程。需匹配硬件、模型格式与许可，不能把旧评测分数当作本轮结果，本轮未下载模型或推理。",
+      "en": "The repository provides reference code; weights are obtained separately. It does not include the full pretraining data and process. Match hardware, model format and licensing; old scores are not fresh results. No model download or inference was performed."
+    },
+    "reference": false,
+    "project": {
+      "name": "gpt-oss",
+      "url": "https://github.com/openai/gpt-oss",
+      "kind": "source"
+    }
+  },
+  {
+    "id": "8yxWXZAcBQg",
+    "summary": {
+      "zh": "读取项目上下文、调用模型并协助修改与检查代码的工具。",
+      "en": "A tool that reads project context, calls models and helps edit and check code."
+    },
+    "scope": {
+      "zh": "现行工具的认证、模型和平台入口与录制版可能不同。标题中的每天 2000 次不代表当前账号额度，框架公开不等于所接模型免费；生成代码仍需检查，本轮未重新运行。",
+      "en": "Current authentication, models and clients may differ from the recording. The title’s 2,000 daily calls are not a current account quota; open code does not make every connected model free. Review generated code. Not rerun here."
+    },
+    "reference": false,
+    "project": {
+      "name": "Qwen Code",
+      "url": "https://github.com/QwenLM/qwen-code",
+      "kind": "source"
+    }
+  },
+  {
+    "id": "0YLtbgol25c",
+    "summary": {
+      "zh": "自部署的模型交互界面，可连接本地或兼容 API 的模型服务。",
+      "en": "A self-hosted model interface for local runtimes or compatible API providers."
+    },
+    "scope": {
+      "zh": "链接仅为 Open WebUI 源码，不等于 Docker Model Runner 的全部组件。离线与隐私取决于模型连接、工具和日志配置；当前许可与部署步骤按上游确认，本轮未部署或下载权重。",
+      "en": "This links Open WebUI source, not all Docker Model Runner components. Offline/privacy behavior depends on model connections, tools and logs. Check current licensing and setup. No deployment or weight download was performed."
+    },
+    "reference": false,
+    "project": {
+      "name": "Open WebUI",
+      "url": "https://github.com/open-webui/open-webui",
+      "kind": "source"
+    }
+  },
+  {
+    "id": "HRhZAt5oMv4",
+    "summary": {
+      "zh": "把网页搜索、采集与交互结果整理为供模型使用的数据。",
+      "en": "Collect search, scraping and web-interaction results as model-ready data."
+    },
+    "scope": {
+      "zh": "当前源码与视频 V2.5 的托管 API 不等同，自部署可用功能、外部服务、许可和调用费用需分别核对。旧可靠性或速度宣传不是本轮实测，本轮未采集第三方网站。",
+      "en": "Current source and the recorded V2.5 hosted API are not identical. Check self-hosted features, external services, licensing and costs separately. Old reliability/speed claims are not fresh tests. No third-party site was scraped."
+    },
+    "reference": false,
+    "project": {
+      "name": "Firecrawl",
+      "url": "https://github.com/firecrawl/firecrawl",
+      "kind": "source"
+    }
+  },
+  {
+    "id": "LM05tO7xdNM",
+    "summary": {
+      "zh": "研究代码执行与系统状态变化的模型，提供推理和评测起步代码。",
+      "en": "A model studying code execution and system-state changes, with starter inference and evaluation code."
+    },
+    "scope": {
+      "zh": "这是开放权重研究发布，权重获取与使用许可需按官方条件确认；不是完整训练数据与训练平台公开。本期基准数字未在本轮复测，也未下载模型。",
+      "en": "This is an open-weight research release; weight access and use follow the official conditions. It is not a release of the complete training data/platform. Benchmarks were not rerun and weights were not downloaded here."
+    },
+    "reference": false,
+    "project": {
+      "name": "Code World Model",
+      "url": "https://github.com/facebookresearch/cwm",
+      "kind": "source"
+    }
+  },
+  {
+    "id": "bkTgfDqVGYE",
+    "summary": {
+      "zh": "面向 Claude Code 等客户端的社区 Agent 编排与任务协作项目。",
+      "en": "A community project for agent orchestration and task coordination with clients such as Claude Code."
+    },
+    "scope": {
+      "zh": "旧简介含一个注明为示例的 anthropics/claude-flow-docs 地址，不作为有效来源。原社区 Claude Flow 已转到 Ruflo；这不是 Anthropic 官方产品，现行安装步骤与视频不同，本轮未安装或执行任务。",
+      "en": "The old description contains an explicitly marked placeholder anthropics/claude-flow-docs URL; it is not used as a source. Community Claude Flow now redirects to Ruflo, not an Anthropic product. Setup differs from the recording; no installation or task execution was performed."
+    },
+    "reference": false,
+    "project": {
+      "name": "Claude Flow / Ruflo",
+      "url": "https://github.com/ruvnet/ruflo",
+      "kind": "source"
+    }
+  },
+  {
+    "id": "n9OcjwW_yLU",
+    "summary": {
+      "zh": "通过可视化节点组织采集、模型调用和人工确认等 Agent 工作流。",
+      "en": "Use visual nodes to organize collection, model calls and approval steps in agent workflows."
+    },
+    "scope": {
+      "zh": "链接是 Open Agent Builder 的源码，不代表被比较的 AgentKit 或 n8n 全部开源。身份、数据库、模型与 Firecrawl 等服务需配置；公开代码不等于免费运行，本轮未部署。",
+      "en": "This is Open Agent Builder source, not source for every compared AgentKit or n8n component. Configure identity, database, model and Firecrawl services. Public code does not make operation free. Not deployed here."
+    },
+    "reference": false,
+    "project": {
+      "name": "Open Agent Builder",
+      "url": "https://github.com/firecrawl/open-agent-builder",
+      "kind": "source"
+    }
+  },
+  {
+    "id": "RwgPxMWz0WQ",
+    "summary": {
+      "zh": "参考 SDK 可组织工具调用、Agent 交接与追踪等工作流。",
+      "en": "A reference SDK for tool calls, agent handoffs and tracing workflows."
+    },
+    "scope": {
+      "zh": "该链接只对应公开 Agents SDK，不是录制画面里的托管 Agent Builder 或整个 AgentKit 的源码；本期画布与完整流程的公开源码未核验到。API、服务权限与费用需另查，本轮未运行。",
+      "en": "This is the public Agents SDK, not source for the recorded hosted Agent Builder or all of AgentKit. Public source for the canvas and complete recorded flow was not verified. Check API access and service costs separately. Not run here."
+    },
+    "reference": false,
+    "project": {
+      "name": "OpenAI Agents SDK（参考）",
+      "url": "https://github.com/openai/openai-agents-python",
+      "kind": "reference"
+    }
+  },
+  {
+    "id": "RByntb59B8Y",
+    "summary": {
+      "zh": "在本地命令行检查代码改动，并根据审查意见继续修复。",
+      "en": "Review code changes from a local CLI and use the findings to guide repairs."
+    },
+    "scope": {
+      "zh": "尚未核验到本期 CodeRabbit CLI 产品的公开源码。提供节目笔记，不把同名仓库或集成示例当作产品源码；旧标题中的 Bug 减半不是本轮实测，审查结果仍需人工核对。",
+      "en": "Public source for the recorded CodeRabbit CLI product has not been verified. These are episode notes, not a substitute repository. The old title’s halved-bug claim was not retested; review findings still need human checks."
+    },
+    "reference": false
+  },
+  {
+    "id": "Nij92dSF0F4",
+    "summary": {
+      "zh": "用文本向量与检索组织 RAG 的官方示例笔记本。",
+      "en": "An official notebook demonstrating text embeddings and retrieval for RAG."
+    },
+    "scope": {
+      "zh": "原 Gemma Cookbook 已停止维护，链接改为官方新仓库中的 EmbeddingGemma 示例。示例代码不是模型权重或本期完整应用源码；离线需先准备模型与依赖并检查工具联网，本轮未执行。",
+      "en": "The former Gemma Cookbook is deprecated; this links the official replacement’s EmbeddingGemma example. Notebook code is not model weights or source for the full recorded app. Prepare dependencies and check networked tools for offline use. Not executed here."
+    },
+    "reference": false,
+    "project": {
+      "name": "EmbeddingGemma 官方 RAG 示例",
+      "url": "https://github.com/google-gemma/cookbook/blob/main/tutorials/RAG_with_EmbeddingGemma.ipynb",
+      "kind": "reference"
+    }
+  },
+  {
+    "id": "QpmeaE0PA6w",
+    "summary": {
+      "zh": "NVIDIA 语音识别与合成框架，作为 Parakeet 模型运行的参考。",
+      "en": "NVIDIA’s speech framework, provided as a reference for running Parakeet models."
+    },
+    "scope": {
+      "zh": "原 NVIDIA/NeMo 地址已迁移到 NVIDIA-NeMo/Speech。框架源码不是 Parakeet V2 模型权重；需分别核对具体权重、版本和硬件，视频中的速度数字未在本轮复测。",
+      "en": "The former NVIDIA/NeMo URL now redirects to NVIDIA-NeMo/Speech. Framework source is not Parakeet V2 model weights. Check the weight release, software version and hardware separately; recorded speed figures were not retested."
+    },
+    "reference": false,
+    "project": {
+      "name": "NeMo Speech（参考框架）",
+      "url": "https://github.com/NVIDIA-NeMo/Speech",
+      "kind": "reference"
+    }
+  },
+  {
+    "id": "JQVM-fXTxxQ",
+    "summary": {
+      "zh": "录制版交互式 Shell 与终端工具配合的工作流演示。",
+      "en": "A recorded workflow combining an interactive shell with terminal tools."
+    },
+    "scope": {
+      "zh": "视频录制于 Gemini CLI 0.9，不能照搬到现行版本。当前 README 的用户迁移与模型提示需先核对；是否替代 Warp、是否免费取决于实际需求与服务条件，本轮未做效率对比。",
+      "en": "The recording uses Gemini CLI 0.9; current versions differ. Review the README’s user-transition and model notices. Whether it replaces Warp or is free depends on actual needs and service terms. No efficiency comparison was performed here."
+    },
+    "reference": false,
+    "project": {
+      "name": "Gemini CLI",
+      "url": "https://github.com/google-gemini/gemini-cli",
+      "kind": "source"
+    }
+  },
+  {
+    "id": "VCFSe0UCi5M",
+    "summary": {
+      "zh": "把一次操作记录整理成可编辑技能，再交给 Agent 按意图和步骤复用。",
+      "en": "Turn a recorded workflow into an editable skill that an agent reuses as intent and steps."
+    },
+    "scope": {
+      "zh": "链接为微软官方录制与技能生成工具，不是任意桌面操作的自动回放保证。视频记录的第二份虚构 CSV 结果 230 属于原片实测记录，本轮未重跑；本机测试脚本与作者完整案例的配套公开源码未核验到。使用需相应屏幕录制权限和 Copilot 访问。",
+      "en": "This is Microsoft’s recording/skill-generation tool, not a guarantee of arbitrary GUI replay. The second synthetic CSV result of 230 is a test recorded in the video, not rerun here. Public source for the local test script and complete author cases was not verified. Screen-recording permissions and Copilot access are required."
+    },
+    "reference": false,
+    "project": {
+      "name": "Microsoft Skill Recorder",
+      "url": "https://github.com/microsoft/skill-recorder",
+      "kind": "source"
+    }
+  }
+]
