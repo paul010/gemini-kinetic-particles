@@ -6,7 +6,7 @@ import type {LocalizedText} from './site';
 
 export const EPISODE_INDEX = 'https://github.com/paul010/dalei-youtube';
 export const COPILOT_REFERENCE = 'https://github.com/microsoft/CopilotStudioSamples';
-export const checkedOn = '2026-10-25';
+export const checkedOn = archiveEpisodes.reduce((latest,item)=>item.verifiedOn>latest?item.verifiedOn:latest,'');
 export type EpisodeResource = {id:string;summary:LocalizedText;scope:LocalizedText;reference:boolean;project?:{name:string;url:string;kind:'source'|'materials'|'reference'}};
 // Public episode descriptions checked on 2026-10-25. Reference samples are not episode source packages.
 export const lessonResources: readonly EpisodeResource[] = [

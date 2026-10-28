@@ -44,5 +44,80 @@
       "en": "OpenAI’s announcement and Adam Holter’s test records were checked, but matching GitHub source for the tram, game and Blender works has not been verified. Model and hosted-service announcements are not open implementations; a public web result is not a complete source repository. The earlier exercise’s total of 230 comes from fictional CSV data. The model was not retested here."
     },
     "reference": false
+  },
+  {
+    "id": "7NWgQ8vDHlM",
+    "summary": {
+      "zh": "把选文件、客户审核和意见回写串成 SharePoint 文档交接流程。",
+      "en": "Follow a SharePoint document handoff from file selection through client review and feedback writeback."
+    },
+    "scope": {
+      "zh": "链接是 TransmittalFlow 的 GitHub 黑客松项目说明，源码仓库栏未提供地址，尚未核验到完整公开实现。这是作者自建原型，不是 SharePoint 开箱功能；URL token 不能单独证明接收者身份，状态回写也不等于完整审计。本轮未在租户中复测。",
+      "en": "This links to the TransmittalFlow GitHub hackathon submission. Its repository field has no URL, so a complete public implementation has not been verified. It is a community prototype, not a built-in SharePoint feature. A URL token alone does not verify a recipient’s identity, and status writeback is not a full audit. Not retested in a tenant here."
+    },
+    "reference": false,
+    "project": {
+      "name": "TransmittalFlow · project brief",
+      "url": "https://github.com/SharePoint/sharepoint-hackathon/issues/175",
+      "kind": "reference"
+    }
+  },
+  {
+    "id": "ZhpEzNN-8OQ",
+    "summary": {
+      "zh": "从设备告警与准备度，核对质量更新的目标版本、已安装版本和生效策略。",
+      "en": "Trace device alerts and readiness to the target release, installed release and effective quality-update policy."
+    },
+    "scope": {
+      "zh": "尚未核验到本期演示的公开源码。GitHub 资料页补充微软官方报告文档；画面来自微软 2026 年 3 月和 7 月演示，不是本人租户实测或 10 月新界面。报告刷新有延迟，准备就绪不能当作安装完成；功能更新报告与每月质量更新需分别核对。",
+      "en": "Public source for the recorded demonstration has not been verified. The GitHub notes link to Microsoft’s reporting documentation. Footage comes from Microsoft demos in March and July 2026, not this channel’s tenant or a new October interface. Reports have latency; readiness is not installation completion. Feature-update and monthly quality-update reports need separate checks."
+    },
+    "reference": false
+  },
+  {
+    "id": "lW0L4Mgs6UM",
+    "summary": {
+      "zh": "用 GitHub Copilot CLI 接入 Copilot Studio MCP，逐项检查身份、环境和连接查询结果。",
+      "en": "Connect GitHub Copilot CLI to Copilot Studio MCP and check identity, environment and connection-query results."
+    },
+    "scope": {
+      "zh": "链接为微软 Copilot Studio MCP 官方仓库；本次核对的 main 仅含 README 和管理文档，尚未核验到服务器实现源码。安装包和托管服务不等于公开源码；需工作账号及环境权限。26 个连接、7 个 Error 是作者演示中的助手摘要，不是本频道独立盘点；消耗读不到不能当零，本轮未连接租户。",
+      "en": "This is Microsoft’s official Copilot Studio MCP repository. The checked main tree contains README and administrative documents only; server implementation source has not been verified. An installable package and hosted service are not public source. A work account and environment permissions are required. The 26 connections and 7 errors are the demo assistant’s summary, not this channel’s inventory. Unavailable consumption data is not zero; no tenant was connected here."
+    },
+    "reference": false,
+    "project": {
+      "name": "Copilot Studio MCP · docs",
+      "url": "https://github.com/microsoft/copilot-studio-mcp",
+      "kind": "reference"
+    }
+  },
+  {
+    "id": "529J4Chjg6o",
+    "summary": {
+      "zh": "分清 OneDrive 释放空间与删除，再核对共享对象、访问权限和文件恢复入口。",
+      "en": "Separate OneDrive Free up space from deletion, then check sharing recipients, access and recovery options."
+    },
+    "scope": {
+      "zh": "这是微软产品操作教程，尚未核验到本期配套公开源码。GitHub 笔记保留官方按需文件与共享文档，不把通用 SDK 当作本期实现。释放本地空间保留云端文件，删除会同步影响其他位置；菜单与恢复能力依账号、订阅和组织设置而异，本轮未执行删除或恢复。",
+      "en": "This is a Microsoft product walkthrough; accompanying public source has not been verified. GitHub notes retain official Files On-Demand and sharing guidance, without substituting a general SDK for episode code. Freeing local space preserves the cloud file, while deletion propagates through sync. Menus and recovery options depend on account, subscription and organizational settings. No deletion or restore was performed here."
+    },
+    "reference": false
+  },
+  {
+    "id": "0ZJF_vmySVs",
+    "summary": {
+      "zh": "沿 Cursor、Claude 与作品演示检查任务回执、人工确认和可验证的结果，再看 Microduck 的真实动作。",
+      "en": "Review task receipts, human confirmation and checkable outputs in Cursor and Claude demos, then watch Microduck’s recorded movement."
+    },
+    "scope": {
+      "zh": "Microduck 仓库仅对应 07:40 起的机器人部分，不是整期源码。Cursor 手机操作、Claude 长任务及发动机、体素城市、海洋网页和直升机作品的完整配套源码尚未核验；不拿同类手机工具或通用 SDK 补位。作者耗时、模型名称与可视化读数保留归属，不作为本频道独立基准或工程模拟，本轮未测试机器人。",
+      "en": "The Microduck repository covers only the robot segment from 07:40, not the whole episode. Complete source for Cursor phone interaction, Claude long tasks and the engine, voxel city, ocean page and helicopter works has not been verified. No similar phone tool or generic SDK is substituted. Creator timing, model names and visualized readings remain attributed, not independent benchmarks or engineering simulations. No robot was tested here."
+    },
+    "reference": false,
+    "project": {
+      "name": "Microduck · 07:40",
+      "url": "https://github.com/pollen-robotics/microduck",
+      "kind": "reference"
+    }
   }
 ]

@@ -1,7 +1,7 @@
 import React,{useState} from 'react';
 import type {LocalizedText,VideoItem} from '../data/site';
 import episodes from '../data/video-archive.json';
-import {episodeResource,EPISODE_INDEX} from '../data/video-resources';
+import {episodeResource,EPISODE_INDEX,checkedOn} from '../data/video-resources';
 import {videoTitle} from '../data/latest-videos';
 import VideoResources from './VideoResources';
 import './video-resources.css';
@@ -11,7 +11,7 @@ export default function VideoArchive({videos,t}:{videos:readonly Pick<VideoItem,
  const rows=earlierEpisodes(videos,filter);
  return <section id="video-archive" className="video-archive" aria-labelledby="video-archive-title">
   <h3 id="video-archive-title">{t({zh:'更早的视频与 GitHub 资料',en:'Earlier videos & GitHub resources'})}</h3>
-  <p>{t({zh:'按节目找公开项目、练习材料与来源。未核验到公开源码的如实标注；本批核验日期为 2026-10-25。',en:'Find public projects, lesson materials and sources by episode. Unverified source is labeled explicitly. This selection was checked on 2026-10-25.'})}</p>
+  <p>{t({zh:'按节目找公开项目、练习材料与来源。未核验到公开源码的如实标注；最近补充核对：'+checkedOn+'。',en:'Find public projects, lesson materials and sources by episode. Unverified source is labeled explicitly. Last additions reviewed: '+checkedOn+'.'})}</p>
   <details onToggle={event=>setOpen(event.currentTarget.open)}><summary>{t({zh:'展开已核对的更早节目',en:'Browse checked earlier episodes'})}</summary>
    {open&&<><label className="video-archive-filter">{t({zh:'筛选资料',en:'Filter resources'})}<select value={filter} onChange={event=>{setFilter(event.target.value);setLimit(6);}}><option value="projects">{t({zh:'有项目或练习材料',en:'Projects or practice materials'})}</option><option value="notes">{t({zh:'未核验到公开源码',en:'Public source not verified'})}</option><option value="all">{t({zh:'全部已核对节目',en:'All checked episodes'})}</option></select></label>
    <p role="status">{t({zh:'显示 '+Math.min(limit,rows.length)+' / '+rows.length+' 期；按发布时间倒序。',en:'Showing '+Math.min(limit,rows.length)+' of '+rows.length+' episodes, newest first.'})}</p>
