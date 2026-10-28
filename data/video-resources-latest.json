@@ -1,0 +1,48 @@
+[
+  {
+    "id": "BXOIJDP6lBw",
+    "summary": {
+      "zh": "从滑板游戏、多语言购物与本地量化实验，检查调用次数、等待和输出质量的实际代价。",
+      "en": "Review calls, waiting and output quality across a skateboarding game, multilingual shopping and local quantization experiments."
+    },
+    "scope": {
+      "zh": "BabelArena 对应 01:25 起的多语言 Agent 基准部分，不是整期源码。滑板游戏、RTX 3060 量化实验与其他工具演示的完整配套源码尚未核验；作者记录不等于本频道独立跑分，调用次数也不等于总费用。本轮未运行这些实验。",
+      "en": "BabelArena covers the multilingual agent benchmark from 01:25, not the whole episode. Complete source for the skateboarding game, RTX 3060 quantization experiment and other tool demos has not been verified. Creator records are not this channel’s independent benchmark, and call counts are not total cost. These experiments were not rerun here."
+    },
+    "reference": false,
+    "project": {
+      "name": "BabelArena · 01:25",
+      "url": "https://github.com/QwenLM/BabelArena",
+      "kind": "reference"
+    }
+  },
+  {
+    "id": "0bjp1kTeGpg",
+    "summary": {
+      "zh": "用点、框和遮罩指定部件，从单张图片生成可分别导出的三维网格。",
+      "en": "Generate separately exportable 3D part meshes from one image using point, box or mask prompts."
+    },
+    "scope": {
+      "zh": "链接为论文作者的 FlexPart 官方实现，含推理代码与权重准备说明；需 NVIDIA GPU 及相应环境。分件不代表材质、转轴、动画或编辑软件导入已完成。本期是论文阅读与工作流分析，本轮未运行模型或复测导入。",
+      "en": "This is the paper authors’ official FlexPart implementation, with inference code and weight setup instructions. It requires an NVIDIA GPU and a compatible environment. Separate meshes do not establish finished materials, pivots, animation or editor import. This episode analyzes the paper and workflow; no model run or import test was performed here."
+    },
+    "reference": false,
+    "project": {
+      "name": "FlexPart",
+      "url": "https://github.com/Gucci233/FlexPart",
+      "kind": "source"
+    }
+  },
+  {
+    "id": "J83yWCsozIo",
+    "summary": {
+      "zh": "沿官方电车演示和作者的游戏、SVG、网页及 Blender 记录，选择一个可检查的小任务。",
+      "en": "Follow the official tram demo and creator records of games, SVG, web pages and Blender to choose a small, checkable task."
+    },
+    "scope": {
+      "zh": "已核对 OpenAI 发布页与 Adam Holter 测试记录，尚未核验到片中电车、游戏和 Blender 作品的配套 GitHub 源码。模型与托管服务介绍不等于开源实现；公开网页结果也不等于完整源码仓库。片中旧练习的 230 为虚构 CSV 合计，本轮未复测模型。",
+      "en": "OpenAI’s announcement and Adam Holter’s test records were checked, but matching GitHub source for the tram, game and Blender works has not been verified. Model and hosted-service announcements are not open implementations; a public web result is not a complete source repository. The earlier exercise’s total of 230 comes from fictional CSV data. The model was not retested here."
+    },
+    "reference": false
+  }
+]

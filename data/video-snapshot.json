@@ -2,56 +2,56 @@
   "schemaVersion": 1,
   "channelId": "UCk9tu0mFtXj_rOEfIncxuJQ",
   "source": "https://www.youtube.com/@dalei2025/videos",
-  "updatedAt": "2026-09-16T01:02:04+00:00",
+  "updatedAt": "2026-10-28T01:04:09+00:00",
   "dateTimezone": "Asia/Shanghai",
   "videos": [
     {
-      "id": "brNygGxzJTU",
-      "title": "奥特曼预告本周大更新：GPT-6 Sol 会来吗？｜OpenAI Update Signals",
-      "publishedAt": "2026-09-16T00:53:00+00:00",
-      "date": "2026-09-16",
-      "duration": "6:36",
-      "url": "https://www.youtube.com/watch?v=brNygGxzJTU"
+      "id": "BXOIJDP6lBw",
+      "title": "AI便宜了，活能干好吗？12GB显卡与Agent的使用账 | Cheap AI, Real Work?",
+      "publishedAt": "2026-10-27T13:19:13+00:00",
+      "date": "2026-10-27",
+      "duration": "11:20",
+      "url": "https://www.youtube.com/watch?v=BXOIJDP6lBw"
     },
     {
-      "id": "PXSVmJcW9cY",
-      "title": "Grok、Gemini、Claude一边狂飙一边踩刹车 | Full Speed, Brakes On",
-      "publishedAt": "2026-09-15T10:19:47+00:00",
-      "date": "2026-09-15",
-      "duration": "12:07",
-      "url": "https://www.youtube.com/watch?v=PXSVmJcW9cY"
+      "id": "0bjp1kTeGpg",
+      "title": "FlexPart：一张图生成3D部件，门能单独改吗？",
+      "publishedAt": "2026-10-27T07:46:40+00:00",
+      "date": "2026-10-27",
+      "duration": "4:45",
+      "url": "https://www.youtube.com/watch?v=0bjp1kTeGpg"
     },
     {
-      "id": "j1Z2Z967sX4",
-      "title": "GPT-6 Sol 真来了？9分钟造出“死星”，身份却无法验证",
-      "publishedAt": "2026-09-14T16:00:06+00:00",
-      "date": "2026-09-15",
-      "duration": "7:31",
-      "url": "https://www.youtube.com/watch?v=j1Z2Z967sX4"
+      "id": "J83yWCsozIo",
+      "title": "GPT-6.1 Terra 便宜了：电脑里的哪一步值得先交给它？ | What Comes Next?",
+      "publishedAt": "2026-10-27T07:37:27+00:00",
+      "date": "2026-10-27",
+      "duration": "11:32",
+      "url": "https://www.youtube.com/watch?v=J83yWCsozIo"
     },
     {
-      "id": "ITDNPWeHhvs",
-      "title": "Google DeepMind RSI传闻：证据到哪了？",
-      "publishedAt": "2026-09-14T03:57:06+00:00",
-      "date": "2026-09-14",
-      "duration": "6:44",
-      "url": "https://www.youtube.com/watch?v=ITDNPWeHhvs"
+      "id": "7NWgQ8vDHlM",
+      "title": "SharePoint：文件发给客户，意见怎么回来？| Document Handoff & Review",
+      "publishedAt": "2026-10-27T00:02:40+00:00",
+      "date": "2026-10-27",
+      "duration": "8:45",
+      "url": "https://www.youtube.com/watch?v=7NWgQ8vDHlM"
     },
     {
-      "id": "EXxxbuiZpOU",
-      "title": "我把考试练习装进了工牌｜AI Passport 实操与踩坑 · Open Source Build",
-      "publishedAt": "2026-09-14T00:42:06+00:00",
-      "date": "2026-09-14",
-      "duration": "5:07",
-      "url": "https://www.youtube.com/watch?v=EXxxbuiZpOU"
+      "id": "ZhpEzNN-8OQ",
+      "title": "Windows Autopatch：补丁发了，哪台真正装好？| Which Devices Actually Updated?",
+      "publishedAt": "2026-10-27T00:02:26+00:00",
+      "date": "2026-10-27",
+      "duration": "8:32",
+      "url": "https://www.youtube.com/watch?v=ZhpEzNN-8OQ"
     },
     {
-      "id": "bedd5n61rUA",
-      "title": "2026最新北京环球影城实游｜霸天虎刺激到腿软！和娜娜的纪念日旅行",
-      "publishedAt": "2026-09-12T14:40:38+00:00",
-      "date": "2026-09-12",
-      "duration": "8:12",
-      "url": "https://www.youtube.com/watch?v=bedd5n61rUA"
+      "id": "lW0L4Mgs6UM",
+      "title": "Copilot Studio 查到26个连接，就查完了？| CLI + MCP",
+      "publishedAt": "2026-10-26T12:11:49+00:00",
+      "date": "2026-10-26",
+      "duration": "10:03",
+      "url": "https://www.youtube.com/watch?v=lW0L4Mgs6UM"
     }
   ]
 }
