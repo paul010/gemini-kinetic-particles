@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "channelId": "UCk9tu0mFtXj_rOEfIncxuJQ",
   "source": "https://www.youtube.com/@dalei2025/videos",
-  "updatedAt": "2026-11-03T06:27:13+00:00",
+  "updatedAt": "2026-11-03T13:00:10+00:00",
   "dateTimezone": "Asia/Shanghai",
   "videos": [
     {
@@ -38,20 +38,20 @@
       "url": "https://www.youtube.com/watch?v=SN0XcteDG3I"
     },
     {
+      "id": "T3w_UC3gnXI",
+      "title": "Grok Bot 接手工作，最後誰驗收？｜AI Teammates: Who Checks the Work?",
+      "publishedAt": "2026-11-01T13:37:35+00:00",
+      "date": "2026-11-01",
+      "duration": "9:36",
+      "url": "https://www.youtube.com/watch?v=T3w_UC3gnXI"
+    },
+    {
       "id": "Wz5_DeM1Tbg",
       "title": "AI作品很惊艳，然后呢？｜Carbon & Fable: What Comes Next?",
       "publishedAt": "2026-11-01T08:45:01+00:00",
       "date": "2026-11-01",
       "duration": "9:20",
       "url": "https://www.youtube.com/watch?v=Wz5_DeM1Tbg"
-    },
-    {
-      "id": "MC1DsyqeEWk",
-      "title": "8款AI视频同题对比：好看之后，动作能用吗？ | AI Video Comparison",
-      "publishedAt": "2026-10-31T13:26:38+00:00",
-      "date": "2026-10-31",
-      "duration": "8:32",
-      "url": "https://www.youtube.com/watch?v=MC1DsyqeEWk"
     }
   ]
 }

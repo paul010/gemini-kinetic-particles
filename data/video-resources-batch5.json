@@ -1,0 +1,67 @@
+[
+  {
+    "id": "iZ3E_5E9P9M",
+    "summary": {
+      "zh": "沿微软公开演示看投标邮件如何被整理成建议，再由采购同事检查并批准。",
+      "en": "Follow a public Microsoft demo as a bid email is turned into a recommendation for a colleague to review and approve."
+    },
+    "scope": {
+      "zh": "频道简介指向微软的产品演示，没有给出演示流程的 GitHub 仓库；本次未核验到对应公开源码。节目笔记只记录公开简介，不是可运行项目。",
+      "en": "The channel description points to a Microsoft product demo but names no GitHub repository for the workflow. No matching public source was verified in this review. Episode notes record the public description; they are not a runnable project."
+    },
+    "reference": false
+  },
+  {
+    "id": "eVsTR91Za7s",
+    "summary": {
+      "zh": "从临时读资料、整理项目，到新人助手和需要执行动作的工作流，比较 Copilot 的不同入口。",
+      "en": "Compare Copilot entry points, from reading material and organizing a project to a new-hire assistant and action workflows."
+    },
+    "scope": {
+      "zh": "频道简介引用 Agent Builder 与 Copilot Studio 的产品资料，没有提供本期示例的 GitHub 仓库；本次未核验到配套公开源码。产品文档不等于视频演示实现。",
+      "en": "The channel description cites Agent Builder and Copilot Studio material, but gives no GitHub repository for this episode’s examples. No matching public source was verified. Product documentation is not the implementation shown in the video."
+    },
+    "reference": false
+  },
+  {
+    "id": "d3Oi1cfNykI",
+    "summary": {
+      "zh": "检查 MiniMax M3.1 Flash Preview 射击游戏里的购买菜单、换枪和战斗反馈，再看门口与碰撞问题。",
+      "en": "Check the purchase menu, weapon switching and combat feedback in a MiniMax M3.1 Flash Preview shooter, then examine doorway and collision issues."
+    },
+    "scope": {
+      "zh": "公开简介提到的示例包含作者演示；没有提供可对应的 GitHub 仓库，本次未核验到配套公开源码。简介还把桌面版本标作前端模拟；不据此称其为完整可玩的游戏工程。",
+      "en": "The public description includes creator demos but provides no matching GitHub repository; no corresponding public source was verified. It also labels the desktop version a front-end simulation, so it is not presented as a complete playable game project."
+    },
+    "reference": false
+  },
+  {
+    "id": "ciKsq4x5LoU",
+    "summary": {
+      "zh": "从 Context.dev 的产品演示看资料采集、未找到目标时的处理，以及如何把来源留在表格里。",
+      "en": "Review Context.dev’s product demo for research, handling missing contacts and keeping sources in a spreadsheet."
+    },
+    "scope": {
+      "zh": "本期演示的配套源码未核验到。说明中出现的 openai/math 仅对应数学手稿与证明资料，不实现 Context.dev 的线索整理演示；这里只作为相关参考链接。",
+      "en": "No matching source was verified for the episode’s demo. The linked openai/math repository contains mathematical manuscripts and proof artifacts; it does not implement the Context.dev lead-research demo and is listed only as a related reference."
+    },
+    "reference": false,
+    "project": {
+      "name": "OpenAI Math · 相关参考",
+      "url": "https://github.com/openai/math",
+      "kind": "reference"
+    }
+  },
+  {
+    "id": "bYrdISLj87Q",
+    "summary": {
+      "zh": "沿 Gemini、GPT 和 Claude 的公开展示，观察 AI 接任务、进行交互和修改动画的不同环节。",
+      "en": "Follow public Gemini, GPT and Claude demos across task handoff, interaction and animation editing."
+    },
+    "scope": {
+      "zh": "公开视频简介没有给出这些演示的 GitHub 仓库；本次未核验到对应公开源码。产品展示与模型消息不等于可下载、可运行的演示工程。",
+      "en": "The public video description does not name GitHub repositories for these demos; no matching public source was verified in this review. Product demonstrations and model announcements are not downloadable, runnable demo projects."
+    },
+    "reference": false
+  }
+]

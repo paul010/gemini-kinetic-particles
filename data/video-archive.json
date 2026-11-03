@@ -459,6 +459,33 @@
     "verifiedOn": "2026-11-03"
   },
   {
+    "id": "bYrdISLj87Q",
+    "title": "AI不只聊天了：Gemini接任务，GPT做交互，Claude改动画 | Beyond Chat: AI at Work",
+    "date": "2026-10-10",
+    "publishedAt": "2026-10-09T23:57:35+00:00",
+    "duration": "8:32",
+    "notes": "https://github.com/paul010/dalei-youtube/blob/master/episodes/2026-10/bYrdISLj87Q.md",
+    "verifiedOn": "2026-11-03"
+  },
+  {
+    "id": "ciKsq4x5LoU",
+    "title": "AI会干活了？Claude Code、OpenAI与Mistral演示 | AI That Gets Work Done?",
+    "date": "2026-10-08",
+    "publishedAt": "2026-10-07T22:01:39+00:00",
+    "duration": "8:37",
+    "notes": "https://github.com/paul010/dalei-youtube/blob/master/episodes/2026-10/ciKsq4x5LoU.md",
+    "verifiedOn": "2026-11-03"
+  },
+  {
+    "id": "iZ3E_5E9P9M",
+    "title": "Copilot Studio把邮件接成流程：AI先审，人再批准 | From Email to Approval",
+    "date": "2026-10-07",
+    "publishedAt": "2026-10-06T16:00:36+00:00",
+    "duration": "6:42",
+    "notes": "https://github.com/paul010/dalei-youtube/blob/master/episodes/2026-10/iZ3E_5E9P9M.md",
+    "verifiedOn": "2026-11-03"
+  },
+  {
     "id": "jNVKo0KqgvE",
     "title": "GPT-Next是谁？先看宝塔，再看Codex提速 | Demos & Codex",
     "date": "2026-10-06",
@@ -474,6 +501,24 @@
     "publishedAt": "2026-10-05T10:51:42+00:00",
     "duration": "8:00",
     "notes": "https://github.com/paul010/dalei-youtube/blob/master/episodes/2026-10/l5WtsClxLs4.md",
+    "verifiedOn": "2026-11-03"
+  },
+  {
+    "id": "d3Oi1cfNykI",
+    "title": "MiniMax M3.1：游戏真能玩？从射击到桌面 | Can AI Build a Playable Game?",
+    "date": "2026-10-03",
+    "publishedAt": "2026-10-03T10:29:01+00:00",
+    "duration": "8:45",
+    "notes": "https://github.com/paul010/dalei-youtube/blob/master/episodes/2026-10/d3Oi1cfNykI.md",
+    "verifiedOn": "2026-11-03"
+  },
+  {
+    "id": "eVsTR91Za7s",
+    "title": "Copilot 别只聊天：从资料到专用助手 | Copilot: From Notes to Agents",
+    "date": "2026-10-03",
+    "publishedAt": "2026-10-03T00:42:02+00:00",
+    "duration": "10:38",
+    "notes": "https://github.com/paul010/dalei-youtube/blob/master/episodes/2026-10/eVsTR91Za7s.md",
     "verifiedOn": "2026-11-03"
   },
   {
