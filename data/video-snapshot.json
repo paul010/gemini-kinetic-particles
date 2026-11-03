@@ -2,56 +2,56 @@
   "schemaVersion": 1,
   "channelId": "UCk9tu0mFtXj_rOEfIncxuJQ",
   "source": "https://www.youtube.com/@dalei2025/videos",
-  "updatedAt": "2026-10-28T02:02:20+00:00",
+  "updatedAt": "2026-11-03T06:27:13+00:00",
   "dateTimezone": "Asia/Shanghai",
   "videos": [
     {
-      "id": "BXOIJDP6lBw",
-      "title": "AI便宜了，活能干好吗？12GB显卡与Agent的使用账 | Cheap AI, Real Work?",
-      "publishedAt": "2026-10-27T13:19:13+00:00",
-      "date": "2026-10-27",
-      "duration": "11:21",
-      "url": "https://www.youtube.com/watch?v=BXOIJDP6lBw"
+      "id": "LLAPQS-xsWU",
+      "title": "Gartner 2027｜第1期：AI會寫程式，為什麼企業還不敢上線？",
+      "publishedAt": "2026-11-03T02:15:44+00:00",
+      "date": "2026-11-03",
+      "duration": "13:54",
+      "url": "https://www.youtube.com/watch?v=LLAPQS-xsWU"
     },
     {
-      "id": "0bjp1kTeGpg",
-      "title": "FlexPart：一张图生成3D部件，门能单独改吗？",
-      "publishedAt": "2026-10-27T07:46:40+00:00",
-      "date": "2026-10-27",
-      "duration": "4:46",
-      "url": "https://www.youtube.com/watch?v=0bjp1kTeGpg"
+      "id": "_teASemp6kQ",
+      "title": "AI 初稿很快，返工誰來？把驗收、交接與人的時間算清楚",
+      "publishedAt": "2026-11-02T23:14:21+00:00",
+      "date": "2026-11-03",
+      "duration": "7:42",
+      "url": "https://www.youtube.com/watch?v=_teASemp6kQ"
     },
     {
-      "id": "J83yWCsozIo",
-      "title": "GPT-6.1 Terra 便宜了：电脑里的哪一步值得先交给它？ | What Comes Next?",
-      "publishedAt": "2026-10-27T07:37:27+00:00",
-      "date": "2026-10-27",
-      "duration": "11:33",
-      "url": "https://www.youtube.com/watch?v=J83yWCsozIo"
+      "id": "gBhIx2SUXaA",
+      "title": "做出來了，還能改嗎？AI 遊戲與 Android 開發的下一步 | Built, Now What?",
+      "publishedAt": "2026-11-02T23:13:57+00:00",
+      "date": "2026-11-03",
+      "duration": "10:09",
+      "url": "https://www.youtube.com/watch?v=gBhIx2SUXaA"
     },
     {
-      "id": "7NWgQ8vDHlM",
-      "title": "SharePoint：文件发给客户，意见怎么回来？| Document Handoff & Review",
-      "publishedAt": "2026-10-27T00:02:40+00:00",
-      "date": "2026-10-27",
-      "duration": "8:46",
-      "url": "https://www.youtube.com/watch?v=7NWgQ8vDHlM"
+      "id": "SN0XcteDG3I",
+      "title": "AI 做出來了，真的能用嗎？從真機到 Agent 的實作筆記",
+      "publishedAt": "2026-11-01T23:07:53+00:00",
+      "date": "2026-11-02",
+      "duration": "15:22",
+      "url": "https://www.youtube.com/watch?v=SN0XcteDG3I"
     },
     {
-      "id": "ZhpEzNN-8OQ",
-      "title": "Windows Autopatch：补丁发了，哪台真正装好？| Which Devices Actually Updated?",
-      "publishedAt": "2026-10-27T00:02:26+00:00",
-      "date": "2026-10-27",
+      "id": "Wz5_DeM1Tbg",
+      "title": "AI作品很惊艳，然后呢？｜Carbon & Fable: What Comes Next?",
+      "publishedAt": "2026-11-01T08:45:01+00:00",
+      "date": "2026-11-01",
+      "duration": "9:20",
+      "url": "https://www.youtube.com/watch?v=Wz5_DeM1Tbg"
+    },
+    {
+      "id": "MC1DsyqeEWk",
+      "title": "8款AI视频同题对比：好看之后，动作能用吗？ | AI Video Comparison",
+      "publishedAt": "2026-10-31T13:26:38+00:00",
+      "date": "2026-10-31",
       "duration": "8:32",
-      "url": "https://www.youtube.com/watch?v=ZhpEzNN-8OQ"
-    },
-    {
-      "id": "lW0L4Mgs6UM",
-      "title": "Copilot Studio 查到26个连接，就查完了？| CLI + MCP",
-      "publishedAt": "2026-10-26T12:11:49+00:00",
-      "date": "2026-10-26",
-      "duration": "10:04",
-      "url": "https://www.youtube.com/watch?v=lW0L4Mgs6UM"
+      "url": "https://www.youtube.com/watch?v=MC1DsyqeEWk"
     }
   ]
 }

@@ -1,13 +1,15 @@
 import archiveEpisodes from './video-archive.json';
 import batchTwoResources from './video-resources-batch2.json';
 import batchThreeResources from './video-resources-batch3.json';
+import batchFourResources from './video-resources-batch4.json';
 import latestResources from './video-resources-latest.json';
 import type {LocalizedText} from './site';
 
 export const EPISODE_INDEX = 'https://github.com/paul010/dalei-youtube';
 export const COPILOT_REFERENCE = 'https://github.com/microsoft/CopilotStudioSamples';
 export const checkedOn = archiveEpisodes.reduce((latest,item)=>item.verifiedOn>latest?item.verifiedOn:latest,'');
-export type EpisodeResource = {id:string;summary:LocalizedText;scope:LocalizedText;reference:boolean;project?:{name:string;url:string;kind:'source'|'materials'|'reference'}};
+export type EpisodeProject = {name:string;url:string;kind:'source'|'materials'|'reference';summary?:LocalizedText};
+export type EpisodeResource = {id:string;summary:LocalizedText;scope:LocalizedText;reference:boolean;project?:EpisodeProject;relatedProjects?:EpisodeProject[]};
 // Public episode descriptions checked on 2026-10-25. Reference samples are not episode source packages.
 export const lessonResources: readonly EpisodeResource[] = [
   {
@@ -400,6 +402,6 @@ const earlierResources: readonly EpisodeResource[] = [
 ];
 const publishedLessons = lessonResources.map((item,index)=>({...item,project:{name:'Copilot Agent · '+String(5-index).padStart(2,'0'),url:'https://github.com/paul010/gemini-kinetic-particles/tree/main/public/copilot-agent-course/materials/lesson-'+String(5-index).padStart(2,'0'),kind:'materials' as const}}));
 export const episodeResources: readonly EpisodeResource[] = [...publishedLessons,...commentaryResources,...savedEpisodeResources.map(item=>item.id==='d91TJ6ge6ks'?{...item,project:{name:'Microduck',url:'https://github.com/pollen-robotics/microduck',kind:'reference' as const},scope:{zh:'本期 05:15 起提到 Microduck，链接为该机器人的公开项目。其余功夫表演、Atlas 及巡检演示未核验到本期对应源码，不能把 Microduck 项目当作全部演示的代码；本轮未做机器人实测。',en:'Microduck appears from 05:15; the link is its public project. Source for the other kung fu, Atlas and inspection demonstrations was not verified. This is not code for every demo; no robot was tested here.'}}:item),...earlierResources];
-export const allEpisodeResources: readonly EpisodeResource[] = [...episodeResources,...batchTwoResources as readonly EpisodeResource[],...batchThreeResources as readonly EpisodeResource[],...latestResources as readonly EpisodeResource[]];
+export const allEpisodeResources: readonly EpisodeResource[] = [...episodeResources,...batchTwoResources as readonly EpisodeResource[],...batchThreeResources as readonly EpisodeResource[],...latestResources as readonly EpisodeResource[],...batchFourResources as readonly EpisodeResource[]];
 export const episodeResource = (id:string) => allEpisodeResources.find(item=>item.id===id);
 export const episodeNotes = (id:string) => archiveEpisodes.find(item=>item.id===id)?.notes ?? EPISODE_INDEX;
