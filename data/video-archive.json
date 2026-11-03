@@ -441,6 +441,15 @@
     "verifiedOn": "2026-10-25"
   },
   {
+    "id": "J3ArB8f0FRY",
+    "title": "AI做完第一版，谁来接手？Qwen、Codex与Claude | After the First Draft",
+    "date": "2026-10-11",
+    "publishedAt": "2026-10-11T09:57:57+00:00",
+    "duration": "12:02",
+    "notes": "https://github.com/paul010/dalei-youtube/blob/master/episodes/2026-10/J3ArB8f0FRY.md",
+    "verifiedOn": "2026-11-03"
+  },
+  {
     "id": "tVW_ipHTqkc",
     "title": "Copilot写完第一版，同事怎么接着改？ | Office in Copilot: What Happens After the First Draft?",
     "date": "2026-10-11",
@@ -468,12 +477,39 @@
     "verifiedOn": "2026-11-03"
   },
   {
+    "id": "CZdgs_pW3VM",
+    "title": "AI会写代码，缺的资料谁来补？Claude Code、Google和OpenAI演示解读 | Beyond Code",
+    "date": "2026-10-09",
+    "publishedAt": "2026-10-09T15:00:52+00:00",
+    "duration": "10:48",
+    "notes": "https://github.com/paul010/dalei-youtube/blob/master/episodes/2026-10/CZdgs_pW3VM.md",
+    "verifiedOn": "2026-11-03"
+  },
+  {
+    "id": "P0ETYHP2IWg",
+    "title": "AI能动手了，哪步真省钱？GPT-6、Windows本地模型与Haiku 5.5 | AI News & Analysis",
+    "date": "2026-10-08",
+    "publishedAt": "2026-10-08T11:21:54+00:00",
+    "duration": "10:27",
+    "notes": "https://github.com/paul010/dalei-youtube/blob/master/episodes/2026-10/P0ETYHP2IWg.md",
+    "verifiedOn": "2026-11-03"
+  },
+  {
     "id": "ciKsq4x5LoU",
     "title": "AI会干活了？Claude Code、OpenAI与Mistral演示 | AI That Gets Work Done?",
     "date": "2026-10-08",
     "publishedAt": "2026-10-07T22:01:39+00:00",
     "duration": "8:37",
     "notes": "https://github.com/paul010/dalei-youtube/blob/master/episodes/2026-10/ciKsq4x5LoU.md",
+    "verifiedOn": "2026-11-03"
+  },
+  {
+    "id": "FQf9gjl29fo",
+    "title": "AI作品做出来，就能接着用？从宝塔游戏到Codex | Beyond the Demo",
+    "date": "2026-10-07",
+    "publishedAt": "2026-10-06T22:00:33+00:00",
+    "duration": "5:24",
+    "notes": "https://github.com/paul010/dalei-youtube/blob/master/episodes/2026-10/FQf9gjl29fo.md",
     "verifiedOn": "2026-11-03"
   },
   {
@@ -492,6 +528,15 @@
     "publishedAt": "2026-10-06T06:25:57+00:00",
     "duration": "4:02",
     "notes": "https://github.com/paul010/dalei-youtube/blob/master/episodes/2026-10/jNVKo0KqgvE.md",
+    "verifiedOn": "2026-11-03"
+  },
+  {
+    "id": "SXPqpNd5r8s",
+    "title": "Copilot做完第一版，还能接着改吗？ | Copilot Beyond the First Draft: Can It Keep Editing?",
+    "date": "2026-10-06",
+    "publishedAt": "2026-10-05T21:53:30+00:00",
+    "duration": "6:55",
+    "notes": "https://github.com/paul010/dalei-youtube/blob/master/episodes/2026-10/SXPqpNd5r8s.md",
     "verifiedOn": "2026-11-03"
   },
   {

@@ -1,0 +1,62 @@
+[
+  {
+    "id": "J3ArB8f0FRY",
+    "summary": {
+      "zh": "沿 Qwen 多参考图、Decision-1、Codex 和 Claude 多 Agent 的公开视频，看生成后怎样接着修改、交接与验收。",
+      "en": "Follow public Qwen, Decision-1, Codex and Claude multi-agent demos to see how work is revised, handed off and checked after generation."
+    },
+    "scope": {
+      "zh": "频道公开简介链接的是频道笔记仓库与相关作品，没有给出这些演示工程的 GitHub 源码；本次未核验到对应公开实现。手柄图只有展示图，模型身份仍有疑问；作者演示不等于本频道的同条件测试。",
+      "en": "The public description points to the channel’s notes repository and related demos, but gives no GitHub source for these projects; no matching public implementation was verified. The controller appears only as an image and its model remains uncertain. Creator demos are not controlled tests by this channel."
+    },
+    "reference": false
+  },
+  {
+    "id": "CZdgs_pW3VM",
+    "summary": {
+      "zh": "从 Context.dev 资料采集、Google 手机上的照片检索和 OpenAI 表单分类演示，检查来源、缺项与后续确认。",
+      "en": "Review Context.dev research, Google’s on-device photo search and OpenAI form classification, checking sources, missing fields and follow-up."
+    },
+    "scope": {
+      "zh": "公开简介列出产品演示、官方说明和频道笔记仓库，没有提供这些演示的配套 GitHub 实现；本次未核验到对应公开源码。资料补充段来自商业合作演示，不是独立性能测试；Google 检索给出候选后仍需人工打开核对，分类结果也不等于后续工作已完成。",
+      "en": "The public description links product demos, official documentation and the channel’s notes repository, but no matching GitHub implementation; public source was not verified. The research segment comes from a sponsored demo, not an independent benchmark. Google search returns candidates that still need review, and classification does not mean follow-up work is complete."
+    },
+    "reference": false
+  },
+  {
+    "id": "P0ETYHP2IWg",
+    "summary": {
+      "zh": "把 ChatGPT 交互演示、Windows 本地推理、Google 会议助手和 Haiku 5.5 分工放在一起看，区分展示范围和完整任务成本。",
+      "en": "Compare ChatGPT interaction demos, Windows local inference, Google’s meeting assistant and Haiku 5.5 delegation, separating demo scope from full-task cost."
+    },
+    "scope": {
+      "zh": "频道简介链接官方产品资料与笔记仓库，没有提供演示作品的 GitHub 源码；本次未核验到对应公开实现。片中鸡蛋保护是模拟、三维电机是可视化、Google 助手仍属实验应用；选款没有展示付款完成。本地推理费用与 Copilot 许可范围也不能概括成全免费或全离线。",
+      "en": "The public description links official product material and the notes repository, but no GitHub source for the demos; no matching public implementation was verified. The egg-protection task is simulated, the motor is a visualization, Google’s assistant is experimental, and the shopping demo does not complete payment. Local inference costs do not imply all Copilot features are free or fully offline."
+    },
+    "reference": false
+  },
+  {
+    "id": "FQf9gjl29fo",
+    "summary": {
+      "zh": "对照宝塔、厨房、体素游戏、支付终端动画与 Codex 演示，区分作者展示、模型说法和实际交付。",
+      "en": "Compare pagoda, kitchen, voxel-game, payment-terminal and Codex demos, separating creator claims from delivered work."
+    },
+    "scope": {
+      "zh": "公开简介引用作者帖子和 OpenAI 资料，没有提供演示作品的 GitHub 源码；本次未核验到对应公开实现。模型归属、一小时生成等来自作者说法，未在此复现；桌面游戏被简介标为前端模拟，不能当作完整可玩的工程。",
+      "en": "The public description cites creator posts and OpenAI material but provides no GitHub source for the demos; no matching public implementation was verified. Model attribution and one-hour generation are creator claims, not reproduced here. The desktop game is described as a front-end simulation, not a complete playable project."
+    },
+    "reference": false
+  },
+  {
+    "id": "SXPqpNd5r8s",
+    "summary": {
+      "zh": "沿 Copilot 的动态幻灯片、仪表盘、Planner 草稿和 Excel 修改记录，查看追加要求、保存和回查分别做到哪一步。",
+      "en": "Follow Copilot demos for animated slides, dashboards, Planner drafts and Excel change history, checking where edits, saves and verification stop."
+    },
+    "scope": {
+      "zh": "公开视频简介没有给出这些 Copilot 演示的 GitHub 源码；本次未核验到配套公开实现。会议计划是虚构示例，状态报告不代表真实运行十四天，Excel 修改记录也不等于恢复成功。新 Copilot Home 和 Autopilot 仍是预览，画面包含模拟或缩短流程，可用范围依账号、许可和开放阶段而异。",
+      "en": "The public description gives no GitHub source for these Copilot demos; no matching public implementation was verified. The meeting plan is fictional, its status report does not represent fourteen real days, and Excel change history does not prove recovery. Copilot Home and Autopilot remain previews, with simulated or shortened footage and availability varying by account, license and rollout."
+    },
+    "reference": false
+  }
+]

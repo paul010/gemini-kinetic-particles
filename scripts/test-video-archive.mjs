@@ -7,16 +7,16 @@ await mkdir(out,{recursive:true});
 await build({stdin:{contents:"import React from 'react';import {renderToStaticMarkup} from 'react-dom/server';import Resources from './components/VideoResources';import Archive from './components/VideoArchive';export {earlierEpisodes} from './components/VideoArchive';export * from './data/video-resources';export const render=(id,t)=>renderToStaticMarkup(React.createElement(Resources,{video:{id},t}));export const archive=(videos,t)=>renderToStaticMarkup(React.createElement(Archive,{videos,t}));",resolveDir:process.cwd(),loader:'tsx'},bundle:true,platform:'node',format:'esm',outfile:new URL('subject.mjs',out).pathname,external:['react','react-dom/server'],plugins:[{name:'omit-css',setup(api){api.onLoad({filter:/\.css$/},()=>({contents:'',loader:'js'}));}}],logLevel:'silent'});
 const {render,archive,earlierEpisodes,allEpisodeResources:episodeResources,episodeNotes,EPISODE_INDEX}=await import(new URL('subject.mjs',out));
 const rows=JSON.parse(await readFile(new URL('../data/video-archive.json',import.meta.url),'utf8'));
-assert.equal(rows.length,89);
-assert.equal(new Set(rows.map(x=>x.id)).size,89);
-assert.equal(episodeResources.length,88);
-assert.equal(new Set(episodeResources.map(x=>x.id)).size,88);
+assert.equal(rows.length,94);
+assert.equal(new Set(rows.map(x=>x.id)).size,94);
+assert.equal(episodeResources.length,93);
+assert.equal(new Set(episodeResources.map(x=>x.id)).size,93);
 assert(!rows.some(x=>x.id==='oPEbK2ieTF8'||x.id==='om2B9D7MW-M'),'Unavailable and member videos never enter the curated archive');
 assert.deepEqual(rows.map(x=>x.publishedAt),rows.map(x=>x.publishedAt).sort().reverse());
-for(const row of rows){assert(/^[\w-]{11}$/.test(row.id));assert.equal(episodeNotes(row.id),row.notes);assert(row.notes.startsWith(EPISODE_INDEX+'/blob/master/episodes/'));assert(row.notes.endsWith('/'+row.id+'.md'));assert.equal(row.verifiedOn,['zD2SmtS2nwM','vRwjof06A-s','l5WtsClxLs4','jNVKo0KqgvE','i_GxbRQzLKc','iZ3E_5E9P9M','eVsTR91Za7s','d3Oi1cfNykI','ciKsq4x5LoU','bYrdISLj87Q'].includes(row.id)?'2026-11-03':['BXOIJDP6lBw','0bjp1kTeGpg','J83yWCsozIo','7NWgQ8vDHlM','ZhpEzNN-8OQ','lW0L4Mgs6UM','529J4Chjg6o','0ZJF_vmySVs'].includes(row.id)?'2026-10-28':'2026-10-25');assert(Number.isFinite(Date.parse(row.publishedAt)));}
+for(const row of rows){assert(/^[\w-]{11}$/.test(row.id));assert.equal(episodeNotes(row.id),row.notes);assert(row.notes.startsWith(EPISODE_INDEX+'/blob/master/episodes/'));assert(row.notes.endsWith('/'+row.id+'.md'));assert.equal(row.verifiedOn,['zD2SmtS2nwM','vRwjof06A-s','l5WtsClxLs4','jNVKo0KqgvE','i_GxbRQzLKc','iZ3E_5E9P9M','eVsTR91Za7s','d3Oi1cfNykI','ciKsq4x5LoU','bYrdISLj87Q','J3ArB8f0FRY','CZdgs_pW3VM','P0ETYHP2IWg','FQf9gjl29fo','SXPqpNd5r8s'].includes(row.id)?'2026-11-03':['BXOIJDP6lBw','0bjp1kTeGpg','J83yWCsozIo','7NWgQ8vDHlM','ZhpEzNN-8OQ','lW0L4Mgs6UM','529J4Chjg6o','0ZJF_vmySVs'].includes(row.id)?'2026-10-28':'2026-10-25');assert(Number.isFinite(Date.parse(row.publishedAt)));}
 const current=rows.slice(0,6).map(({id})=>({id}));
 const all=earlierEpisodes(current,'all'),projects=earlierEpisodes(current,'projects'),notes=earlierEpisodes(current,'notes');
-assert.equal(all.length,83);assert.equal(projects.length,40);assert.equal(notes.length,43);
+assert.equal(all.length,88);assert.equal(projects.length,40);assert.equal(notes.length,48);
 assert.equal(projects.length+notes.length,all.length);
 for(const row of all)assert(!current.some(x=>x.id===row.id));
 assert.equal(earlierEpisodes(rows,'all').length,0);
@@ -67,4 +67,4 @@ for(const id of ['ZhpEzNN-8OQ','529J4Chjg6o']){assert(render(id,x=>x.en).include
 const css=await readFile(new URL('../components/video-resources.css',import.meta.url),'utf8');
 assert(css.includes('min-height:44px')&&css.includes(':focus-visible')&&css.includes('grid-template-columns:1fr'));
 assert(render('ciKsq4x5LoU',x=>x.en).includes('openai/math'));assert(render('ciKsq4x5LoU',x=>x.en).includes('does not implement the Context.dev lead-research demo'));
-console.log('Archive: 89 verified episodes; 83 earlier entries (40 project/reference/material links, 43 source-unverified); migration/source boundaries, exclusion, dates, fallback and 3 languages passed.');
+console.log('Archive: 94 verified episodes; 88 earlier entries (40 project/reference/material links, 48 source-unverified); migration/source boundaries, exclusion, dates, fallback and 3 languages passed.');
